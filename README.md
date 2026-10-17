@@ -17,8 +17,9 @@ Pick any mix in the TV lobby under **Rounds tonight**:
 - **Famous faces:** a photo of a well-known person sharpens from a blur. Answer early to score more.
 - **Flags** and **Maps:** name the country from its flag or its outline.
 - **Imposter:** everyone gets the same secret word on their phone, except one person who gets a similar word
-  (or no word, if you choose). Everyone says a one-word clue out loud in turn, talks it over, then votes. Spotting
-  the imposter scores 500; an imposter who gets away scores 1,000. Needs at least 3 players.
+  (or no word, if you choose). Everyone says a one-word clue out loud in turn, talks it over, then votes. There's
+  no clock: each step moves on when the players are ready. Spotting the imposter scores 500; an imposter who gets
+  away scores 1,000. Needs at least 3 players.
 
 A **Theme** ties the rounds together. Music makes the faces come from tonight's playlist, Africa keeps flags,
 maps and faces African, and so on. **Length** sets how many quiz rounds each type gets.
