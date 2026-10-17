@@ -1,0 +1,20 @@
+{
+  "about": "Most likely to: the TV shows 'Who's most likely to …' plus one of these.",
+  "prompts": [
+    "become famous", "miss a flight", "forget a friend's birthday", "survive a zombie apocalypse", "cry at a cartoon",
+    "win a dance battle", "get lost in their own city", "text their ex at 2am", "eat the last slice without asking",
+    "become a millionaire", "start their own business", "go viral online", "sleep through three alarms", "adopt ten pets",
+    "become president", "laugh at the wrong moment", "burn toast", "win a reality show", "move abroad on a whim",
+    "run a marathon", "be late to their own wedding", "talk their way out of trouble", "sing karaoke all night",
+    "forget where they parked", "spend a month's money in a day", "reply to a message a week later", "be secretly rich",
+    "become a celebrity chef", "get a tattoo they regret", "trip over nothing", "win the lottery and lose the ticket",
+    "be the last to leave the party", "fall asleep at a party", "start an argument over a board game",
+    "overshare on social media", "know all the gossip", "plan the perfect surprise", "get stuck in a lift",
+    "become a professional athlete", "bring snacks everywhere", "make everyone laugh", "keep a secret forever",
+    "cook the best meal", "leave their phone in a taxi", "dance on a table", "make friends with a stranger on the bus",
+    "take a hundred selfies a day", "write a bestselling book", "go on a road trip with no plan",
+    "buy something useless online", "cry at a wedding", "stay calm in an emergency", "become a teacher",
+    "join a band", "get a speeding ticket", "move to a farm", "forget their own password", "fall for a scam call",
+    "show up in matching outfits on purpose", "know the lyrics to every song"
+  ]
+}

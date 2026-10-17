@@ -16,6 +16,12 @@ Pick any mix in the TV lobby under **Rounds tonight**:
   decades and moods, or type any artist or playlist.
 - **Famous faces:** a photo of a well-known person sharpens from a blur. Answer early to score more.
 - **Flags** and **Maps:** name the country from its flag or its outline.
+- **Capitals:** pick a country's capital, with nearby capitals as the wrong answers.
+- **Which is bigger:** two countries' flags side by side; pick the larger one.
+- **Trivia:** general knowledge from Open Trivia DB, matched to the theme, with built-in questions if there's no internet.
+- **Emoji puzzles:** a film or song told in emoji.
+- **Most likely to:** "Who's most likely to miss a flight?" Everyone votes for a player; you score when you pick
+  the same person as most of the room. Needs at least 3 players.
 - **Imposter:** everyone gets the same secret word on their phone, except one person who gets a similar word
   (or no word, if you choose). Everyone says a one-word clue out loud in turn, talks it over, then votes. There's
   no clock: each step moves on when the players are ready. Spotting the imposter scores 500; an imposter who gets
@@ -85,7 +91,8 @@ Then phones can join over mobile data, with no shared Wi-Fi needed.
 - `server/music.js` finds songs, 30-second clips and artist photos through Deezer's free API, and real artist
   photos through Wikipedia.
 - `server/data/faces.json` is the famous-faces list with Wikipedia photos. Rebuild it with `python3 server/data/build-faces.py server/data/faces.json`.
-- `server/data/imposter.json` holds the word pairs for Imposter rounds.
+- `server/data/imposter.json`, `emoji.json` and `likely.json` hold the Imposter word pairs, emoji puzzles and
+  Most likely to prompts. `trivia-fallback.json` is the offline trivia set.
 - `whos-who.html` is the original Claude artifact version, kept for reference.
 
 Photos of famous people come from Wikipedia and Wikimedia Commons under free licences; song clips and cover art come from Deezer.

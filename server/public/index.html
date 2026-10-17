@@ -324,6 +324,17 @@ button{font:inherit;color:inherit}
 .secret span{font-weight:700;color:var(--ink-soft)}
 .secret.on{border-style:solid;background:var(--ink);color:var(--sun)}
 .secret.on span{color:var(--paper)}
+.tgrid{height:100%;display:flex;flex-direction:column;justify-content:center;gap:3vmin;max-width:1500px;margin:0 auto;width:100%}
+.tqt{font-family:var(--body);font-weight:800;font-size:max(22px,5vmin);line-height:1.12;max-width:42ch;text-wrap:balance}
+.opts.four{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.6vmin}
+.tgrid .opt{font-size:max(15px,3vmin);padding:1.3vmin 1.6vmin}
+.pair{display:flex;gap:4vmin;align-items:center;justify-content:center;flex-wrap:wrap}
+.pair .print img.flag{width:30vmin}
+.pair .print figcaption{font-family:var(--body);text-transform:none;letter-spacing:0;font-weight:800;font-size:max(14px,2.6vmin);color:var(--ink)}
+.emoji-big{font-size:max(56px,17vmin);line-height:1.15;padding:4vmin 3vmin;text-align:center;min-width:40vmin}
+.qtitle.likely{font-size:max(26px,6.6vmin);max-width:22ch}
+.ph-q{font-weight:800;font-size:20px;line-height:1.3}
+.emoji-q{font-size:54px;text-align:center;line-height:1.2}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes unblur{from{filter:blur(28px) saturate(.6)}to{filter:blur(0) saturate(1)}}
 @keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
@@ -362,20 +373,24 @@ const COLORS = ["#D93A26","#2342C6","#11704F","#7339D6","#C42F78","#0B7584","#B5
 const CODE_CHARS = "ABCDEFGHJKMNPQRSTUVWXYZ";
 // Kinds of round. Photo games play every photo; flag and map rounds come in sets of ROUNDS (fewer when mixed).
 const ROUNDS = 10, SONGS_PER_PLAYER = 3;
-const MODES = ["photo", "song", "tune", "face", "flag", "map", "imp"];
+const MODES = ["photo", "song", "tune", "face", "flag", "map", "cap", "big", "trivia", "emoji", "imp", "likely"];
 // Owner rounds show something a player brought, and everyone guesses which player. The rest are quiz rounds with 4 answers.
 const OWNER_KINDS = ["photo", "song"];
 // Rounds where you answer by picking a player rather than one of 4 answers.
-const PLAYER_KINDS = ["photo", "song", "imp"];
+const PLAYER_KINDS = ["photo", "song", "imp", "likely"];
+// Modes that need at least 3 players to make sense.
+const CROWD_KINDS = ["imp", "likely"];
 // Imposter: everyone gets the same secret word except one player. Clues go round the room out loud, then everyone votes.
 // No clocks in Imposter: each step moves on when the players are ready (the TV's Next button can always skip).
 const IMP_ROUNDS = { quick: 2, normal: 3, long: 5 };
 const IMP_PHASES = ["imp-word", "imp-clue", "imp-talk"];
-const MODE_LABEL = { photo: "Whose photo", song: "Whose song", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps", imp: "Imposter" };
-const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country", imp: "Imposter" };
-const KIND_ASK = { photo: "Whose photo is this?", song: "Whose song is this?", face: "Who is this?", flag: "Which country's flag is this?", map: "Which country has this shape?", imp: "Who's the imposter?" };
-const KIND_ASK_PHONE = { photo: "Whose photo is on the TV?", song: "Whose song is playing?", face: "Who's on the TV?", flag: "Which country's flag is on the TV?", map: "Which country is the shape on the TV?", imp: "Who's the imposter?" };
-const askOf = c => (c.t === "tune" ? (c.ask === "artist" ? "Who's the artist?" : "What's this song?") : KIND_ASK[c.t]);
+const MODE_LABEL = { photo: "Whose photo", song: "Whose song", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps", cap: "Capitals", big: "Which is bigger", trivia: "Trivia", emoji: "Emoji puzzles", imp: "Imposter", likely: "Most likely to" };
+const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country", cap: "Capital cities", big: "Which is bigger?", trivia: "Trivia", emoji: "Emoji puzzle", imp: "Imposter", likely: "Most likely to…" };
+const KIND_ASK = { photo: "Whose photo is this?", song: "Whose song is this?", face: "Who is this?", flag: "Which country's flag is this?", map: "Which country has this shape?", big: "Which country is bigger?", imp: "Who's the imposter?" };
+const KIND_ASK_PHONE = { photo: "Whose photo is on the TV?", song: "Whose song is playing?", face: "Who's on the TV?", flag: "Which country's flag is on the TV?", map: "Which country is the shape on the TV?", big: "Which country is bigger?", imp: "Who's the imposter?" };
+const askOf = c => (c.t === "tune" ? (c.ask === "artist" ? "Who's the artist?" : "What's this song?")
+  : c.t === "cap" ? `What's the capital of ${c.cn}?` : c.t === "trivia" ? c.q
+  : c.t === "emoji" ? `Which ${c.ty === "song" ? "song" : "film"} is this?` : c.t === "likely" ? `Who's most likely to ${c.lk}?` : KIND_ASK[c.t]);
 // Music for "Name that tune" and the Music theme, grouped for the TV's dropdown. Each entry is [Deezer search, label].
 const TUNE_GROUPS = [
   ["Party", [["top worldwide", "Today's hits"], ["karaoke classics", "Karaoke classics"], ["greatest hits of all time", "All-time greats"]]],
@@ -479,8 +494,9 @@ const DATA = {};
 function loadScript(src) {
   return new Promise((res, rej) => { const s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = rej; document.head.appendChild(s); });
 }
+// The ?v= number changes whenever the country list gains fields, so browsers don't keep using a cached old copy.
 function getCountries() {
-  return (DATA.countries ||= fetch("/api/countries").then(r => { if (!r.ok) throw new Error("countries " + r.status); return r.json(); })
+  return (DATA.countries ||= fetch("/api/countries?v=2").then(r => { if (!r.ok) throw new Error("countries " + r.status); return r.json(); })
     .catch(e => { DATA.countries = null; throw e; }));
 }
 function getWorld() {
@@ -517,6 +533,11 @@ function locatorSvg(id) {
   // Small countries vanish at this scale, so a ring marks the spot too.
   const [x, y] = path.centroid(mainland(f));
   return `<svg viewBox="0 0 360 190" aria-hidden="true"><path class="land" d="${DATA.base}"/><path class="hit" d="${path(f)}"/><circle class="pin" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="7"/></svg>`;
+}
+function getData(name) {
+  DATA.files ||= {};
+  return (DATA.files[name] ||= fetch(`/data/${name}.json`).then(r => { if (!r.ok) throw new Error(name + " " + r.status); return r.json(); })
+    .catch(e => { delete DATA.files[name]; throw e; }));
 }
 function getImposter() {
   return (DATA.imp ||= fetch("/data/imposter.json").then(r => { if (!r.ok) throw new Error("imposter " + r.status); return r.json(); })
@@ -704,7 +725,7 @@ const TV = {
   canStart() {
     if (this.H.ph !== "lobby" || this.starting) return false;
     const online = this.players().filter(p => p.online).length;
-    if (this.H.modes.length === 1 && this.H.modes[0] === "imp") return online >= 3;
+    if (this.H.modes.every(m => CROWD_KINDS.includes(m))) return online >= 3;
     if (!ownerOnly(this.H)) return online >= 1;
     const items = (this.H.modes.includes("photo") ? this.photoCount() : 0) + (this.H.modes.includes("song") ? this.songCount() : 0);
     return online >= 2 && items >= 2;
@@ -820,6 +841,8 @@ const TV = {
   prefetch() {
     const H = this.H;
     if (H.modes.includes("face")) getFaces().catch(() => {});
+    for (const [m, f] of [["emoji", "emoji"], ["likely", "likely"]]) if (H.modes.includes(m)) getData(f).catch(() => {});
+    if (H.modes.includes("cap") || H.modes.includes("big")) getCountries().catch(() => {});
     if (this.needMix() && !this.mixNote) this.setTune(H.tune.q, H.tune.label);
     if (!H.modes.includes("flag") && !H.modes.includes("map") && !["flag", "map"].includes(H.cur?.t)) return;
     getCountries().catch(() => {});
@@ -1009,6 +1032,50 @@ const TV = {
         if (modes.includes("map") && shapes) pools.map = take(all.filter(c => c.m && shapes.has(c.id) && inRegion(c)), each).map(c => countryRound("map", c, all));
         if (modes.includes("flag")) pools.flag = take(all.filter(inRegion), each).map(c => countryRound("flag", c, all));
       }
+      if (modes.includes("cap") || modes.includes("big")) {
+        const all = await getCountries(), inRegion = c => region === "all" || c.r === region;
+        if (modes.includes("cap")) {
+          // Skip capitals that give the answer away, like Kuwait City or Mexico City.
+          const ok = all.filter(c => c.k && inRegion(c) && !c.k.toLowerCase().includes(c.n.toLowerCase()) && !c.n.toLowerCase().includes(c.k.toLowerCase()));
+          pools.cap = shuffle(this.unseen(ok, c => c.c, "cap", each)).slice(0, each).map(c => {
+            const others = all.filter(x => x.c !== c.c && x.k && x.k !== c.k);
+            const near = [...shuffle(others.filter(x => x.s === c.s)), ...shuffle(others.filter(x => x.r === c.r && x.s !== c.s)), ...shuffle(others.filter(x => x.r !== c.r))];
+            const o = shuffle([c.k, ...[...new Set(near.map(x => x.k))].slice(0, 3)]);
+            return { t: "cap", c: c.c, cn: c.n, o, a: o.indexOf(c.k) };
+          });
+        }
+        if (modes.includes("big")) {
+          // Pairs from the same part of the world where the bigger one is 1.2 to 4 times the size, so it's a real question.
+          const ok = all.filter(c => c.ar > 0 && inRegion(c)), out = [], taken = new Set();
+          for (const c of shuffle(this.unseen(ok, c => c.c, "big", each))) {
+            if (out.length >= each) break;
+            if (taken.has(c.c)) continue;
+            const rivals = shuffle(ok.filter(x => x.c !== c.c && !taken.has(x.c) && Math.max(x.ar, c.ar) / Math.min(x.ar, c.ar) >= 1.2 && Math.max(x.ar, c.ar) / Math.min(x.ar, c.ar) <= 4));
+            const d = rivals.find(x => x.s === c.s) || rivals.find(x => x.r === c.r) || rivals[0];
+            if (!d) continue;
+            taken.add(c.c); taken.add(d.c);
+            const pair = shuffle([c, d]);
+            out.push({ t: "big", cc: pair.map(x => x.c), o: pair.map(x => x.n), ar: pair.map(x => x.ar), a: pair[0].ar > pair[1].ar ? 0 : 1 });
+          }
+          pools.big = out;
+        }
+      }
+      if (modes.includes("trivia")) {
+        const list = await fetch(`/api/trivia?n=${each}&theme=${encodeURIComponent(theme.id)}`).then(r => r.json());
+        pools.trivia = list.map(x => { const o = shuffle([x.a, ...x.w]); return { t: "trivia", q: x.q, o, a: o.indexOf(x.a), cat: x.cat }; });
+      }
+      if (modes.includes("emoji")) {
+        const all = (await getData("emoji")).puzzles, ty = { music: "song", screen: "film" }[theme.id];
+        const pool = all.filter(p => !ty || p.ty === ty);
+        pools.emoji = shuffle(this.unseen(pool, p => p.e, "emoji", each)).slice(0, each).map(p => {
+          const o = shuffle([p.a, ...shuffle(all.filter(x => x.ty === p.ty && x.a !== p.a)).slice(0, 3).map(x => x.a)]);
+          return { t: "emoji", e: p.e, ty: p.ty, o, a: o.indexOf(p.a) };
+        });
+      }
+      if (modes.includes("likely") && online >= 3) {
+        const prompts = (await getData("likely")).prompts;
+        pools.likely = shuffle(this.unseen(prompts, p => p, "likely", each)).slice(0, each).map(lk => ({ t: "likely", lk }));
+      }
       // Mix the kinds: each round draws a kind at random, weighted by how many of that kind are left.
       const order = [];
       for (let n = MODES.reduce((sum, k) => sum + (pools[k]?.length || 0), 0); n > 0; n--) {
@@ -1031,6 +1098,10 @@ const TV = {
       this.remember("face", order.filter(r => r.t === "face").map(r => r.n));
       this.remember("country", order.filter(r => r.t === "flag" || r.t === "map").map(r => r.c));
       this.remember("imp", order.filter(r => r.t === "imp").map(r => r.k));
+      this.remember("cap", order.filter(r => r.t === "cap").map(r => r.c));
+      this.remember("big", order.filter(r => r.t === "big").map(r => r.cc[0]));
+      this.remember("emoji", order.filter(r => r.t === "emoji").map(r => r.e));
+      this.remember("likely", order.filter(r => r.t === "likely").map(r => r.lk));
       if (this.H !== H || H.ph !== "lobby") return;
       H.order = order; H.R = order.length; H.r = 0; H.rv = null;
       for (const p of Object.values(H.players)) { p.score = 0; p.prev = 0; p.st = { right: 0, fast: 0, fooled: 0 }; }
@@ -1106,6 +1177,18 @@ const TV = {
       for (const [pid, v] of Object.entries(d)) if (H.players[pid]) H.players[pid].score += v;
       H.rv = { o: imp, g, d, m: mult, caught, w: H.cur.w, x: H.impVar === "none" ? null : H.cur.x, cat: H.cur.cat };
       return this.go("rev"); // stays up until the host taps Next round
+    }
+    if (H.cur.t === "likely") {
+      // No right answer: you score for picking the same person as most of the room.
+      const votes = {};
+      for (const [pid, x] of Object.entries(H.guesses)) { g[pid] = x.p; votes[x.p] = (votes[x.p] || 0) + 1; }
+      // It only counts as the room agreeing when at least two people picked the same person.
+      const top = Math.max(0, ...Object.values(votes)), leaders = top >= 2 ? Object.keys(votes).filter(k => votes[k] === top) : [];
+      for (const [pid, x] of Object.entries(H.guesses)) if (leaders.includes(x.p)) { d[pid] = 300 * mult; this.stat(pid, x.t - H.qStart); }
+      for (const p of Object.values(H.players)) p.prev = p.score;
+      for (const [pid, v] of Object.entries(d)) if (H.players[pid]) H.players[pid].score += v;
+      H.rv = { o: leaders[0] || null, top: leaders, g, d, m: mult, lk: H.cur.lk };
+      return this.go("rev", this.revSecs(Object.keys(g).length));
     }
     if (this.isQuiz()) {
       for (const [pid, x] of Object.entries(H.guesses)) {
@@ -1197,7 +1280,8 @@ const TV = {
       x: H.ph === "q" && !this.isQuiz() ? fnv(this.curOwner() + H.rk) : null,
       rv: ["rev", "lb", "end"].includes(H.ph) ? H.rv : null,
       modes: H.modes,
-      qz: this.isQuiz() && (H.ph === "q" || H.ph === "rev") ? { t: H.cur.t, o: H.cur.o, k: H.cur.ask || null } : null,
+      qz: this.isQuiz() && (H.ph === "q" || H.ph === "rev") ? { t: H.cur.t, o: H.cur.o, k: H.cur.ask || null, q: askOf(H.cur), e: H.cur.t === "emoji" ? H.cur.e : null } : null,
+      lk: H.cur?.t === "likely" ? H.cur.lk : null,
     };
     const body = JSON.stringify(pres);
     if (!force && body === this.lastBody && now - this.lastPush < 1000) return;
@@ -1268,7 +1352,7 @@ const TV = {
     const lbl = (a, t) => (c === a ? "Tap again to confirm" : t);
     let html = "";
     if (H.ph === "lobby") {
-      const need = H.modes.length === 1 && H.modes[0] === "imp" ? "Imposter needs at least 3 players" : photosOnly(H) ? "Start needs 2 players and 2 photos" : ownerOnly(H) ? "Start needs 2 players and 2 photos or songs" : "Start needs at least 1 player";
+      const need = H.modes.every(m => CROWD_KINDS.includes(m)) ? "These rounds need at least 3 players" : photosOnly(H) ? "Start needs 2 players and 2 photos" : ownerOnly(H) ? "Start needs 2 players and 2 photos or songs" : "Start needs at least 1 player";
       const why = this.starting ? `<span class="why">Shuffling the rounds…</span>` : this.err ? `<span class="why">${esc(this.err)}</span>` : this.canStart() ? "" : `<span class="why">${need}</span>`;
       html = `<button class="btn primary" data-act="start" ${this.canStart() ? "" : "disabled"}>Start game</button>${why}<button class="btn sm" data-act="new-room">${lbl("new-room", "New room")}</button>`;
     } else if (H.ph === "end") {
@@ -1306,6 +1390,7 @@ const TV = {
         <h2 class="big">${big}</h2>${final ? `<p class="dbl">Double points</p>` : ""}</section>`);
     }
     if (IMP_PHASES.includes(H.ph) || (H.ph === "q" && this.isImp())) return this.renderImp(stage);
+    if (H.ph === "q" && H.cur?.t === "likely") return this.renderLikely(stage);
     if (H.ph === "q") {
       if (this.isQuiz()) return this.renderQuiz(stage);
       const final = H.R > 1 && H.r === H.R;
@@ -1355,6 +1440,7 @@ const TV = {
   },
   revealHtml() {
     if (this.isImp()) return this.impRevealHtml();
+    if (this.H.cur?.t === "likely") return this.likelyRevealHtml();
     if (this.isQuiz()) return this.quizRevealHtml();
     const H = this.H, rv = H.rv || { g: {}, d: {} }, ph = H.photos[H.cur?.id];
     const P = H.players, owner = P[rv.o];
@@ -1436,7 +1522,9 @@ const TV = {
     const H = this.H, bits = [];
     if (this.needMix()) bits.push(this.mixNote || "Finding songs…");
     if (H.modes.includes("face")) bits.push("Faces: " + FACES_NOTE[themeOf(H).faces]);
-    if (H.modes.includes("flag") || H.modes.includes("map")) bits.push("Flags and maps: " + (this.region() === "all" ? "the whole world" : this.region()));
+    if (["flag", "map", "cap", "big"].some(m => H.modes.includes(m))) bits.push("Countries: " + (this.region() === "all" ? "the whole world" : this.region()));
+    if (H.modes.includes("trivia")) bits.push("Trivia: " + ({ mix: "anything", music: "music", screen: "film and TV", sport: "sport", world: "history", africa: "geography" }[themeOf(H).id] || "anything"));
+    if (H.modes.includes("emoji")) bits.push("Emoji: " + ({ music: "songs", screen: "films" }[themeOf(H).id] || "films and songs"));
     return bits.join(" · ");
   },
   // "· Jazz" after the round name, so everyone knows which music tonight's tune and artist rounds come from.
@@ -1454,6 +1542,9 @@ const TV = {
     if (cur.t === "face") return `<figure class="print"><img class="face ${reveal ? "" : "blurred"}" src="${esc(cur.img)}" data-alt="${esc(cur.alt || "")}" alt="${reveal ? esc(cur.n) : "Mystery person"}" style="--blur:${Math.round(Q_SECS * 0.75)}s">${cap}</figure>`;
     // The reveal shows the artist's photo, so you see who you were just listening to.
     if (cur.t === "tune") return reveal ? this.songMedia(cur.title, cur.artist, cur.ap || cur.art, cur.art) : `<div class="vinyl spin" role="img" aria-label="A song is playing"><span>♪</span></div>`;
+    if (cur.t === "cap") return `<figure class="print"><img class="flag" src="/flags/${encodeURIComponent(cur.c)}.svg" alt="Flag of ${esc(cur.cn)}"><figcaption>${esc(cur.cn)}</figcaption></figure>`;
+    if (cur.t === "big") return `<div class="pair">${[0, 1].map(i => `<figure class="print"><img class="flag" src="/flags/${encodeURIComponent(cur.cc[i])}.svg" alt=""><figcaption>${LETTERS[i]} · ${esc(cur.o[i])}${reveal ? ` · ${fmt(cur.ar[i])} km²` : ""}</figcaption></figure>`).join("")}</div>`;
+    if (cur.t === "emoji") return `<figure class="print"><div class="emoji-big" role="img" aria-label="Emoji clue">${esc(cur.e)}</div><figcaption>${cur.ty === "song" ? "Song" : "Film"}</figcaption></figure>`;
     return `<figure class="print">${shapeSvg(cur.id) || `<div class="loading">Loading the map…</div>`}${cap}</figure>`;
   },
   optsHtml(cur, rv) {
@@ -1465,11 +1556,19 @@ const TV = {
   },
   renderQuiz(stage) {
     const H = this.H, cur = H.cur, final = H.R > 1 && H.r === H.R;
+    const foot = `<div class="qfoot"><div class="clock" id="clock"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="bg" cx="50" cy="50" r="46"/><circle class="ring" id="ring" cx="50" cy="50" r="40" pathLength="100"/></svg><span id="clock-n" class="num"></span></div>
+          <div><p class="eyebrow" id="lockcount"></p><ul class="locks" id="locks"></ul></div></div>`;
+    // Trivia is all text: the question across the screen with the four answers under it.
+    if (cur.t === "trivia") {
+      paint(stage, "q|" + H.rk, `<section class="tgrid"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Trivia · ${esc(cur.cat)}${final ? " · Double points" : ""}</p>
+        <h2 class="tqt">${esc(cur.q)}</h2><ol class="opts four">${this.optsHtml(cur)}</ol>${foot}</section>`);
+      return this.renderLocks(null);
+    }
     paint(stage, "q|" + H.rk + "|" + (DATA.shapes ? 1 : 0), `<section class="qgrid">
       <div class="qphoto">${this.quizMedia(cur)}</div>
       <div class="qside quiz">
         <p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · ${MODE_LABEL[cur.t]}${this.musicTag(cur)}${final ? " · Double points" : ""}</p>
-        <h2 class="qtitle">${askOf(cur)}</h2>
+        <h2 class="qtitle">${esc(askOf(cur))}</h2>
         <ol class="opts">${this.optsHtml(cur)}</ol>
         <div class="qfoot"><div class="clock" id="clock"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="bg" cx="50" cy="50" r="46"/><circle class="ring" id="ring" cx="50" cy="50" r="40" pathLength="100"/></svg><span id="clock-n" class="num"></span></div>
           <div><p class="eyebrow" id="lockcount"></p><ul class="locks" id="locks"></ul></div></div>
@@ -1481,6 +1580,8 @@ const TV = {
     const nv = Object.keys(rv.g).length, t = 1.2 + nv * 0.18, loc = cur.t === "flag" || cur.t === "map" ? locatorSvg(cur.id) : "";
     const right = Object.values(rv.g).filter(i => i === rv.a).length;
     const deltas = `<span class="delta">${right ? `${right} ${right === 1 ? "person" : "people"} got it right` : "Nobody got it right"}</span>`;
+    if (cur.t === "trivia") return `<section class="tgrid" style="--t:${t.toFixed(2)}s;--t2:${(t + 0.8).toFixed(2)}s"><p class="eyebrow">${esc(cur.cat)}${rv.m > 1 ? " · Double points" : ""}</p>
+      <h2 class="tqt">${esc(cur.q)}</h2><ol class="opts four">${this.optsHtml(cur, rv)}</ol><div class="deltas">${deltas}</div></section>`;
     return `<section class="rgrid" style="--t:${t.toFixed(2)}s;--t2:${(t + 0.8).toFixed(2)}s">
       <div class="qphoto">${this.quizMedia(cur, true)}<div class="stamp low">${esc(cur.o[rv.a])}</div></div>
       <div class="rside">
@@ -1489,8 +1590,31 @@ const TV = {
         <div class="deltas">${deltas || `<span class="delta">Nobody scored this round</span>`}</div>
         ${cur.t === "face" ? `<p class="who-d">${esc(cur.d)}</p><p class="credit">Photo: ${esc(cur.src || "Wikipedia")}</p>` : ""}
         ${cur.t === "tune" ? `<p class="who-d">${esc(cur.title)} · ${esc(cur.artist)}</p>` : ""}
+        ${cur.t === "cap" ? `<p class="who-d">The capital of ${esc(cur.cn)} is ${esc(cur.o[rv.a])}.</p>` : ""}
+        ${cur.t === "big" ? `<p class="who-d">${esc(cur.o[0])}: ${fmt(cur.ar[0])} km² · ${esc(cur.o[1])}: ${fmt(cur.ar[1])} km²</p>` : ""}
         ${loc ? `<div class="loc">${loc}</div>` : ""}
       </div></section>`;
+  },
+  renderLikely(stage) {
+    const H = this.H, final = H.R > 1 && H.r === H.R;
+    paint(stage, "lq|" + H.rk, `<section class="imp"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Most likely to${final ? " · Double points" : ""}</p>
+      <h2 class="qtitle likely">Who's most likely to ${esc(H.cur.lk)}?</h2>
+      <p class="lede">Vote on your phone. You score if you pick the same person as most of the room.</p>
+      <div class="qfoot"><div class="clock" id="clock"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="bg" cx="50" cy="50" r="46"/><circle class="ring" id="ring" cx="50" cy="50" r="40" pathLength="100"/></svg><span id="clock-n" class="num"></span></div>
+        <div><p class="eyebrow" id="lockcount"></p><ul class="locks" id="locks"></ul></div></div></section>`);
+    this.renderLocks(null);
+  },
+  likelyRevealHtml() {
+    const H = this.H, rv = H.rv || { g: {}, d: {} }, P = H.players, tops = (rv.top || []).filter(id => P[id]);
+    const votes = {};
+    for (const pick of Object.values(rv.g || {})) votes[pick] = (votes[pick] || 0) + 1;
+    const rows = Object.keys(votes).filter(id => P[id]).sort((a, b) => votes[b] - votes[a]);
+    const t = 1.4 + rows.length * 0.25, sided = Object.keys(rv.d || {}).length, lead = tops.length === 1 ? P[tops[0]] : null;
+    const rowHtml = rows.map((id, i) => `<li class="${tops.includes(id) ? "win" : ""}">${avatar(P[id].name, P[id].color)}<span class="nm">${esc(P[id].name)}</span><span class="votes num" style="animation-delay:${(0.4 + i * 0.25).toFixed(2)}s">${votes[id]} ${votes[id] === 1 ? "vote" : "votes"}</span></li>`).join("");
+    return `<section class="rgrid impr" style="--t:${t.toFixed(2)}s;--t2:${(t + 0.8).toFixed(2)}s">
+      <div class="qphoto bigav"><p class="eyebrow">Most likely to ${esc(rv.lk || H.cur.lk)}</p>${lead ? avatar(lead.name, lead.color) : ""}${rows.length ? `<div class="stamp low">${lead ? esc(lead.name) + "!" : tops.length ? "It's a tie!" : "Split vote!"}</div>` : ""}</div>
+      <div class="rside"><p class="eyebrow">${rows.length ? "Votes" : "Nobody voted"}${rv.m > 1 ? " · Double points" : ""}</p><ul class="rows">${rowHtml}</ul>
+        <div class="deltas"><span class="delta">${sided ? `${sided} ${sided === 1 ? "person" : "people"} sided with the room` : "Nobody scored this round"}</span></div></div></section>`;
   },
   renderImp(stage) {
     const H = this.H, cur = H.cur, P = H.players, final = H.R > 1 && H.r === H.R;
@@ -1938,7 +2062,7 @@ const PH = {
     }
     const opts = this.pl().filter(p => p[0] !== this.pid);
     paint(main, "q|" + H.rk + "|" + opts.map(p => p[0]).join(), `${tbar}<div class="card"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}${H.R > 1 && H.r === H.R ? " · Double points" : ""}</p>
-      <p class="ph-h">${esc(KIND_ASK_PHONE[H.kind] || KIND_ASK_PHONE.photo)}</p>
+      <p class="ph-h">${esc(H.kind === "likely" ? `Who's most likely to ${H.lk || "…"}?` : KIND_ASK_PHONE[H.kind] || KIND_ASK_PHONE.photo)}</p>
       <div class="choices">${opts.map(p => `<button class="choice" data-act="guess" data-pid="${p[0]}">${avatar(p[1], p[2])}<span>${esc(p[1])}</span></button>`).join("")}</div></div>`);
   },
   rQuiz(main) {
@@ -1949,7 +2073,8 @@ const PH = {
       return paint(main, "qz-lock|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">Locked in</p><span class="opt-pill" style="--oc:${OPT_COLORS[k]}"><b>${LETTERS[k]}</b>${esc(opts[k] ?? "")}</span><p class="muted">Waiting for everyone else.</p></div>`);
     }
     paint(main, "qz|" + H.rk, `${tbar}<div class="card"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · ${esc(MODE_LABEL[qz.t] || "")}${H.R > 1 && H.r === H.R ? " · Double points" : ""}</p>
-      <p class="ph-h">${esc(qz.t === "tune" ? (qz.k === "artist" ? "Who's the artist?" : "What's the song?") : KIND_ASK_PHONE[qz.t] || "Pick an answer")}</p>
+      ${qz.e ? `<p class="emoji-q">${esc(qz.e)}</p>` : ""}
+      <p class="${qz.t === "trivia" ? "ph-q" : "ph-h"}">${esc(qz.q || KIND_ASK_PHONE[qz.t] || "Pick an answer")}</p>
       <div class="answers">${opts.map((o, k) => `<button class="answer" style="--oc:${OPT_COLORS[k]}" data-act="answer" data-i="${k}"><b>${LETTERS[k]}</b><span>${esc(o)}</span></button>`).join("")}</div></div>`);
   },
   rQuizReveal(main) {
@@ -1987,6 +2112,13 @@ const PH = {
     }
     paint(main, ["imp", H.ph, H.rk, sp, done, this.rd === H.rk, this.secret?.rk, this.showWord > Date.now()].join("|"), `<div class="card ${mine ? "center" : ""}">${top}</div>${this.wordBox()}`);
   },
+  rLikelyReveal(main) {
+    const H = this.host, rv = H.rv || {}, me = this.pid, tops = rv.top || [], pts = rv.d?.[me] || 0;
+    const names = tops.map(id => this.nameOf(id)?.[1]).filter(Boolean).map(esc).join(" & ");
+    const head = tops.includes(me) ? "That's you!" : pts ? "Same as the room" : rv.g?.[me] ? "Odd one out" : "No vote";
+    const sub = (names ? `Most likely to ${esc(rv.lk || "")}: ${names}.` : "Nobody voted.") + (pts ? ` +${fmt(pts)} points` : "");
+    paint(main, "lk-rev|" + H.rk, `<div class="card center result ${pts ? "good" : ""}"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Most likely to</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p></div>`);
+  },
   rImpReveal(main) {
     const H = this.host, rv = H.rv || {}, me = this.pid, imp = rv.o, pts = rv.d?.[me] || 0;
     const impName = esc(this.nameOf(imp)?.[1] || "Someone"), theirs = rv.x ? `“${esc(rv.x)}”` : "no word";
@@ -2000,6 +2132,7 @@ const PH = {
   },
   rReveal(main) {
     if (this.host.kind === "imp") return this.rImpReveal(main);
+    if (this.host.kind === "likely") return this.rLikelyReveal(main);
     if (this.host.qz && this.host.rv && "a" in this.host.rv) return this.rQuizReveal(main);
     const H = this.host, rv = H.rv || { g: {}, d: {} }, ownerP = this.nameOf(rv.o);
     const pts = rv.d?.[this.pid] || 0, mine = rv.g?.[this.pid];
