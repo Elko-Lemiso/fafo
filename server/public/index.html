@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Who's Who</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23FFC53D'/%3E%3Ctext x='16' y='23' font-family='Arial Black,Arial' font-weight='900' font-size='20' text-anchor='middle' fill='%231D140F'%3E%3F%3C/text%3E%3C/svg%3E">
+<title>fafo</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23FFC53D'/%3E%3Ctext x='16' y='23' font-family='Arial Black,Arial' font-weight='900' font-size='20' text-anchor='middle' fill='%231D140F'%3EF%3C/text%3E%3C/svg%3E">
 <!-- Fonts are served by the laptop so the game looks right even on a Wi-Fi with no internet. -->
 <link rel="stylesheet" href="/fonts/bungee/index.css">
 <link rel="stylesheet" href="/fonts/barlow/500.css">
@@ -64,6 +64,10 @@ button{font:inherit;color:inherit}
 .wordmark{font-family:var(--display);font-size:clamp(64px,12vw,148px);line-height:.86;letter-spacing:-.01em}
 .wordmark span{display:block}
 .wordmark .two{color:var(--paper);-webkit-text-stroke:.03em var(--ink);paint-order:stroke fill;text-shadow:.045em .055em 0 var(--ink);margin-left:.35em}
+.wordmark.fafo{font-size:clamp(84px,17vw,200px);line-height:1}
+.wordmark.fafo span{display:inline}
+.wordmark.fafo .two{margin-left:.03em}
+.lobby .wordmark.fafo{font-size:17vmin}
 .lede{font-size:clamp(18px,2.1vw,22px);line-height:1.45;max-width:38ch;margin-top:24px;font-weight:600}
 .panel{background:var(--paper);border:3px solid var(--ink);border-radius:20px;box-shadow:0 7px 0 var(--ink);padding:clamp(18px,3vw,28px);display:flex;flex-direction:column;gap:18px}
 .steps{display:grid;gap:12px;counter-reset:s}
@@ -594,7 +598,7 @@ function renderLanding() {
   if (mode) return;
   app.innerHTML = `<main class="landing">
     <div>
-      <h1 class="wordmark"><span>Who's</span><span class="two">Who</span></h1>
+      <h1 class="wordmark fafo" aria-label="fafo"><span>fa</span><span class="two">fo</span></h1>
       <p class="lede">A party game for one TV and a room full of phones. Guess whose photo is on screen, name flags and country shapes, all from your phone.</p>
     </div>
     <div class="panel">
@@ -621,7 +625,7 @@ const TV = {
     const s = store.get("wiw.host");
     this.H = s && Date.now() - (s.savedAt || 0) < 4 * 3600e3 ? this.revive(s) : this.fresh();
     app.innerHTML = `<div class="tv">
-      <header class="tv-top"><div class="logo">Who's Who</div><div class="tv-status" id="tv-status"></div></header>
+      <header class="tv-top"><div class="logo">fafo</div><div class="tv-status" id="tv-status"></div></header>
       <main class="stage" id="stage"></main>
       <footer class="hostbar" id="hostbar"></footer>
     </div>`;
@@ -1237,7 +1241,7 @@ const TV = {
       const lede = photosOnly(H) ? "Send in photos from your phone. One pops up on the TV. Guess whose it is."
         : `Tonight: ${H.modes.map(m => MODE_LABEL[m]).join(", ")}. ${brings ? `Add your ${brings} from your phone, then answer there too.` : "Answer on your phone. The fastest right answer scores most."}`;
       paint($("#lobby-left"), H.code + "|" + url + "|" + roomState + "|" + H.modes.join(), `
-        <h1 class="wordmark"><span>Who's</span><span class="two">Who</span></h1>
+        <h1 class="wordmark fafo" aria-label="fafo"><span>fa</span><span class="two">fo</span></h1>
         <p class="lede">${lede}</p>
         <div class="joincard">
           <div class="qr">${qrSvg(url)}</div>
@@ -1724,7 +1728,7 @@ const PH = {
     const me = this.me(), leaving = Date.now() < this.confirmLeave;
     const status = roomState === "ok" && !this.connected ? `<span class="pill dark" style="font-size:12px">Reconnecting</span>` : "";
     paint($("#ph-top"), `${this.code}|${this.joined}|${me?.[1]}|${me?.[2]}|${leaving}|${this.connected}`, `
-      <span class="logo">Who's Who</span>${status}
+      <span class="logo">fafo</span>${status}
       <span class="room">${this.code ? "Room " + esc(this.code) : ""}</span>
       ${this.joined ? `<button class="btn ghost" data-act="leave">${leaving ? "Tap to leave" : "Leave"}</button>` : ""}
       ${this.joined && me ? `<span class="me" title="${esc(me[1])}">${avatar(me[1], me[2])}</span>` : ""}`);
@@ -1741,7 +1745,7 @@ const PH = {
     if (!this.joined) return this.rJoin(main);
     if (!this.host) {
       return paint(main, "find|" + this.code, `<div class="card center"><p class="ph-h">Looking for the TV…</p>
-        <p class="muted">Make sure the TV shows room <b>${esc(this.code)}</b> on the Who's Who screen.</p>
+        <p class="muted">Make sure the TV shows room <b>${esc(this.code)}</b> on the fafo screen.</p>
         <button class="btn sm" data-act="leave">Use a different room</button></div>`);
     }
     const H = this.host, me = this.me();

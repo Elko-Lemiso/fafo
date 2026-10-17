@@ -38,7 +38,7 @@ npm start
 `npm install` is only needed the first time. `npm start` prints something like:
 
 ```
-  Who's Who is running.
+  fafo is running.
 
   TV (this laptop):   http://localhost:3000/tv
   Phones join at:     http://192.168.1.23:3000/  (or scan the QR code on the TV)

@@ -1,5 +1,5 @@
 "use strict";
-// Who's Who over local Wi-Fi. Serves the page, relays live state between the TV and the phones,
+// fafo: a party game for one TV and a room full of phones. Serves the page, relays live state between the TV and the phones,
 // and keeps uploaded photos in memory. The TV page still owns the game; this server only passes messages.
 const path = require("path");
 const os = require("os");
@@ -158,7 +158,7 @@ function listen(port, triesLeft) {
     joinBase = `http://${ip || "localhost"}:${port}/`;
     if (hosted) { joinBase = PUBLIC_URL.replace(/\/?$/, "/"); lanOk = true; }
     const line = (k, v) => console.log(`  ${k.padEnd(20)}${v}`);
-    console.log("\n  Who's Who is running.\n");
+    console.log("\n  fafo is running.\n");
     line("TV (this laptop):", hosted ? `${joinBase}tv` : `http://localhost:${port}/tv`);
     line("Phones join at:", ip ? `${joinBase}  (or scan the QR code on the TV)` : "no Wi-Fi address found");
     const others = addrs.filter(a => a.address !== ip);
