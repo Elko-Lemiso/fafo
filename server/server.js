@@ -58,6 +58,7 @@ for (const f of ["bungee", "barlow", "barlow-condensed"]) {
 require("./quiz")(app, MODULES);
 require("./music")(app);
 app.get("/data/faces.json", (req, res) => res.sendFile(path.join(__dirname, "data", "faces.json"), { maxAge: "1d" }));
+app.get("/data/imposter.json", (req, res) => res.sendFile(path.join(__dirname, "data", "imposter.json"), { maxAge: "1h" }));
 
 app.post("/api/photos/:id", express.raw({ type: () => true, limit: MAX_PHOTO_BYTES }), (req, res) => {
   const id = req.params.id, pid = req.get("x-pid"), code = req.get("x-code"), buf = req.body;
@@ -130,6 +131,12 @@ io.on("connection", sock => {
       const p = photos.get(id);
       if (p && (p.pid === me.pid || (me.role === "h" && p.code === me.code))) forget(id);
     }
+  });
+  // The TV sends one phone in its room something only that phone should see (an Imposter round's secret word).
+  sock.on("whisper", msg => {
+    const me = c.presence;
+    if (me?.role !== "h" || !msg || !isPid(msg.to) || JSON.stringify(msg.data ?? null).length > 2000) return;
+    for (const o of clients.values()) if (o.presence?.role === "p" && o.presence.code === me.code && o.presence.pid === msg.to) o.sock.emit("whisper", msg.data);
   });
   sock.on("disconnect", () => { clients.delete(sock.id); broadcast(); });
 });
