@@ -1,0 +1,27 @@
+{
+  "name": "fafo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "fafo: a party game for one TV and a room full of phones.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@fontsource/barlow": "^5.3.0",
+    "@fontsource/barlow-condensed": "^5.3.0",
+    "@fontsource/bungee": "^5.3.0",
+    "d3-array": "^3.2.4",
+    "d3-geo": "^3.1.1",
+    "express": "^5.3.0",
+    "flag-icons": "^7.6.0",
+    "qrcode-generator": "^2.0.4",
+    "socket.io": "^4.8.4",
+    "topojson-client": "^3.1.0",
+    "world-atlas": "^2.0.2",
+    "world-countries": "^5.1.0"
+  }
+}

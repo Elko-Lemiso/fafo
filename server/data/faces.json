@@ -1,0 +1,4632 @@
+{
+"cats": {
+"music": "Music",
+"screen": "Film & TV",
+"sport": "Sport",
+"leaders": "Leaders",
+"science": "Science & business",
+"arts": "Arts & books"
+},
+"people": [
+{
+"n": "Michael Jackson",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Michael_Jackson_1983_%283x4_cropped%29_%28contrast%29.jpg/960px-Michael_Jackson_1983_%283x4_cropped%29_%28contrast%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 851,
+"d": "American singer and songwriter (1958–2009)"
+},
+{
+"n": "Madonna",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/MadonnaO2171023_%2897_of_133%29_%2853269593787%29_%28cropped%29.jpg/960px-MadonnaO2171023_%2897_of_133%29_%2853269593787%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 1024,
+"d": "American singer and songwriter (born 1958)"
+},
+{
+"n": "Beyoncé",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Beyonc%C3%A9_-_Tottenham_Hotspur_Stadium_-_1st_June_2023_%2810_of_118%29_%2852946364598%29_%28best_crop%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 900,
+"h": 1200,
+"d": "American singer and songwriter (born 1981)"
+},
+{
+"n": "Rihanna",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Rihanna_Fenty_2018.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 651,
+"h": 867,
+"d": "Barbadian singer (born 1988)"
+},
+{
+"n": "Taylor Swift",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b1/Taylor_Swift_at_the_2023_MTV_Video_Music_Awards_%283%29.png/960px-Taylor_Swift_at_the_2023_MTV_Video_Music_Awards_%283%29.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 910,
+"d": "American singer-songwriter (born 1989)"
+},
+{
+"n": "Adele",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7c/Adele_2016.jpg/960px-Adele_2016.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 850,
+"d": "English singer-songwriter (born 1988)"
+},
+{
+"n": "Lady Gaga",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Lady_Gaga_at_Joe_Biden%27s_inauguration_%28cropped_5%29.jpg/960px-Lady_Gaga_at_Joe_Biden%27s_inauguration_%28cropped_5%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 939,
+"d": "American singer, songwriter and actress (born 1986)"
+},
+{
+"n": "Shakira",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/2023-11-16_Gala_de_los_Latin_Grammy%2C_03_%28cropped%2902.jpg/960px-2023-11-16_Gala_de_los_Latin_Grammy%2C_03_%28cropped%2902.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "Colombian singer-songwriter (born 1977)"
+},
+{
+"n": "Ed Sheeran",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/0/03/Ed_Sheeran_2022_%283x4_crop%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 880,
+"h": 1174,
+"d": "English singer-songwriter (born 1991)"
+},
+{
+"n": "Drake",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/1/15/Drake_at_The_Carter_Effect_2017_%2836818935200%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 690,
+"h": 956,
+"d": "Canadian rapper and singer (born 1986)"
+},
+{
+"n": "Kanye West",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5c/Kanye_West_at_the_2009_Tribeca_Film_Festival_%28crop_2%29.jpg/960px-Kanye_West_at_the_2009_Tribeca_Film_Festival_%28crop_2%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "American rapper and producer (born 1977)"
+},
+{
+"n": "Eminem",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/Eminem_2021_Color_Corrected.jpg/960px-Eminem_2021_Color_Corrected.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 847,
+"d": "American rapper (born 1972)"
+},
+{
+"n": "Jay-Z",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/5/55/Jay-Z_meets_with_New_York_Senate_Majority_Leader_in_Albany_%28cropped%29.webp?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 387,
+"h": 529,
+"d": "American rapper and businessman (born 1969)"
+},
+{
+"n": "Bruno Mars",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b0/BrunoMars24KMagicWorldTourLive_%28cropped%29.jpg/960px-BrunoMars24KMagicWorldTourLive_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 876,
+"d": "American singer-songwriter (born 1985)"
+},
+{
+"n": "Justin Bieber",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/6/6c/P20260719DT-1213_President_Donald_J._Trump_and_First_Lady_Melania_Trump_attend_the_FIFA_World_Cup_Final_%28cropped_2%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 794,
+"h": 1284,
+"d": "Canadian singer (born 1994)"
+},
+{
+"n": "Ariana Grande",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Ariana_Grande_promoting_Wicked_%282024%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 517,
+"h": 701,
+"d": "American singer, songwriter, and actress (born 1993)"
+},
+{
+"n": "Billie Eilish",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/c/c7/BillieEilishO2140725-39_-_54665577407_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 779,
+"h": 1039,
+"d": "American singer-songwriter (born 2001)"
+},
+{
+"n": "Bob Marley",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d6/Bob_Marley_circa_1976_%28cropped%29.jpg/960px-Bob_Marley_circa_1976_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "Jamaican reggae musician (1945–1981)"
+},
+{
+"n": "Elvis Presley",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/99/Elvis_Presley_promoting_Jailhouse_Rock.jpg/960px-Elvis_Presley_promoting_Jailhouse_Rock.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 826,
+"d": "American singer and actor (1935–1977)"
+},
+{
+"n": "Whitney Houston",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/5/52/Whitney_Houston_%28cropped3%29.JPEG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 518,
+"h": 736,
+"d": "American singer and actress (1963–2012)"
+},
+{
+"n": "Celine Dion",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/f/f5/C%C3%A9line_Dion_2012.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 565,
+"h": 800,
+"d": "Canadian singer (born 1968)"
+},
+{
+"n": "Mariah Carey",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/2/22/Mariah_Carey_Library_of_Congress_2023_1_Cropped_3.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 199,
+"h": 261,
+"d": "American singer-songwriter (born 1969)"
+},
+{
+"n": "Freddie Mercury",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ef/Freddie_Mercury_performing_in_New_Haven%2C_CT%2C_November_1977.jpg/960px-Freddie_Mercury_performing_in_New_Haven%2C_CT%2C_November_1977.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 950,
+"d": "British rock singer and songwriter (1946–1991)"
+},
+{
+"n": "John Lennon",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/John_Lennon_%22Walls_and_Bridges%22_1974_press_photo_2_%28color%29_%28cropped%29.jpg/960px-John_Lennon_%22Walls_and_Bridges%22_1974_press_photo_2_%28color%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "English musician and activist (1940–1980)"
+},
+{
+"n": "Paul McCartney",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4f/MaccaLyricsRFH051121_%2815_of_18%29_%28updated%29_%28cropped%29.jpg/960px-MaccaLyricsRFH051121_%2815_of_18%29_%28updated%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 854,
+"d": "English musician and songwriter (born 1942)"
+},
+{
+"n": "David Bowie",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/e/e8/David-Bowie_Chicago_2002-08-08_photoby_Adam-Bielawski-cropped.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 342,
+"h": 400,
+"d": "English musician and actor (1947–2016)"
+},
+{
+"n": "Prince",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/Prince_promo_picture_%281988%3B_cropped_and_retouched%29.png/960px-Prince_promo_picture_%281988%3B_cropped_and_retouched%29.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 817,
+"d": "American musician and songwriter (1958–2016)"
+},
+{
+"n": "Tina Turner",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0b/Tina_Turner_Breaks_All_the_Rules.png/960px-Tina_Turner_Breaks_All_the_Rules.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 972,
+"d": "Singer-songwriter and actress (1939–2023)"
+},
+{
+"n": "Elton John",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/6/61/EltonDocBFILFF101024_%284_of_17%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 878,
+"h": 1170,
+"d": "British musician and songwriter"
+},
+{
+"n": "Dolly Parton",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8c/Young-Dolly-Parton_%28higher_quality_scan%29_%28cropped%29.jpg/960px-Young-Dolly-Parton_%28higher_quality_scan%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 822,
+"d": "American singer-songwriter (1946–2026)"
+},
+{
+"n": "Snoop Dogg",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Snoop_Dogg%2C_WrestleMania_XL_%28cropped%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 817,
+"h": 1049,
+"d": "American rapper (born 1971)"
+},
+{
+"n": "Tupac Shakur",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Tupac_Shakur_in_1995.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 599,
+"h": 800,
+"d": "American rapper and actor (1971–1996)"
+},
+{
+"n": "The Weeknd",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a0/The_Weeknd_Portrait_by_Brian_Ziff.jpg/960px-The_Weeknd_Portrait_by_Brian_Ziff.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 959,
+"d": "Canadian singer and songwriter (born 1990)"
+},
+{
+"n": "Dua Lipa",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/66/Dua_Lipa-69798_%28cropped%29.jpg/960px-Dua_Lipa-69798_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 984,
+"d": "English singer and songwriter (born 1995)"
+},
+{
+"n": "Harry Styles",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/HarryStylesWembley170623_%2865_of_93%29_%2852982678051%29_%28cropped_2%29.jpg/960px-HarryStylesWembley170623_%2865_of_93%29_%2852982678051%29_%28cropped_2%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "English singer, songwriter, and actor (born 1994)"
+},
+{
+"n": "Cardi B",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/27/Cardi_B_at_2026_Essence_Festival_of_Culture_02_%28cropped%29_%28cropped%29.jpg/960px-Cardi_B_at_2026_Essence_Festival_of_Culture_02_%28cropped%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 868,
+"d": "American rapper (born 1992)"
+},
+{
+"n": "Nicki Minaj",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a4/Nicki_Minaj_2025_%283x4_cropped%29.jpg/960px-Nicki_Minaj_2025_%283x4_cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 851,
+"d": "Trinidadian rapper and singer-songwriter (born 1982)"
+},
+{
+"n": "Alicia Keys",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c4/Alicia_Keys_%282025%29.jpg/960px-Alicia_Keys_%282025%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 854,
+"d": "American singer and songwriter (born 1981)"
+},
+{
+"n": "Usher",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Usher_Milan_2026.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 396,
+"h": 508,
+"d": "American singer (born 1978)"
+},
+{
+"n": "Post Malone",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a9/Post_Malone_July_2021_%28cropped%29.jpg/960px-Post_Malone_July_2021_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 839,
+"d": "American singer and rapper (born 1995)"
+},
+{
+"n": "Kendrick Lamar",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/KendrickSZASPurs230725-144_%28cropped%29_desaturated.jpg/960px-KendrickSZASPurs230725-144_%28cropped%29_desaturated.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 893,
+"d": "American rapper and songwriter (born 1987)"
+},
+{
+"n": "SZA",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/KendrickSZASPurs230725-19_-_54683179509_%28cropped%29_%28cropped%29.jpg/960px-KendrickSZASPurs230725-19_-_54683179509_%28cropped%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 959,
+"d": "American singer-songwriter (born 1989)"
+},
+{
+"n": "Doja Cat",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/29/Doja_Cat_x_Amazon1.1_%28cropped%29.jpg/960px-Doja_Cat_x_Amazon1.1_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 850,
+"d": "American rapper (born 1995)"
+},
+{
+"n": "Frank Sinatra",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e3/Frank_Sinatra_%281957_studio_portrait_close-up%29.jpg/960px-Frank_Sinatra_%281957_studio_portrait_close-up%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 842,
+"d": "American singer and actor (1915–1998)"
+},
+{
+"n": "Stevie Wonder",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/SWonderBSTHyde060719-72_%28cropped%29.jpg/960px-SWonderBSTHyde060719-72_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "American musician (born 1950)"
+},
+{
+"n": "Bob Dylan",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/DylanYoungKilkenny140719v2_%2850_of_52%29_%2852246124397%29_%28cropped%29.jpg/960px-DylanYoungKilkenny140719v2_%2850_of_52%29_%2852246124397%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 855,
+"d": "American singer-songwriter (born 1941)"
+},
+{
+"n": "Mick Jagger",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7a/RStonesHydePark030722_%2849_of_125%29_%2852193656268%29_%28cropped%29.jpg/960px-RStonesHydePark030722_%2849_of_125%29_%2852193656268%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "English musician and songwriter (born 1943)"
+},
+{
+"n": "Bad Bunny",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b1/Bad_Bunny_2019_by_Glenn_Francis_%28cropped%29.jpg/960px-Bad_Bunny_2019_by_Glenn_Francis_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 968,
+"d": "Puerto Rican rapper (born 1994)"
+},
+{
+"n": "Lizzo",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/1/16/Lizzo_September_2025.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 464,
+"h": 632,
+"d": "American singer and rapper (born 1988)"
+},
+{
+"n": "Chris Brown",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/c/c4/A1_Chris_Brown_2025.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 635,
+"h": 813,
+"d": "American singer, songwriter, dancer, and actor (born 1989)"
+},
+{
+"n": "Olivia Rodrigo",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Glasto2025-546_%28cropped%29_2.jpg/960px-Glasto2025-546_%28cropped%29_2.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 943,
+"d": "American singer-songwriter and actress (born 2003)"
+},
+{
+"n": "Sabrina Carpenter",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/6/61/Sabrina_Carpenter_-_O2_Arena_2025_-_086_%28cropped_2%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 683,
+"h": 981,
+"d": "American singer, songwriter and actress (born 1999)"
+},
+{
+"n": "50 Cent",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Curtis_%2250_Cent%22_Jackson_visits_Barksdale_AFB_%285%29_%28cropped%29.jpg/960px-Curtis_%2250_Cent%22_Jackson_visits_Barksdale_AFB_%285%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 854,
+"d": "American rapper and actor (born 1975)"
+},
+{
+"n": "Pharrell Williams",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4f/Pharrell_Williams_2024_%2854133384149%29.jpg/960px-Pharrell_Williams_2024_%2854133384149%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 877,
+"d": "American musician and songwriter (born 1973)"
+},
+{
+"n": "Lionel Richie",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/53/Lionel_Richie_2022_%2851930307118%29_%28cropped%29.jpg/960px-Lionel_Richie_2022_%2851930307118%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 854,
+"d": "American singer (born 1949)"
+},
+{
+"n": "Janet Jackson",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9c/JanetJacksonUnbreakableTourSanFran2015_%28cropped%29.jpg/960px-JanetJacksonUnbreakableTourSanFran2015_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 813,
+"d": "American singer, songwriter, and dancer (born 1966)"
+},
+{
+"n": "Aretha Franklin",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c6/Aretha_Franklin_1968.jpg/960px-Aretha_Franklin_1968.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 754,
+"d": "American soul singer (1942–2018)"
+},
+{
+"n": "Louis Armstrong",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Louis_Armstrong_in_Color_%28restored%29.jpg/960px-Louis_Armstrong_in_Color_%28restored%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 473,
+"d": "American jazz trumpeter and singer (1901–1971)"
+},
+{
+"n": "Jimi Hendrix",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/aa/Jimi_Hendrix_%281967%29_%28cropped%29.jpg/960px-Jimi_Hendrix_%281967%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 911,
+"d": "American guitarist (1942–1970)"
+},
+{
+"n": "Kurt Cobain",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/3/37/Nirvana_around_1992_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 260,
+"h": 346,
+"d": "American rock musician (1967–1994)"
+},
+{
+"n": "Selena Gomez",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/81/Selena_Gomez_at_the_2024_Toronto_International_Film_Festival_10_%28cropped%29.jpg/960px-Selena_Gomez_at_the_2024_Toronto_International_Film_Festival_10_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 862,
+"d": "American actress and singer (born 1992)"
+},
+{
+"n": "Miley Cyrus",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Miley_Cyrus_Primavera19_-226_%2848986293772%29_%28cropped%29.jpg/960px-Miley_Cyrus_Primavera19_-226_%2848986293772%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 923,
+"d": "American singer and actress (born 1992)"
+},
+{
+"n": "Katy Perry",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/Katy_Perry_2026_Tribeca_Film_Festival_%28cropped_1%29.jpg/960px-Katy_Perry_2026_Tribeca_Film_Festival_%28cropped_1%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 880,
+"d": "American singer (born 1984)"
+},
+{
+"n": "Jennifer Lopez",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/Jennifer_Lopez_at_the_2025_Sundance_Film_Festival_%28cropped_3%29.jpg/960px-Jennifer_Lopez_at_the_2025_Sundance_Film_Festival_%28cropped_3%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 822,
+"d": "American singer-songwriter and actress (born 1969)"
+},
+{
+"n": "Britney Spears",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/d/da/Britney_Spears_2013_%28Straighten_Crop%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 639,
+"h": 1016,
+"d": "American singer (born 1981)"
+},
+{
+"n": "Burna Boy",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/Untold_2024_-Burna_Boy_%2853926047977%29_%28cropped%29.jpg/960px-Untold_2024_-Burna_Boy_%2853926047977%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 640,
+"d": "Nigerian singer-songwriter (born 1991)"
+},
+{
+"n": "Wizkid",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Artworks-UWHjOik17qMFy0Sb-64tibA-t500x500.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 500,
+"h": 500,
+"d": "Nigerian singer (born 1990)"
+},
+{
+"n": "Davido",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Davido_2024_%28cropped%29.jpg/960px-Davido_2024_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 827,
+"d": "Nigerian singer (born 1992)"
+},
+{
+"n": "Tems",
+"c": "music",
+"g": "f",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/10/Tems_Afro_Plus_Fest_%2855514652102%29.jpg/960px-Tems_Afro_Plus_Fest_%2855514652102%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "Nigerian singer (born 1995)"
+},
+{
+"n": "Rema",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Rema_Performing_live_in_Boston_%28May_2025%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 746,
+"h": 865,
+"d": "Nigerian singer-songwriter and rapper (born 2000)"
+},
+{
+"n": "Tiwa Savage",
+"c": "music",
+"g": "f",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Tiwa_Savage%27s_studio_portrait.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 600,
+"h": 900,
+"d": "Nigerian singer and songwriter (born 1980)"
+},
+{
+"n": "Yemi Alade",
+"c": "music",
+"g": "f",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/34/Yemi_Allad%C3%A9_%C3%A0_la_c%C3%A9l%C3%A9bration_du_Vodoun_Days_2024_a_Ouidah_au_B%C3%A9nin12_%28cropped%29.png/960px-Yemi_Allad%C3%A9_%C3%A0_la_c%C3%A9l%C3%A9bration_du_Vodoun_Days_2024_a_Ouidah_au_B%C3%A9nin12_%28cropped%29.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 669,
+"d": "Nigerian singer and songwriter (born 1989)"
+},
+{
+"n": "Diamond Platnumz",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Diamond_Platnumz.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 625,
+"h": 532,
+"d": "Tanzanian singer, dancer, philanthropist and businessman"
+},
+{
+"n": "Fally Ipupa",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/81/Fally_Ipupa_a_Paris%2C_en_France.jpg/960px-Fally_Ipupa_a_Paris%2C_en_France.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 956,
+"d": "Congolese singer (born 1977)"
+},
+{
+"n": "Angélique Kidjo",
+"c": "music",
+"g": "f",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/Ang%C3%A9lique_Kidjo_Gershwin_2023.jpg/960px-Ang%C3%A9lique_Kidjo_Gershwin_2023.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 885,
+"d": "Beninese musician"
+},
+{
+"n": "Miriam Makeba",
+"c": "music",
+"g": "f",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Miriam_makeba_01.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 523,
+"h": 633,
+"d": "South African singer and activist (1932–2008)"
+},
+{
+"n": "Fela Kuti",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/1/12/Fela_Kuti_circa_1986.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 836,
+"h": 1218,
+"d": "Nigerian musician and activist (1938–1997)"
+},
+{
+"n": "Youssou N'Dour",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/33/YoussouNdour20090913.jpg/960px-YoussouNdour20090913.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 561,
+"d": "Senegalese politician and musician (born 1959)"
+},
+{
+"n": "Black Coffee",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Dj_Shimza_with_Black_Coffee_Dj.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 720,
+"h": 519,
+"d": "South African DJ and producer"
+},
+{
+"n": "Ayra Starr",
+"c": "music",
+"g": "f",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Ayra_Starr_performing_in_2023_at_Shoke_Shoke_Festival.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 694,
+"h": 789,
+"d": "Beninese-born Nigerian singer (born 2002)"
+},
+{
+"n": "Asake",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fc/Asake_in_2024_performing_at_a_Toronto_concert.png/960px-Asake_in_2024_performing_at_a_Toronto_concert.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 743,
+"d": "Nigerian musician (born 1999)"
+},
+{
+"n": "Mr Eazi",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/6/61/Mr_Eazi.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 776,
+"h": 604,
+"d": "Nigerian singer (born 1991)"
+},
+{
+"n": "Harmonize",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Harmonize.webp?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 640,
+"h": 776,
+"d": "Tanzanian singer-songwriter"
+},
+{
+"n": "Ali Kiba",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Ali_Kiba_2017.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 636,
+"h": 719,
+"d": "Tanzanian musician and songwriter"
+},
+{
+"n": "Koffi Olomide",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/Koffi_Olomd%C3%A9_%C3%A0_la_c%C3%A9l%C3%A9bration_du_Vodoun_Days_2024_%C3%A0_Ouidah_au_B%C3%A9nin01_37.png/960px-Koffi_Olomd%C3%A9_%C3%A0_la_c%C3%A9l%C3%A9bration_du_Vodoun_Days_2024_%C3%A0_Ouidah_au_B%C3%A9nin01_37.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "Congolese musician (born 1956)"
+},
+{
+"n": "Salif Keita",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/43/Salif_Keita.JPG/960px-Salif_Keita.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 480,
+"d": "Malian singer-songwriter (born 1949)"
+},
+{
+"n": "Hugh Masekela",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/2/28/Womex2011_-_Crawfurd6468_%286299756789%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 775,
+"h": 663,
+"d": "South African musician and composer (1939–2018)"
+},
+{
+"n": "Lucky Dube",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/Legendary_Lucky_Dube.jpg/960px-Legendary_Lucky_Dube.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 498,
+"d": "South African reggae musician (1964–2007)"
+},
+{
+"n": "Cassper Nyovest",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/34/Cassper_Nyovest_Back_to_the_City_2014.jpg/960px-Cassper_Nyovest_Back_to_the_City_2014.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 427,
+"d": "South African rapper (born 1990)"
+},
+{
+"n": "Tyla",
+"c": "music",
+"g": "f",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/5/55/Guests_at_the_2026_Met_Gala_384_%28Tyla_facecrop%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 350,
+"h": 398,
+"d": "South African singer-songwriter (born 2002)"
+},
+{
+"n": "Nyashinski",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Nyashinski.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 925,
+"h": 1024,
+"d": "Kenyan musician (born 1984)"
+},
+{
+"n": "Akothee",
+"c": "music",
+"g": "f",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Esther_Akoth.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 612,
+"h": 438,
+"d": "Kenyan musician and business woman"
+},
+{
+"n": "Jose Chameleone",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/Jose_Chameleone.webp/960px-Jose_Chameleone.webp?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 400,
+"d": "Ugandan musician (born 1979)"
+},
+{
+"n": "Bobi Wine",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Bobi_Wine_2024.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 404,
+"h": 500,
+"d": "National Unity Platform president (born 1982)"
+},
+{
+"n": "Eddy Kenzo",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7b/Eddy_Kenzo_at_97.7_Record_FM.jpg/960px-Eddy_Kenzo_at_97.7_Record_FM.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 360,
+"d": "Ugandan musical artist and Presidential advisor on Creatives"
+},
+{
+"n": "Khaligraph Jones",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Khaligraph_Jones.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 709,
+"h": 724,
+"d": "Kenyan rapper (born 1969)"
+},
+{
+"n": "John Coltrane",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/John_Coltrane_1963_cropped_ver2.jpg/960px-John_Coltrane_1963_cropped_ver2.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "American jazz saxophonist (1926–1967)"
+},
+{
+"n": "Miles Davis",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/24/Miles_Davis_by_Palumbo_cropped.jpg/960px-Miles_Davis_by_Palumbo_cropped.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 711,
+"d": "American jazz musician (1926–1991)"
+},
+{
+"n": "Ella Fitzgerald",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a4/Ella_Fitzgerald_6_%28cropped%29.jpg/960px-Ella_Fitzgerald_6_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 834,
+"d": "American jazz singer (1917–1996)"
+},
+{
+"n": "Nina Simone",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/89/Nina_Simone_-1969.jpg/960px-Nina_Simone_-1969.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 962,
+"d": "American musician (1933–2003)"
+},
+{
+"n": "Billie Holiday",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/Portrait_of_Billie_Holiday_and_Mister%2C_Downbeat%2C_New_York%2C_N.Y.%2C_ca._Feb._1947_%28LOC%2C_5020400274%2C_cropped%29.jpg/960px-Portrait_of_Billie_Holiday_and_Mister%2C_Downbeat%2C_New_York%2C_N.Y.%2C_ca._Feb._1947_%28LOC%2C_5020400274%2C_cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 712,
+"d": "American jazz singer (1915–1959)"
+},
+{
+"n": "Duke Ellington",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/Duke_Ellington_-_publicity.JPG/960px-Duke_Ellington_-_publicity.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 780,
+"d": "American jazz pianist and composer (1899–1974)"
+},
+{
+"n": "Ray Charles",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Ray_Charles_classic_piano_pose.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 850,
+"h": 1002,
+"d": "American singer, songwriter and pianist (1930–2004)"
+},
+{
+"n": "James Brown",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b1/James_Brown_1996_%28HQ%29.jpg/960px-James_Brown_1996_%28HQ%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 913,
+"d": "American musician (1933–2006)"
+},
+{
+"n": "Marvin Gaye",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/Marvin_Gaye_in_1973.jpg/960px-Marvin_Gaye_in_1973.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "American singer and songwriter (1939–1984)"
+},
+{
+"n": "Otis Redding",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/Otis_Redding_1967.JPG/960px-Otis_Redding_1967.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 762,
+"d": "American singer and songwriter (1941–1967)"
+},
+{
+"n": "Amy Winehouse",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cf/Amy_Winehouse_f4962007_crop.jpg/960px-Amy_Winehouse_f4962007_crop.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 915,
+"d": "British singer-songwriter (1983–2011)"
+},
+{
+"n": "Chuck Berry",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/Chuck_Berry_1957.jpg/960px-Chuck_Berry_1957.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 808,
+"d": "American musician (1926–2017)"
+},
+{
+"n": "B.B. King",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Bbking.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 789,
+"h": 1100,
+"d": "American blues guitarist, singer, and songwriter (1925–2015)"
+},
+{
+"n": "Johnny Cash",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Johnny_Cash_1977.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 680,
+"h": 904,
+"d": "American country singer (1932–2003)"
+},
+{
+"n": "Peter Tosh",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/2/26/BushDoctor1978_%28cropped2%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 226,
+"h": 302,
+"d": "Jamaican reggae musician (1944–1987)"
+},
+{
+"n": "Jimmy Cliff",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5f/Jimmy_Cliff_-_Festival_du_Bout_du_Monde_2012_-_022_%28cropped%29.jpg/960px-Jimmy_Cliff_-_Festival_du_Bout_du_Monde_2012_-_022_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 700,
+"d": "Jamaican musician (1944–2025)"
+},
+{
+"n": "Celia Cruz",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/8/89/Celia_Cruz_1957_color.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 906,
+"h": 1108,
+"d": "Cuban singer (1925–2003)"
+},
+{
+"n": "Luciano Pavarotti",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Luciano_Pavarotti_2004.jpg/960px-Luciano_Pavarotti_2004.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 914,
+"d": "Italian operatic tenor (1935–2007)"
+},
+{
+"n": "Andrea Bocelli",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/e/e8/2025_Andrea_Bocelli_in_the_White_House_Oval_Office_on_October_17_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 411,
+"h": 550,
+"d": "Italian tenor (born 1958)"
+},
+{
+"n": "Herbie Hancock",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/Herbie_Hancock_2023.jpg/960px-Herbie_Hancock_2023.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 816,
+"d": "American jazz pianist and composer (born 1940)"
+},
+{
+"n": "Quincy Jones",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/81/Quincy_jones_1980_%28cropped%29.jpg/960px-Quincy_jones_1980_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 794,
+"d": "American record producer and musician (1933–2024)"
+},
+{
+"n": "Sade",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dc/Sade_Adu_1_%28cropped%29.jpg/960px-Sade_Adu_1_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 851,
+"d": "British singer and songwriter (born 1959)"
+},
+{
+"n": "Erykah Badu",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/00/Erykah_Badu_at_EssenceFest_2025_-_01_crop.jpg/960px-Erykah_Badu_at_EssenceFest_2025_-_01_crop.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 611,
+"d": "American singer (born 1971)"
+},
+{
+"n": "Lauryn Hill",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Lauryn_Hill_Kongsberg_Jazzfestival_2019_%28221758%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 525,
+"h": 600,
+"d": "American rapper and singer (born 1975)"
+},
+{
+"n": "Missy Elliott",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/7/77/Missy_Elliot.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 616,
+"h": 795,
+"d": "American rapper (born 1971)"
+},
+{
+"n": "Ice Cube",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Ice_Cube_September_2025.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 578,
+"h": 784,
+"d": "American rapper and actor (born 1969)"
+},
+{
+"n": "Bruce Springsteen",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/93/Bruce_Springsteen_Springsteen-79_%28cropped%29.jpg/960px-Bruce_Springsteen_Springsteen-79_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "American musician and songwriter (born 1949)"
+},
+{
+"n": "Jon Bon Jovi",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/NEG_0062-2_%2854119957209%29.jpg/960px-NEG_0062-2_%2854119957209%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "American rock singer-songwriter (born 1962)"
+},
+{
+"n": "Ozzy Osbourne",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Ozzy_Osbourne_in_1970_%28medium-sized_crop%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 960,
+"h": 1342,
+"d": "English musician and media personality (1948–2025)"
+},
+{
+"n": "Shania Twain",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/Shania_Twain_Glaston2024_2806_300624_%2822_of_173%29_%2853838020769%29_%28cropped%29.jpg/960px-Shania_Twain_Glaston2024_2806_300624_%2822_of_173%29_%2853838020769%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 961,
+"d": "Canadian singer and songwriter (born 1965)"
+},
+{
+"n": "Little Richard",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/Little_Richard_1984_%28cropped%29.jpg/960px-Little_Richard_1984_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 816,
+"d": "American musician (1932–2020)"
+},
+{
+"n": "Diana Ross",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b4/DRossLongleat010722_%289_of_43%29_%2852189231585%29_%28cropped%29.jpg/960px-DRossLongleat010722_%289_of_43%29_%2852189231585%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 778,
+"d": "American singer and actress (born 1944)"
+},
+{
+"n": "Smokey Robinson",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/50/Smokey_Robinson_by_Gage_Skidmore.jpg/960px-Smokey_Robinson_by_Gage_Skidmore.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 935,
+"d": "American singer (born 1940)"
+},
+{
+"n": "Nat King Cole",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Nat_King_Cole_1947.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 713,
+"h": 871,
+"d": "American singer and jazz pianist (1919–1965)"
+},
+{
+"n": "Dizzy Gillespie",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5e/Portrait_of_Dizzy_Gillespie%2C_Famous_Door%2C_New_York%2C_N.Y.%2C_ca._June_1946_%28cropped%29.jpg/960px-Portrait_of_Dizzy_Gillespie%2C_Famous_Door%2C_New_York%2C_N.Y.%2C_ca._June_1946_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 852,
+"d": "American jazz trumpeter (1917–1993)"
+},
+{
+"n": "Charlie Parker",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/Portrait_of_Charlie_Parker_in_1947.jpg/960px-Portrait_of_Charlie_Parker_in_1947.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 632,
+"d": "American jazz saxophonist (1920–1955)"
+},
+{
+"n": "Thelonious Monk",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/97/Thelonious_Monk%2C_Minton%27s_Playhouse%2C_New_York%2C_N.Y.%2C_ca._Sept._1947_%28William_P._Gottlieb_06191%29.jpg/960px-Thelonious_Monk%2C_Minton%27s_Playhouse%2C_New_York%2C_N.Y.%2C_ca._Sept._1947_%28William_P._Gottlieb_06191%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 673,
+"d": "American jazz pianist and composer (1917–1982)"
+},
+{
+"n": "Sarah Vaughan",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/92/Sarah_Vaughan_-_William_P._Gottlieb_-_No._1.jpg/960px-Sarah_Vaughan_-_William_P._Gottlieb_-_No._1.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "American jazz singer and pianist (1924–1990)"
+},
+{
+"n": "Etta James",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c0/Etta_James04.JPG/960px-Etta_James04.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 611,
+"d": "American blues singer (1938–2012)"
+},
+{
+"n": "Sam Cooke",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/9/90/Sam_Cooke_2.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 891,
+"h": 1660,
+"d": "American singer and songwriter (1931–1964)"
+},
+{
+"n": "Bill Withers",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/3/38/Bill_Withers_1976.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 741,
+"h": 920,
+"d": "American musician (1938–2020)"
+},
+{
+"n": "Al Green",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Al_Green_in_Washington_D.C_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 473,
+"h": 653,
+"d": "American soul singer, songwriter and pastor (born 1946)"
+},
+{
+"n": "Rosalía",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/2023-11-16_Gala_de_los_Latin_Grammy%2C_27_%28cropped%29.jpg/960px-2023-11-16_Gala_de_los_Latin_Grammy%2C_27_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "Spanish singer-songwriter (born 1992)"
+},
+{
+"n": "J Balvin",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/0/0c/J_Balvin%2C_Noisey_Meets%3B_Oct_2018.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 844,
+"h": 1125,
+"d": "Colombian singer-songwriter (born 1985)"
+},
+{
+"n": "Daddy Yankee",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Daddy_Yankee_-_The_Kingdom_%28Official_Q_%26_A%29.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 321,
+"h": 438,
+"d": "Puerto Rican rapper and singer (born 1976 or 1977)"
+},
+{
+"n": "Karol G",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cb/2023-11-16_Gala_de_los_Latin_Grammy%2C_15.jpg/960px-2023-11-16_Gala_de_los_Latin_Grammy%2C_15.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "Colombian singer-songwriter (born 1991)"
+},
+{
+"n": "Marc Anthony",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/6/66/Interview_with_Marc_Anthony_%28cropped%29.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 699,
+"h": 1049,
+"d": "American singer (born 1968)"
+},
+{
+"n": "Enrique Iglesias",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/Enrique_Iglesias_2011%2C_2_%28cropped%29.jpg/960px-Enrique_Iglesias_2011%2C_2_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 854,
+"d": "Spanish singer (born 1975)"
+},
+{
+"n": "Ricky Martin",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/Ricky_Martin-4262.jpg/960px-Ricky_Martin-4262.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "Puerto Rican singer (born 1971)"
+},
+{
+"n": "Oliver Mtukudzi",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/1/16/Oliver_Mtukudzi.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 344,
+"h": 466,
+"d": "Zimbabwean musician (1952–2019)"
+},
+{
+"n": "Papa Wemba",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/Papa_Wemba.jpg/960px-Papa_Wemba.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 480,
+"d": "Congolese musician (1949–2016)"
+},
+{
+"n": "Manu Dibango",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/LesEscales2019ManuDibango_03_%28cropped%29.jpg/960px-LesEscales2019ManuDibango_03_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 852,
+"d": "Cameroonian musician and songwriter (1933–2020)"
+},
+{
+"n": "Cesária Évora",
+"c": "music",
+"g": "f",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Ces%C3%A1ria_%C3%89vora_2008.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 685,
+"h": 1024,
+"d": "Cape Verdean singer-songwriter (1941–2011)"
+},
+{
+"n": "Mbilia Bel",
+"c": "music",
+"g": "f",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Mbilia_Bel_et_Verckys_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 320,
+"h": 466,
+"d": "Congolese singer (born 1959)"
+},
+{
+"n": "Franco Luambo",
+"c": "music",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/3/30/Franco_Luambo_Makiadi.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 171,
+"h": 246,
+"d": "Congolese musician and cultural revolutionary (1938–1989)"
+},
+{
+"n": "Garth Brooks",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/Garth_Brooks_KCHD_2022.jpg/960px-Garth_Brooks_KCHD_2022.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 791,
+"d": "American country singer (born 1962)"
+},
+{
+"n": "Willie Nelson",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/f/fd/Willie_Nelson_%28Retouched%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 518,
+"h": 683,
+"d": "American musician (born 1933)"
+},
+{
+"n": "Kenny Rogers",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8c/KennyRogers.jpg/960px-KennyRogers.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 1036,
+"d": "American country singer (1938–2020)"
+},
+{
+"n": "Carrie Underwood",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/8/88/191125_Carrie_Underwood_at_the_2019_American_Music_Awards_%28cropped%29.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 595,
+"h": 761,
+"d": "American country singer and songwriter (born 1983)"
+},
+{
+"n": "Reba McEntire",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/Reba_McEntire_%2851936713933%29_%28cropped%29.jpg/960px-Reba_McEntire_%2851936713933%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 840,
+"d": "American country singer and actress (born 1955)"
+},
+{
+"n": "Luke Combs",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/04/Luke_Combs_interview.jpg/960px-Luke_Combs_interview.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 640,
+"d": "American country singer (born 1990)"
+},
+{
+"n": "Morgan Wallen",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f8/Morgan_Wallen_performing_at_Bank_of_America_Stadium.png/960px-Morgan_Wallen_performing_at_Bank_of_America_Stadium.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 937,
+"d": "American country pop singer (born 1993)"
+},
+{
+"n": "Tim McGraw",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Tim_McGraw_October_24_2015.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 507,
+"h": 679,
+"d": "American country singer and actor (born 1967)"
+},
+{
+"n": "Faith Hill",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Faith_Hill_04.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 791,
+"h": 1240,
+"d": "American singer (born 1967)"
+},
+{
+"n": "Keith Urban",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d7/Keith_Urban_2020.jpg/960px-Keith_Urban_2020.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 862,
+"d": "Australian and American musician (born 1967)"
+},
+{
+"n": "Blake Shelton",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a2/Blake_Shelton_July_2017_%28cropped%29.jpg/960px-Blake_Shelton_July_2017_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 795,
+"d": "American country singer (born 1976)"
+},
+{
+"n": "Miranda Lambert",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Miranda-Lambert-Bandwagon-Tour-2019.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 669,
+"h": 953,
+"d": "American country singer (born 1983)"
+},
+{
+"n": "Bono",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/Bono_singing_in_Indianapolis_on_Joshua_Tree_Tour_2017_9-10-17.jpg/960px-Bono_singing_in_Indianapolis_on_Joshua_Tree_Tour_2017_9-10-17.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 678,
+"d": "Irish musician and activist (born 1960)"
+},
+{
+"n": "Chris Martin",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/ChrisMartinManch030623_%28cropped%29.jpg/960px-ChrisMartinManch030623_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "English singer-songwriter (born 1977)"
+},
+{
+"n": "Dave Grohl",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/FoosDublin210819-6_%2848620330261%29_%28cropped%29.jpg/960px-FoosDublin210819-6_%2848620330261%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 957,
+"d": "American rock musician and songwriter (born 1969)"
+},
+{
+"n": "Robert Plant",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d4/RPlantSavGraceIpswich140324_%285_of_12%29_%2853589044022%29_%28cropped%29.jpg/960px-RPlantSavGraceIpswich140324_%285_of_12%29_%2853589044022%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "English singer (born 1948)"
+},
+{
+"n": "Steven Tyler",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/Steven_Tyler_by_Gage_Skidmore_3.jpg/960px-Steven_Tyler_by_Gage_Skidmore_3.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 863,
+"d": "American singer and songwriter (born 1948)"
+},
+{
+"n": "Axl Rose",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Glasto2023_%28239_of_468%29_%2853009325175%29_%28cropped%29.jpg/960px-Glasto2023_%28239_of_468%29_%2853009325175%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "American singer and songwriter (born 1962)"
+},
+{
+"n": "Slash",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7e/Slash_live_in_London_2022_%28Cropped_-_upright%29.jpg/960px-Slash_live_in_London_2022_%28Cropped_-_upright%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 983,
+"d": "British and American musician (born 1965)"
+},
+{
+"n": "Brian May",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/Brian_May_%2854760284093%29.jpg/960px-Brian_May_%2854760284093%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "English musician (born 1947)"
+},
+{
+"n": "Eddie Vedder",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/Eddie_Vedder_2018_-2.jpg/960px-Eddie_Vedder_2018_-2.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 878,
+"d": "American musician (born 1964)"
+},
+{
+"n": "Stevie Nicks",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Guests_at_the_2026_Met_Gala_081_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 478,
+"h": 677,
+"d": "American singer-songwriter (born 1948)"
+},
+{
+"n": "Joan Jett",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/5/50/Joan_Jett_2013.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 423,
+"h": 634,
+"d": "American singer, songwriter and guitarist (born 1958)"
+},
+{
+"n": "Pink",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7f/PinkSpurs160624_%2833_of_156%29_%28cropped%29.jpg/960px-PinkSpurs160624_%2833_of_156%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "American singer and songwriter (born 1979)"
+},
+{
+"n": "Avril Lavigne",
+"c": "music",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/Glaston2024_2806_300624_%28129_of_173%29_%28cropped%29.jpg/960px-Glaston2024_2806_300624_%28129_of_173%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "Canadian singer (born 1984)"
+},
+{
+"n": "Chester Bennington",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/Linkin_Park-Rock_im_Park_2014-_by_2eight_3SC0327.jpg/960px-Linkin_Park-Rock_im_Park_2014-_by_2eight_3SC0327.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 964,
+"d": "American singer (1976–2017)"
+},
+{
+"n": "Billie Joe Armstrong",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/99/GreenDayIOW230624_%28307_of_367%29_%28cropped%29.jpg/960px-GreenDayIOW230624_%28307_of_367%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 931,
+"d": "American rock musician and songwriter (born 1972)"
+},
+{
+"n": "Lenny Kravitz",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/Untold_2024_-_Lenny_Kravitz_56.jpg/960px-Untold_2024_-_Lenny_Kravitz_56.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 940,
+"d": "American rock musician (born 1964)"
+},
+{
+"n": "Sting",
+"c": "music",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1a/Sting_at_2026_Montreux_Jazz_Festival-12-CA_%28cropped%29.jpg/960px-Sting_at_2026_Montreux_Jazz_Festival-12-CA_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "English musician and songwriter (born 1951)"
+},
+{
+"n": "Leonardo DiCaprio",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/2/2d/LeoPTABFI191125-28_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 663,
+"h": 921,
+"d": "American actor (born 1974)"
+},
+{
+"n": "Brad Pitt",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/90/Brad_Pitt-69858.jpg/960px-Brad_Pitt-69858.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "American actor (born 1963)"
+},
+{
+"n": "Angelina Jolie",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/12/Angelina_Jolie-643531_%28cropped%29.jpg/960px-Angelina_Jolie-643531_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 856,
+"d": "American actress (born 1975)"
+},
+{
+"n": "Tom Cruise",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Tom_Cruise_at_53rd_Saturn_Awards_2026-01.jpg/960px-Tom_Cruise_at_53rd_Saturn_Awards_2026-01.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 800,
+"d": "American actor and film producer (born 1962)"
+},
+{
+"n": "Will Smith",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/TechCrunch_Disrupt_San_Francisco_2019_-_Day_1_%2848834070763%29_%28cropped%29.jpg/960px-TechCrunch_Disrupt_San_Francisco_2019_-_Day_1_%2848834070763%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 866,
+"d": "American actor and rapper (born 1968)"
+},
+{
+"n": "Denzel Washington",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cc/Denzel_Washington_at_the_2025_Cannes_Film_Festival.jpg/960px-Denzel_Washington_at_the_2025_Cannes_Film_Festival.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 896,
+"d": "American actor (born 1954)"
+},
+{
+"n": "Morgan Freeman",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/Morgan_Freeman_at_The_Pentagon_on_2_August_2023_-_230802-D-PM193-3363_%28cropped%29.jpg/960px-Morgan_Freeman_at_The_Pentagon_on_2_August_2023_-_230802-D-PM193-3363_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 854,
+"d": "American actor and producer (born 1937)"
+},
+{
+"n": "Scarlett Johansson",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ad/Scarlett_Johansson-8588.jpg/960px-Scarlett_Johansson-8588.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "American actress (born 1984)"
+},
+{
+"n": "Jennifer Lawrence",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Die_My_Love_-_Cannes_2025_02_%28cropped%29.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 691,
+"h": 822,
+"d": "American actress and producer (born 1990)"
+},
+{
+"n": "Meryl Streep",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e5/Meryl_Streep-_Press_conference_for_the_film_%22The_Devil_Wears_Prada_2%22_-_55194765350_%28cropped1%29.jpg/960px-Meryl_Streep-_Press_conference_for_the_film_%22The_Devil_Wears_Prada_2%22_-_55194765350_%28cropped1%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "American actress (born 1949)"
+},
+{
+"n": "Tom Hanks",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/39/TomHanksPrincEdw031223_%2811_of_41%29_%28cropped%29.jpg/960px-TomHanksPrincEdw031223_%2811_of_41%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 888,
+"d": "American actor and filmmaker (born 1956)"
+},
+{
+"n": "Johnny Depp",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/2/21/Johnny_Depp_2020.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 400,
+"h": 550,
+"d": "American actor (born 1963)"
+},
+{
+"n": "Dwayne Johnson",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7e/Dwayne_Johnson-1764_%284x5_cropped_with_moderate_headroom%29.jpg/960px-Dwayne_Johnson-1764_%284x5_cropped_with_moderate_headroom%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 800,
+"d": "American actor and professional wrestler (born 1972)"
+},
+{
+"n": "Keanu Reeves",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b4/Keanu_Reeves_at_TIFF_2025_02_%28Cropped%29.jpg/960px-Keanu_Reeves_at_TIFF_2025_02_%28Cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "Canadian actor (born 1964)"
+},
+{
+"n": "Robert Downey Jr.",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a9/RobertDowneyJr-byPhilipRomano7_%28cropped%29.jpg/960px-RobertDowneyJr-byPhilipRomano7_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "American actor (born 1965)"
+},
+{
+"n": "Chris Hemsworth",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/Chris_Hemsworth_-_Crime_101.jpg/960px-Chris_Hemsworth_-_Crime_101.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 800,
+"d": "Australian actor (born 1983)"
+},
+{
+"n": "Zendaya",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5a/Zendaya-byPhilipRomano.jpg/960px-Zendaya-byPhilipRomano.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 962,
+"d": "American actress and singer (born 1996)"
+},
+{
+"n": "Margot Robbie",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/90/Margot_Robbie_Wuthering_Heights_premiere_%28cropped%29.jpg/960px-Margot_Robbie_Wuthering_Heights_premiere_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "Australian actress and film producer (born 1990)"
+},
+{
+"n": "Emma Watson",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Emma_Watson_2013.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 492,
+"h": 660,
+"d": "English actress (born 1990)"
+},
+{
+"n": "Viola Davis",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/Viola_Davis_2026_%28cropped%29.jpg/960px-Viola_Davis_2026_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "American actress and producer (born 1965)"
+},
+{
+"n": "Samuel L. Jackson",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Samuel_L._Jackson_attending_the_World_premier_of_%22Argylle%22_in_London_%2C_January_2024_%28cropped2%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 730,
+"h": 925,
+"d": "American actor (born 1948)"
+},
+{
+"n": "Jackie Chan",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/3/35/Jackie_Chan.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 856,
+"h": 1110,
+"d": "Hong Kong martial artist and actor (born 1954)"
+},
+{
+"n": "Shah Rukh Khan",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Shah_Rukh_Khan_graces_the_launch_of_the_new_Santro.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 369,
+"h": 529,
+"d": "Indian actor (born 1965)"
+},
+{
+"n": "Priyanka Chopra",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/4/45/Priyanka_Chopra_at_Bulgary_launch%2C_2024_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 296,
+"h": 398,
+"d": "Indian actress and film producer (born 1982)"
+},
+{
+"n": "Idris Elba",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Idris_Elba_A_House_of_Dynamite-21_%28cropped%29.jpg/960px-Idris_Elba_A_House_of_Dynamite-21_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "English actor (born 1972)"
+},
+{
+"n": "Chadwick Boseman",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e8/Chadwick_Boseman_by_Gage_Skidmore_July_2017_%28cropped%29.jpg/960px-Chadwick_Boseman_by_Gage_Skidmore_July_2017_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 848,
+"d": "American actor (1976–2020)"
+},
+{
+"n": "Kevin Hart",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/8/80/Kevin_Hart_2014_%28cropped_2%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 737,
+"h": 996,
+"d": "American comedian and actor (born 1979)"
+},
+{
+"n": "Jim Carrey",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/8/8b/Jim_Carrey_2008.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 849,
+"h": 1155,
+"d": "Canadian and American actor (born 1962)"
+},
+{
+"n": "Julia Roberts",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d3/Julia_Roberts_2025.jpg/960px-Julia_Roberts_2025.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "American actress (born 1967)"
+},
+{
+"n": "Nicole Kidman",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/MKr384262_Nicole_Kidman_%28Women_In_Motion%2C_Cannes_2025%29.jpg/960px-MKr384262_Nicole_Kidman_%28Women_In_Motion%2C_Cannes_2025%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "Australian and American actress (born 1967)"
+},
+{
+"n": "Ryan Reynolds",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/Deadpool_2_Japan_Premiere_Red_Carpet_Ryan_Reynolds_%28cropped%29.jpg/960px-Deadpool_2_Japan_Premiere_Red_Carpet_Ryan_Reynolds_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "Canadian-American actor and entrepreneur (born 1976)"
+},
+{
+"n": "Hugh Jackman",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Hugh_Jackman_Is_This_Thing_On-68_%28cropped%29.jpg/960px-Hugh_Jackman_Is_This_Thing_On-68_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "Australian actor and singer (born 1968)"
+},
+{
+"n": "Timothée Chalamet",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5c/Timoth%C3%A9e_Chalamet-63482_%28cropped%29.jpg/960px-Timoth%C3%A9e_Chalamet-63482_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 865,
+"d": "American and French actor (born 1995)"
+},
+{
+"n": "Tom Holland",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/TomHolland-byPhilipRomano.jpg/960px-TomHolland-byPhilipRomano.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 962,
+"d": "British actor (born 1996)"
+},
+{
+"n": "Gal Gadot",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/Gal_Gadot_by_Gage_Skidmore_3.jpg/960px-Gal_Gadot_by_Gage_Skidmore_3.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 890,
+"d": "Israeli actress (born 1985)"
+},
+{
+"n": "Jennifer Aniston",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/1/16/JenniferAnistonHWoFFeb2012.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 716,
+"h": 754,
+"d": "American actress (born 1969)"
+},
+{
+"n": "Sandra Bullock",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Sandra_Bullock_at_The_Egyptian_Theatre_2024.jpg/960px-Sandra_Bullock_at_The_Egyptian_Theatre_2024.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 800,
+"d": "American actress (born 1964)"
+},
+{
+"n": "Halle Berry",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/aa/Halle_Berry-1910.jpg/960px-Halle_Berry-1910.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "American actress (born 1966)"
+},
+{
+"n": "Arnold Schwarzenegger",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e3/Arnold_Schwarzenegger_-_Austrian_World_Summit_2026_BHO-2906.jpg/960px-Arnold_Schwarzenegger_-_Austrian_World_Summit_2026_BHO-2906.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "Austrian and American bodybuilder, actor and politician (born 1947)"
+},
+{
+"n": "Sylvester Stallone",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/1/12/P20251206DT-0472_%283x4_cropped_on_Stallone_with_moderate_headroom%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 468,
+"h": 623,
+"d": "American actor and filmmaker (born 1946)"
+},
+{
+"n": "Marilyn Monroe",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/Monroecirca1953.jpg/960px-Monroecirca1953.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 941,
+"d": "American actress and model (1926–1962)"
+},
+{
+"n": "Audrey Hepburn",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Audrey_Hepburn_1956_%282%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 632,
+"h": 759,
+"d": "British actress (1929–1993)"
+},
+{
+"n": "Charlie Chaplin",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/Charlie_Chaplin_portrait_Getty_1739411952.jpg/960px-Charlie_Chaplin_portrait_Getty_1739411952.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 912,
+"d": "English actor and filmmaker (1889–1977)"
+},
+{
+"n": "Pedro Pascal",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Pedro_Pascal_at_the_2026_New_York_Film_Festival-042.jpg/960px-Pedro_Pascal_at_the_2026_New_York_Film_Festival-042.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "Chilean and American actor (born 1975)"
+},
+{
+"n": "Cillian Murphy",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Cillian_Murphy_at_the_London_premier_of_Steve_in_September_2025_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 808,
+"h": 1213,
+"d": "Irish actor (born 1976)"
+},
+{
+"n": "Anne Hathaway",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/AnneHathaway-byPhilipRomano-Crop.jpg/960px-AnneHathaway-byPhilipRomano-Crop.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 962,
+"d": "American actress (born 1982)"
+},
+{
+"n": "Rowan Atkinson",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/a/a2/Rowan_Atkinson%2C_2011.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 765,
+"h": 931,
+"d": "English actor, comedian, and writer (born 1955)"
+},
+{
+"n": "Emma Stone",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Emma_Stone_at_the_2025_Venice_Film_Festival-6313_%28cropped%29.jpg/960px-Emma_Stone_at_the_2025_Venice_Film_Festival-6313_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 851,
+"d": "American actress and film producer (born 1988)"
+},
+{
+"n": "Oprah Winfrey",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e0/Oprah_Winfrey_2016.jpg/960px-Oprah_Winfrey_2016.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 926,
+"d": "American actress and media mogul (born 1954)"
+},
+{
+"n": "Ellen DeGeneres",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/Ellen_DeGeneres_2011.jpg/960px-Ellen_DeGeneres_2011.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 954,
+"d": "American comedian and television host (born 1958)"
+},
+{
+"n": "Steve Harvey",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/1/16/SteveHarveyHWOFMay2013_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 495,
+"h": 719,
+"d": "American comedian and television host (born 1957)"
+},
+{
+"n": "Gordon Ramsay",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/9/96/Gordon_Ramsay_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 676,
+"h": 1039,
+"d": "British celebrity chef (born 1966)"
+},
+{
+"n": "Kim Kardashian",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/Kim_Kardashian_West_2014.jpg/960px-Kim_Kardashian_West_2014.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "American media personality (born 1980)"
+},
+{
+"n": "Kylie Jenner",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/4/43/Kylie_Jenner2_%28cropped%29.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 563,
+"h": 690,
+"d": "American media personality and socialite (born 1997)"
+},
+{
+"n": "MrBeast",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/47/MrBeast_in_2026_%28cropped_4%29.png/960px-MrBeast_in_2026_%28cropped_4%29.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 854,
+"d": "American YouTuber and philanthropist (born 1998)"
+},
+{
+"n": "Khaby Lame",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ec/Khaby_Lame%2C_Nov_2025_%28cropped1%29.jpg/960px-Khaby_Lame%2C_Nov_2025_%28cropped1%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 854,
+"d": "Senegalese-Italian influencer (born 2000)"
+},
+{
+"n": "Naomi Campbell",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/1/10/Naomi_Campbell_Cannes_2018.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 679,
+"h": 960,
+"d": "British model (born 1970)"
+},
+{
+"n": "Tyra Banks",
+"c": "screen",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Tyra_Banks_2018_4.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 637,
+"h": 878,
+"d": "American entertainer (born 1973)"
+},
+{
+"n": "Jimmy Fallon",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/3/36/Jimmy_Fallon-TTL_4575_%2811046141004%29_%285x7_cropped_and_rotated%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 420,
+"h": 588,
+"d": "American comedian and television host (born 1974)"
+},
+{
+"n": "Will Ferrell",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/Will_Ferrell_at_the_2024_Toronto_International_Film_Festival_5_%28cropped%29.jpg/960px-Will_Ferrell_at_the_2024_Toronto_International_Film_Festival_5_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "American actor and comedian (born 1967)"
+},
+{
+"n": "Lupita Nyong'o",
+"c": "screen",
+"g": "f",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c4/LupitaNyongo-byPhilipRomano3.jpg/960px-LupitaNyongo-byPhilipRomano3.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 962,
+"d": "Actress (born 1983)"
+},
+{
+"n": "Trevor Noah",
+"c": "screen",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/28/Trevor_Noah_%2853554114243%29_%28portrait_crop%29.jpg/960px-Trevor_Noah_%2853554114243%29_%28portrait_crop%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 854,
+"d": "South African comedian (born 1984)"
+},
+{
+"n": "Daniel Kaluuya",
+"c": "screen",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0d/Daniel_Kaluuya_in_2026_%28cropped%29.jpg/960px-Daniel_Kaluuya_in_2026_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 854,
+"d": "British actor (born 1989)"
+},
+{
+"n": "Genevieve Nnaji",
+"c": "screen",
+"g": "f",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/7/7e/Genevieve_Nnaji_in_Weekend_Getaway.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 691,
+"h": 533,
+"d": "Nigerian actress, producer, and director (born 1979)"
+},
+{
+"n": "Omotola Jalade Ekeinde",
+"c": "screen",
+"g": "f",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Omotola_Jalade_Ekeinde_WEF_2015.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 606,
+"h": 566,
+"d": "Nigerian actress (born 1978)"
+},
+{
+"n": "Charlize Theron",
+"c": "screen",
+"g": "f",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/73/CharlizeTheron-byPhilipRomano2.jpg/960px-CharlizeTheron-byPhilipRomano2.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 962,
+"d": "South African-American actress (born 1975)"
+},
+{
+"n": "Thuso Mbedu",
+"c": "screen",
+"g": "f",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/Thuso_Mbedu_at_83rd_Venice_International_Film_Festival-17_%28cropped%29.jpg/960px-Thuso_Mbedu_at_83rd_Venice_International_Film_Festival-17_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 1011,
+"d": "South African American Actress"
+},
+{
+"n": "Funke Akindele",
+"c": "screen",
+"g": "f",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/0/08/Funke_Akindele_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 383,
+"h": 398,
+"d": "Nigerian actress and producer (born 1977)"
+},
+{
+"n": "Cristiano Ronaldo",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/26/Cristiano_Ronaldo_Croatia_v_Portugal_2_July_2026-075_%28cropped%29.jpg/960px-Cristiano_Ronaldo_Croatia_v_Portugal_2_July_2026-075_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 959,
+"d": "Portuguese footballer (born 1985)"
+},
+{
+"n": "Lionel Messi",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Leo_Messi_Argentina_v_Egypt_7_July_2026-1.jpg/960px-Leo_Messi_Argentina_v_Egypt_7_July_2026-1.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "Argentine footballer (born 1987)"
+},
+{
+"n": "Neymar",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c0/Neymar_Junior_Brazil_V_Morocco_13_June_2026-40.jpg/960px-Neymar_Junior_Brazil_V_Morocco_13_June_2026-40.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "Brazilian footballer (born 1992)"
+},
+{
+"n": "Kylian Mbappé",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/Kylian_Mbappe_France_v_Senegal_16_June_2026-391_%28cropped%29.jpg/960px-Kylian_Mbappe_France_v_Senegal_16_June_2026-391_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "French footballer (born 1998)"
+},
+{
+"n": "Erling Haaland",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/43/Erling_Haaland_Morocco_v_Norway_7_June_2026-51.jpg/960px-Erling_Haaland_Morocco_v_Norway_7_June_2026-51.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "Norwegian footballer (born 2000)"
+},
+{
+"n": "LeBron James",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7a/LeBron_James_%2851959977144%29_%28cropped2%29.jpg/960px-LeBron_James_%2851959977144%29_%28cropped2%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 742,
+"d": "American basketball player (born 1984)"
+},
+{
+"n": "Michael Jordan",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/46/Michael_jordan_admad_rashad_%2851276390562%29_%28cropped%29.jpg/960px-Michael_jordan_admad_rashad_%2851276390562%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 854,
+"d": "American basketball player and businessman (born 1963)"
+},
+{
+"n": "Kobe Bryant",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/Kobe_Bryant_Dec_2014.jpg/960px-Kobe_Bryant_Dec_2014.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 610,
+"d": "American basketball player (1978–2020)"
+},
+{
+"n": "Stephen Curry",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/5/52/Stephen_Curry%2C_Olympic_Games_2024_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 572,
+"h": 763,
+"d": "American basketball player (born 1988)"
+},
+{
+"n": "Serena Williams",
+"c": "sport",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/98/Serena-Smiling-2020.png/960px-Serena-Smiling-2020.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 766,
+"d": "American tennis player (born 1981)"
+},
+{
+"n": "Venus Williams",
+"c": "sport",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/19/Venus_Williams_%282025_DC_Open%29_crop.jpg/960px-Venus_Williams_%282025_DC_Open%29_crop.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 704,
+"d": "American tennis player (born 1980)"
+},
+{
+"n": "Roger Federer",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/11/Roger_Federer_2015_%28cropped%29.jpg/960px-Roger_Federer_2015_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 886,
+"d": "Swiss tennis player (born 1981)"
+},
+{
+"n": "Rafael Nadal",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/Rafael_Nadal_en_2024_%28cropped%29.jpg/960px-Rafael_Nadal_en_2024_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 862,
+"d": "Spanish tennis player (born 1986)"
+},
+{
+"n": "Novak Djokovic",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/Novak_Djokovic_Paris_2024_Olympic_Games_%28cropped%29.jpg/960px-Novak_Djokovic_Paris_2024_Olympic_Games_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 854,
+"d": "Serbian tennis player (born 1987)"
+},
+{
+"n": "Usain Bolt",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Usain_Bolt_smiling_Berlin_2009.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 514,
+"h": 640,
+"d": "Jamaican sprinter (born 1986)"
+},
+{
+"n": "Muhammad Ali",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/89/Muhammad_Ali_NYWTS.jpg/960px-Muhammad_Ali_NYWTS.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 801,
+"d": "American boxer and activist (1942–2016)"
+},
+{
+"n": "Mike Tyson",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/e/ee/Mike_Tyson_Photo_Op_GalaxyCon_Austin_2023.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 844,
+"h": 1126,
+"d": "American boxer and media personality (born 1966)"
+},
+{
+"n": "Tiger Woods",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/a/a7/President_Donald_Trump_hosts_a_reception_honoring_Black_History_Month_%2854341713089%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 806,
+"h": 1126,
+"d": "American professional golfer (born 1975)"
+},
+{
+"n": "Lewis Hamilton",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d3/Prime_Minister_Keir_Starmer_meets_Sir_Lewis_Hamilton_%2854566928382%29_%28cropped%29.jpg/960px-Prime_Minister_Keir_Starmer_meets_Sir_Lewis_Hamilton_%2854566928382%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "British racing driver (born 1985)"
+},
+{
+"n": "Michael Schumacher",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Michael_Schumacher%2C_September_2005.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 828,
+"h": 1134,
+"d": "German racing driver (born 1969)"
+},
+{
+"n": "Simone Biles",
+"c": "sport",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/Simone_Biles_National_Team_2024.jpg/960px-Simone_Biles_National_Team_2024.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 924,
+"d": "American artistic gymnast (born 1997)"
+},
+{
+"n": "Michael Phelps",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c7/Michael_Phelps_Rio_Olympics_2016.jpg/960px-Michael_Phelps_Rio_Olympics_2016.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 846,
+"d": "American swimmer (born 1985)"
+},
+{
+"n": "Naomi Osaka",
+"c": "sport",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d6/NaomiOsaka-smile-2020_%28cropped_tight%29.png/960px-NaomiOsaka-smile-2020_%28cropped_tight%29.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "Japanese tennis player (born 1997)"
+},
+{
+"n": "Conor McGregor",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e5/Conor_McGregor_2025.jpeg/960px-Conor_McGregor_2025.jpeg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 916,
+"d": "Irish mixed martial artist (born 1988)"
+},
+{
+"n": "Pelé",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Pele_con_brasil_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 388,
+"h": 526,
+"d": "Brazilian footballer (1940–2022)"
+},
+{
+"n": "Diego Maradona",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/4/48/Argentina_celebrando_copa_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 365,
+"h": 572,
+"d": "Argentine football player and manager (1960–2020)"
+},
+{
+"n": "Zinedine Zidane",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Zinedine_Zidane_by_Tasnim_03.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 410,
+"h": 544,
+"d": "French football player and manager (born 1972)"
+},
+{
+"n": "David Beckham",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/7/73/David_Beckham_UNICEF_%28cropped2%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 535,
+"h": 723,
+"d": "English footballer (born 1975)"
+},
+{
+"n": "Ronaldinho",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Ronaldinho_in_2019.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 735,
+"h": 981,
+"d": "Brazilian footballer (born 1980)"
+},
+{
+"n": "Shaquille O'Neal",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e5/TechCrunch_Disrupt_2023_-_Day_1_%28cropped%29.jpg/960px-TechCrunch_Disrupt_2023_-_Day_1_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 847,
+"d": "American former basketball player and sports analyst (born 1972)"
+},
+{
+"n": "Floyd Mayweather Jr.",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Floyd_Mayweather_Jr_2011.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 853,
+"h": 1137,
+"d": "American boxer and boxing promoter (born 1977)"
+},
+{
+"n": "Megan Rapinoe",
+"c": "sport",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/Megan_Rapinoe_%2848675274817%29_%28cropped%29.jpg/960px-Megan_Rapinoe_%2848675274817%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 861,
+"d": "American soccer player (born 1985)"
+},
+{
+"n": "Virat Kohli",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/e/ef/Virat_Kohli_during_the_India_vs_Aus_4th_Test_match_at_Narendra_Modi_Stadium_on_09_March_2023.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 524,
+"h": 654,
+"d": "Indian cricketer (born 1988)"
+},
+{
+"n": "Sachin Tendulkar",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/The_cricket_legend_Sachin_Tendulkar_at_the_Oval_Maidan_in_Mumbai_During_the_Duke_and_Duchess_of_Cambridge_Visit%2826271019082%29.jpg/960px-The_cricket_legend_Sachin_Tendulkar_at_the_Oval_Maidan_in_Mumbai_During_the_Duke_and_Duchess_of_Cambridge_Visit%2826271019082%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "Indian cricketer (born 1973)"
+},
+{
+"n": "Coco Gauff",
+"c": "sport",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bb/Coco_Gauff_Miami_Open.jpg/960px-Coco_Gauff_Miami_Open.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "American tennis player (born 2004)"
+},
+{
+"n": "Alex Morgan",
+"c": "sport",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/10/Alex_Morgan_May19.jpg/960px-Alex_Morgan_May19.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 910,
+"d": "American soccer player (born 1989)"
+},
+{
+"n": "Shelly-Ann Fraser-Pryce",
+"c": "sport",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/e/ef/Women%27s_100_m-_Beijing_2015.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 380,
+"h": 609,
+"d": "Retired Jamaican track and field sprinter (born 1986)"
+},
+{
+"n": "Sha'Carri Richardson",
+"c": "sport",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Sha%27Carri_Richardson_Budapest_2023_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 383,
+"h": 551,
+"d": "American sprinter (born 2000)"
+},
+{
+"n": "Max Verstappen",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/2024-08-25_Motorsport%2C_Formel_1%2C_Gro%C3%9Fer_Preis_der_Niederlande_2024_STP_3973_by_Stepro_%28medium_crop%29.jpg/960px-2024-08-25_Motorsport%2C_Formel_1%2C_Gro%C3%9Fer_Preis_der_Niederlande_2024_STP_3973_by_Stepro_%28medium_crop%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 845,
+"d": "Dutch and Belgian racing driver (born 1997)"
+},
+{
+"n": "Jude Bellingham",
+"c": "sport",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Jude_Bellingham_England_v_Ghana_23_June_2026-061_%28cropped%29.jpg/960px-Jude_Bellingham_England_v_Ghana_23_June_2026-061_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "English footballer (born 2003)"
+},
+{
+"n": "Mohamed Salah",
+"c": "sport",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/Mohamed_Salah_Argentina_v_Egypt_7_July_2026-163_%28cropped%29.jpg/960px-Mohamed_Salah_Argentina_v_Egypt_7_July_2026-163_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 927,
+"d": "Egyptian footballer (born 1992)"
+},
+{
+"n": "Didier Drogba",
+"c": "sport",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Didier_Drogba_%282019%29_%28cropped2%29.jpg/960px-Didier_Drogba_%282019%29_%28cropped2%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 826,
+"d": "Ivorian footballer (born 1978)"
+},
+{
+"n": "Samuel Eto'o",
+"c": "sport",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6a/Sammuel_Eto%27o_Fils_02.jpg/960px-Sammuel_Eto%27o_Fils_02.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "Cameroonian footballer (born 1981)"
+},
+{
+"n": "Sadio Mané",
+"c": "sport",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/92/Sadio_Mane_France_v_Senegal_16_June_2026-450.jpg/960px-Sadio_Mane_France_v_Senegal_16_June_2026-450.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "Senegalese footballer (born 1992)"
+},
+{
+"n": "Riyad Mahrez",
+"c": "sport",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/4/45/Mahrez_2021.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 639,
+"h": 1162,
+"d": "Algeria international footballer (born 1991)"
+},
+{
+"n": "Achraf Hakimi",
+"c": "sport",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Achraf_Hakimi_Morocco_v_Norway_7_June_2026-16.jpg/960px-Achraf_Hakimi_Morocco_v_Norway_7_June_2026-16.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "Professional footballer (born 1998)"
+},
+{
+"n": "Victor Osimhen",
+"c": "sport",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/3/34/Victor-osimhen-nigeria-2024-3-4.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 527,
+"h": 704,
+"d": "Nigerian footballer (born 1998)"
+},
+{
+"n": "Francis Ngannou",
+"c": "sport",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/5/55/Francis_Ngannou_2023_%28cropped%29.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 860,
+"h": 969,
+"d": "Cameroonian mixed martial artist and boxer (born 1986)"
+},
+{
+"n": "Haile Gebrselassie",
+"c": "sport",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/Olympic_great_Haile_Gebrselassie_speaking_at_the_Olympic_hunger_summit_in_Downing_Street%2C_12_August_2012_%28cropped%29.jpg/960px-Olympic_great_Haile_Gebrselassie_speaking_at_the_Olympic_hunger_summit_in_Downing_Street%2C_12_August_2012_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 719,
+"d": "Ethiopian long-distance runner and businessman (born 1973)"
+},
+{
+"n": "Mo Farah",
+"c": "sport",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/7/71/2023_London_Marathon_-_Sir_Mo_Farah_%282%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 483,
+"h": 642,
+"d": "British track and field athlete (born 1983)"
+},
+{
+"n": "Caster Semenya",
+"c": "sport",
+"g": "f",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a7/Caster_Semenya_of_South_Africa_at_the_2018_African_Athletics_Championships.jpg/960px-Caster_Semenya_of_South_Africa_at_the_2018_African_Athletics_Championships.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "South African middle-distance runner (born 1991)"
+},
+{
+"n": "Eliud Kipchoge",
+"c": "sport",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/f/fc/Eliud_Kipchoge_in_Berlin_-_2015_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 627,
+"h": 1038,
+"d": "Kenyan long-distance runner (born 1984)"
+},
+{
+"n": "Faith Kipyegon",
+"c": "sport",
+"g": "f",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c2/Faith_Kipyegon_London_2017_%28cropped2%29.jpg/960px-Faith_Kipyegon_London_2017_%28cropped2%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 882,
+"d": "Kenyan middle- and long-distance runner (born 1994)"
+},
+{
+"n": "David Rudisha",
+"c": "sport",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/4/40/David_Rudisha_Daegu_2011.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 640,
+"h": 426,
+"d": "Kenyan middle-distance runner (born 1988)"
+},
+{
+"n": "Victor Wanyama",
+"c": "sport",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/9/96/Victor_Wanyama_20170820.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 355,
+"h": 631,
+"d": "Kenyan footballer (born 1991)"
+},
+{
+"n": "Mary Keitany",
+"c": "sport",
+"g": "f",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/Mary_Keitany_nyc_%28cropped%29.jpg/960px-Mary_Keitany_nyc_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 700,
+"d": "Kenyan long-distance runner (born 1982)"
+},
+{
+"n": "Paul Tergat",
+"c": "sport",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/1/15/Paul_Tergat.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 314,
+"h": 376,
+"d": "Kenyan long-distance runner (born 1969)"
+},
+{
+"n": "Kelvin Kiptum",
+"c": "sport",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Kelvin_Kiptum_%28KEN%29_2023.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 808,
+"h": 858,
+"d": "Kenyan long-distance runner (1999–2024)"
+},
+{
+"n": "Ferdinand Omanyala",
+"c": "sport",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Ferdinand_Omanyala_Oregon_2022.jpg/960px-Ferdinand_Omanyala_Oregon_2022.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 426,
+"d": "Kenyan sprinter"
+},
+{
+"n": "Beatrice Chebet",
+"c": "sport",
+"g": "f",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Beatrice_Chebet_5000m_women_final_2_Oregon_2022_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 782,
+"h": 974,
+"d": "Kenyan track and field athlete (born 2000)"
+},
+{
+"n": "Hellen Obiri",
+"c": "sport",
+"g": "f",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/40/Hellen_Obiri_Golden_Gala_2017.jpg/960px-Hellen_Obiri_Golden_Gala_2017.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 427,
+"d": "Kenyan middle- and long- distance runner"
+},
+{
+"n": "Tirunesh Dibaba",
+"c": "sport",
+"g": "f",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e1/Tirunesh_Dibaba_Bislett_Games_2008.jpg/960px-Tirunesh_Dibaba_Bislett_Games_2008.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "Ethiopian long-distance runner (born 1985)"
+},
+{
+"n": "Kenenisa Bekele",
+"c": "sport",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a0/Kenenisabekele1.jpg/960px-Kenenisabekele1.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "Ethiopian long-distance runner (born 1982)"
+},
+{
+"n": "George Weah",
+"c": "sport",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/5/53/Clar_Weah%2C_George_Weah%2C_Joe_Biden%2C_Jill_Biden_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 301,
+"h": 402,
+"d": "President of Liberia from 2018 to 2024"
+},
+{
+"n": "Yaya Touré",
+"c": "sport",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/Yaya_Tour%C3%A9_%28cropped%29.jpg/960px-Yaya_Tour%C3%A9_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 844,
+"d": "Ivorian footballer (born 1983)"
+},
+{
+"n": "Jay-Jay Okocha",
+"c": "sport",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7e/Match_legends_2017_CC_%285%29.jpg/960px-Match_legends_2017_CC_%285%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 808,
+"d": "Nigerian footballer (born 1973)"
+},
+{
+"n": "Barack Obama",
+"c": "leaders",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/960px-President_Barack_Obama.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 799,
+"d": "President of the United States from 2009 to 2017"
+},
+{
+"n": "Michelle Obama",
+"c": "leaders",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4b/Michelle_Obama_2013_official_portrait.jpg/960px-Michelle_Obama_2013_official_portrait.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 963,
+"d": "First Lady of the United States from 2009 to 2017"
+},
+{
+"n": "Donald Trump",
+"c": "leaders",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Official_Presidential_Portrait_of_President_Donald_J._Trump_%282025%29.jpg/960px-Official_Presidential_Portrait_of_President_Donald_J._Trump_%282025%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 800,
+"d": "President of the United States (2017–2021; since 2025)"
+},
+{
+"n": "Joe Biden",
+"c": "leaders",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Joe_Biden_presidential_portrait.jpg/960px-Joe_Biden_presidential_portrait.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 800,
+"d": "President of the United States from 2021 to 2025"
+},
+{
+"n": "Kamala Harris",
+"c": "leaders",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/41/Kamala_Harris_Vice_Presidential_Portrait.jpg/960px-Kamala_Harris_Vice_Presidential_Portrait.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 800,
+"d": "Vice President of the United States from 2021 to 2025"
+},
+{
+"n": "Elizabeth II",
+"c": "leaders",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/1/11/Queen_Elizabeth_II_official_portrait_for_1959_tour_%28retouched%29_%28cropped%29_%283-to-4_aspect_ratio%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 739,
+"h": 985,
+"d": "Queen of the United Kingdom from 1952 to 2022"
+},
+{
+"n": "Charles III",
+"c": "leaders",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/a/ac/King_Charles_III_%28July_2023%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 727,
+"h": 1025,
+"d": "King of the United Kingdom since 2022"
+},
+{
+"n": "Vladimir Putin",
+"c": "leaders",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/8/86/Vladimir_Putin_%282026_02_23%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 896,
+"h": 1183,
+"d": "Leader of Russia since 1999"
+},
+{
+"n": "Xi Jinping",
+"c": "leaders",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dc/Prime_Minister_Keir_Starmer_visits_China_%2855066713683%29_%28cropped%2Bangle%29.jpg/960px-Prime_Minister_Keir_Starmer_visits_China_%2855066713683%29_%28cropped%2Bangle%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "Leader of China since 2012"
+},
+{
+"n": "Angela Merkel",
+"c": "leaders",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/Angela_Merkel_2019_cropped.jpg/960px-Angela_Merkel_2019_cropped.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 895,
+"d": "Chancellor of Germany from 2005 to 2021"
+},
+{
+"n": "Emmanuel Macron",
+"c": "leaders",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3c/Emmanuel_Macron_2025_%28cropped%29.jpg/960px-Emmanuel_Macron_2025_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 885,
+"d": "President of France since 2017"
+},
+{
+"n": "Narendra Modi",
+"c": "leaders",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Narendra_Modi_Portrait_2026.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 400,
+"h": 400,
+"d": "Prime Minister of India since 2014"
+},
+{
+"n": "Justin Trudeau",
+"c": "leaders",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/3/32/Prime_Minister_Trudeau%27s_message_on_Christmas_2023_%280m29s%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 742,
+"h": 990,
+"d": "Prime Minister of Canada from 2015 to 2025"
+},
+{
+"n": "Volodymyr Zelenskyy",
+"c": "leaders",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d3/Volodymyr_Zelensky_2022_official_portrait_%28cropped%29.jpg/960px-Volodymyr_Zelensky_2022_official_portrait_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 829,
+"d": "President of Ukraine since 2019"
+},
+{
+"n": "Mahatma Gandhi",
+"c": "leaders",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7a/Mahatma-Gandhi%2C_studio%2C_1931.jpg/960px-Mahatma-Gandhi%2C_studio%2C_1931.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 799,
+"d": "Indian independence activist (1869–1948)"
+},
+{
+"n": "Martin Luther King Jr.",
+"c": "leaders",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/Martin_Luther_King%2C_Jr._and_Lyndon_Johnson_%28cropped%29.jpg/960px-Martin_Luther_King%2C_Jr._and_Lyndon_Johnson_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "American minister and civil rights activist (1929–1968)"
+},
+{
+"n": "Winston Churchill",
+"c": "leaders",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/Sir_Winston_Churchill_-_19086236948_%28restored%29.jpg/960px-Sir_Winston_Churchill_-_19086236948_%28restored%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 796,
+"d": "British statesman and writer (1874–1965)"
+},
+{
+"n": "John F. Kennedy",
+"c": "leaders",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/John_F._Kennedy%2C_White_House_color_photo_portrait.jpg/960px-John_F._Kennedy%2C_White_House_color_photo_portrait.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 830,
+"d": "President of the United States from 1961 to 1963"
+},
+{
+"n": "Abraham Lincoln",
+"c": "leaders",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ab/Abraham_Lincoln_O-77_matte_collodion_print.jpg/960px-Abraham_Lincoln_O-77_matte_collodion_print.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 825,
+"d": "President of the United States from 1861 to 1865"
+},
+{
+"n": "Malala Yousafzai",
+"c": "leaders",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/Malala_Yousafzai_2023_portrait_2x3.jpg/960px-Malala_Yousafzai_2023_portrait_2x3.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 959,
+"d": "Pakistani education activist (born 1997)"
+},
+{
+"n": "Pope Francis",
+"c": "leaders",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Pope_Francis_Korea_Haemi_Castle_19_%284x5_cropped%29.jpg/960px-Pope_Francis_Korea_Haemi_Castle_19_%284x5_cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 802,
+"d": "Head of the Catholic Church from 2013 to 2025"
+},
+{
+"n": "Diana, Princess of Wales",
+"c": "leaders",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Diana%2C_Princess_of_Wales_1997_%282%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 694,
+"h": 928,
+"d": "Member of the British royal family (1961–1997)"
+},
+{
+"n": "William, Prince of Wales",
+"c": "leaders",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Prince_of_Wales_at_State_Banquet_2025-09-17_%280.75_crop%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 516,
+"h": 689,
+"d": "Heir apparent to the British throne (born 1982)"
+},
+{
+"n": "Fidel Castro",
+"c": "leaders",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Fidel_Castro_1950s_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 692,
+"h": 957,
+"d": "Leader of Cuba from 1959 to 2008"
+},
+{
+"n": "Che Guevara",
+"c": "leaders",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/80/Che_Guevara_-_Guerrillero_Heroico_by_Alberto_Korda.jpg/960px-Che_Guevara_-_Guerrillero_Heroico_by_Alberto_Korda.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 741,
+"d": "Argentine revolutionary (1928–1967)"
+},
+{
+"n": "Kim Jong Un",
+"c": "leaders",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/Kim_Jong-un_and_Vladimir_Putin_%282023-09-13%29_12_%28cropped_2%29.jpg/960px-Kim_Jong-un_and_Vladimir_Putin_%282023-09-13%29_12_%28cropped_2%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "Leader of North Korea since 2011"
+},
+{
+"n": "Margaret Thatcher",
+"c": "leaders",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Margaret_Thatcher_stock_portrait_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 790,
+"h": 1099,
+"d": "Prime Minister of the United Kingdom from 1979 to 1990"
+},
+{
+"n": "Rosa Parks",
+"c": "leaders",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b1/Rosa_Parks%2C_November_1956_%28cropped%29.jpg/960px-Rosa_Parks%2C_November_1956_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 970,
+"d": "American civil rights activist (1913–2005)"
+},
+{
+"n": "Malcolm X",
+"c": "leaders",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/33/Malcolm_X_1964_press_photo_%28cropped%29_%28lighting_diff%29.jpg/960px-Malcolm_X_1964_press_photo_%28cropped%29_%28lighting_diff%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "American civil rights activist (1925–1965)"
+},
+{
+"n": "Mother Teresa",
+"c": "leaders",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d6/Mother_Teresa_1.jpg/960px-Mother_Teresa_1.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 882,
+"d": "Albanian-Indian Catholic saint (1910–1997)"
+},
+{
+"n": "Greta Thunberg",
+"c": "leaders",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Greta_Thunberg_in_May_2026_%28cropped_3x4%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 743,
+"h": 990,
+"d": "Swedish activist (born 2003)"
+},
+{
+"n": "Jacinda Ardern",
+"c": "leaders",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b6/New_Zealand_Prime_Minister_Jacinda_Ardern_in_2018.jpg/960px-New_Zealand_Prime_Minister_Jacinda_Ardern_in_2018.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 800,
+"d": "Prime Minister of New Zealand from 2017 to 2023"
+},
+{
+"n": "Boris Johnson",
+"c": "leaders",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/76/Boris_Johnson_official_portrait_%28cropped%29.jpg/960px-Boris_Johnson_official_portrait_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 900,
+"d": "Prime Minister of the United Kingdom from 2019 to 2022"
+},
+{
+"n": "Hillary Clinton",
+"c": "leaders",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Former_United_States_Secretary_of_State_Hillary_Rodham_Clinton_at_the_U.S._Department_of_State_on_September_26%2C_2023_in_Washington%2C_D.C._14_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 528,
+"h": 703,
+"d": "American politician and diplomat (born 1947)"
+},
+{
+"n": "Bill Clinton",
+"c": "leaders",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d3/Bill_Clinton.jpg/960px-Bill_Clinton.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 835,
+"d": "President of the United States from 1993 to 2001"
+},
+{
+"n": "Nelson Mandela",
+"c": "leaders",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/Nelson_Mandela_1994.jpg/960px-Nelson_Mandela_1994.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 828,
+"d": "President of South Africa from 1994 to 1999"
+},
+{
+"n": "Kofi Annan",
+"c": "leaders",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/72/Kofi_Annan_2012_%28cropped%29.jpg/960px-Kofi_Annan_2012_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 803,
+"d": "UN Secretary-General from 1997 to 2006"
+},
+{
+"n": "Paul Kagame",
+"c": "leaders",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/Paul_Kagame_2024_%28cropped%29.jpg/960px-Paul_Kagame_2024_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 842,
+"d": "President of Rwanda since 2000"
+},
+{
+"n": "Samia Suluhu Hassan",
+"c": "leaders",
+"g": "f",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/5/51/Samia_Suluhu_at_the_XXIX_St_Petersburg_International_Economic_Forum_-_2026_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 479,
+"h": 707,
+"d": "President of Tanzania since 2021"
+},
+{
+"n": "Julius Nyerere",
+"c": "leaders",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1a/President_Nyerere_van_Tanzania%2C_koppen%2C_Bestanddeelnr_928-2879_%28cropped%29.jpg/960px-President_Nyerere_van_Tanzania%2C_koppen%2C_Bestanddeelnr_928-2879_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 940,
+"d": "President of Tanzania from 1964 to 1985"
+},
+{
+"n": "Yoweri Museveni",
+"c": "leaders",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/90/Museveni_July_2012_%283x4_cropped%29.jpg/960px-Museveni_July_2012_%283x4_cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 854,
+"d": "President of Uganda since 1986"
+},
+{
+"n": "Bola Tinubu",
+"c": "leaders",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Bola_Tinubu_portrait.jpg/960px-Bola_Tinubu_portrait.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 800,
+"d": "President of Nigeria since 2023"
+},
+{
+"n": "Cyril Ramaphosa",
+"c": "leaders",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/13/Cyril_Ramaphosa_in_2026.jpg/960px-Cyril_Ramaphosa_in_2026.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 865,
+"d": "President of South Africa since 2018"
+},
+{
+"n": "Ellen Johnson Sirleaf",
+"c": "leaders",
+"g": "f",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Ellen_Johnson-Sirleaf_%282022%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 309,
+"h": 411,
+"d": "President of Liberia from 2006 to 2018"
+},
+{
+"n": "Thomas Sankara",
+"c": "leaders",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Thomas_Sankara_in_Harlem_%281984%29.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 671,
+"h": 860,
+"d": "President of Burkina Faso from 1983 to 1987"
+},
+{
+"n": "Kwame Nkrumah",
+"c": "leaders",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Kwame_Nkrumah_Portrait%2C_The_National_Archives_UK.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 680,
+"h": 931,
+"d": "Ghanaian politician (1909–1972)"
+},
+{
+"n": "Haile Selassie",
+"c": "leaders",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Haile_Selassie_in_full_dress_%283x4_cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 600,
+"h": 800,
+"d": "Emperor of Ethiopia from 1930 to 1974"
+},
+{
+"n": "Desmond Tutu",
+"c": "leaders",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/Archbishop-Tutu-medium.jpg/960px-Archbishop-Tutu-medium.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "South African bishop and anti-apartheid activist (1931–2021)"
+},
+{
+"n": "Abiy Ahmed",
+"c": "leaders",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cd/Prime_Minister_of_Ethiopia_Abiy_Ahmed_Ali_%28cropped%29.jpg/960px-Prime_Minister_of_Ethiopia_Abiy_Ahmed_Ali_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 818,
+"d": "Prime Minister of Ethiopia since 2018"
+},
+{
+"n": "John Magufuli",
+"c": "leaders",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/c/c0/John_Magufuli_2015.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 282,
+"h": 384,
+"d": "President of Tanzania from 2015 to 2021"
+},
+{
+"n": "William Ruto",
+"c": "leaders",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/eb/President_Ruto_Potrait_2022_%28cropped%29.jpg/960px-President_Ruto_Potrait_2022_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 789,
+"d": "President of Kenya since 2022"
+},
+{
+"n": "Uhuru Kenyatta",
+"c": "leaders",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Uhuru_Kenyatta.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 514,
+"h": 574,
+"d": "President of Kenya from 2013 to 2022"
+},
+{
+"n": "Jomo Kenyatta",
+"c": "leaders",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Jomo_Kenyatta_%28cropped%29_in_June_15th%2C_1966.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 654,
+"h": 880,
+"d": "President of Kenya from 1964 to 1978"
+},
+{
+"n": "Raila Odinga",
+"c": "leaders",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/Raila_Amolo_Odinga_2009_%28cropped%29.jpg/960px-Raila_Amolo_Odinga_2009_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 849,
+"d": "Prime Minister of Kenya from 2008 to 2013"
+},
+{
+"n": "Wangari Maathai",
+"c": "leaders",
+"g": "f",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/d/da/Wangari_Maathai_in_2001.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 466,
+"h": 751,
+"d": "Kenyan environmental activist (1940–2011)"
+},
+{
+"n": "Mwai Kibaki",
+"c": "leaders",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d4/Mwai_Kibaki_%28cropped%29.jpg/960px-Mwai_Kibaki_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 873,
+"d": "President of Kenya from 2002 to 2013"
+},
+{
+"n": "Daniel arap Moi",
+"c": "leaders",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/Daniel_arap_Moi_1979b.jpg/960px-Daniel_arap_Moi_1979b.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "President of Kenya from 1978 to 2002"
+},
+{
+"n": "Ngozi Okonjo-Iweala",
+"c": "leaders",
+"g": "f",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/Ngozi_Okonjo-Iweala_takes_over_as_new_WTO_Director-General%2C_1_March_2021_%2850993534756%29_%28cropped%29.jpg/960px-Ngozi_Okonjo-Iweala_takes_over_as_new_WTO_Director-General%2C_1_March_2021_%2850993534756%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "Nigerian economist (born 1954)"
+},
+{
+"n": "Winnie Madikizela-Mandela",
+"c": "leaders",
+"g": "f",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/2/25/Winnie_Mandela.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 512,
+"h": 768,
+"d": "South African activist and politician (1936–2018)"
+},
+{
+"n": "Patrice Lumumba",
+"c": "leaders",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3c/PatriceLumumba1960.jpg/960px-PatriceLumumba1960.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "Congolese politician and independence leader (1925–1961)"
+},
+{
+"n": "Albert Einstein",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/28/Albert_Einstein_Head_cleaned.jpg/960px-Albert_Einstein_Head_cleaned.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 792,
+"d": "German-born theoretical physicist (1879–1955)"
+},
+{
+"n": "Marie Curie",
+"c": "science",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Marie_Curie_c._1920s.jpg/960px-Marie_Curie_c._1920s.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 870,
+"d": "Polish-French physicist and chemist (1867–1934)"
+},
+{
+"n": "Stephen Hawking",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Stephen_Hawking.StarChild.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 250,
+"h": 359,
+"d": "English theoretical physicist (1942–2018)"
+},
+{
+"n": "Nikola Tesla",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/7/79/Tesla_circa_1890.jpeg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 940,
+"h": 1260,
+"d": "Serbian-American engineer and inventor (1856–1943)"
+},
+{
+"n": "Elon Musk",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5e/Elon_Musk_-_54820081119_%28cropped%29.jpg/960px-Elon_Musk_-_54820081119_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 841,
+"d": "Businessman and entrepreneur (born 1971)"
+},
+{
+"n": "Bill Gates",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/Bill_Gates_at_the_European_Commission_-_P067383-987995_%28cropped%29_5.jpg/960px-Bill_Gates_at_the_European_Commission_-_P067383-987995_%28cropped%29_5.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 854,
+"d": "American businessman and philanthropist (born 1955)"
+},
+{
+"n": "Steve Jobs",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/Steve_Jobs_Headshot_2010_%28cropped_4%29.jpg/960px-Steve_Jobs_Headshot_2010_%28cropped_4%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 852,
+"d": "American businessman and investor (1955–2011)"
+},
+{
+"n": "Mark Zuckerberg",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/1/12/P20260929DT-1655_%2855561811540%29_%28cropped_2%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 414,
+"h": 552,
+"d": "American businessman and programmer (born 1984)"
+},
+{
+"n": "Jeff Bezos",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fc/260202-D-PM193-2205_SECWAR_Arsenal_of_Freedom_Tour_-_Florida_%283x4_cropped_on_Bezos_and_rotated%29.jpg/960px-260202-D-PM193-2205_SECWAR_Arsenal_of_Freedom_Tour_-_Florida_%283x4_cropped_on_Bezos_and_rotated%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 854,
+"d": "American businessman (born 1964)"
+},
+{
+"n": "Warren Buffett",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Warren_Buffett_at_the_2015_SelectUSA_Investment_Summit_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 818,
+"h": 1090,
+"d": "American investor and philanthropist (born 1930)"
+},
+{
+"n": "Tim Cook",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/10/Tim_Cook_in_New_York_City_-_2026_%28cropped%29.jpg/960px-Tim_Cook_in_New_York_City_-_2026_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 957,
+"d": "American business executive (born 1960)"
+},
+{
+"n": "Sundar Pichai",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Sundar_Pichai_-_2023_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 959,
+"h": 1439,
+"d": "CEO of Alphabet Inc. and Google (born 1972)"
+},
+{
+"n": "Jack Ma",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/20th_Anniversary_Schwab_Foundation_Gala_Dinner_%2844887783681%29_%28cropped%29.jpg/960px-20th_Anniversary_Schwab_Foundation_Gala_Dinner_%2844887783681%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 759,
+"d": "Chinese business magnate and investor (born 1964)"
+},
+{
+"n": "Larry Page",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Larry_Page_in_the_European_Parliament%2C_17.06.2009_%28cropped_2%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 930,
+"h": 1239,
+"d": "American businessman (born 1973)"
+},
+{
+"n": "Sergey Brin",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/1/12/Sergey_Brin_DC_Summit_2026_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 630,
+"h": 873,
+"d": "American computer scientist (born 1973)"
+},
+{
+"n": "Neil Armstrong",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0d/Neil_Armstrong_pose.jpg/960px-Neil_Armstrong_pose.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 800,
+"d": "American astronaut (1930–2012)"
+},
+{
+"n": "Buzz Aldrin",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dc/Buzz_Aldrin.jpg/960px-Buzz_Aldrin.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 800,
+"d": "American astronaut (born 1930)"
+},
+{
+"n": "Yuri Gagarin",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Yuri_Gagarin_with_awards_%28cropped%29_2.jpg/960px-Yuri_Gagarin_with_awards_%28cropped%29_2.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "Soviet pioneer cosmonaut (1934–1968)"
+},
+{
+"n": "Jane Goodall",
+"c": "science",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/9/98/Deputy_Secretary_Higginbottom_Poses_for_a_Photo_With_Dr._Jane_Goodall_and_the_State_Department%27s_Global_Health_Diplomacy_Director_Jordan_in_Washington_%2822365513310%29_%282%29_%28cropped_2%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 807,
+"h": 1081,
+"d": "English zoologist (1934–2025)"
+},
+{
+"n": "David Attenborough",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/69/David_Attenborough_in_2025.jpg/960px-David_Attenborough_in_2025.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "English broadcaster and natural historian (born 1926)"
+},
+{
+"n": "Carl Sagan",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/b/be/Carl_Sagan_Planetary_Society.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 328,
+"h": 448,
+"d": "American scientist and science communicator (1934–1996)"
+},
+{
+"n": "Neil deGrasse Tyson",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/Neil_DeGrasse_Tyson_%282023%29.jpg/960px-Neil_DeGrasse_Tyson_%282023%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 854,
+"d": "American astrophysicist (born 1958)"
+},
+{
+"n": "Thomas Edison",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/Thomas_Edison2.jpg/960px-Thomas_Edison2.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 819,
+"d": "American inventor and businessman (1847–1931)"
+},
+{
+"n": "Alexander Graham Bell",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9c/Alexander_Graham_Bell_1895_NPG_77_363.jpg/960px-Alexander_Graham_Bell_1895_NPG_77_363.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 948,
+"d": "Inventor of the telephone (1847–1922)"
+},
+{
+"n": "Charles Darwin",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2e/Charles_Darwin_seated_crop.jpg/960px-Charles_Darwin_seated_crop.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 842,
+"d": "English naturalist and biologist (1809–1882)"
+},
+{
+"n": "Sigmund Freud",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/Sigmund_Freud%2C_by_Max_Halberstadt_%28cropped%29.jpg/960px-Sigmund_Freud%2C_by_Max_Halberstadt_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 870,
+"d": "Austrian neurologist and founder of psychoanalysis (1856–1939)"
+},
+{
+"n": "Katherine Johnson",
+"c": "science",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/Katherine_Johnson_1983.jpg/960px-Katherine_Johnson_1983.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 800,
+"d": "American mathematician (1918–2020)"
+},
+{
+"n": "Alan Turing",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Alan_turing_header.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 752,
+"h": 1002,
+"d": "English computer scientist (1912–1954)"
+},
+{
+"n": "Tim Berners-Lee",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/Tim_Berners-Lee_at_the_2025_Web_Summit_%28Cropped%29.jpg/960px-Tim_Berners-Lee_at_the_2025_Web_Summit_%28Cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 480,
+"d": "English computer scientist (born 1955)"
+},
+{
+"n": "Sam Altman",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Meeting_with_Masayoshi_Son_and_Sam_Altman_%28February_3%2C_2025%29_%283x4_cropped_on_Altman%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 390,
+"h": 520,
+"d": "American entrepreneur and investor (born 1985)"
+},
+{
+"n": "Jensen Huang",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Jen-Hsun_Huang_2025.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 645,
+"h": 839,
+"d": "Taiwanese and American businessman (born 1963)"
+},
+{
+"n": "Satya Nadella",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/MS-Exec-Nadella-Satya-2017-08-31-22_%28cropped%29.jpg/960px-MS-Exec-Nadella-Satya-2017-08-31-22_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 818,
+"d": "Indian-American business executive (born 1967)"
+},
+{
+"n": "Mae Jemison",
+"c": "science",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Mae_Carol_Jemison.jpg/960px-Mae_Carol_Jemison.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 800,
+"d": "American astronaut, doctor and engineer (born 1956)"
+},
+{
+"n": "Sally Ride",
+"c": "science",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Sally_Ride_%281984%29.jpg/960px-Sally_Ride_%281984%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 800,
+"d": "American physicist and astronaut (1951–2012)"
+},
+{
+"n": "Valentina Tereshkova",
+"c": "science",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e9/Valentina_Tereshkova_%282024-02-29%29_crop.jpg/960px-Valentina_Tereshkova_%282024-02-29%29_crop.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "Russian cosmonaut and politician (born 1937)"
+},
+{
+"n": "Richard Feynman",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 713,
+"h": 1008,
+"d": "American theoretical physicist (1918–1988)"
+},
+{
+"n": "Steve Wozniak",
+"c": "science",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/Steve_Wozniak_by_Gage_Skidmore_3_%28cropped%29.jpg/960px-Steve_Wozniak_by_Gage_Skidmore_3_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 852,
+"d": "American engineer and programmer (born 1950)"
+},
+{
+"n": "Melinda French Gates",
+"c": "science",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Melinda_Gates_2014.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 546,
+"h": 683,
+"d": "American philanthropist (born 1964)"
+},
+{
+"n": "Aliko Dangote",
+"c": "science",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/99/Al_Shabani_at_the_acquisition_of_Dangote_Cement_by_ICD_in_2014_%28cropped%29.jpg/960px-Al_Shabani_at_the_acquisition_of_Dangote_Cement_by_ICD_in_2014_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 856,
+"d": "Nigerian businessman (born 1957)"
+},
+{
+"n": "Strive Masiyiwa",
+"c": "science",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2b/Strive_Masiyawa%2C_Africa_Leadership_Academy%2C_Nairobi%2C_Kenya%2C_2019_%28cropped%29.jpg/960px-Strive_Masiyawa%2C_Africa_Leadership_Academy%2C_Nairobi%2C_Kenya%2C_2019_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "Zimbabwean businessman (born 1961)"
+},
+{
+"n": "Patrice Motsepe",
+"c": "science",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/25/Patrice_Motsepe.jpg/960px-Patrice_Motsepe.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 894,
+"d": "South African businessman (born 1962)"
+},
+{
+"n": "Mo Ibrahim",
+"c": "science",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Mo_Ibrahim.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 535,
+"h": 800,
+"d": "Sudanese-British businessman"
+},
+{
+"n": "Philip Emeagwali",
+"c": "science",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/Philip_Emeagwali_with_scribbled_Exxon-Mobil_equations.jpg/960px-Philip_Emeagwali_with_scribbled_Exxon-Mobil_equations.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 506,
+"d": "Nigerian computer scientist"
+},
+{
+"n": "Pablo Picasso",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/98/Pablo_picasso_1.jpg/960px-Pablo_picasso_1.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 748,
+"d": "Spanish painter and sculptor (1881–1973)"
+},
+{
+"n": "Frida Kahlo",
+"c": "arts",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/06/Frida_Kahlo%2C_by_Guillermo_Kahlo.jpg/960px-Frida_Kahlo%2C_by_Guillermo_Kahlo.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 960,
+"d": "Mexican painter (1907–1954)"
+},
+{
+"n": "Salvador Dalí",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/24/Salvador_Dal%C3%AD_1939.jpg/960px-Salvador_Dal%C3%AD_1939.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 822,
+"d": "Spanish surrealist artist (1904–1989)"
+},
+{
+"n": "Andy Warhol",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6c/Andy_Warhol_by_Bernard_Gotfryd_1980.png/960px-Andy_Warhol_by_Bernard_Gotfryd_1980.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 930,
+"d": "American artist and filmmaker (1928–1987)"
+},
+{
+"n": "Vincent van Gogh",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4c/Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg/960px-Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 809,
+"d": "Dutch painter (1853–1890)"
+},
+{
+"n": "Jean-Michel Basquiat",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Jean-Michel_Basquiat_passport_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 165,
+"h": 212,
+"d": "American artist (1960–1988)"
+},
+{
+"n": "Claude Monet",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a4/Claude_Monet_1899_Nadar_crop.jpg/960px-Claude_Monet_1899_Nadar_crop.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "French painter (1840–1926)"
+},
+{
+"n": "Georgia O'Keeffe",
+"c": "arts",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a2/Georgia_O%27Keeffe_MET_DP230868.jpg/960px-Georgia_O%27Keeffe_MET_DP230868.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 792,
+"d": "American modernist artist (1887–1986)"
+},
+{
+"n": "Yayoi Kusama",
+"c": "arts",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/12/Yayoi_Kusama_in_2005.jpg/960px-Yayoi_Kusama_in_2005.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 478,
+"d": "Japanese artist (1929–2026)"
+},
+{
+"n": "Ai Weiwei",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Aj_Wej-wej_I_%282017%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 886,
+"h": 1197,
+"d": "Chinese conceptual artist and dissident (born 1957)"
+},
+{
+"n": "Maya Angelou",
+"c": "arts",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4f/Angelou_at_Clinton_inauguration_%28cropped_2%29.jpg/960px-Angelou_at_Clinton_inauguration_%28cropped_2%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 868,
+"d": "American writer and activist (1928–2014)"
+},
+{
+"n": "J. K. Rowling",
+"c": "arts",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/J._K._Rowling_2010.jpg/960px-J._K._Rowling_2010.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 789,
+"d": "British author (born 1965)"
+},
+{
+"n": "Stephen King",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/24/Stephen_King_at_the_2024_Toronto_International_Film_Festival_2_%28cropped%29.jpg/960px-Stephen_King_at_the_2024_Toronto_International_Film_Festival_2_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 793,
+"d": "American author (born 1947)"
+},
+{
+"n": "Toni Morrison",
+"c": "arts",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Toni_Morrison.jpg/960px-Toni_Morrison.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 912,
+"d": "American novelist and editor (1931–2019)"
+},
+{
+"n": "Ernest Hemingway",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/28/ErnestHemingway.jpg/960px-ErnestHemingway.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 799,
+"d": "American author and journalist (1899–1961)"
+},
+{
+"n": "Mark Twain",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Mark_Twain_by_AF_Bradley_%28cropped_2%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 683,
+"h": 910,
+"d": "American author and humorist (1835–1910)"
+},
+{
+"n": "Agatha Christie",
+"c": "arts",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/Agatha_Christie_in_Nederland_%28detectiveschrijfster%29%2C_bij_aankomst_op_Schiphol_me%2C_Bestanddeelnr_916-8898_%28cropped%29.jpg/960px-Agatha_Christie_in_Nederland_%28detectiveschrijfster%29%2C_bij_aankomst_op_Schiphol_me%2C_Bestanddeelnr_916-8898_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 908,
+"d": "English mystery and detective writer (1890–1976)"
+},
+{
+"n": "George Orwell",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7e/George_Orwell_press_photo.jpg/960px-George_Orwell_press_photo.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 867,
+"d": "English author and journalist (1903–1950)"
+},
+{
+"n": "Paulo Coelho",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/Paulo_Coelho%2C_June_2024.jpg/960px-Paulo_Coelho%2C_June_2024.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 852,
+"d": "Brazilian lyricist and novelist (born 1947)"
+},
+{
+"n": "Gabriel García Márquez",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Gabriel_Garcia_Marquez.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 427,
+"h": 640,
+"d": "Colombian writer and Nobel laureate (1927–2014)"
+},
+{
+"n": "Virginia Woolf",
+"c": "arts",
+"g": "f",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0b/George_Charles_Beresford_-_Virginia_Woolf_in_1902_-_Restoration.jpg/960px-George_Charles_Beresford_-_Virginia_Woolf_in_1902_-_Restoration.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 874,
+"d": "English modernist writer (1882–1941)"
+},
+{
+"n": "Oscar Wilde",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a2/Oscar_Wilde_by_Napoleon_Sarony._Three-quarter-length_photograph%2C_seated_%28cropped%29.jpg/960px-Oscar_Wilde_by_Napoleon_Sarony._Three-quarter-length_photograph%2C_seated_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 948,
+"d": "Irish writer (1854–1900)"
+},
+{
+"n": "Charles Dickens",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Dickens_Gurney_head.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 814,
+"h": 1190,
+"d": "English writer and journalist (1812–1870)"
+},
+{
+"n": "Leo Tolstoy",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Leo_Tolstoy_1908_Portrait_%283x4_cropped%29.jpg/960px-Leo_Tolstoy_1908_Portrait_%283x4_cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 848,
+"d": "Russian writer (1828–1910)"
+},
+{
+"n": "Coco Chanel",
+"c": "arts",
+"g": "f",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/2/22/Coco_Chanel_in_Los_Angeles%2C_1931_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 467,
+"h": 651,
+"d": "French fashion designer (1883–1971)"
+},
+{
+"n": "Karl Lagerfeld",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Fendi_store_opening_-_Karl_Lagerfeld_%2814091153382%29_crop.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 742,
+"h": 1116,
+"d": "German fashion designer (1933–2019)"
+},
+{
+"n": "Virgil Abloh",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Virgil_Abloh_Paris_Fashion_Week_Autumn_Winter_2019_%28cropped%29.jpg/960px-Virgil_Abloh_Paris_Fashion_Week_Autumn_Winter_2019_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "American fashion designer and entrepreneur (1980–2021)"
+},
+{
+"n": "Stan Lee",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Stan_Lee_2007_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 549,
+"h": 732,
+"d": "American comic book writer (1922–2018)"
+},
+{
+"n": "Walt Disney",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/5/50/Walt_Disney_1946_%28cropped2%29.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 450,
+"h": 600,
+"d": "American animator, producer and entrepreneur (1901–1966)"
+},
+{
+"n": "Steven Spielberg",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c5/MKr25402_Steven_Spielberg_%28Berlinale_2023%29_%283x4_cropped%29.jpg/960px-MKr25402_Steven_Spielberg_%28Berlinale_2023%29_%283x4_cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 855,
+"d": "American filmmaker (born 1946)"
+},
+{
+"n": "Quentin Tarantino",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0b/Quentin_Tarantino_by_Gage_Skidmore.jpg/960px-Quentin_Tarantino_by_Gage_Skidmore.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 856,
+"d": "American filmmaker (born 1963)"
+},
+{
+"n": "Alfred Hitchcock",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/9/94/Hitchcock%2C_Alfred_02.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 808,
+"h": 973,
+"d": "English filmmaker (1899–1980)"
+},
+{
+"n": "Christopher Nolan",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/ChristopherNolan-byPhilipRomano_%28cropped%29.jpg/960px-ChristopherNolan-byPhilipRomano_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "British and American filmmaker (born 1970)"
+},
+{
+"n": "Hayao Miyazaki",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://upload.wikimedia.org/wikipedia/commons/f/ff/HayaoMiyazakiCCJuly09.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 342,
+"h": 519,
+"d": "Japanese animator and artist (born 1941)"
+},
+{
+"n": "Martin Scorsese",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/Martin_Scorsese-68749.jpg/960px-Martin_Scorsese-68749.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "American filmmaker (born 1942)"
+},
+{
+"n": "Keith Haring",
+"c": "arts",
+"g": "m",
+"af": 0,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/04/Haringpalladium_%28cropped%29.jpg/960px-Haringpalladium_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 853,
+"d": "American artist and social activist (1958–1990)"
+},
+{
+"n": "Chinua Achebe",
+"c": "arts",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e3/Chinua_Achebe%2C_1966.jpg/960px-Chinua_Achebe%2C_1966.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 959,
+"d": "Nigerian author and literary critic (1930–2013)"
+},
+{
+"n": "Ngũgĩ wa Thiong'o",
+"c": "arts",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7f/Ngugi_wa_Thiong%27o_-_Festivaletteratura_2012.JPG/960px-Ngugi_wa_Thiong%27o_-_Festivaletteratura_2012.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 898,
+"d": "Kenyan writer and academic (1938–2025)"
+},
+{
+"n": "Chimamanda Ngozi Adichie",
+"c": "arts",
+"g": "f",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Chimamanda_Ngozi_Adichie_%282015%29.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 696,
+"h": 897,
+"d": "Nigerian writer (born 1977)"
+},
+{
+"n": "Wole Soyinka",
+"c": "arts",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/Wole_Soyinka_in_2018_%283x4_cropped%29.jpg/960px-Wole_Soyinka_in_2018_%283x4_cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 852,
+"d": "Nigerian playwright, poet and novelist"
+},
+{
+"n": "Naguib Mahfouz",
+"c": "arts",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/5/57/Naguib_Mahfouz_HR.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 856,
+"h": 1195,
+"d": "Egyptian writer (1911–2006)"
+},
+{
+"n": "Esther Mahlangu",
+"c": "arts",
+"g": "f",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/3/34/Esther_Mahlangu_in_2015.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 800,
+"h": 441,
+"d": "South African artist (born 1935)"
+},
+{
+"n": "Ousmane Sembène",
+"c": "arts",
+"g": "m",
+"af": 1,
+"img": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Ousmane_Semb%C3%A8ne_%281987%29_by_Guenter_Prust.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+"w": 201,
+"h": 250,
+"d": "Senegalese film director, producer, screenwriter, actor and author (1923–2007)"
+},
+{
+"n": "Binyavanga Wainaina",
+"c": "arts",
+"g": "m",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/9.13.09BinyavangaWainainaByLuigiNovi1.jpg/960px-9.13.09BinyavangaWainainaByLuigiNovi1.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 553,
+"d": "Kenyan writer and editor (1971–2019)"
+},
+{
+"n": "Yvonne Adhiambo Owuor",
+"c": "arts",
+"g": "f",
+"af": 1,
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/89/Yvonne_Owuor.jpg/960px-Yvonne_Owuor.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+"w": 640,
+"h": 767,
+"d": "Kenyan writer (born 1968)"
+}
+]
+}

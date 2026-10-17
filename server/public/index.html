@@ -1,0 +1,1806 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Who's Who</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23FFC53D'/%3E%3Ctext x='16' y='23' font-family='Arial Black,Arial' font-weight='900' font-size='20' text-anchor='middle' fill='%231D140F'%3E%3F%3C/text%3E%3C/svg%3E">
+<!-- Fonts are served by the laptop so the game looks right even on a Wi-Fi with no internet. -->
+<link rel="stylesheet" href="/fonts/bungee/index.css">
+<link rel="stylesheet" href="/fonts/barlow/500.css">
+<link rel="stylesheet" href="/fonts/barlow/600.css">
+<link rel="stylesheet" href="/fonts/barlow/700.css">
+<link rel="stylesheet" href="/fonts/barlow/800.css">
+<link rel="stylesheet" href="/fonts/barlow-condensed/600.css">
+<link rel="stylesheet" href="/fonts/barlow-condensed/700.css">
+<style>
+/* Layout: game-show set on a halftone marigold ground. TV = full-bleed 16:9 stage, phone = one-column controller. */
+:root{
+  --sun:#FFC53D; --sun-deep:#EBA61A; --ink:#1D140F; --ink-soft:#5A4630; --paper:#FFFBF0; --photo-bg:#2A211B;
+  --tomato:#D93A26; --cobalt:#2342C6; --mint:#11704F;
+  --display:"Bungee","Arial Black",Impact,system-ui,sans-serif;
+  --body:"Barlow","Helvetica Neue",Arial,system-ui,sans-serif;
+  --label:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background-color:var(--sun);color:var(--ink);font-family:var(--body);font-size:16px;font-weight:500;
+  background-image:radial-gradient(circle,var(--sun-deep) 1.1px,transparent 1.7px);background-size:16px 16px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  -webkit-tap-highlight-color:transparent;overflow-x:hidden}
+#app{height:100%}
+h1,h2,h3,p,ul,ol,figure{margin:0}
+h1,h2{text-wrap:balance}
+ul,ol{padding:0;list-style:none}
+button{font:inherit;color:inherit}
+:focus-visible{outline:4px solid var(--cobalt);outline-offset:3px}
+.eyebrow{font-family:var(--label);font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-soft)}
+.muted{color:var(--ink-soft)}
+.num{font-variant-numeric:tabular-nums}
+
+/* buttons */
+.btn{font-family:var(--display);font-size:1.05rem;letter-spacing:.02em;padding:.85em 1.3em;background:var(--paper);color:var(--ink);
+  border:3px solid var(--ink);border-radius:14px;box-shadow:0 5px 0 var(--ink);cursor:pointer;transition:transform .08s,box-shadow .08s;text-align:center}
+.btn:active:not(:disabled){transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.btn.primary{background:var(--tomato);color:var(--paper)}
+.btn.blue{background:var(--cobalt);color:var(--paper)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.sm{font-size:.8rem;padding:.55em .95em;border-width:2px;border-radius:10px;box-shadow:0 3px 0 var(--ink)}
+.btn.wide{width:100%}
+.btn.ghost{background:transparent;box-shadow:none;border-color:transparent;text-decoration:underline;font-family:var(--body);font-weight:700;padding:.4em .6em}
+
+/* avatars + prints */
+.avatar{display:inline-grid;place-items:center;width:2.4em;height:2.4em;border-radius:50%;background:var(--c);color:#FFFBF0;
+  font-family:var(--display);border:3px solid var(--ink);flex:none;line-height:1}
+.print{display:inline-flex;flex-direction:column;background:var(--paper);padding:1.6vmin 1.6vmin 0;border:3px solid var(--ink);
+  box-shadow:1vmin 1.2vmin 0 var(--ink);transform:rotate(-2deg);max-width:100%}
+.print img{display:block;max-width:100%;max-height:60vmin;width:auto;height:auto;background:var(--photo-bg);object-fit:contain}
+.print figcaption{font-family:var(--label);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:2.2vmin;padding:1.4vmin 0 1.6vmin;color:var(--ink-soft)}
+
+/* landing */
+.landing{min-height:100%;max-width:1040px;margin:0 auto;padding-block:clamp(28px,7vh,80px);display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(28px,5vw,64px);align-items:center}
+.wordmark{font-family:var(--display);font-size:clamp(64px,12vw,148px);line-height:.86;letter-spacing:-.01em}
+.wordmark span{display:block}
+.wordmark .two{color:var(--paper);-webkit-text-stroke:.03em var(--ink);paint-order:stroke fill;text-shadow:.045em .055em 0 var(--ink);margin-left:.35em}
+.lede{font-size:clamp(18px,2.1vw,22px);line-height:1.45;max-width:38ch;margin-top:24px;font-weight:600}
+.panel{background:var(--paper);border:3px solid var(--ink);border-radius:20px;box-shadow:0 7px 0 var(--ink);padding:clamp(18px,3vw,28px);display:flex;flex-direction:column;gap:18px}
+.steps{display:grid;gap:12px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;line-height:1.4;counter-increment:s}
+.steps li::before{content:counter(s);font-family:var(--display);width:1.8em;height:1.8em;display:grid;place-items:center;background:var(--sun);border:2px solid var(--ink);border-radius:50%}
+.warn{background:var(--ink);color:var(--paper);border-radius:12px;padding:12px 14px;line-height:1.4}
+@media (max-width:760px){.landing{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- TV ---------- */
+.tv{height:100%;display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:2vmin;padding-block:2.4vmin;max-width:2000px;margin:0 auto}
+.tv-top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-family:var(--display);font-size:max(18px,3.4vmin)}
+.tv[data-ph=lobby] .tv-top .logo{visibility:hidden}
+.tv-status{display:flex;gap:1.2vmin;align-items:center;font-family:var(--label);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:max(13px,2vmin)}
+.pill{background:var(--paper);border:2px solid var(--ink);border-radius:999px;padding:.35em .9em}
+.pill.dark{background:var(--ink);color:var(--paper)}
+.stage{min-height:0;position:relative}
+.hostbar{display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap;min-height:40px}
+.hostbar .why{font-weight:700;color:var(--ink-soft)}
+
+.lobby{height:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:5vmin;align-items:center}
+.lobby .wordmark{font-size:12vmin}
+.lobby .lede{font-size:max(15px,2.5vmin);margin-top:2.4vmin;max-width:34ch}
+.joincard{margin-top:4vmin;display:flex;gap:3vmin;align-items:center;background:var(--paper);border:3px solid var(--ink);border-radius:2vmin;
+  box-shadow:0 1vmin 0 var(--ink);padding:2.4vmin;width:fit-content;max-width:100%;transform:rotate(-1.2deg)}
+.qr svg{width:max(140px,27vmin);height:max(140px,27vmin);display:block}
+.code{font-family:var(--display);font-size:max(36px,9vmin);letter-spacing:.06em;line-height:1}
+.joincard .small{font-size:max(13px,2vmin);color:var(--ink-soft);max-width:22ch;line-height:1.35;margin-top:1vmin}
+.roster{align-self:stretch;display:flex;flex-direction:column;gap:2vmin;min-height:0;justify-content:center}
+.roster-head{display:flex;justify-content:space-between;align-items:baseline}
+.roster-head h2{font-family:var(--display);font-size:max(22px,4.4vmin)}
+.roster-head .count{font-family:var(--display);font-size:max(16px,3vmin)}
+.pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.6vmin}
+.pcard{display:flex;align-items:center;gap:1.4vmin;background:var(--paper);border:3px solid var(--ink);border-radius:1.6vmin;padding:1.1vmin 1.4vmin;font-size:max(14px,2.5vmin);min-width:0}
+.pcard.pop{animation:pop .45s cubic-bezier(.3,1.6,.5,1) both}
+.pcard.off{opacity:.5}
+.pc-body{display:flex;flex-direction:column;min-width:0;flex:1}
+.pc-body .nm{font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pc-body .meta{font-family:var(--label);font-weight:600;font-size:.78em;color:var(--ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.addph{flex:none;font-family:var(--label);font-weight:700;font-size:.72em;text-transform:uppercase;letter-spacing:.06em;background:transparent;border:2px dashed var(--ink-soft);border-radius:8px;padding:.3em .6em;cursor:pointer;color:var(--ink-soft)}
+.empty{border:3px dashed var(--ink-soft);border-radius:2vmin;padding:4vmin;text-align:center;font-size:max(15px,2.6vmin);font-weight:700;color:var(--ink-soft)}
+.film{display:grid;grid-template-columns:repeat(auto-fill,minmax(max(14px,3.4vmin),1fr));gap:.6vmin;background:var(--ink);padding:1.1vmin .9vmin;border-radius:.8vmin;position:relative}
+.film::before,.film::after{content:"";position:absolute;left:.9vmin;right:.9vmin;height:.5vmin;background:repeating-linear-gradient(90deg,var(--paper) 0 1vmin,transparent 1vmin 2.2vmin);opacity:.7}
+.film::before{top:.3vmin}.film::after{bottom:.3vmin}
+.frame{aspect-ratio:4/3;border-radius:.3vmin;background:#3A2E26;border:1px solid #4D3E33}
+.frame.on{background:var(--sun);border-color:var(--sun)}
+.filmcap{font-size:max(13px,2.1vmin);font-weight:700}
+.points-key{font-size:max(12px,1.9vmin);color:var(--ink-soft);line-height:1.4}
+
+.qgrid,.rgrid{height:100%;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:5vmin;align-items:center}
+.rgrid{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
+.qphoto{display:grid;place-items:center;min-height:0;position:relative;height:100%}
+.qphoto .print{animation:deal .6s cubic-bezier(.2,1.2,.4,1) both}
+.rgrid .print img{max-height:52vmin}
+.qside,.rside{display:flex;flex-direction:column;gap:2.2vmin;min-width:0}
+.qtitle{font-family:var(--display);font-size:max(26px,6.4vmin);line-height:.98}
+.clock{position:relative;width:max(90px,17vmin);height:max(90px,17vmin)}
+.clock svg{width:100%;height:100%;display:block}
+.clock .bg{fill:var(--paper);stroke:var(--ink);stroke-width:4}
+.clock .ring{fill:none;stroke:var(--tomato);stroke-width:9;stroke-dasharray:100;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .25s linear}
+.clock span{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);font-size:max(30px,6.4vmin)}
+.clock.hurry span{color:var(--tomato);animation:throb .5s ease-in-out infinite alternate}
+.locks{display:flex;flex-wrap:wrap;gap:1.1vmin}
+.lock{display:flex;align-items:center;gap:.9vmin;padding:.6vmin 1.3vmin .6vmin .6vmin;border:2px dashed var(--ink-soft);border-radius:999px;font-weight:800;font-size:max(13px,2.2vmin);color:var(--ink-soft)}
+.lock .avatar{font-size:.8em;border-width:2px}
+.lock.in{border-style:solid;border-color:var(--ink);background:var(--paper);color:var(--ink);animation:pop .35s cubic-bezier(.3,1.6,.5,1) both}
+.lock.owner{opacity:.55}
+.locks .dot{width:max(16px,3vmin);height:max(16px,3vmin);border-radius:50%;border:3px solid var(--ink);background:var(--paper)}
+.locks .dot.in{background:var(--ink);animation:pop .35s cubic-bezier(.3,1.6,.5,1) both}
+.votes{font-family:var(--display);font-weight:400;font-size:.85em;white-space:nowrap;animation:drop .35s cubic-bezier(.3,1.5,.5,1) both}
+
+.intro{height:100%;display:grid;place-items:center;text-align:center;align-content:center;gap:2vmin}
+.intro .big{font-family:var(--display);font-size:max(48px,16vmin);line-height:.9;animation:slam .5s cubic-bezier(.2,1.4,.4,1) both}
+.dbl{font-family:var(--display);font-size:max(20px,4.4vmin);background:var(--tomato);color:var(--paper);padding:.3em .8em;border:3px solid var(--ink);border-radius:1vmin;transform:rotate(-3deg);box-shadow:0 .7vmin 0 var(--ink)}
+
+.rows{display:flex;flex-direction:column;gap:1.3vmin}
+.rows li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:1.4vmin;background:var(--paper);border:3px solid var(--ink);border-radius:1.4vmin;padding:1vmin 1.4vmin;font-size:max(15px,2.8vmin);font-weight:800}
+.rows li.win{animation:win .5s var(--t,2.2s) both}
+.rows .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.voters{display:flex;gap:.5vmin;flex-wrap:wrap;justify-content:flex-end}
+.voters>span{display:inline-flex;animation:drop .35s cubic-bezier(.3,1.5,.5,1) both}
+.voters .avatar{font-size:.62em;border-width:2px}
+.stamp{position:absolute;left:50%;top:50%;font-family:var(--display);font-size:max(26px,7.4vmin);color:var(--paper);background:var(--cobalt);padding:.15em .5em;border:4px solid var(--ink);
+  border-radius:1vmin;white-space:nowrap;box-shadow:0 1vmin 0 var(--ink);animation:stamp .45s var(--t,2.2s) cubic-bezier(.2,1.4,.4,1) both;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.deltas{display:flex;flex-wrap:wrap;gap:1vmin;animation:rise .4s var(--t2,3s) both}
+.delta{display:flex;align-items:center;gap:.8vmin;background:var(--ink);color:var(--paper);border-radius:999px;padding:.5vmin 1.4vmin .5vmin .5vmin;font-weight:800;font-size:max(13px,2.2vmin)}
+.delta .avatar{font-size:.75em;border-width:2px;border-color:var(--paper)}
+.delta b{font-family:var(--display);font-weight:400;color:var(--sun)}
+.nobody{font-size:max(15px,2.8vmin);font-weight:800}
+
+.board{height:100%;display:flex;flex-direction:column;justify-content:center;gap:3vmin;max-width:1300px;margin:0 auto;width:100%}
+.lb{display:flex;flex-direction:column;gap:1.3vmin}
+.lb li{display:grid;grid-template-columns:5vmin auto minmax(0,1fr) auto;align-items:center;gap:1.6vmin;font-size:max(15px,2.9vmin);font-weight:800;animation:rise .4s both}
+.lb .rank{font-family:var(--display);text-align:right}
+.bar{height:4.6vmin;min-width:0;display:flex;align-items:center}
+.bar i{display:block;height:100%;width:var(--w);min-width:1.2vmin;background:var(--c);border:3px solid var(--ink);border-radius:1vmin;animation:grow .8s .2s cubic-bezier(.2,1,.3,1) both;transform-origin:left}
+.bar span{margin-left:1.2vmin;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lb .score{font-family:var(--display);font-weight:400}
+.lb .up{font-family:var(--label);color:var(--mint);font-size:.8em;margin-left:.6vmin}
+
+.end{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3vmin;text-align:center}
+.end .qtitle{font-size:max(30px,8vmin)}
+.podium{display:grid;grid-template-columns:repeat(3,minmax(0,22vmin));align-items:end;gap:2vmin}
+.step{display:flex;flex-direction:column;align-items:center;gap:1.2vmin;min-width:0}
+.step .avatar{font-size:max(16px,3.4vmin)}
+.step .nm{font-weight:800;font-size:max(14px,2.8vmin);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.block{width:100%;background:var(--paper);border:3px solid var(--ink);border-radius:1.2vmin 1.2vmin 0 0;display:grid;place-items:center;font-family:var(--display);font-size:max(18px,5vmin);box-shadow:0 1vmin 0 var(--ink);animation:grow-up .7s cubic-bezier(.2,1.2,.4,1) both;transform-origin:bottom}
+.block small{display:block;font-size:.42em;font-family:var(--body);font-weight:800}
+.p1 .block{height:24vmin;background:var(--sun)}.p2 .block{height:16vmin;animation-delay:.25s}.p3 .block{height:11vmin;animation-delay:.4s}
+.rest{display:flex;flex-wrap:wrap;gap:1vmin 2.4vmin;justify-content:center;font-weight:700;font-size:max(13px,2.3vmin)}
+
+@media (max-width:760px){
+  .lobby,.qgrid,.rgrid{grid-template-columns:minmax(0,1fr);height:auto;gap:24px}
+  .tv{height:auto;min-height:100%}
+}
+
+/* ---------- phone ---------- */
+.phone{max-width:520px;margin:0 auto;min-height:100%;padding-block:14px 40px;display:flex;flex-direction:column;gap:16px}
+.ph-top{display:flex;align-items:center;gap:8px;min-height:44px}
+.ph-top .logo{font-size:17px;white-space:nowrap}
+.ph-top .room{font-family:var(--label);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:13px;margin-left:auto;white-space:nowrap}
+.ph-top .btn.ghost{font-size:14px;padding:.3em .4em}
+.ph-top .avatar{font-size:13px;border-width:2px}
+.ph-main{display:flex;flex-direction:column;gap:16px}
+.card{background:var(--paper);border:3px solid var(--ink);border-radius:18px;box-shadow:0 5px 0 var(--ink);padding:18px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.card.center{text-align:center;align-items:center}
+.ph-h{font-family:var(--display);font-size:26px;line-height:1.05}
+.ph-big{font-family:var(--display);font-size:40px;line-height:1}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-family:var(--label);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:14px}
+.field input{font:inherit;font-size:22px;font-weight:700;padding:12px 14px;border:3px solid var(--ink);border-radius:12px;background:#fff;color:var(--ink);width:100%;min-width:0}
+.field input.code-in{font-family:var(--display);letter-spacing:.15em;text-transform:uppercase}
+.thumbs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.thumb{position:relative;aspect-ratio:1;border:3px solid var(--ink);border-radius:10px;overflow:hidden;background:var(--photo-bg)}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb .st{position:absolute;left:0;right:0;bottom:0;background:var(--ink);color:var(--paper);font-family:var(--label);font-weight:700;font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:3px 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.thumb .st i{position:absolute;left:0;top:0;bottom:0;background:var(--cobalt);width:var(--p,0%);transition:width .2s}
+.thumb .st span{position:relative}
+.thumb.done .st{background:var(--mint)}
+.thumb.bad .st{background:var(--tomato)}
+.thumb .x{position:absolute;top:4px;right:4px;width:28px;height:28px;border-radius:50%;border:2px solid var(--ink);background:var(--paper);font-weight:800;cursor:pointer;display:grid;place-items:center;line-height:1}
+.addtile{aspect-ratio:1;border:3px dashed var(--ink);border-radius:10px;background:transparent;display:grid;place-items:center;font-family:var(--display);font-size:15px;cursor:pointer;text-align:center;padding:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:flex;align-items:center;gap:6px;font-weight:800;border:2px solid var(--ink);border-radius:999px;padding:3px 10px 3px 3px;background:#fff;max-width:100%}
+.chip .avatar{font-size:11px;border-width:2px}
+.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.choice{display:flex;align-items:center;gap:10px;min-height:68px;padding:10px 12px;border:3px solid var(--ink);border-radius:14px;background:var(--paper);box-shadow:0 5px 0 var(--ink);font-weight:800;font-size:19px;cursor:pointer;text-align:left;min-width:0}
+.choice span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.choice:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.choice .avatar{font-size:13px}
+.tbar{height:12px;border:3px solid var(--ink);border-radius:999px;background:var(--paper);overflow:hidden}
+.tbar i{display:block;height:100%;background:var(--tomato);width:100%;transition:width .25s linear}
+.result{padding:28px 18px}
+.result.good{background:var(--cobalt);color:var(--paper)}
+.result.bad{background:var(--tomato);color:var(--paper)}
+.result.good .eyebrow,.result.bad .eyebrow{color:var(--paper);opacity:.8}
+.hostlist{display:flex;flex-direction:column;gap:10px}
+
+/* round picker + flag and map rounds */
+.modes{display:flex;flex-direction:column;gap:1vmin}
+.mode-row{display:flex;flex-wrap:wrap;gap:1vmin}
+.mode{font-family:var(--display);font-size:max(13px,2.1vmin);padding:.5em .9em;border:3px solid var(--ink);border-radius:999px;background:transparent;color:var(--ink);cursor:pointer}
+.mode.on{background:var(--ink);color:var(--sun)}
+.print img.flag{width:62vmin;max-width:100%;height:auto;max-height:none;aspect-ratio:4/3;object-fit:cover;background:var(--paper)}
+.print .shape{display:block;width:62vmin;max-width:100%;height:auto;aspect-ratio:4/3}
+.print .shape path{fill:var(--ink)}
+.print .loading{display:grid;place-items:center;width:min(64vmin,100%);aspect-ratio:4/3;font-weight:800;color:var(--ink-soft)}
+.rgrid .print img.flag,.rgrid .print .shape,.rgrid .print .loading{width:48vmin}
+.loc{width:min(44vmin,100%);animation:rise .4s var(--t2,3s) both}
+.loc svg{display:block;width:100%;height:auto}
+.loc .land{fill:var(--sun-deep)}
+.loc .hit{fill:var(--tomato);stroke:var(--ink);stroke-width:.6}
+.loc .pin{fill:none;stroke:var(--tomato);stroke-width:2.5}
+.stamp.low{top:80%}
+.qside.quiz{gap:1.8vmin}
+.qside.quiz .qtitle{font-size:max(22px,5vmin)}
+.qfoot{display:flex;align-items:center;gap:2.4vmin}
+.qfoot .clock{width:max(70px,12vmin);height:max(70px,12vmin);flex:none}
+.qfoot .clock span{font-size:max(22px,4.6vmin)}
+.qfoot>div:last-child{display:flex;flex-direction:column;gap:1vmin;min-width:0}
+.opts{display:flex;flex-direction:column;gap:1.2vmin}
+.opt{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:1.4vmin;background:var(--paper);border:3px solid var(--ink);border-radius:1.4vmin;padding:.9vmin 1.3vmin;font-size:max(15px,2.8vmin);font-weight:800}
+.opt>b{display:grid;place-items:center;width:2em;height:2em;border-radius:.45em;background:var(--oc);color:var(--paper);font-family:var(--display);font-weight:400;border:2px solid var(--ink)}
+.opt>span:nth-child(2){overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.opt.win{animation:win .5s var(--t,2.2s) both}
+.opt.lose{animation:dim .4s var(--t,2.2s) both}
+.answers{display:grid;gap:12px}
+.answer{display:flex;align-items:center;gap:12px;min-height:64px;padding:10px 14px;border:3px solid var(--ink);border-radius:14px;background:var(--oc);color:#FFFBF0;box-shadow:0 5px 0 var(--ink);font-weight:800;font-size:19px;cursor:pointer;text-align:left;line-height:1.2}
+.answer b{font-family:var(--display);font-weight:400;font-size:22px;flex:none;width:1.4em}
+.answer:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.opt-pill{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border:3px solid var(--ink);border-radius:12px;background:var(--oc);color:#FFFBF0;font-weight:800;font-size:22px}
+.opt-pill b{font-family:var(--display);font-weight:400}
+.mode-pick{display:flex;flex-wrap:wrap;gap:8px}
+.mode-pick .mode{font-size:13px}
+@keyframes dim{to{opacity:.45}}
+/* music, faces and round options */
+.roster-body{display:flex;flex-direction:column;gap:2vmin}
+.sub{display:flex;flex-wrap:wrap;align-items:center;gap:.8vmin;margin-top:.4vmin}
+.sub-l{font-family:var(--label);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:max(11px,1.7vmin);color:var(--ink-soft);margin-right:.4vmin}
+.chipb{font-family:var(--body);font-weight:800;font-size:max(12px,1.8vmin);padding:.3em .8em;border:2px solid var(--ink);border-radius:999px;background:var(--paper);color:var(--ink);cursor:pointer}
+.chipb.on{background:var(--cobalt);color:var(--paper)}
+.tune-form{display:flex;gap:.6vmin}
+.tune-form input{font:inherit;font-weight:700;font-size:max(12px,1.8vmin);padding:.3em .8em;border:2px solid var(--ink);border-radius:999px;background:#fff;color:var(--ink);min-width:0;width:24ch}
+.sel{font:inherit;font-weight:800;font-size:max(12px,1.9vmin);padding:.3em .7em;border:2px solid var(--ink);border-radius:999px;background:var(--paper);color:var(--ink);cursor:pointer}
+.modes .mode{font-size:max(12px,1.8vmin);padding:.35em .8em;border-width:2px}
+.roster{min-height:0;overflow-y:auto}
+.mixnote{width:100%;font-size:max(11px,1.7vmin);font-weight:700;color:var(--ink-soft)}
+.vinyl{width:min(50vmin,90%);aspect-ratio:1;border-radius:50%;background:repeating-radial-gradient(circle at 50% 50%,#1D140F 0 2px,#33271F 2px 5px);border:3px solid var(--ink);display:grid;place-items:center;box-shadow:1vmin 1.2vmin 0 var(--sun-deep)}
+.vinyl span{width:34%;aspect-ratio:1;border-radius:50%;background:var(--tomato);display:grid;place-items:center;font-family:var(--display);font-size:max(24px,6vmin);color:var(--paper);border:3px solid var(--ink)}
+.vinyl.spin{animation:spin 2.4s linear infinite}
+.print img.cover{width:46vmin;max-width:100%;height:auto;aspect-ratio:1;object-fit:cover;max-height:none}
+.print.song figcaption{display:flex;flex-direction:column;gap:.4vmin;text-transform:none;letter-spacing:0;font-family:var(--body);color:var(--ink);max-width:min(48vmin,100%)}
+.print.song figcaption b{font-weight:800;font-size:max(15px,3vmin);line-height:1.1}
+.print.song figcaption span{font-weight:700;font-size:max(13px,2.3vmin);color:var(--ink-soft)}
+.print img.face{width:auto;height:56vmin;max-width:100%;aspect-ratio:3/4;object-fit:cover;object-position:50% 20%;max-height:none;background:var(--photo-bg)}
+.print img.face.blurred{animation:unblur var(--blur,15s) linear both}
+.rgrid .print img.face{height:46vmin}
+.rgrid .print img.cover,.rgrid .vinyl{width:38vmin}
+.who-d{font-weight:700;color:var(--ink-soft);font-size:max(13px,2.2vmin);animation:rise .4s var(--t2,3s) both}
+.credit{font-size:max(10px,1.5vmin);color:var(--ink-soft)}
+.songsearch{display:flex;gap:8px}
+.songsearch input{flex:1;min-width:0;font:inherit;font-size:18px;font-weight:700;padding:10px 12px;border:3px solid var(--ink);border-radius:12px;background:#fff;color:var(--ink)}
+.songlist{display:flex;flex-direction:column;gap:8px}
+.songrow{display:grid;grid-template-columns:48px minmax(0,1fr) auto auto;gap:8px;align-items:center;padding:6px;border:2px solid var(--ink);border-radius:12px;background:#fff}
+.songrow.mine{background:var(--sun)}
+.songrow img{width:48px;height:48px;border-radius:8px;object-fit:cover;background:var(--photo-bg)}
+.songrow b,.songrow small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.songrow b{font-weight:800}
+.songrow small{color:var(--ink-soft);font-weight:600}
+.songrow button{font:inherit;font-weight:800;font-size:14px;border:2px solid var(--ink);border-radius:10px;background:var(--paper);color:var(--ink);padding:8px 10px;cursor:pointer}
+.songrow button.add{background:var(--cobalt);color:#FFFBF0}
+.songrow button:disabled{opacity:.5;cursor:default}
+.awards{display:flex;gap:2vmin;flex-wrap:wrap;justify-content:center;animation:rise .5s 1.2s both}
+.award{display:flex;align-items:center;gap:1.2vmin;background:var(--paper);border:3px solid var(--ink);border-radius:1.4vmin;padding:1vmin 1.6vmin;text-align:left}
+.award .avatar{font-size:max(12px,2vmin)}
+.award b{display:block;font-family:var(--display);font-weight:400;font-size:max(14px,2.4vmin)}
+.award span{font-weight:700;font-size:max(12px,1.9vmin);color:var(--ink-soft)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes unblur{from{filter:blur(28px) saturate(.6)}to{filter:blur(0) saturate(1)}}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes deal{from{transform:translateY(40%) rotate(8deg);opacity:0}to{transform:rotate(-2deg);opacity:1}}
+@keyframes slam{from{transform:scale(1.8);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes throb{to{transform:scale(1.12)}}
+@keyframes drop{from{transform:translateY(-120%);opacity:0}to{transform:none;opacity:1}}
+@keyframes win{to{background:var(--cobalt);color:var(--paper);transform:scale(1.03)}}
+@keyframes stamp{from{transform:translate(-50%,-50%) scale(2.4) rotate(-14deg);opacity:0}to{transform:translate(-50%,-50%) scale(1) rotate(-7deg);opacity:1}}
+@keyframes rise{from{transform:translateY(16px);opacity:0}to{transform:none;opacity:1}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes grow-up{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<input type="file" id="file-in" accept="image/*" multiple hidden>
+
+<script src="/vendor/qrcode.js"></script>
+<script src="/socket.io/socket.io.min.js"></script>
+<script src="/config.js"></script>
+<script>
+"use strict";
+(() => {
+// The server tells the page its Wi-Fi address so the TV's QR code points phones at the laptop.
+const JOIN_BASE = window.WIW?.joinBase || location.origin + "/";
+const JOIN_LAN = window.WIW ? !!window.WIW.lan : true;
+const JOIN_HOSTED = !!window.WIW?.hosted;
+const JOIN_HOST = JOIN_BASE.replace(/^https?:\/\//, "").replace(/\/$/, "");
+
+const APP = "wiw";
+const PER_PLAYER = 5, MAX_PLAYERS = 12;
+const Q_SECS = 20, INTRO_SECS = 3, REVEAL_SECS = 9, LB_SECS = 7;
+const COLORS = ["#D93A26","#2342C6","#11704F","#7339D6","#C42F78","#0B7584","#B5530B","#7E5226","#1A72B0","#55701A","#952A65","#3E4C60"];
+const CODE_CHARS = "ABCDEFGHJKMNPQRSTUVWXYZ";
+// Kinds of round. Photo games play every photo; flag and map rounds come in sets of ROUNDS (fewer when mixed).
+const ROUNDS = 10, SONGS_PER_PLAYER = 3;
+const MODES = ["photo", "song", "tune", "face", "flag", "map"];
+// Owner rounds show something a player brought, and everyone guesses which player. The rest are quiz rounds with 4 answers.
+const OWNER_KINDS = ["photo", "song"];
+const MODE_LABEL = { photo: "Whose photo", song: "Whose song", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps" };
+const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country" };
+const KIND_ASK = { photo: "Whose photo is this?", song: "Whose song is this?", face: "Who is this?", flag: "Which country's flag is this?", map: "Which country has this shape?" };
+const KIND_ASK_PHONE = { photo: "Whose photo is on the TV?", song: "Whose song is playing?", face: "Who's on the TV?", flag: "Which country's flag is on the TV?", map: "Which country is the shape on the TV?" };
+const askOf = c => (c.t === "tune" ? (c.ask === "artist" ? "Who's the artist?" : "What's this song?") : KIND_ASK[c.t]);
+// Music for "Name that tune" and the Music theme, grouped for the TV's dropdown. Each entry is [Deezer search, label].
+const TUNE_GROUPS = [
+  ["Party", [["top worldwide", "Today's hits"], ["karaoke classics", "Karaoke classics"], ["greatest hits of all time", "All-time greats"]]],
+  ["Decades", [["60s hits", "60s"], ["70s hits", "70s"], ["80s hits", "80s"], ["90s hits", "90s"], ["00s party hits", "2000s"], ["2010s hits", "2010s"]]],
+  ["Rock & country", [["rock classics", "Rock classics"], ["classic rock", "70s rock"], ["indie rock", "Indie rock"], ["heavy metal", "Metal"], ["punk rock", "Pop punk"], ["rock ballads", "Power ballads"], ["country hits", "Country classics"], ["hot country", "New country"]]],
+  ["Hip-hop, R&B & soul", [["hip hop hits", "Hip-hop"], ["trap hits", "Trap"], ["uk drill", "UK drill"], ["r&b hits", "R&B"], ["90s r&b", "90s R&B"], ["neo soul", "Neo soul"], ["soul classics", "Soul"], ["motown classics", "Motown & disco"], ["funk classics", "Funk"], ["disco classics", "Disco"]]],
+  ["Jazz & blues", [["jazz classics", "Jazz"], ["blues classics", "Blues"]]],
+  ["Africa", [["afrobeats hits", "Afrobeats"], ["amapiano", "Amapiano"], ["bongo flava", "Bongo Flava"], ["gengetone", "Gengetone"], ["kenyan hits", "Kenyan hits"], ["rumba congolaise", "Congolese rumba"], ["afro house", "Afro house"]]],
+  ["Pop & dance", [["pop hits", "Pop"], ["dance hits", "Dance"], ["house classics", "House"], ["k-pop hits", "K-pop"], ["eurovision", "Eurovision"]]],
+  ["World", [["latin hits", "Latin"], ["reggae classics", "Reggae"], ["dancehall hits", "Dancehall"], ["bollywood hits", "Bollywood"], ["arabic hits", "Arabic hits"], ["j-pop", "Anime hits"]]],
+  ["Moods & occasions", [["love songs", "Love songs"], ["musicals", "Musicals"], ["disney hits", "Disney"], ["movie hits", "Movie & TV songs"], ["stadium anthems", "Stadium anthems"], ["christmas hits", "Christmas"], ["gospel hits", "Gospel"]]],
+];
+const TUNE_MIXES = TUNE_GROUPS.flatMap(([, list]) => list);
+// A theme ties the quiz rounds together: which songs play, whose faces show up, and which part of the world the flags and maps come from.
+const THEMES = [
+  { id: "mix", label: "Anything goes", faces: "all" },
+  { id: "music", label: "Music", faces: "artists" },
+  { id: "africa", label: "Africa", tune: ["afrobeats hits", "Afrobeats"], faces: "africa", region: "Africa" },
+  { id: "screen", label: "Movies & TV", tune: ["movie hits", "Movie & TV songs"], faces: "screen" },
+  { id: "sport", label: "Sport", tune: ["stadium anthems", "Stadium anthems"], faces: "sport" },
+  { id: "world", label: "World & history", tune: ["greatest hits of all time", "All-time greats"], faces: "world" },
+];
+const FACES_NOTE = { all: "famous people from everywhere", artists: "artists from this playlist", africa: "African stars", screen: "film and TV stars", sport: "sport stars", world: "leaders, thinkers and artists" };
+const themeOf = H => THEMES.find(t => t.id === H?.theme) || THEMES[0];
+// Music from one part of the world brings that region's flags and maps with it.
+const regionOf = q => (/afro|amapiano|bongo|gengetone|kenya|naija|highlife|african|rumba|congo/i.test(q) ? "Africa" : /latin|reggaeton|salsa|bachata|cumbia|reggae|dancehall/i.test(q) ? "Americas" : /k-?pop|j-?pop|bollywood|c-?pop/i.test(q) ? "Asia" : "all");
+// Quiz rounds of each kind per game. Photos and picked songs always all get played.
+const LENGTHS = [["quick", "Quick", 4], ["normal", "Normal", 6], ["long", "Long", 10]];
+const FACE_CATS = [["all", "Everyone"], ["music", "Music"], ["screen", "Film & TV"], ["sport", "Sport"], ["leaders", "Leaders"], ["science", "Science & business"], ["arts", "Arts & books"], ["africa", "Africa"]];
+const OPT_COLORS = ["#D93A26", "#2342C6", "#11704F", "#7339D6"], LETTERS = "ABCD";
+const photosOnly = H => !Array.isArray(H?.modes) || (H.modes.length === 1 && H.modes[0] === "photo");
+const ownerOnly = H => !Array.isArray(H?.modes) || H.modes.every(m => OWNER_KINDS.includes(m));
+const unitOf = H => (photosOnly(H) ? "Photo" : "Round");
+
+const $ = (s, el = document) => el.querySelector(s);
+const app = $("#app");
+const fileIn = $("#file-in");
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const rid = (n = 8) => { const a = "abcdefghijkmnpqrstuvwxyz23456789"; let s = ""; for (const x of crypto.getRandomValues(new Uint8Array(n))) s += a[x % a.length]; return s; };
+const cleanName = s => String(s ?? "").replace(/\p{C}/gu, "").replace(/\s+/g, " ").trim().slice(0, 14);
+const cleanText = (s, n = 80) => String(s ?? "").replace(/\p{C}/gu, "").replace(/\s+/g, " ").trim().slice(0, n);
+const isArt = s => (typeof s === "string" && /^https:\/\/[a-z0-9.-]+\.dzcdn\.net\/[^\s"'<>]+$/.test(s) ? s : "");
+const isPid = s => typeof s === "string" && /^p[a-z0-9]{6,15}$/.test(s);
+const isFid = s => typeof s === "string" && /^f[a-z0-9]{6,15}$/.test(s);
+const B64 = /^[A-Za-z0-9+/=]*$/;
+const fnv = s => { let h = 0x811c9dc5; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 0x01000193); } return (h >>> 0).toString(36); };
+const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const fmt = n => Number(n || 0).toLocaleString("en-US");
+const ordinal = n => n + (["th", "st", "nd", "rd"][(n % 100 - 20) % 10] || ["th", "st", "nd", "rd"][n % 100] || "th");
+const color = i => COLORS[((i | 0) % COLORS.length + COLORS.length) % COLORS.length];
+const avatar = (name, ci, cls = "") => `<span class="avatar ${cls}" style="--c:${color(ci)}" aria-hidden="true">${esc((cleanName(name)[0] || "?").toUpperCase())}</span>`;
+const store = {
+  get(k) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : null; } catch { return null; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch { return false; } },
+  del(k) { try { localStorage.removeItem(k); } catch {} },
+};
+function paint(el, sig, html) { if (!el || el.dataset.sig === sig) return false; el.dataset.sig = sig; el.innerHTML = html; return true; }
+async function wake() { try { await navigator.wakeLock?.request("screen"); } catch {} }
+function vibrate(ms) { try { navigator.vibrate?.(ms); } catch {} }
+
+// Downscale a picked photo to a TV-sized JPEG before it goes over the Wi-Fi.
+async function compress(file) {
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = url; });
+    let max = 1280, q = 0.82, out = "";
+    for (let tries = 0; tries < 5; tries++) {
+      const s = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+      const w = Math.max(1, Math.round(img.naturalWidth * s)), h = Math.max(1, Math.round(img.naturalHeight * s));
+      const c = document.createElement("canvas"); c.width = w; c.height = h;
+      const ctx = c.getContext("2d"); ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, w, h); ctx.drawImage(img, 0, 0, w, h);
+      out = c.toDataURL("image/jpeg", q).split(",")[1] || "";
+      if (out.length < 420000) break;
+      max = Math.round(max * 0.84); q = Math.max(0.6, q - 0.06);
+    }
+    return out;
+  } finally { URL.revokeObjectURL(url); }
+}
+
+// Send a compressed photo to the laptop. The server keeps it in memory and serves it at /photos/<id>.
+function postPhoto(id, pid, code, b64, onProg) {
+  return new Promise((res, rej) => {
+    const bin = atob(b64), buf = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+    const x = new XMLHttpRequest();
+    x.open("POST", "/api/photos/" + id);
+    x.setRequestHeader("Content-Type", "image/jpeg");
+    x.setRequestHeader("X-Pid", pid);
+    x.setRequestHeader("X-Code", code);
+    x.timeout = 60000;
+    if (onProg) x.upload.onprogress = e => { if (e.lengthComputable) onProg(e.loaded / e.total); };
+    x.onload = () => (x.status === 201 ? res() : rej(Object.assign(new Error("upload " + x.status), { status: x.status })));
+    x.onerror = x.ontimeout = () => rej(new Error("network"));
+    x.send(new Blob([buf], { type: "image/jpeg" }));
+  });
+}
+const photoSrc = id => "/photos/" + id;
+
+// ---------- flag and map data (the TV loads it; phones only see answer labels) ----------
+const DATA = {};
+function loadScript(src) {
+  return new Promise((res, rej) => { const s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = rej; document.head.appendChild(s); });
+}
+function getCountries() {
+  return (DATA.countries ||= fetch("/api/countries").then(r => { if (!r.ok) throw new Error("countries " + r.status); return r.json(); })
+    .catch(e => { DATA.countries = null; throw e; }));
+}
+function getWorld() {
+  return (DATA.world ||= (async () => {
+    if (!window.d3?.geoPath) { await loadScript("/vendor/d3-array.js"); await loadScript("/vendor/d3-geo.js"); }
+    if (!window.topojson) await loadScript("/vendor/topojson.js");
+    const topo = await fetch("/data/world.json").then(r => r.json());
+    DATA.fc = topojson.feature(topo, topo.objects.countries);
+    DATA.shapes = new Map(DATA.fc.features.map(f => [f.id, f]));
+    return DATA.shapes;
+  })().catch(e => { DATA.world = null; throw e; }));
+}
+// Keep a country's main landmass and whatever lies near it, so far-off territories don't shrink the outline.
+function mainland(f) {
+  const g = f.geometry;
+  if (!g || g.type !== "MultiPolygon") return f;
+  const parts = g.coordinates.map(c => { const poly = { type: "Polygon", coordinates: c }; return { c, area: d3.geoArea(poly), ctr: d3.geoCentroid(poly) }; });
+  const big = parts.reduce((a, b) => (b.area > a.area ? b : a));
+  const keep = parts.filter(p => d3.geoDistance(p.ctr, big.ctr) < 0.5 && p.area > big.area * 0.0005);
+  return { type: "Feature", geometry: { type: "MultiPolygon", coordinates: keep.map(p => p.c) } };
+}
+function shapeSvg(id) {
+  const f = DATA.shapes?.get(id);
+  if (!f) return "";
+  const m = mainland(f), [lon, lat] = d3.geoCentroid(m);
+  const proj = d3.geoAzimuthalEqualArea().rotate([-lon, -lat]).fitExtent([[20, 20], [620, 460]], m);
+  return `<svg class="shape" viewBox="0 0 640 480" role="img" aria-label="Outline of the mystery country"><path d="${d3.geoPath(proj)(m)}"/></svg>`;
+}
+function locatorSvg(id) {
+  const f = DATA.shapes?.get(id);
+  if (!f) return "";
+  const path = d3.geoPath(d3.geoNaturalEarth1().fitExtent([[2, 2], [358, 188]], { type: "Sphere" }));
+  DATA.base ||= DATA.fc.features.map(x => path(x)).join("");
+  // Small countries vanish at this scale, so a ring marks the spot too.
+  const [x, y] = path.centroid(mainland(f));
+  return `<svg viewBox="0 0 360 190" aria-hidden="true"><path class="land" d="${DATA.base}"/><path class="hit" d="${path(f)}"/><circle class="pin" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="7"/></svg>`;
+}
+function getFaces() {
+  return (DATA.faces ||= fetch("/data/faces.json").then(r => { if (!r.ok) throw new Error("faces " + r.status); return r.json(); })
+    .catch(e => { DATA.faces = null; throw e; }));
+}
+function getMix(q) {
+  DATA.mixes ||= {};
+  return (DATA.mixes[q] ||= fetch("/api/music/mix?q=" + encodeURIComponent(q)).then(r => { if (!r.ok) throw new Error("mix " + r.status); return r.json(); })
+    .catch(e => { delete DATA.mixes[q]; throw e; }));
+}
+// "Duke Ellington and His Famous Orchestra" and "Duke Ellington" are the same artist for the quiz.
+const core = n => String(n).toLowerCase().replace(/\s+(and|&|et|y|con)\s+(his|her|their|the|son|ses|su|sus)\b.*$/, "").replace(/\s+(quartet|quintet|sextet|septet|trio|orchestra|big band|band|all[- ]stars)$/, "").trim();
+const byCore = names => [...new Map(names.map(n => [core(n), n])).values()];
+const leadName = n => String(n).replace(/\s+(and|&|et|y|con)\s+(his|her|their|the|son|ses|su|sus)\b.*$/i, "").replace(/\s+(quartet|quintet|sextet|septet|trio|orchestra|big band|band|all[- ]stars)$/i, "").trim();
+// Order things so the same person's picks rarely come up back to back.
+function spread(items, owner) {
+  const left = shuffle(items.slice()), out = [];
+  while (left.length) {
+    const prev = out.length ? owner(out[out.length - 1]) : null;
+    const i = Math.max(0, left.findIndex(x => owner(x) !== prev));
+    out.push(left.splice(i, 1)[0]);
+  }
+  return out;
+}
+// A country question with three wrong answers from the same part of the world, so it isn't too easy.
+function countryRound(t, c, all) {
+  const others = all.filter(x => x.c !== c.c);
+  const near = [...shuffle(others.filter(x => x.s === c.s)), ...shuffle(others.filter(x => x.r === c.r && x.s !== c.s)), ...shuffle(others.filter(x => x.r !== c.r))];
+  const o = shuffle([c, ...near.slice(0, 3)]);
+  return { t, c: c.c, id: c.id, o: o.map(x => x.n), a: o.indexOf(c) };
+}
+
+function qrSvg(text) {
+  if (!window.qrcode) return "";
+  const q = qrcode(0, "M"); q.addData(text); q.make();
+  const n = q.getModuleCount(); let d = "";
+  for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (q.isDark(r, c)) d += `M${c + 2} ${r + 2}h1v1h-1z`;
+  return `<svg viewBox="0 0 ${n + 4} ${n + 4}" role="img" aria-label="QR code that opens this game on a phone"><rect width="100%" height="100%" style="fill:var(--paper)"/><path d="${d}" style="fill:var(--ink)" shape-rendering="crispEdges"/></svg>`;
+}
+
+// ---------- live room ----------
+// A socket to the laptop's server. Each page publishes one presence object; the server hands every
+// page the presences it should see (the TV sees its phones, phones see the TVs) whenever they change.
+function openRoom() {
+  if (!window.io) return null;
+  const socket = window.io({ reconnectionDelayMax: 3000 });
+  let last = null, onPeers = null, onConn = null;
+  socket.on("connect", () => { if (last) socket.emit("presence", last); onConn?.(true); });
+  socket.on("disconnect", () => onConn?.(false));
+  socket.on("peers", peers => onPeers?.({ peers: Array.isArray(peers) ? peers : [] }));
+  return {
+    connected: () => socket.connected,
+    presence(p) { last = p; if (socket.connected) socket.emit("presence", p); return Promise.resolve(); },
+    onPeers(cb) { onPeers = cb; },
+    onConnection(cb) { onConn = cb; },
+    // Which of these photo ids does the server still hold? On any doubt, assume all of them.
+    have(ids) {
+      return new Promise(res => {
+        if (!ids.length || !socket.connected) return res(ids);
+        socket.timeout(5000).emit("have", ids, (err, got) => res(err || !Array.isArray(got) ? ids : got));
+      });
+    },
+    drop(ids) { if (ids.length) socket.emit("drop", ids); },
+  };
+}
+
+let mode = null;
+const room = openRoom(), roomState = room ? "ok" : "none";
+const hashCode = (() => { const h = (location.hash || "").slice(1).toUpperCase(); return /^[A-Z]{4}$/.test(h) ? h : null; })();
+
+// ---------- landing ----------
+function renderLanding() {
+  if (mode) return;
+  app.innerHTML = `<main class="landing">
+    <div>
+      <h1 class="wordmark"><span>Who's</span><span class="two">Who</span></h1>
+      <p class="lede">A party game for one TV and a room full of phones. Guess whose photo is on screen, name flags and country shapes, all from your phone.</p>
+    </div>
+    <div class="panel">
+      <ol class="steps">
+        <li>Open this page on the laptop plugged into the TV and pick <b>Show on this screen</b>.</li>
+        <li>Everyone scans the code on the TV. For photo rounds, add up to ${PER_PLAYER} photos from your phone.</li>
+        <li>Pick your answer on your phone before the clock runs out.</li>
+      </ol>
+      <button class="btn primary wide" data-act="go-tv">Show on this screen</button>
+      <button class="btn wide" data-act="go-phone">Play on my phone</button>
+      ${roomState === "none" ? `<p class="warn">This page couldn't load its live connection to the laptop. Check that the game server is still running, then reload.</p>` : ""}
+    </div>
+  </main>`;
+}
+
+// =====================================================================
+// TV: owns the game. Reads every phone's presence, publishes its own.
+// =====================================================================
+const TV = {
+  H: null, seen: new Set(), lastBody: "", lastPush: 0, connected: false, confirm: null, addFor: null, saveT: 0,
+
+  start() {
+    mode = "tv"; store.set("wiw.mode", { m: "tv", at: Date.now() });
+    const s = store.get("wiw.host");
+    this.H = s && Date.now() - (s.savedAt || 0) < 4 * 3600e3 ? this.revive(s) : this.fresh();
+    app.innerHTML = `<div class="tv">
+      <header class="tv-top"><div class="logo">Who's Who</div><div class="tv-status" id="tv-status"></div></header>
+      <main class="stage" id="stage"></main>
+      <footer class="hostbar" id="hostbar"></footer>
+    </div>`;
+    this.audio = new Audio(); this.audio.preload = "auto";
+    this.render();
+    this.prefetch();
+    if (roomState === "ok") this.onRoom();
+    setInterval(() => this.tick(), 200);
+    document.addEventListener("keydown", e => this.key(e));
+    wake();
+  },
+  fresh() {
+    const code = Array.from(crypto.getRandomValues(new Uint8Array(4)), x => CODE_CHARS[x % CODE_CHARS.length]).join("");
+    return { code, gid: rid(6), ph: "lobby", r: 0, R: 0, rk: "", cur: null, order: [], players: {}, photos: {}, guesses: {}, phaseEnds: 0, qStart: 0, qDur: Q_SECS * 1000, rv: null, vip: null, modes: ["photo"], songs: {}, tune: { q: "top worldwide", label: "Today's hits" }, faceCat: "all", theme: "mix", len: "normal", savedAt: 0 };
+  },
+  revive(s) {
+    const H = Object.assign(this.fresh(), s);
+    const now = Date.now();
+    if (!Array.isArray(H.modes) || !H.modes.length) H.modes = ["photo"];
+    H.modes = H.modes.filter(m => MODES.includes(m)); if (!H.modes.length) H.modes = ["photo"];
+    H.songs ||= {}; if (!H.tune?.q) H.tune = { q: "top worldwide", label: "Today's hits" }; H.faceCat ||= "all"; H.theme ||= "mix"; H.len ||= "normal";
+    H.order = (H.order || []).map(x => (typeof x === "string" ? { t: "photo", id: x } : x));
+    if (typeof H.cur === "string") H.cur = { t: "photo", id: H.cur };
+    for (const id of Object.keys(H.photos)) if (!H.photos[id]?.src) delete H.photos[id];
+    for (const p of Object.values(H.players)) { p.online = false; p.seen = now; p.sending = 0; p.photos = (p.photos || []).filter(id => H.photos[id]); }
+    if (H.ph === "q" || H.ph === "intro") { H.ph = "intro"; H.guesses = {}; H.phaseEnds = now + INTRO_SECS * 1000; }
+    else if (H.ph === "rev" || H.ph === "lb") H.phaseEnds = now + 2000;
+    return H;
+  },
+  save() {
+    clearTimeout(this.saveT);
+    this.saveT = setTimeout(() => {
+      const H = { ...this.H, savedAt: Date.now() };
+      if (store.set("wiw.host", H)) return;
+      const players = {}; for (const [k, p] of Object.entries(H.players)) players[k] = { ...p, photos: [] };
+      store.set("wiw.host", { ...H, players, photos: {} });
+    }, 500);
+  },
+
+  onRoom() {
+    if (!room) return this.render();
+    room.onPeers(ch => this.sync(ch.peers));
+    room.onConnection(c => { this.connected = c; this.renderStatus(); if (c) this.checkPhotos(); });
+    this.connected = room.connected();
+    this.push(true);
+    this.render();
+  },
+  // After a reconnect, forget photos the server no longer has (it keeps them in memory only).
+  async checkPhotos() {
+    const ids = Object.keys(this.H.photos);
+    const ok = new Set(await room.have(ids));
+    const H = this.H;
+    let gone = false;
+    for (const id of ids) if (!ok.has(id) && H.photos[id]) { delete H.photos[id]; gone = true; }
+    if (!gone) return;
+    for (const p of Object.values(H.players)) p.photos = p.photos.filter(id => H.photos[id]);
+    this.save(); this.render(); this.push(true);
+  },
+
+  players() { return Object.values(this.H.players).sort((a, b) => a.at - b.at); },
+  ownerOf(id) { return this.H.photos[id]?.pid || null; },
+  curOwner() { const c = this.H.cur; return c?.t === "photo" ? this.ownerOf(c.id) : c?.t === "song" ? c.pid : null; },
+  isQuiz() { return !!this.H.cur && !OWNER_KINDS.includes(this.H.cur.t); },
+  songCount() { return Object.keys(this.H.songs).length; },
+  photosOn() { return this.H.modes.includes("photo"); },
+  photoCount() { return Object.keys(this.H.photos).length; },
+  canStart() {
+    if (this.H.ph !== "lobby" || this.starting) return false;
+    const online = this.players().filter(p => p.online).length;
+    if (!ownerOnly(this.H)) return online >= 1;
+    const items = (this.H.modes.includes("photo") ? this.photoCount() : 0) + (this.H.modes.includes("song") ? this.songCount() : 0);
+    return online >= 2 && items >= 2;
+  },
+  nextColor() {
+    const used = new Set(Object.values(this.H.players).map(p => p.color));
+    for (let i = 0; i < COLORS.length; i++) if (!used.has(i)) return i;
+    return Object.keys(this.H.players).length % COLORS.length;
+  },
+
+  sync(peers) {
+    const H = this.H, now = Date.now(), seen = new Set();
+    let changed = false;
+    for (const peer of peers) {
+      const p = peer.presence || {};
+      if (p.app !== APP || p.role !== "p" || p.code !== H.code || !isPid(p.pid) || seen.has(p.pid)) continue;
+      const pid = p.pid, name = cleanName(p.nm);
+      if (!name) continue;
+      seen.add(pid);
+      let pl = H.players[pid];
+      if (!pl) {
+        if (Object.keys(H.players).length >= MAX_PLAYERS) continue;
+        pl = H.players[pid] = { pid, name, color: this.nextColor(), score: 0, photos: [], songs: [], cmdK: p.cmd?.k ?? null, at: now, online: true };
+        changed = true;
+      }
+      if (pl.name !== name) { pl.name = name; changed = true; }
+      if (!pl.online) { pl.online = true; changed = true; }
+      pl.seen = now;
+
+      // `ph` lists the photos this phone has finished uploading to the server.
+      const want = Array.isArray(p.ph) ? p.ph.filter(isFid).slice(0, PER_PLAYER) : [];
+      if (H.ph === "lobby") {
+        for (const id of pl.photos.slice()) {
+          if (H.photos[id]?.from === "phone" && !want.includes(id)) { delete H.photos[id]; pl.photos = pl.photos.filter(x => x !== id); changed = true; }
+        }
+        for (const id of want) {
+          if (H.photos[id] || pl.photos.length >= PER_PLAYER) continue;
+          H.photos[id] = { id, pid, from: "phone", src: photoSrc(id) };
+          pl.photos.push(id); changed = true;
+        }
+      }
+      // `sg` lists the songs this phone picked: [deezer id, title, artist, cover].
+      if (H.ph === "lobby") {
+        const ids = [];
+        for (const x of Array.isArray(p.sg) ? p.sg.slice(0, SONGS_PER_PLAYER) : []) {
+          const id = Array.isArray(x) ? String(x[0]) : "";
+          if (!/^\d{1,15}$/.test(id) || ids.includes(id)) continue;
+          ids.push(id);
+          const key = pid + ":" + id;
+          if (!H.songs[key]) { H.songs[key] = { key, id, pid, title: cleanText(x[1]), artist: cleanText(x[2]), art: isArt(x[3]), ap: isArt(x[4]) }; changed = true; }
+        }
+        for (const [key, sg] of Object.entries(H.songs)) if (sg.pid === pid && !ids.includes(sg.id)) { delete H.songs[key]; changed = true; }
+        if ((pl.songs || []).join() !== ids.join()) { pl.songs = ids; changed = true; }
+      }
+      const sending = Math.max(0, Math.min(PER_PLAYER, p.s | 0));
+      if ((pl.sending || 0) !== sending) { pl.sending = sending; this.renderRoster(); }
+
+      const g = p.g;
+      if (H.ph === "q" && g && g.rk === H.rk && !H.guesses[pid]) {
+        if (!this.isQuiz()) {
+          if (pid !== this.curOwner() && isPid(g.p) && g.p !== pid && H.players[g.p]) { H.guesses[pid] = { p: g.p, t: now }; changed = true; }
+        } else if (Number.isInteger(g.i) && g.i >= 0 && g.i < H.cur.o.length) { H.guesses[pid] = { i: g.i, t: now }; changed = true; }
+      }
+      const c = p.cmd;
+      if (c && typeof c.k === "string" && c.k !== pl.cmdK) { pl.cmdK = c.k; if (pid === H.vip) this.command(c.a); }
+    }
+    for (const pl of Object.values(H.players)) if (!seen.has(pl.pid) && pl.online) { pl.online = false; changed = true; }
+    if (!H.vip || !H.players[H.vip] || !H.players[H.vip].online) {
+      const next = this.players().find(p => p.online)?.pid || H.vip;
+      if (next !== H.vip) { H.vip = next; changed = true; }
+    }
+    if (changed) { this.save(); this.render(); }
+    this.push();
+  },
+
+  command(a) {
+    if (a === "start" && this.H.ph === "lobby" && this.canStart()) this.startGame();
+    else if (a === "again" && this.H.ph === "end") this.playAgain();
+    else if (typeof a === "string" && a.startsWith("mode:")) this.toggleMode(a.slice(5));
+  },
+  toggleMode(m) {
+    const H = this.H;
+    if (!MODES.includes(m) || H.ph !== "lobby" || this.starting) return;
+    const on = H.modes.includes(m);
+    if (on && H.modes.length === 1) return;
+    H.modes = MODES.filter(x => (x === m ? !on : H.modes.includes(x)));
+    this.err = "";
+    this.renderModes();
+    this.prefetch();
+    this.save(); this.render(); this.push(true);
+  },
+  // Load the country list and world map ahead of time so flag and map rounds start straight away.
+  prefetch() {
+    const H = this.H;
+    if (H.modes.includes("face")) getFaces().catch(() => {});
+    if (this.needMix() && !this.mixNote) this.setTune(H.tune.q, H.tune.label);
+    if (!H.modes.includes("flag") && !H.modes.includes("map") && !["flag", "map"].includes(H.cur?.t)) return;
+    getCountries().catch(() => {});
+    getWorld().then(() => this.render()).catch(() => {});
+  },
+  // Pick the songs for "Name that tune": a preset genre or decade, or whatever the host typed.
+  setTune(q, label) {
+    const H = this.H;
+    q = cleanText(q, 60);
+    if (!q || H.ph !== "lobby") return;
+    H.tune = { q, label: cleanText(label || q, 30) };
+    this.mixNote = "Finding songs…";
+    this.save(); this.renderModes();
+    getMix(q).then(m => { if (H.tune.q === q) { this.mixNote = `${m.title} · ${m.tracks.length} songs`; this.renderModes(); } })
+      .catch(() => { if (H.tune.q === q) { this.mixNote = "Couldn't find songs for that. Try another genre or artist."; this.renderModes(); } });
+  },
+  needMix() { const H = this.H; return H.modes.includes("tune") || (H.modes.includes("face") && themeOf(H).faces === "artists"); },
+  region() { const t = themeOf(this.H); return t.region || (t.faces === "artists" ? regionOf(this.H.tune.q) : "all"); },
+  setTheme(id) {
+    const H = this.H, t = THEMES.find(x => x.id === id);
+    if (!t || H.ph !== "lobby") return;
+    H.theme = id;
+    if (t.tune) this.setTune(t.tune[0], t.tune[1]);
+    else if (this.needMix() && !this.mixNote) this.setTune(H.tune.q, H.tune.label);
+    this.save(); this.renderModes(); this.push(true);
+  },
+  setLen(id) {
+    if (!LENGTHS.some(([k]) => k === id) || this.H.ph !== "lobby") return;
+    this.H.len = id; this.save(); this.renderModes();
+  },
+  setFaceCat(c) {
+    if (!FACE_CATS.some(([k]) => k === c) || this.H.ph !== "lobby") return;
+    this.H.faceCat = c; this.save(); this.renderModes();
+  },
+  // Music plays from the TV. Browsers only allow sound after someone has clicked on the page, so the host bar offers a button if it's blocked.
+  sound(ph) {
+    const cur = this.H.cur, music = cur && (cur.t === "song" || cur.t === "tune"), a = this.audio;
+    if (!a) return;
+    const src = music ? "/api/music/play/" + encodeURIComponent(cur.id) : "";
+    if (ph === "intro" && music) {
+      // Let the last clip fade out, then load the next one so it's ready when the question starts.
+      return this.fade(0, 700, () => { a.pause(); a.src = src; a.load(); });
+    }
+    if (ph === "intro" && cur?.t === "face") new Image().src = cur.img;
+    if (ph === "q" && music) {
+      if (!a.src.includes(src)) a.src = src;
+      clearInterval(this.fadeT);
+      a.volume = 0; a.currentTime = 0;
+      a.play().then(() => { this.fade(1, 800); if (this.needSound) { this.needSound = false; this.renderHostbar(); } })
+        .catch(() => { a.volume = 1; this.needSound = true; this.renderHostbar(); });
+      return;
+    }
+    if (ph === "rev" && music) return;
+    this.fade(0, 900, () => a.pause());
+  },
+  fade(to, ms, then) {
+    const a = this.audio;
+    clearInterval(this.fadeT);
+    if (!a || a.paused) { if (a) a.volume = to; return then?.(); }
+    const from = a.volume, t0 = performance.now();
+    this.fadeT = setInterval(() => {
+      const k = Math.min(1, (performance.now() - t0) / ms);
+      a.volume = Math.max(0, Math.min(1, from + (to - from) * k));
+      if (k >= 1) { clearInterval(this.fadeT); then?.(); }
+    }, 40);
+  },
+  // Skip what this room saw in its last few games, as long as enough is left.
+  unseen(list, key, kind, need) {
+    const seen = new Set(this.H.recent?.[kind] || []), fresh = list.filter(x => !seen.has(key(x)));
+    return fresh.length >= need ? fresh : list;
+  },
+  remember(kind, keys) {
+    const H = this.H;
+    H.recent ||= {};
+    H.recent[kind] = [...new Set([...keys, ...(H.recent[kind] || [])])].slice(0, 300);
+  },
+  lbEvery() { return Math.max(3, Math.min(6, Math.round(this.H.R / 4))); },
+  revSecs(n) { return n ? REVEAL_SECS + Math.min(3, n * 0.15) : 6; },
+  async startGame() {
+    const H = this.H;
+    if (this.starting || H.ph !== "lobby") return;
+    this.starting = true; this.err = ""; this.renderHostbar();
+    try {
+      const modes = H.modes, pools = {}, used = new Set();
+      const online = this.players().filter(p => p.online).length;
+      const per = (LENGTHS.find(([k]) => k === H.len) || LENGTHS[1])[2];
+      const quizKinds = modes.filter(m => !OWNER_KINDS.includes(m)).length;
+      const each = quizKinds === 1 && !modes.some(m => OWNER_KINDS.includes(m)) ? Math.round(per * 1.6) : per;
+      const theme = themeOf(H), region = this.region();
+      // Every photo and every picked song gets played.
+      if (modes.includes("photo") && online >= 2) pools.photo = spread(this.players().flatMap(p => p.photos.filter(id => H.photos[id])), id => this.ownerOf(id)).map(id => ({ t: "photo", id }));
+      if (modes.includes("song") && online >= 2) pools.song = spread(Object.values(H.songs).filter(x => H.players[x.pid]), x => x.pid).map(x => ({ t: "song", id: x.id, pid: x.pid, title: x.title, artist: x.artist, art: x.art, ap: x.ap || "" }));
+      if (modes.includes("tune")) {
+        const mix = await getMix(H.tune.q);
+        const songs = shuffle(this.unseen(mix.tracks, x => x.id, "tune", each)).slice(0, each);
+        const titles = [...new Set(mix.tracks.map(x => x.t))], artists = byCore(mix.tracks.map(x => x.a));
+        pools.tune = songs.map((x, i) => {
+          const ask = artists.length >= 4 && i % 2 === 1 ? "artist" : "title";
+          const right = ask === "artist" ? x.a : x.t;
+          const wrong = shuffle(ask === "artist" ? artists.filter(y => core(y) !== core(right)) : titles.filter(y => y.toLowerCase() !== right.toLowerCase())).slice(0, 3);
+          const o = shuffle([right, ...wrong]);
+          return { t: "tune", id: x.id, title: x.t, artist: x.a, art: x.art, ap: x.ap || "", ask, o, a: o.indexOf(right) };
+        }).filter(r => r.o.length === 4);
+      }
+      if (modes.includes("face")) {
+        let faces = null;
+        if (theme.faces === "artists") {
+          // Music theme: the faces are artists from tonight's playlist, with their Deezer photos.
+          const mix = await getMix(H.tune.q).catch(() => null);
+          const tracks = mix?.tracks || [], names = byCore(tracks.map(x => x.a));
+          // Leave out artists whose song is a tune round tonight; its reveal would give their face away.
+          const heard = new Set((pools.tune || []).map(r => core(r.artist))), seen = new Set(), artists = [];
+          for (const x of tracks) { const k = core(x.a); if (x.ap && !seen.has(k) && !heard.has(k)) { seen.add(k); artists.push(x); } }
+          if (names.length >= 4 && artists.length) faces = shuffle(this.unseen(artists, x => x.a, "face", each)).slice(0, each).map(x => {
+            const o = shuffle([x.a, ...shuffle(names.filter(n => core(n) !== core(x.a))).slice(0, 3)]);
+            return { t: "face", n: x.a, img: x.ap, d: `Sings “${x.t}”`, src: "Deezer", o, a: o.indexOf(x.a) };
+          });
+        }
+        if (!faces) {
+          const all = (await getFaces()).people, f = theme.faces === "artists" ? "music" : theme.faces;
+          const pool = all.filter(p => f === "all" || (f === "africa" ? p.af : f === "world" ? ["leaders", "science", "arts"].includes(p.c) : p.c === f));
+          faces = shuffle(this.unseen(pool, p => p.n, "face", each)).slice(0, each).map(p => {
+            // Wrong answers: same field and gender first, so it isn't a giveaway.
+            const near = [...shuffle(pool.filter(x => x.n !== p.n && x.g === p.g && x.c === p.c)), ...shuffle(pool.filter(x => x.n !== p.n && x.g === p.g)), ...shuffle(all.filter(x => x.n !== p.n && x.g === p.g))];
+            const o = shuffle([p.n, ...[...new Set(near.map(x => x.n))].slice(0, 3)]);
+            return { t: "face", n: p.n, img: p.img, d: p.d, src: "Wikipedia", o, a: o.indexOf(p.n) };
+          });
+        }
+        pools.face = faces;
+      }
+      if (modes.includes("flag") || modes.includes("map")) {
+        const take = (list, n) => shuffle(this.unseen(list.filter(c => !used.has(c.c)), c => c.c, "country", n)).slice(0, n).map(c => (used.add(c.c), c));
+        const all = await getCountries();
+        const shapes = await getWorld().catch(() => null);
+        const inRegion = c => region === "all" || c.r === region;
+        if (modes.includes("map") && shapes) pools.map = take(all.filter(c => c.m && shapes.has(c.id) && inRegion(c)), each).map(c => countryRound("map", c, all));
+        if (modes.includes("flag")) pools.flag = take(all.filter(inRegion), each).map(c => countryRound("flag", c, all));
+      }
+      // Mix the kinds: each round draws a kind at random, weighted by how many of that kind are left.
+      const order = [];
+      for (let n = MODES.reduce((sum, k) => sum + (pools[k]?.length || 0), 0); n > 0; n--) {
+        let r = Math.random() * n;
+        const k = MODES.find(k => (r -= pools[k]?.length || 0) < 0) || MODES.find(k => pools[k]?.length);
+        order.push(pools[k].shift());
+      }
+      if (!order.length) throw new Error("no rounds");
+      // Real artist photos from Wikipedia where there's one; Deezer's picture otherwise.
+      const artists = [...new Set(order.flatMap(r => r.t === "tune" || r.t === "song" ? [r.artist, leadName(r.artist)] : r.t === "face" && r.src === "Deezer" ? [r.n, leadName(r.n)] : []))].filter(n => n && !n.includes("|"));
+      if (artists.length) {
+        const photos = await fetch("/api/music/photos?names=" + encodeURIComponent(artists.join("|")), { signal: AbortSignal.timeout(7000) }).then(r => r.json()).catch(() => ({}));
+        for (const r of order) {
+          const pic = n => photos[n] || photos[leadName(n)];
+          if ((r.t === "tune" || r.t === "song") && pic(r.artist)) r.ap = pic(r.artist);
+          if (r.t === "face" && r.src === "Deezer" && pic(r.n)) { r.img = pic(r.n); r.src = "Wikipedia"; }
+        }
+      }
+      this.remember("tune", order.filter(r => r.t === "tune").map(r => r.id));
+      this.remember("face", order.filter(r => r.t === "face").map(r => r.n));
+      this.remember("country", order.filter(r => r.t === "flag" || r.t === "map").map(r => r.c));
+      if (this.H !== H || H.ph !== "lobby") return;
+      H.order = order; H.R = order.length; H.r = 0; H.rv = null;
+      for (const p of Object.values(H.players)) { p.score = 0; p.prev = 0; p.st = { right: 0, fast: 0, fooled: 0 }; }
+      this.starting = false;
+      this.nextRound();
+    } catch (e) {
+      console.warn("start", e);
+      this.err = "Couldn't load the rounds. Check the internet connection and press Start again.";
+    } finally { this.starting = false; this.renderHostbar(); }
+  },
+  nextRound() {
+    const H = this.H;
+    H.r++;
+    if (H.r > H.R) return this.go("end");
+    H.cur = H.order[H.r - 1]; H.rk = H.gid + "-" + H.r; H.guesses = {}; H.rv = null;
+    if (H.cur?.t === "photo" && !H.photos[H.cur.id]) return this.nextRound();
+    this.go("intro", INTRO_SECS);
+  },
+  go(ph, secs = 0) {
+    const H = this.H;
+    H.ph = ph; H.phaseEnds = secs ? Date.now() + secs * 1000 : 0;
+    if (ph === "q") { H.qStart = Date.now(); H.qDur = secs * 1000; }
+    this.sound(ph);
+    this.save(); this.render(); this.push(true);
+  },
+  advance() {
+    const H = this.H;
+    if (H.ph === "intro") return this.go("q", Q_SECS);
+    if (H.ph === "q") return this.reveal();
+    if (H.ph === "rev") { if (H.r >= H.R) return this.go("end"); if (H.r % this.lbEvery() === 0) return this.go("lb", LB_SECS); return this.nextRound(); }
+    if (H.ph === "lb") return this.nextRound();
+  },
+  stat(pid, ms) {
+    const p = this.H.players[pid];
+    if (!p) return;
+    const st = p.st ||= { right: 0, fast: 0, fooled: 0 };
+    st.right++;
+    if (!st.fast || ms < st.fast) st.fast = Math.max(1, ms);
+  },
+  // End-of-game awards. They say who did well, never who voted for what.
+  awards() {
+    const ps = this.players().filter(p => p.st), out = [];
+    const best = (score, min = 1) => { const p = ps.slice().sort((a, b) => score(b) - score(a))[0]; return p && score(p) >= min ? p : null; };
+    const sharp = best(p => p.st.right);
+    if (sharp) out.push([sharp, "Sharpest", `${sharp.st.right} right ${sharp.st.right === 1 ? "answer" : "answers"}`]);
+    const fast = ps.filter(p => p.st.fast > 0).sort((a, b) => a.st.fast - b.st.fast)[0];
+    if (fast) out.push([fast, "Fastest finger", `a right answer in ${(fast.st.fast / 1000).toFixed(1)}s`]);
+    const bluff = best(p => p.st.fooled);
+    if (bluff) out.push([bluff, "Best poker face", `fooled ${bluff.st.fooled} ${bluff.st.fooled === 1 ? "guess" : "guesses"}`]);
+    return out;
+  },
+  reveal() {
+    const H = this.H, owner = this.curOwner();
+    const mult = H.R > 1 && H.r === H.R ? 2 : 1;
+    const g = {}, d = {};
+    if (this.isQuiz()) {
+      for (const [pid, x] of Object.entries(H.guesses)) {
+        g[pid] = x.i;
+        if (x.i === H.cur.a) { d[pid] = Math.round((500 + 500 * Math.max(0, Math.min(1, 1 - (x.t - H.qStart) / H.qDur))) * mult / 10) * 10; this.stat(pid, x.t - H.qStart); }
+      }
+      for (const p of Object.values(H.players)) p.prev = p.score;
+      for (const [pid, v] of Object.entries(d)) if (H.players[pid]) H.players[pid].score += v;
+      H.rv = { a: H.cur.a, g, d, m: mult };
+      return this.go("rev", this.revSecs(Object.keys(g).length));
+    }
+    let fooled = 0;
+    for (const [pid, x] of Object.entries(H.guesses)) {
+      g[pid] = x.p;
+      if (x.p === owner) {
+        const frac = Math.max(0, Math.min(1, 1 - (x.t - H.qStart) / H.qDur));
+        d[pid] = Math.round((500 + 500 * frac) * mult / 10) * 10;
+        this.stat(pid, x.t - H.qStart);
+      } else fooled++;
+    }
+    if (owner && fooled && H.players[owner]) { const st = H.players[owner].st ||= { right: 0, fast: 0, fooled: 0 }; st.fooled += fooled; }
+    if (owner && fooled) d[owner] = (d[owner] || 0) + fooled * 250 * mult;
+    for (const p of Object.values(H.players)) p.prev = p.score;
+    for (const [pid, v] of Object.entries(d)) if (H.players[pid]) H.players[pid].score += v;
+    H.rv = { o: owner, g, d, m: mult };
+    this.go("rev", this.revSecs(Object.keys(g).length));
+  },
+  playAgain() {
+    const H = this.H;
+    this.audio?.pause();
+    H.songs = {};
+    setTimeout(() => this.prefetch(), 0); // reload tonight's playlist if the page was reloaded mid-game
+    room?.drop(Object.keys(H.photos));
+    H.gid = rid(6); H.ph = "lobby"; H.r = 0; H.R = 0; H.rk = ""; H.cur = null; H.order = []; H.photos = {}; H.guesses = {}; H.rv = null; H.phaseEnds = 0;
+    for (const p of Object.values(H.players)) { p.photos = []; p.songs = []; p.score = 0; p.prev = 0; }
+    this.save(); this.render(); this.push(true);
+  },
+  newRoom() {
+    this.audio?.pause();
+    room?.drop(Object.keys(this.H.photos));
+    store.del("wiw.host");
+    this.H = this.fresh(); this.seen.clear();
+    this.save(); this.render(); this.push(true);
+  },
+
+  tick() {
+    const H = this.H, now = Date.now();
+    if (H.phaseEnds && now >= H.phaseEnds) return this.advance();
+    if (H.ph === "q") {
+      const owner = this.curOwner();
+      const eligible = Object.values(H.players).filter(p => p.online && p.pid !== owner);
+      if (eligible.length && eligible.every(p => H.guesses[p.pid]) && H.phaseEnds - now > 1200) { H.phaseEnds = now + 1200; this.push(true); }
+    }
+    if (H.ph === "lobby") {
+      let pruned = false;
+      for (const p of Object.values(H.players)) if (!p.online && now - (p.seen || 0) > 45000) {
+        for (const id of p.photos) delete H.photos[id];
+        for (const [k, sg] of Object.entries(H.songs)) if (sg.pid === p.pid) delete H.songs[k];
+        delete H.players[p.pid]; pruned = true;
+      }
+      if (pruned) { this.save(); this.render(); }
+    }
+    this.renderClock();
+    if (H.phaseEnds && now - this.lastPush > 1000) this.push(true);
+  },
+
+  push(force) {
+    if (!room || roomState !== "ok") return;
+    const H = this.H, now = Date.now();
+    const pres = {
+      app: APP, role: "h", code: H.code, gid: H.gid, ph: H.ph, r: H.r, R: H.R, rk: H.rk || null,
+      pl: this.players().map(p => [p.pid, p.name, p.color, p.score, p.online ? 1 : 0, p.photos, p.songs || []]),
+      kind: H.cur?.t || null, th: themeOf(H).label,
+      aw: H.ph === "end" ? this.awards().map(([p, title, detail]) => [p.pid, title, detail]) : null,
+      vip: H.vip || null, can: this.canStart() ? 1 : 0,
+      x: H.ph === "q" && !this.isQuiz() ? fnv(this.curOwner() + H.rk) : null,
+      rv: ["rev", "lb", "end"].includes(H.ph) ? H.rv : null,
+      modes: H.modes,
+      qz: this.isQuiz() && (H.ph === "q" || H.ph === "rev") ? { t: H.cur.t, o: H.cur.o, k: H.cur.ask || null } : null,
+    };
+    const body = JSON.stringify(pres);
+    if (!force && body === this.lastBody && now - this.lastPush < 1000) return;
+    pres.left = H.phaseEnds ? Math.max(0, Math.round((H.phaseEnds - now) / 100) / 10) : null;
+    this.lastBody = body; this.lastPush = now;
+    room.presence(pres).catch(e => console.warn("presence", e));
+  },
+
+  key(e) {
+    if (e.target.closest?.("input,textarea,button")) return;
+    const ph = this.H.ph;
+    if ((e.key === " " || e.key === "ArrowRight") && ["intro", "q", "rev", "lb"].includes(ph)) { e.preventDefault(); this.advance(); }
+    if (e.key === "Enter" && ph === "lobby" && this.canStart()) { e.preventDefault(); this.startGame(); }
+  },
+  act(a, el) {
+    const now = Date.now();
+    const twoTap = a === "new-room" || a === "end-game" || a === "exit";
+    if (twoTap && !(this.confirm?.a === a && now < this.confirm.until)) {
+      this.confirm = { a, until: now + 3000 }; this.renderHostbar();
+      setTimeout(() => { if (this.confirm?.a === a && Date.now() >= this.confirm.until) { this.confirm = null; this.renderHostbar(); } }, 3100);
+      return;
+    }
+    this.confirm = null;
+    if (a === "start" && this.canStart()) this.startGame();
+    else if (a === "next") this.advance();
+    else if (a === "end-game") this.go("end");
+    else if (a === "again") this.playAgain();
+    else if (a === "new-room") this.newRoom();
+    else if (a === "exit") { store.del("wiw.mode"); location.href = "/"; }
+    else if (a === "full") { if (document.fullscreenElement) document.exitFullscreen?.().catch(() => {}); else document.documentElement.requestFullscreen?.().catch(() => {}); }
+    else if (a === "add-photo") { this.addFor = el.dataset.pid; fileIn.value = ""; fileIn.click(); }
+    else if (a === "mode") this.toggleMode(el.dataset.m);
+    else if (a === "tune-mix") this.setTune(el.dataset.q, el.dataset.l);
+    else if (a === "face-cat") this.setFaceCat(el.dataset.c);
+    else if (a === "sound") { this.needSound = false; this.audio?.play().catch(() => { this.needSound = true; this.renderHostbar(); }); }
+    this.renderHostbar();
+  },
+  async addPhotos(files) {
+    const H = this.H, pl = H.players[this.addFor];
+    if (!pl || H.ph !== "lobby") return;
+    for (const f of files) {
+      if (pl.photos.length >= PER_PLAYER) break;
+      try {
+        const b64 = await compress(f);
+        if (!b64) continue;
+        const id = "f" + rid(9);
+        await postPhoto(id, pl.pid, H.code, b64);
+        if (this.H !== H || H.ph !== "lobby" || H.players[pl.pid] !== pl || pl.photos.length >= PER_PLAYER) { room?.drop([id]); break; }
+        H.photos[id] = { id, pid: pl.pid, from: "host", src: photoSrc(id) };
+        pl.photos.push(id);
+        this.save(); this.render(); this.push(true);
+      } catch {}
+    }
+  },
+
+  // ---------- TV rendering ----------
+  render() { const tv = $(".tv"); if (tv) tv.dataset.ph = this.H.ph; this.renderStatus(); this.renderHostbar(); this.renderStage(); this.renderClock(); },
+  renderStatus() {
+    const H = this.H, n = this.players().length;
+    let extra = "";
+    if (roomState === "none") extra = `<span class="pill dark">Server unreachable</span>`;
+    else if (roomState === "ok" && !this.connected) extra = `<span class="pill dark">Reconnecting to the server</span>`;
+    paint($("#tv-status"), `${H.code}|${n}|${roomState}|${this.connected}`, `${extra}<span class="pill">Room ${esc(H.code)}</span><span class="pill num">${n} ${n === 1 ? "player" : "players"}</span>`);
+  },
+  renderHostbar() {
+    const H = this.H, c = this.confirm?.a;
+    const lbl = (a, t) => (c === a ? "Tap again to confirm" : t);
+    let html = "";
+    if (H.ph === "lobby") {
+      const need = photosOnly(H) ? "Start needs 2 players and 2 photos" : ownerOnly(H) ? "Start needs 2 players and 2 photos or songs" : "Start needs at least 1 player";
+      const why = this.starting ? `<span class="why">Shuffling the rounds…</span>` : this.err ? `<span class="why">${esc(this.err)}</span>` : this.canStart() ? "" : `<span class="why">${need}</span>`;
+      html = `<button class="btn primary" data-act="start" ${this.canStart() ? "" : "disabled"}>Start game</button>${why}<button class="btn sm" data-act="new-room">${lbl("new-room", "New room")}</button>`;
+    } else if (H.ph === "end") {
+      html = `<button class="btn primary" data-act="again">Play again</button><button class="btn sm" data-act="new-room">${lbl("new-room", "New room")}</button>`;
+    } else {
+      html = `${this.needSound ? `<button class="btn primary" data-act="sound">Turn on sound</button>` : ""}<button class="btn sm" data-act="next">Next</button><button class="btn sm" data-act="end-game">${lbl("end-game", "End game")}</button>`;
+    }
+    html += `<button class="btn sm" data-act="full">Full screen</button><button class="btn sm" data-act="exit">${lbl("exit", "Exit TV mode")}</button>`;
+    paint($("#hostbar"), `${H.ph}|${this.canStart()}|${c}|${this.starting}|${this.err}|${H.modes.join()}|${this.needSound}`, html);
+  },
+  renderStage() {
+    const H = this.H, stage = $("#stage");
+    if (H.ph === "lobby") {
+      paint(stage, "lobby|" + H.code, `<section class="lobby"><div id="lobby-left"></div><div class="roster"><div id="modes" class="modes"></div><div id="roster" class="roster-body"></div></div></section>`);
+      const url = JOIN_BASE + "#" + H.code;
+      const brings = [H.modes.includes("photo") && "photos", H.modes.includes("song") && "songs"].filter(Boolean).join(" and ");
+      const lede = photosOnly(H) ? "Send in photos from your phone. One pops up on the TV. Guess whose it is."
+        : `Tonight: ${H.modes.map(m => MODE_LABEL[m]).join(", ")}. ${brings ? `Add your ${brings} from your phone, then answer there too.` : "Answer on your phone. The fastest right answer scores most."}`;
+      paint($("#lobby-left"), H.code + "|" + url + "|" + roomState + "|" + H.modes.join(), `
+        <h1 class="wordmark"><span>Who's</span><span class="two">Who</span></h1>
+        <p class="lede">${lede}</p>
+        <div class="joincard">
+          <div class="qr">${qrSvg(url)}</div>
+          <div><p class="eyebrow">Scan to join</p><p class="code">${esc(H.code)}</p>
+          <p class="small">${JOIN_HOSTED ? `No camera? Go to <b>${esc(JOIN_HOST)}</b> and type the code.` : JOIN_LAN ? `Same Wi-Fi as this laptop. No camera? Go to <b>${esc(JOIN_HOST)}</b> and type the code.`
+            : "This laptop isn't on Wi-Fi, so phones can't reach it. Connect it and restart the game server."}</p></div>
+        </div>`);
+      this.renderModes();
+      return this.renderRoster();
+    }
+    if (H.ph === "intro") {
+      const final = H.R > 1 && H.r === H.R, only = photosOnly(H), kind = H.cur?.t;
+      const big = only ? (final ? "Final photo" : "Photo " + H.r) : final ? "Final round" : KIND_BIG[kind] || "Round " + H.r;
+      return paint(stage, "intro|" + H.rk, `<section class="intro"><p class="eyebrow">Phones out. ${unitOf(H)} ${H.r} of ${H.R}${only ? "" : " · " + (MODE_LABEL[kind] || "") + this.musicTag(H.cur)}</p>
+        <h2 class="big">${big}</h2>${final ? `<p class="dbl">Double points</p>` : ""}</section>`);
+    }
+    if (H.ph === "q") {
+      if (this.isQuiz()) return this.renderQuiz(stage);
+      const final = H.R > 1 && H.r === H.R;
+      paint(stage, "q|" + H.rk, `<section class="qgrid">
+        <div class="qphoto">${this.ownerMedia(H.cur)}</div>
+        <div class="qside">
+          <p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}${final ? " · Double points" : ""}</p>
+          <h2 class="qtitle">${KIND_ASK[H.cur.t]}</h2>
+          <div class="clock" id="clock"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="bg" cx="50" cy="50" r="46"/><circle class="ring" id="ring" cx="50" cy="50" r="40" pathLength="100"/></svg><span id="clock-n" class="num"></span></div>
+          <p class="eyebrow" id="lockcount"></p>
+          <ul class="locks" id="locks"></ul>
+        </div></section>`);
+      this.renderLocks(this.curOwner());
+      return;
+    }
+    if (H.ph === "rev") return paint(stage, "rev|" + H.rk + "|" + (DATA.shapes ? 1 : 0), this.revealHtml());
+    if (H.ph === "lb") return paint(stage, "lb|" + H.rk, this.boardHtml(`Scores after ${unitOf(H).toLowerCase()} ${H.r}`));
+    if (H.ph === "end") return paint(stage, "end|" + H.gid + "|" + H.r, this.endHtml());
+  },
+  renderRoster() {
+    const H = this.H, el = $("#roster");
+    if (!el) return;
+    const ps = this.players(), total = this.photoCount();
+    const photos = this.photosOn(), songs = H.modes.includes("song");
+    const sig = ps.map(p => [p.pid, p.name, p.color, p.photos.length, (p.songs || []).length, p.online ? 1 : 0, H.vip === p.pid ? 1 : 0, p.sending || 0].join(",")).join(";") + "|" + total + "|" + H.modes.join();
+    const cards = ps.map(p => {
+      const bits = photos ? [p.photos.length === 1 ? "1 photo" : p.photos.length + " photos"] : [];
+      if (photos && p.sending) bits.push(`sending ${p.sending} more`);
+      if (songs) bits.push((p.songs || []).length === 1 ? "1 song" : (p.songs || []).length + " songs");
+      if (H.vip === p.pid) bits.push("starts the game");
+      if (!p.online) bits.push("offline");
+      if (!bits.length) bits.push("ready");
+      const fresh = !this.seen.has(p.pid); this.seen.add(p.pid);
+      return `<li class="pcard ${p.online ? "" : "off"} ${fresh ? "pop" : ""}">${avatar(p.name, p.color)}
+        <div class="pc-body"><span class="nm">${esc(p.name)}</span><span class="meta">${bits.join(" · ")}</span></div>
+        ${photos && p.photos.length < PER_PLAYER ? `<button class="addph" data-act="add-photo" data-pid="${p.pid}" title="Add a photo for ${esc(p.name)} from this computer">+ Photo</button>` : ""}</li>`;
+    }).join("");
+    const frames = Array.from({ length: total }, () => `<span class="frame on"></span>`).join("");
+    const mins = Math.max(1, Math.round(total * 28 / 60));
+    const cap = total ? `${total} ${total === 1 ? "photo" : "photos"} in. Every one gets played, about ${mins} min.` : `No photos yet. Everyone can add up to ${PER_PLAYER}, and every photo gets played.`;
+    paint(el, sig, `
+      <div class="roster-head"><h2>Players</h2><span class="count num">${ps.length}/${MAX_PLAYERS}</span></div>
+      ${ps.length ? `<ul class="pgrid">${cards}</ul>` : `<div class="empty">Nobody yet. Scan the code with a phone camera to join.</div>`}
+      ${photos ? `${total ? `<div class="film" aria-hidden="true">${frames}</div>` : ""}<p class="filmcap num">${cap}</p>` : ""}
+      <p class="points-key">${photosOnly(H) ? "Right guess: 500 to 1,000 points, faster scores more. Your photo fools someone: 250 each. The final photo counts double."
+        : `Right answer: 500 to 1,000 points, faster scores more.${photos || songs ? " Your photo or song fools someone: 250 each." : ""} The final round counts double.`}</p>`);
+  },
+  revealHtml() {
+    if (this.isQuiz()) return this.quizRevealHtml();
+    const H = this.H, rv = H.rv || { g: {}, d: {} }, ph = H.photos[H.cur?.id];
+    const P = H.players, owner = P[rv.o];
+    const votes = {};
+    for (const [voter, pick] of Object.entries(rv.g)) (votes[pick] ||= []).push(voter);
+    const ids = new Set(Object.keys(votes)); if (rv.o) ids.add(rv.o);
+    const rows = [...ids].filter(id => P[id]).sort((a, b) => (votes[b]?.length || 0) - (votes[a]?.length || 0));
+    const nv = Object.keys(rv.g).length;
+    const t = 1.2 + nv * 0.18;
+    const rowHtml = rows.map((id, i) => {
+      const n = (votes[id] || []).length;
+      const v = n ? `<span class="votes num" style="animation-delay:${(0.4 + i * 0.25).toFixed(2)}s">${n} ${n === 1 ? "vote" : "votes"}</span>` : "";
+      return `<li class="${id === rv.o ? "win" : ""}">${avatar(P[id].name, P[id].color)}<span class="nm">${esc(P[id].name)}</span>${v || "<span></span>"}</li>`;
+    }).join("");
+    // Say how many got it right, not who. The owner is already revealed, so their bonus can show.
+    const right = votes[rv.o]?.length || 0;
+    const deltas = `<span class="delta">${right ? `${right} ${right === 1 ? "person" : "people"} got it right` : "Nobody got it right"}</span>`
+      + (owner && rv.d[rv.o] ? `<span class="delta">${avatar(owner.name, owner.color)}${esc(owner.name)} fooled ${nv - right} <b class="num">+${fmt(rv.d[rv.o])}</b></span>` : "");
+    return `<section class="rgrid" style="--t:${t.toFixed(2)}s;--t2:${(t + 0.8).toFixed(2)}s">
+      <div class="qphoto">${this.ownerMedia(H.cur, true)}
+        ${owner ? `<div class="stamp ${H.cur?.t === "song" ? "low" : ""}">${H.cur?.t === "song" ? `${esc(owner.name)}'s pick!` : `It's ${esc(owner.name)}!`}</div>` : ""}</div>
+      <div class="rside">
+        <p class="eyebrow">Votes${rv.m > 1 ? " · Double points" : ""}</p>
+        ${nv ? `<ul class="rows">${rowHtml}</ul>` : `<p class="nobody">Nobody locked in a guess.</p><ul class="rows">${rowHtml}</ul>`}
+        <div class="deltas">${deltas || `<span class="delta">No points this photo</span>`}</div>
+      </div></section>`;
+  },
+  boardHtml(title) {
+    const ps = this.players().slice().sort((a, b) => b.score - a.score);
+    const top = Math.max(1, ...ps.map(p => p.score));
+    const rows = ps.map((p, i) => {
+      const rank = 1 + ps.filter(q => q.score > p.score).length;
+      const up = p.score - (p.prev ?? p.score);
+      return `<li style="animation-delay:${(i * 0.06).toFixed(2)}s"><span class="rank num">${rank}</span>${avatar(p.name, p.color)}
+        <span class="bar" style="--c:${color(p.color)};--w:${Math.max(2, p.score / top * 100).toFixed(1)}%"><i></i><span>${esc(p.name)}</span></span>
+        <span><span class="score num">${fmt(p.score)}</span>${up > 0 ? `<span class="up num">+${fmt(up)}</span>` : ""}</span></li>`;
+    }).join("");
+    return `<section class="board"><h2 class="qtitle">${esc(title)}</h2><ol class="lb">${rows}</ol></section>`;
+  },
+  endHtml() {
+    const ps = this.players().slice().sort((a, b) => b.score - a.score);
+    if (!ps.length) return `<section class="end"><h2 class="qtitle">Game over</h2></section>`;
+    const best = ps[0].score, winners = ps.filter(p => p.score === best);
+    const title = winners.length > 1 ? "It's a tie!" : `${esc(winners[0].name)} wins!`;
+    const slot = (p, cls, place) => p ? `<div class="step ${cls}">${avatar(p.name, p.color)}<span class="nm">${esc(p.name)}</span><div class="block">${place}<small class="num">${fmt(p.score)}</small></div></div>` : `<div class="step ${cls}"></div>`;
+    const rest = ps.slice(3).map((p, i) => `<li>${ordinal(i + 4)} ${esc(p.name)} · <span class="num">${fmt(p.score)}</span></li>`).join("");
+    return `<section class="end"><p class="eyebrow">Final scores</p><h2 class="qtitle">${title}</h2>
+      <div class="podium">${slot(ps[1], "p2", "2nd")}${slot(ps[0], "p1", "1st")}${slot(ps[2], "p3", "3rd")}</div>
+      ${rest ? `<ol class="rest">${rest}</ol>` : ""}
+      ${(aw => aw.length ? `<div class="awards">${aw.map(([p, title, detail]) => `<div class="award">${avatar(p.name, p.color)}<div><b>${esc(title)}</b><span>${esc(p.name)} · ${esc(detail)}</span></div></div>`).join("")}</div>` : "")(this.awards())}</section>`;
+  },
+  // Only how many have answered, never who: one dot per player who can answer, filled once anyone locks in.
+  renderLocks(owner) {
+    const H = this.H, ps = this.players().filter(p => (p.online || H.guesses[p.pid]) && p.pid !== owner);
+    const locked = ps.filter(p => H.guesses[p.pid]).length, guessers = ps.length;
+    paint($("#lockcount"), `${locked}/${guessers}`, `Locked in <span class="num">${locked} of ${guessers}</span>`);
+    paint($("#locks"), `${locked}/${guessers}`, Array.from({ length: guessers }, (_, i) => `<li class="dot ${i < locked ? "in" : ""}"></li>`).join(""));
+  },
+  renderModes() {
+    const H = this.H, el = $("#modes");
+    if (!el) return;
+    const custom = !TUNE_MIXES.some(([q]) => q === H.tune.q);
+    const opt = (v, l, on) => `<option value="${esc(v)}" ${on ? "selected" : ""}>${esc(l)}</option>`;
+    paint(el, [H.modes.join(), H.theme, H.len, H.tune.q, this.mixNote].join("|"), `<p class="eyebrow">Rounds tonight</p>
+      <div class="mode-row">${MODES.map(m => `<button class="mode ${H.modes.includes(m) ? "on" : ""}" data-act="mode" data-m="${m}" aria-pressed="${H.modes.includes(m)}">${MODE_LABEL[m]}</button>`).join("")}</div>
+      <div class="sub">
+        <label class="sub-l" for="theme-sel">Theme</label><select id="theme-sel" class="sel">${THEMES.map(t => opt(t.id, t.label, H.theme === t.id)).join("")}</select>
+        <label class="sub-l" for="len-sel">Length</label><select id="len-sel" class="sel">${LENGTHS.map(([k, l]) => opt(k, l, H.len === k)).join("")}</select>
+      </div>
+      ${this.needMix() ? `<div class="sub"><label class="sub-l" for="tune-sel">Music</label>
+        <select id="tune-sel" class="sel">${custom ? opt(H.tune.q, H.tune.label, true) : ""}${TUNE_GROUPS.map(([g, list]) => `<optgroup label="${esc(g)}">${list.map(([q, l]) => opt(q, l, H.tune.q === q)).join("")}</optgroup>`).join("")}</select>
+        <form id="tune-form" class="tune-form" novalidate><input id="tune-in" maxlength="60" placeholder="Or type an artist or playlist" autocomplete="off"><button class="chipb" type="submit">Use</button></form></div>` : ""}
+      <p class="mixnote">${esc(this.themeNote())}</p>`);
+  },
+  // One line that says where tonight's quiz rounds come from.
+  themeNote() {
+    const H = this.H, bits = [];
+    if (this.needMix()) bits.push(this.mixNote || "Finding songs…");
+    if (H.modes.includes("face")) bits.push("Faces: " + FACES_NOTE[themeOf(H).faces]);
+    if (H.modes.includes("flag") || H.modes.includes("map")) bits.push("Flags and maps: " + (this.region() === "all" ? "the whole world" : this.region()));
+    return bits.join(" · ");
+  },
+  // "· Jazz" after the round name, so everyone knows which music tonight's tune and artist rounds come from.
+  musicTag(cur) { return cur && (cur.t === "tune" || (cur.t === "face" && themeOf(this.H).faces === "artists")) ? " · " + esc(this.H.tune.label) : ""; },
+  ownerMedia(cur, reveal) {
+    if (cur?.t === "song") return this.songMedia(cur.title, cur.artist, (reveal && cur.ap) || cur.art);
+    return `<figure class="print"><img src="${this.H.photos[cur?.id]?.src || ""}" alt="Mystery photo ${this.H.r}"><figcaption>No. ${this.H.r}</figcaption></figure>`;
+  },
+  songMedia(title, artist, art) {
+    return `<figure class="print song">${art ? `<img class="cover" src="${esc(art)}" alt="">` : `<div class="vinyl spin"><span>♪</span></div>`}<figcaption><b>${esc(title)}</b><span>${esc(artist)}</span></figcaption></figure>`;
+  },
+  quizMedia(cur, reveal) {
+    const cap = `<figcaption>No. ${this.H.r}</figcaption>`;
+    if (cur.t === "flag") return `<figure class="print"><img class="flag" src="/flags/${encodeURIComponent(cur.c)}.svg" alt="Mystery flag">${cap}</figure>`;
+    if (cur.t === "face") return `<figure class="print"><img class="face ${reveal ? "" : "blurred"}" src="${esc(cur.img)}" alt="${reveal ? esc(cur.n) : "Mystery person"}" style="--blur:${Math.round(Q_SECS * 0.75)}s">${cap}</figure>`;
+    // The reveal shows the artist's photo, so you see who you were just listening to.
+    if (cur.t === "tune") return reveal ? this.songMedia(cur.title, cur.artist, cur.ap || cur.art) : `<div class="vinyl spin" role="img" aria-label="A song is playing"><span>♪</span></div>`;
+    return `<figure class="print">${shapeSvg(cur.id) || `<div class="loading">Loading the map…</div>`}${cap}</figure>`;
+  },
+  optsHtml(cur, rv) {
+    return cur.o.map((label, k) => {
+      const n = rv ? Object.values(rv.g).filter(i => i === k).length : 0;
+      const v = n ? `<span class="votes num" style="animation-delay:${(0.4 + k * 0.25).toFixed(2)}s">${n} ${n === 1 ? "vote" : "votes"}</span>` : "<span></span>";
+      return `<li class="opt ${rv ? (k === rv.a ? "win" : "lose") : ""}" style="--oc:${OPT_COLORS[k]}"><b>${LETTERS[k]}</b><span>${esc(label)}</span>${v}</li>`;
+    }).join("");
+  },
+  renderQuiz(stage) {
+    const H = this.H, cur = H.cur, final = H.R > 1 && H.r === H.R;
+    paint(stage, "q|" + H.rk + "|" + (DATA.shapes ? 1 : 0), `<section class="qgrid">
+      <div class="qphoto">${this.quizMedia(cur)}</div>
+      <div class="qside quiz">
+        <p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · ${MODE_LABEL[cur.t]}${this.musicTag(cur)}${final ? " · Double points" : ""}</p>
+        <h2 class="qtitle">${askOf(cur)}</h2>
+        <ol class="opts">${this.optsHtml(cur)}</ol>
+        <div class="qfoot"><div class="clock" id="clock"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="bg" cx="50" cy="50" r="46"/><circle class="ring" id="ring" cx="50" cy="50" r="40" pathLength="100"/></svg><span id="clock-n" class="num"></span></div>
+          <div><p class="eyebrow" id="lockcount"></p><ul class="locks" id="locks"></ul></div></div>
+      </div></section>`);
+    this.renderLocks(null);
+  },
+  quizRevealHtml() {
+    const H = this.H, cur = H.cur, rv = H.rv || { a: cur.a, g: {}, d: {} }, P = H.players;
+    const nv = Object.keys(rv.g).length, t = 1.2 + nv * 0.18, loc = cur.t === "flag" || cur.t === "map" ? locatorSvg(cur.id) : "";
+    const right = Object.values(rv.g).filter(i => i === rv.a).length;
+    const deltas = `<span class="delta">${right ? `${right} ${right === 1 ? "person" : "people"} got it right` : "Nobody got it right"}</span>`;
+    return `<section class="rgrid" style="--t:${t.toFixed(2)}s;--t2:${(t + 0.8).toFixed(2)}s">
+      <div class="qphoto">${this.quizMedia(cur, true)}<div class="stamp low">${esc(cur.o[rv.a])}</div></div>
+      <div class="rside">
+        <p class="eyebrow">${nv ? "Votes" : "Nobody locked in an answer"}${rv.m > 1 ? " · Double points" : ""}</p>
+        <ol class="opts">${this.optsHtml(cur, rv)}</ol>
+        <div class="deltas">${deltas || `<span class="delta">Nobody scored this round</span>`}</div>
+        ${cur.t === "face" ? `<p class="who-d">${esc(cur.d)}</p><p class="credit">Photo: ${esc(cur.src || "Wikipedia")}</p>` : ""}
+        ${cur.t === "tune" ? `<p class="who-d">${esc(cur.title)} · ${esc(cur.artist)}</p>` : ""}
+        ${loc ? `<div class="loc">${loc}</div>` : ""}
+      </div></section>`;
+  },
+  renderClock() {
+    const H = this.H;
+    if (H.ph !== "q") return;
+    const ring = $("#ring"), n = $("#clock-n"), clock = $("#clock");
+    if (!ring || !n) return;
+    const left = Math.max(0, (H.phaseEnds - Date.now()) / 1000);
+    ring.style.strokeDashoffset = String(100 * (1 - left / (H.qDur / 1000)));
+    const s = String(Math.ceil(left));
+    if (n.textContent !== s) n.textContent = s;
+    clock.classList.toggle("hurry", left <= 5);
+  },
+};
+
+// =====================================================================
+// Phone: a controller. Reads the TV's presence, publishes its own.
+// =====================================================================
+const PH = {
+  pid: "", name: "", code: null, joined: false, photos: [], songs: [], search: null, playing: null, audio: null, host: null, hosts: [], uploading: null, g: null, cmd: null, deadline: 0, connected: false, confirmLeave: 0,
+
+  // A photo is { id, b64, gid, up, prog, retryAt }. `up` means the server has it; `gid` is the game the TV used it in.
+  start() {
+    mode = "phone"; store.set("wiw.mode", { m: "phone", at: Date.now() });
+    const s = store.get("wiw.phone") || {};
+    this.pid = isPid(s.pid) ? s.pid : "p" + rid(9);
+    this.name = cleanName(s.name);
+    this.joined = !!(s.joined && this.name && s.code && (!hashCode || hashCode === s.code));
+    this.code = hashCode || (this.joined ? s.code : null);
+    this.photos = this.joined && Array.isArray(s.photos)
+      ? s.photos.filter(p => isFid(p?.id) && (p.up || (typeof p.b64 === "string" && B64.test(p.b64))))
+        .map(p => ({ id: p.id, b64: typeof p.b64 === "string" ? p.b64 : "", gid: p.gid || null, up: !!p.up, prog: 0, retryAt: 0 }))
+      : [];
+    this.songs = this.joined && Array.isArray(s.songs)
+      ? s.songs.filter(x => x && /^\d{1,15}$/.test(String(x.id))).slice(0, SONGS_PER_PLAYER)
+        .map(x => ({ id: String(x.id), t: cleanText(x.t), a: cleanText(x.a), art: isArt(x.art), ap: isArt(x.ap), gid: x.gid || null }))
+      : [];
+    app.innerHTML = `<div class="phone"><header class="ph-top" id="ph-top"></header><main class="ph-main" id="ph-main"></main></div>`;
+    this.save();
+    this.render();
+    if (roomState === "ok") this.onRoom();
+    setInterval(() => { this.pump(); this.renderClock(); }, 250);
+    wake();
+  },
+  save() {
+    const base = { pid: this.pid, name: this.name, code: this.code, joined: this.joined, songs: this.songs };
+    // Uploaded photos can be shown from the server again, so only unsent ones keep their pixels here.
+    const photos = this.photos.map(p => ({ id: p.id, gid: p.gid, up: p.up, b64: p.up ? undefined : p.b64 }));
+    if (!store.set("wiw.phone", { ...base, photos })) store.set("wiw.phone", { ...base, photos: photos.filter(p => p.up) });
+  },
+  onRoom() {
+    if (!room) return this.render();
+    room.onPeers(ch => this.sync(ch.peers));
+    room.onConnection(c => { this.connected = c; this.render(); if (c) this.checkPhotos(); });
+    this.connected = room.connected();
+    this.push();
+    this.render();
+  },
+  // After a reconnect, re-send photos the server lost; drop ones this phone can't re-send.
+  async checkPhotos() {
+    const ids = this.photos.filter(p => p.up).map(p => p.id);
+    if (!ids.length) return;
+    const ok = new Set(await room.have(ids));
+    let dirty = false;
+    this.photos = this.photos.filter(p => {
+      if (!p.up || ok.has(p.id)) return true;
+      dirty = true; p.up = false;
+      return !!p.b64;
+    });
+    if (dirty) { this.save(); this.push(); this.renderMain(); }
+  },
+
+  sync(peers) {
+    const hosts = peers.filter(p => p.presence?.app === APP && p.presence?.role === "h" && /^[A-Z]{4}$/.test(p.presence.code || ""));
+    this.hosts = [...new Set(hosts.map(p => p.presence.code))];
+    let h = null;
+    if (this.code) h = hosts.filter(p => p.presence.code === this.code).sort((a, b) => b.updatedAt - a.updatedAt)[0] || null;
+    else if (this.hosts.length === 1) { h = hosts[0]; this.code = h.presence.code; }
+    const prev = this.host;
+    this.host = h ? h.presence : null;
+    if (this.host && this.host !== prev) {
+      if (typeof this.host.left === "number") this.deadline = Date.now() + this.host.left * 1000;
+      // Photos the TV took into a game belong to that game. A new lobby (Play again) starts with fresh picks.
+      const mine = this.me()?.[5] || [];
+      let dirty = false;
+      for (const p of this.photos) if (!p.gid && mine.includes(p.id)) { p.gid = this.host.gid; dirty = true; }
+      const mySongs = this.me()?.[6] || [];
+      for (const x of this.songs) if (!x.gid && mySongs.includes(x.id)) { x.gid = this.host.gid; dirty = true; }
+      if (this.host.ph !== "lobby" && this.playing) { this.audio?.pause(); this.playing = null; }
+      if (this.host.ph === "lobby") {
+        const old = this.photos.filter(p => p.gid && p.gid !== this.host.gid);
+        if (old.length) {
+          room?.drop(old.filter(p => p.up).map(p => p.id));
+          this.photos = this.photos.filter(p => !old.includes(p));
+          dirty = true;
+        }
+        const oldSongs = this.songs.filter(x => x.gid && x.gid !== this.host.gid);
+        if (oldSongs.length) { this.songs = this.songs.filter(x => !oldSongs.includes(x)); dirty = true; }
+      }
+      if (dirty) { this.save(); this.push(); }
+      if (this.cmd && this.host.ph !== (prev?.ph)) this.cmd = null;
+    }
+    this.pump();
+    this.render();
+  },
+  me() { return this.host?.pl?.find(p => p[0] === this.pid) || null; },
+  pl() { return Array.isArray(this.host?.pl) ? this.host.pl.filter(p => Array.isArray(p) && isPid(p[0])) : []; },
+  nameOf(pid) { return this.pl().find(p => p[0] === pid) || null; },
+
+  push() {
+    if (!room || roomState !== "ok") return;
+    if (!this.joined) { room.presence({ app: APP, role: "v", code: this.code || null, pid: null, nm: null, ph: null, sg: null, s: 0, g: null, cmd: null }).catch(() => {}); return; }
+    room.presence({
+      app: APP, role: "p", code: this.code, pid: this.pid, nm: this.name,
+      ph: this.photos.filter(p => p.up).map(p => p.id).slice(0, PER_PLAYER),
+      s: this.photos.filter(p => !p.up).length,
+      sg: this.songs.map(x => [x.id, x.t, x.a, x.art, x.ap || ""]),
+      g: this.g ?? null, cmd: this.cmd ?? null,
+    }).catch(e => console.warn("presence", e));
+  },
+
+  // Upload queued photos one at a time; a failed upload retries a few seconds later.
+  pump() {
+    if (!this.joined || !this.code || !room?.connected() || this.uploading) return;
+    const now = Date.now(), cur = this.photos.find(p => !p.up && p.b64 && now >= (p.retryAt || 0));
+    if (cur) this.upload(cur);
+  },
+  async upload(p) {
+    this.uploading = p.id; p.prog = 0; this.renderPhotos();
+    try {
+      await postPhoto(p.id, this.pid, this.code, p.b64, f => { p.prog = f; this.renderPhotos(); });
+      p.up = true; p.retryAt = 0;
+    } catch (e) {
+      p.retryAt = Date.now() + 3000;
+      if (e.status === 413 || e.status === 415) { this.photos = this.photos.filter(x => x !== p); this.err = "One photo was too big to send. Try another."; }
+    }
+    this.uploading = null;
+    if (!this.photos.includes(p)) { if (p.up) room?.drop([p.id]); }
+    this.save(); this.push(); this.renderMain(); this.pump();
+  },
+  status(p) {
+    if (!p.up) return this.uploading === p.id ? "sending" : p.retryAt ? "retry" : "queued";
+    const mine = this.me()?.[5] || [];
+    if (mine.includes(p.id)) return "done";
+    if (!this.host || this.host.ph !== "lobby") return "wait";
+    return mine.length >= PER_PLAYER ? "bad" : "adding";
+  },
+
+  async addPhotos(files) {
+    const space = PER_PLAYER - this.photos.length;
+    const list = Array.from(files).slice(0, Math.max(0, space));
+    this.busy = list.length; this.err = ""; this.renderMain();
+    for (const f of list) {
+      try {
+        const b64 = await compress(f);
+        if (!b64) throw new Error("empty");
+        this.photos.push({ id: "f" + rid(9), b64, gid: null, up: false, prog: 0, retryAt: 0 });
+      } catch { this.err = "One photo couldn't be read. Try a JPG or PNG."; }
+      this.busy--; this.save(); this.push(); this.renderMain();
+    }
+    this.busy = 0; this.pump(); this.renderMain();
+  },
+  removePhoto(id) {
+    const p = this.photos.find(x => x.id === id);
+    this.photos = this.photos.filter(x => x.id !== id);
+    if (p?.up) room?.drop([id]);
+    this.save(); this.push(); this.renderMain();
+  },
+
+  act(a, el) {
+    if (a === "join") {
+      const name = cleanName($("#nm-in")?.value), code = ($("#code-in")?.value || this.code || "").toUpperCase().trim();
+      if (!name) { this.err = "Type your name first."; return this.renderMain(true); }
+      if (!/^[A-Z]{4}$/.test(code)) { this.err = "The room code is the 4 letters on the TV."; return this.renderMain(true); }
+      this.name = name; this.code = code; this.joined = true; this.err = "";
+      this.save(); this.push(); vibrate(20); return this.render();
+    }
+    if (a === "pick-host") { this.code = el.dataset.code; return this.render(); }
+    if (a === "add") { fileIn.value = ""; return fileIn.click(); }
+    if (a === "rm") return this.removePhoto(el.dataset.id);
+    if (a === "song-add") {
+      const x = this.search?.items.find(y => y.id === el.dataset.id);
+      if (!x || this.songs.length >= SONGS_PER_PLAYER || this.songs.some(y => y.id === x.id)) return;
+      this.songs.push({ id: x.id, t: cleanText(x.t), a: cleanText(x.a), art: isArt(x.art), ap: isArt(x.ap), gid: null });
+      vibrate(15); this.save(); this.push(); return this.renderSongs();
+    }
+    if (a === "song-rm") { this.songs = this.songs.filter(y => y.id !== el.dataset.id); this.save(); this.push(); return this.renderSongs(); }
+    if (a === "preview") return this.preview(el.dataset.id);
+    if (a === "guess") {
+      if (!this.host || this.host.ph !== "q" || this.g?.rk === this.host.rk) return;
+      this.g = { rk: this.host.rk, p: el.dataset.pid }; vibrate(30); this.push(); return this.renderMain();
+    }
+    if (a === "answer") {
+      const i = Number(el.dataset.i), H = this.host;
+      if (!H || H.ph !== "q" || !H.qz || this.g?.rk === H.rk || !Number.isInteger(i)) return;
+      this.g = { rk: H.rk, i }; vibrate(30); this.push(); return this.renderMain();
+    }
+    if (a === "mode") { this.cmd = { k: rid(6), a: "mode:" + el.dataset.m }; this.push(); vibrate(15); return; }
+    if (a === "start" || a === "again") {
+      const cmd = this.cmd = { k: rid(6), a }; this.push(); vibrate(20);
+      setTimeout(() => { if (this.cmd === cmd) { this.cmd = null; this.push(); this.renderMain(true); } }, 5000);
+      return this.renderMain();
+    }
+    if (a === "leave") {
+      if (Date.now() > this.confirmLeave) { this.confirmLeave = Date.now() + 3000; this.renderTop(); setTimeout(() => this.renderTop(), 3100); return; }
+      room?.drop(this.photos.filter(p => p.up).map(p => p.id));
+      this.joined = false; this.photos = []; this.songs = []; this.search = null; this.g = null; this.cmd = null; this.code = hashCode; this.confirmLeave = 0;
+      this.save(); this.push(); return this.render();
+    }
+    if (a === "switch") { store.del("wiw.mode"); location.href = "/"; }
+  },
+
+  // ---------- phone rendering ----------
+  render() { this.renderTop(); this.renderMain(); },
+  renderTop() {
+    const me = this.me(), leaving = Date.now() < this.confirmLeave;
+    const status = roomState === "ok" && !this.connected ? `<span class="pill dark" style="font-size:12px">Reconnecting</span>` : "";
+    paint($("#ph-top"), `${this.code}|${this.joined}|${me?.[1]}|${me?.[2]}|${leaving}|${this.connected}`, `
+      <span class="logo">Who's Who</span>${status}
+      <span class="room">${this.code ? "Room " + esc(this.code) : ""}</span>
+      ${this.joined ? `<button class="btn ghost" data-act="leave">${leaving ? "Tap to leave" : "Leave"}</button>` : ""}
+      ${this.joined && me ? `<span class="me" title="${esc(me[1])}">${avatar(me[1], me[2])}</span>` : ""}`);
+  },
+  renderMain(force) {
+    const main = $("#ph-main");
+    if (!main) return;
+    if (force) main.dataset.sig = "";
+    if (roomState === "none") return paint(main, "none", `<div class="card"><p class="ph-h">Can't reach the TV</p>
+      <p>This phone couldn't load the game's live connection. Make sure you're on the same Wi-Fi as the laptop and the game is still running, then reload.</p>
+      <button class="btn sm" data-act="switch">Back to start</button></div>`);
+    if (!this.connected && !this.host) return paint(main, "conn", `<div class="card center"><p class="ph-h">Connecting…</p>
+      <p class="muted">Reaching the laptop over Wi-Fi. If this takes more than a few seconds, check you're on the same Wi-Fi as the TV.</p></div>`);
+    if (!this.joined) return this.rJoin(main);
+    if (!this.host) {
+      return paint(main, "find|" + this.code, `<div class="card center"><p class="ph-h">Looking for the TV…</p>
+        <p class="muted">Make sure the TV shows room <b>${esc(this.code)}</b> on the Who's Who screen.</p>
+        <button class="btn sm" data-act="leave">Use a different room</button></div>`);
+    }
+    const H = this.host, me = this.me();
+    if (!me) return paint(main, "wait-in", `<div class="card center"><p class="ph-h">Joining…</p><p class="muted">Hang on while the TV adds you.</p></div>`);
+    if (H.ph === "lobby") return this.rLobby(main);
+    if (H.ph === "intro") return paint(main, "intro|" + H.rk, `<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">Eyes on the TV</p><p class="muted">Get ready to guess.</p></div>`);
+    if (H.ph === "q") return this.rQuestion(main);
+    if (H.ph === "rev") return this.rReveal(main);
+    if (H.ph === "lb" || H.ph === "end") return this.rStandings(main);
+  },
+  rJoin(main) {
+    if (!this.code && this.hosts.length > 1) {
+      return paint(main, "hosts|" + this.hosts.join(), `<div class="card"><p class="ph-h">Which TV?</p><p class="muted">More than one game is open. Pick the code shown on your TV.</p>
+        <div class="hostlist">${this.hosts.map(c => `<button class="btn" data-act="pick-host" data-code="${esc(c)}">Room ${esc(c)}</button>`).join("")}</div></div>`);
+    }
+    const sig = "join|" + this.code + "|" + this.err;
+    if (main.dataset.sig?.startsWith("join|") && main.dataset.sig === sig) return;
+    const prevName = $("#nm-in")?.value;
+    paint(main, sig, `<form class="card" id="join-form" novalidate>
+      <p class="eyebrow">${this.code ? "Room " + esc(this.code) : "Join a game"}</p>
+      <p class="ph-h">What should we call you?</p>
+      <div class="field"><label for="nm-in">Your name</label><input id="nm-in" maxlength="14" autocomplete="nickname" enterkeyhint="go" value="${esc(prevName ?? this.name)}"></div>
+      ${this.code ? "" : `<div class="field"><label for="code-in">Room code on the TV</label><input id="code-in" class="code-in" maxlength="4" autocapitalize="characters" autocomplete="off" placeholder="ABCD"></div>`}
+      ${this.err ? `<p class="warn">${esc(this.err)}</p>` : ""}
+      <button class="btn primary wide" data-act="join" type="submit">Join game</button>
+    </form>`);
+  },
+  modes() { return Array.isArray(this.host?.modes) ? this.host.modes.filter(m => MODES.includes(m)) : ["photo"]; },
+  rLobby(main) {
+    const H = this.host, vip = H.vip === this.pid, modes = this.modes(), photos = modes.includes("photo"), songs = modes.includes("song");
+    // The layout only changes with the game or the round types, so typing a song search isn't interrupted.
+    paint(main, ["lobby", H.gid, modes.join(), vip].join("|"), `${photos ? `<section class="card">
+        <p class="eyebrow">You're in</p>
+        <p class="ph-h">Add your photos</p>
+        <p class="muted">Pick up to ${PER_PLAYER}. Baby pictures, holiday shots, your pet, anything. Nobody sees them until they're on the TV.</p>
+        <div class="thumbs" id="thumbs"></div><div id="photo-err"></div>
+      </section>` : ""}
+      ${songs ? `<section class="card">
+        <p class="eyebrow">Whose song</p>
+        <p class="ph-h">Pick up to ${SONGS_PER_PLAYER} songs</p>
+        <p class="muted">Songs that say something about you. The TV plays a bit of each one and everyone guesses who picked it.</p>
+        <div id="mysongs" class="songlist"></div>
+        <form id="song-form" class="songsearch" novalidate><input id="song-q" placeholder="Search a song or artist" autocomplete="off" enterkeyhint="search"><button class="btn sm" type="submit">Search</button></form>
+        <div id="song-results" class="songlist"></div>
+      </section>` : ""}
+      ${!photos && !songs ? `<section class="card"><p class="eyebrow">You're in</p><p class="ph-h">Get ready</p>
+        <p class="muted">The TV asks the questions. Pick your answer here. The fastest right answer scores most.</p></section>` : ""}
+      <section class="card" id="ctrl"></section>`);
+    this.renderCtrl(); this.renderPhotos(); this.renderSongs();
+  },
+  renderCtrl() {
+    const el = $("#ctrl");
+    if (!el || !this.host) return;
+    const H = this.host, vip = H.vip === this.pid, vipName = this.nameOf(H.vip)?.[1], ps = this.pl(), modes = this.modes();
+    const brings = [modes.includes("photo") && "photos", modes.includes("song") && "songs"].filter(Boolean).join(" and ");
+    const starting = this.cmd?.a === "start";
+    const picker = vip
+      ? `<div class="mode-pick">${MODES.map(m => `<button class="mode ${modes.includes(m) ? "on" : ""}" data-act="mode" data-m="${m}" aria-pressed="${modes.includes(m)}">${MODE_LABEL[m]}</button>`).join("")}</div>`
+      : `<p class="muted">Tonight: ${modes.map(m => MODE_LABEL[m]).join(", ")}${H.th && H.th !== "Anything goes" ? ` · Theme: ${esc(H.th)}` : ""}</p>`;
+    paint(el, [vip, H.can, starting, ps.map(p => p[0] + p[1]).join(), vipName, modes.join(), H.th].join("|"), `
+      <p class="eyebrow">Rounds tonight</p>${picker}
+      ${vip ? `<button class="btn primary wide" data-act="start" ${H.can && !starting ? "" : "disabled"}>${starting ? "Starting…" : "Start game"}</button>
+        <p class="muted">${H.can ? (brings ? `Start when everyone's ${brings} are in.` : "Start when everyone's in.") : ownerOnly(H) ? "You can start once 2 players have added photos or songs." : "Waiting for players."}</p>`
+      : `<p class="ph-h" style="font-size:20px">Waiting for ${esc(vipName || "the host")} to start</p>`}
+      <div class="chips">${ps.map(p => `<span class="chip">${avatar(p[1], p[2])}${esc(p[1])}</span>`).join("")}</div>`);
+  },
+  renderSongs() {
+    const mine = $("#mysongs"), res = $("#song-results");
+    const onTv = this.me()?.[6] || [];
+    if (mine) paint(mine, this.songs.map(x => x.id + (onTv.includes(x.id) ? 1 : 0)).join() + "|" + this.playing, this.songs.map(x => this.songRow(x, true, onTv.includes(x.id))).join(""));
+    if (res) {
+      const r = this.search;
+      paint(res, JSON.stringify([r?.q, r?.state, (r?.items || []).map(x => x.id), this.songs.map(x => x.id), this.playing]),
+        !r ? "" : r.state === "loading" ? `<p class="muted">Searching…</p>`
+        : r.state === "error" ? `<p class="warn">Search isn't working right now. Try again in a moment.</p>`
+        : r.items.length ? r.items.map(x => this.songRow(x, false)).join("") : `<p class="muted">No songs found for "${esc(r.q)}".</p>`);
+    }
+  },
+  songRow(x, mine, onTv) {
+    const have = this.songs.some(y => y.id === x.id), full = this.songs.length >= SONGS_PER_PLAYER;
+    const play = `<button type="button" data-act="preview" data-id="${esc(x.id)}" aria-label="Play a bit of this song">${this.playing === x.id ? "■" : "▶"}</button>`;
+    const btn = mine ? `<button type="button" data-act="song-rm" data-id="${esc(x.id)}">Remove</button>`
+      : have ? `<button type="button" disabled>Added</button>` : `<button type="button" class="add" data-act="song-add" data-id="${esc(x.id)}" ${full ? "disabled" : ""}>Add</button>`;
+    return `<div class="songrow ${mine ? "mine" : ""}"><img src="${esc(x.art)}" alt=""><span><b>${esc(x.t)}</b><small>${esc(x.a)}${mine ? (onTv ? " · on the TV" : " · sending…") : ""}</small></span>${play}${btn}</div>`;
+  },
+  async searchSongs() {
+    const q = cleanText($("#song-q")?.value, 80);
+    if (!q) return;
+    $("#song-q")?.blur();
+    this.search = { q, state: "loading", items: [] }; this.renderSongs();
+    try {
+      const r = await fetch("/api/music/search?q=" + encodeURIComponent(q));
+      if (!r.ok) throw new Error("search " + r.status);
+      const items = (await r.json()).filter(x => /^\d{1,15}$/.test(String(x.id))).map(x => ({ id: String(x.id), t: cleanText(x.t), a: cleanText(x.a), art: isArt(x.art), ap: isArt(x.ap) }));
+      if (this.search?.q === q) this.search = { q, state: "ok", items };
+    } catch { if (this.search?.q === q) this.search = { q, state: "error", items: [] }; }
+    this.renderSongs();
+  },
+  preview(id) {
+    this.audio ||= new Audio();
+    if (this.playing === id) { this.audio.pause(); this.playing = null; return this.renderSongs(); }
+    this.audio.src = "/api/music/play/" + encodeURIComponent(id);
+    this.audio.onended = () => { this.playing = null; this.renderSongs(); };
+    this.audio.play().catch(() => { this.playing = null; this.renderSongs(); });
+    this.playing = id; this.renderSongs();
+  },
+  renderPhotos() {
+    paint($("#photo-err"), this.err || "", this.err ? `<p class="warn">${esc(this.err)}</p>` : "");
+    const el = $("#thumbs");
+    if (!el) return;
+    const LABEL = { done: "On the TV", wait: "Next game", bad: "TV is full", adding: "Adding…", retry: "Retrying…", queued: "Queued" };
+    const label = (p, st) => st === "sending" ? `Sending ${Math.round((p.prog || 0) * 100)}%` : LABEL[st];
+    const sts = this.photos.map(p => this.status(p));
+    const sig = this.photos.map((p, i) => p.id + sts[i] + Math.round((p.prog || 0) * 20)).join() + "|" + this.busy;
+    paint(el, sig, this.photos.map((p, i) => {
+      const st = sts[i], pct = st === "done" ? 100 : st === "sending" ? Math.round((p.prog || 0) * 100) : 0;
+      return `<div class="thumb ${st === "done" ? "done" : st === "bad" ? "bad" : ""}">
+        <img src="${p.b64 ? "data:image/jpeg;base64," + p.b64 : photoSrc(p.id)}" alt="Your photo">
+        <span class="st"><i style="--p:${pct}%"></i><span>${label(p, st)}</span></span>
+        <button class="x" data-act="rm" data-id="${p.id}" aria-label="Remove this photo">×</button></div>`;
+    }).join("")
+      + (this.busy ? `<div class="addtile">Shrinking…</div>` : "")
+      + (this.photos.length < PER_PLAYER && !this.busy ? `<button class="addtile" data-act="add">+ Add photos</button>` : ""));
+  },
+  rQuestion(main) {
+    if (this.host.qz) return this.rQuiz(main);
+    const H = this.host, owner = H.x === fnv(this.pid + H.rk);
+    const tbar = `<div class="tbar" aria-hidden="true"><i id="tbar"></i></div>`;
+    if (owner) return paint(main, "q-own|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">This one's yours</p><p class="muted">Keep a straight face. Every wrong guess earns you points.</p></div>`);
+    if (this.g?.rk === H.rk) {
+      const pick = this.nameOf(this.g.p);
+      return paint(main, "q-lock|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">Locked in</p>${pick ? avatar(pick[1], pick[2]) : ""}<p class="ph-big">${esc(pick?.[1] || "?")}</p><p class="muted">Waiting for everyone else.</p></div>`);
+    }
+    const opts = this.pl().filter(p => p[0] !== this.pid);
+    paint(main, "q|" + H.rk + "|" + opts.map(p => p[0]).join(), `${tbar}<div class="card"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}${H.R > 1 && H.r === H.R ? " · Double points" : ""}</p>
+      <p class="ph-h">${esc(KIND_ASK_PHONE[H.kind] || KIND_ASK_PHONE.photo)}</p>
+      <div class="choices">${opts.map(p => `<button class="choice" data-act="guess" data-pid="${p[0]}">${avatar(p[1], p[2])}<span>${esc(p[1])}</span></button>`).join("")}</div></div>`);
+  },
+  rQuiz(main) {
+    const H = this.host, qz = H.qz, opts = Array.isArray(qz.o) ? qz.o.slice(0, 4).map(String) : [];
+    const tbar = `<div class="tbar" aria-hidden="true"><i id="tbar"></i></div>`;
+    if (this.g?.rk === H.rk && Number.isInteger(this.g.i)) {
+      const k = this.g.i;
+      return paint(main, "qz-lock|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">Locked in</p><span class="opt-pill" style="--oc:${OPT_COLORS[k]}"><b>${LETTERS[k]}</b>${esc(opts[k] ?? "")}</span><p class="muted">Waiting for everyone else.</p></div>`);
+    }
+    paint(main, "qz|" + H.rk, `${tbar}<div class="card"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · ${esc(MODE_LABEL[qz.t] || "")}${H.R > 1 && H.r === H.R ? " · Double points" : ""}</p>
+      <p class="ph-h">${esc(qz.t === "tune" ? (qz.k === "artist" ? "Who's the artist?" : "What's the song?") : KIND_ASK_PHONE[qz.t] || "Pick an answer")}</p>
+      <div class="answers">${opts.map((o, k) => `<button class="answer" style="--oc:${OPT_COLORS[k]}" data-act="answer" data-i="${k}"><b>${LETTERS[k]}</b><span>${esc(o)}</span></button>`).join("")}</div></div>`);
+  },
+  rQuizReveal(main) {
+    const H = this.host, rv = H.rv, mine = rv.g?.[this.pid], pts = rv.d?.[this.pid] || 0, right = esc(H.qz.o?.[rv.a] ?? "");
+    let cls = "", head, sub;
+    if (mine === rv.a) { cls = "good"; head = "Correct!"; sub = `+${fmt(pts)} points`; }
+    else if (Number.isInteger(mine)) { cls = "bad"; head = "Nope"; sub = `It was ${right}.`; }
+    else { head = "Too slow"; sub = `It was ${right}.`; }
+    paint(main, "qz-rev|" + H.rk, `<div class="card center result ${cls}"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:20px">${sub}</p></div>`);
+  },
+  rReveal(main) {
+    if (this.host.qz && this.host.rv && "a" in this.host.rv) return this.rQuizReveal(main);
+    const H = this.host, rv = H.rv || { g: {}, d: {} }, ownerP = this.nameOf(rv.o);
+    const pts = rv.d?.[this.pid] || 0, mine = rv.g?.[this.pid];
+    let cls = "", head = "", sub = "";
+    if (rv.o === this.pid) {
+      const fooled = Object.values(rv.g || {}).filter(x => x !== rv.o).length;
+      cls = fooled ? "good" : ""; head = fooled ? `You fooled ${fooled}!` : "Nobody fell for it";
+      sub = pts ? `+${fmt(pts)} points` : "No points this time.";
+    } else if (mine && mine === rv.o) { cls = "good"; head = "Correct!"; sub = `+${fmt(pts)} points`; }
+    else if (mine) { cls = "bad"; head = "Nope"; sub = `It was ${esc(ownerP?.[1] || "someone else")}.`; }
+    else { head = "Too slow"; sub = `It was ${esc(ownerP?.[1] || "someone else")}.`; }
+    paint(main, "rev|" + H.rk, `<div class="card center result ${cls}"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:20px">${sub}</p></div>`);
+  },
+  rStandings(main) {
+    const H = this.host, ps = this.pl().slice().sort((a, b) => b[3] - a[3]), me = this.me();
+    const rank = me ? 1 + ps.filter(p => p[3] > me[3]).length : 0;
+    const end = H.ph === "end", vip = H.vip === this.pid;
+    paint(main, [H.ph, H.rk, H.gid, me?.[3], vip, !!this.cmd, JSON.stringify(H.aw || null)].join("|"), `<div class="card center result ${end && rank === 1 ? "good" : ""}">
+        <p class="eyebrow">${end ? "Final scores" : "Scores so far"}</p>
+        <p class="ph-big">${me ? (end && rank === 1 ? "You win!" : ordinal(rank) + " place") : "Next game"}</p>
+        ${me ? `<p style="font-weight:800;font-size:20px" class="num">${fmt(me[3])} points</p>` : ""}
+        ${end ? (H.aw || []).filter(a => a[0] === this.pid).map(a => `<p class="eyebrow">Award: ${esc(a[1])}</p><p class="muted">${esc(a[2])}</p>`).join("") : ""}
+      </div>
+      ${end ? (vip ? `<button class="btn primary wide" data-act="again" ${this.cmd ? "disabled" : ""}>${this.cmd ? "Starting…" : "Play again"}</button>${(H.modes || []).includes("photo") ? `<p class="muted" style="text-align:center">Everyone picks new photos for the next game.</p>` : ""}`
+        : `<p class="muted" style="text-align:center">Waiting for ${esc(this.nameOf(H.vip)?.[1] || "the host")} to start another game.</p>`) : ""}`);
+  },
+  renderClock() {
+    const bar = $("#tbar");
+    if (!bar || this.host?.ph !== "q") return;
+    const left = Math.max(0, (this.deadline - Date.now()) / 1000);
+    bar.style.width = Math.min(100, left / Q_SECS * 100).toFixed(1) + "%";
+  },
+};
+
+// ---------- events ----------
+app.addEventListener("click", e => {
+  const b = e.target.closest("[data-act]");
+  if (!b || b.disabled) return;
+  const a = b.dataset.act;
+  if (a === "go-tv") return TV.start();
+  if (a === "go-phone") return PH.start();
+  if (mode === "tv") TV.act(a, b);
+  else if (mode === "phone") { if (a === "join") e.preventDefault(); PH.act(a, b); }
+});
+app.addEventListener("change", e => {
+  if (mode !== "tv") return;
+  if (e.target.id === "tune-sel") TV.setTune(e.target.value, e.target.selectedOptions[0]?.textContent);
+  if (e.target.id === "face-sel") TV.setFaceCat(e.target.value);
+  if (e.target.id === "theme-sel") TV.setTheme(e.target.value);
+  if (e.target.id === "len-sel") TV.setLen(e.target.value);
+});
+app.addEventListener("submit", e => {
+  e.preventDefault();
+  if (mode === "tv" && e.target.id === "tune-form") return TV.setTune($("#tune-in")?.value, null);
+  if (mode === "phone" && e.target.id === "song-form") return PH.searchSongs();
+  if (mode === "phone") PH.act("join");
+});
+fileIn.addEventListener("change", () => {
+  const files = Array.from(fileIn.files || []);
+  if (!files.length) return;
+  if (mode === "tv") TV.addPhotos(files); else if (mode === "phone") PH.addPhotos(files);
+});
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && mode) wake(); });
+// A new room code after the # (another QR code opened in the same tab) starts the page fresh.
+addEventListener("hashchange", () => location.reload());
+
+// ---------- boot ----------
+const last = store.get("wiw.mode");
+if (location.pathname === "/tv") TV.start();
+else if (hashCode) PH.start();
+else if (last && Date.now() - (last.at || 0) < 4 * 3600e3 && (last.m === "tv" || last.m === "phone")) (last.m === "tv" ? TV : PH).start();
+else renderLanding();
+})();
+</script>
+</body>
+</html>
