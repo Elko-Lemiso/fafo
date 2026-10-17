@@ -545,6 +545,12 @@ function spread(items, owner) {
   }
   return out;
 }
+// A famous-face question. Wrong answers: same field and gender first, so it isn't a giveaway.
+function faceRound(p, pool, all) {
+  const near = [...shuffle(pool.filter(x => x.n !== p.n && x.g === p.g && x.c === p.c)), ...shuffle(pool.filter(x => x.n !== p.n && x.g === p.g)), ...shuffle(all.filter(x => x.n !== p.n && x.g === p.g))];
+  const o = shuffle([p.n, ...[...new Set(near.map(x => x.n))].slice(0, 3)]);
+  return { t: "face", n: p.n, img: p.img, alt: "", d: p.d, src: "Wikipedia", fc: p.c, o, a: o.indexOf(p.n) };
+}
 // A country question with three wrong answers from the same part of the world, so it isn't too easy.
 function countryRound(t, c, all) {
   const others = all.filter(x => x.c !== c.c);
@@ -631,6 +637,7 @@ const TV = {
       <footer class="hostbar" id="hostbar"></footer>
     </div>`;
     this.audio = new Audio(); this.audio.preload = "auto";
+    this.audio.addEventListener("error", () => this.clipError());
     this.render();
     this.prefetch();
     if (roomState === "ok") this.onRoom();
@@ -856,21 +863,59 @@ const TV = {
     const cur = this.H.cur, music = cur && (cur.t === "song" || cur.t === "tune"), a = this.audio;
     if (!a) return;
     const src = music ? "/api/music/play/" + encodeURIComponent(cur.id) : "";
+    if (ph === "intro") { this.clipRetried = false; if (this.clipFailed) { this.clipFailed = false; this.renderStatus(); } }
     if (ph === "intro" && music) {
       // Let the last clip fade out, then load the next one so it's ready when the question starts.
       return this.fade(0, 700, () => { a.pause(); a.src = src; a.load(); });
     }
-    if (ph === "intro" && cur?.t === "face") new Image().src = cur.img;
+    if (ph === "intro" && cur?.t === "face") this.preloadFace(cur);
     if (ph === "q" && music) {
       if (!a.src.includes(src)) a.src = src;
       clearInterval(this.fadeT);
       a.volume = 0; a.currentTime = 0;
       a.play().then(() => { this.fade(1, 800); if (this.needSound) { this.needSound = false; this.renderHostbar(); } })
-        .catch(() => { a.volume = 1; this.needSound = true; this.renderHostbar(); });
+        .catch(e => { a.volume = 1; if (e?.name === "NotAllowedError") { this.needSound = true; this.renderHostbar(); } });
       return;
     }
     if (ph === "rev" && music) return;
     this.fade(0, 900, () => a.pause());
+  },
+  // A photo that won't load would leave a blank question, so check it during the title card.
+  preloadFace(cur) {
+    const img = new Image();
+    img.onerror = () => {
+      if (this.H.cur !== cur) return;
+      if (cur.alt && cur.alt !== cur.img) { cur.img = cur.alt; cur.alt = ""; this.save(); this.render(); return this.preloadFace(cur); }
+      this.swapFace(cur);
+    };
+    img.src = cur.img;
+  },
+  async swapFace(cur) {
+    if (cur.swaps >= 3) return;
+    cur.swaps = (cur.swaps || 0) + 1;
+    const all = (await getFaces().catch(() => null))?.people;
+    if (!all || this.H.cur !== cur) return;
+    const used = new Set(this.H.order.filter(r => r.t === "face").map(r => r.n));
+    const pool = all.filter(p => !used.has(p.n) && (!cur.fc || p.c === cur.fc));
+    const p = pool[Math.floor(Math.random() * pool.length)];
+    if (!p) return;
+    Object.assign(cur, faceRound(p, pool.length >= 4 ? pool : all, all), { swaps: cur.swaps });
+    this.save(); this.render(); this.push(true);
+    this.preloadFace(cur);
+  },
+  // A song clip that won't play: try once more with a fresh link, then say so and let the host skip.
+  clipError() {
+    const H = this.H, cur = H.cur;
+    if (!cur || (cur.t !== "song" && cur.t !== "tune") || !this.audio) return;
+    if (!this.clipRetried) {
+      this.clipRetried = true;
+      this.audio.src = "/api/music/play/" + encodeURIComponent(cur.id) + "?retry=" + Date.now();
+      if (H.ph === "q") this.audio.play().catch(() => {});
+      return;
+    }
+    this.clipFailed = cur.t === "tune" ? "skip" : "next"; this.renderStatus();
+    // Name that tune can't be played without the song, so that round skips itself.
+    if (cur.t === "tune") setTimeout(() => { if (this.H.cur === cur && ["intro", "q"].includes(this.H.ph)) this.nextRound(); }, 2500);
   },
   fade(to, ms, then) {
     const a = this.audio;
@@ -938,12 +983,7 @@ const TV = {
         if (!faces) {
           const all = (await getFaces()).people, f = theme.faces === "artists" ? "music" : theme.faces;
           const pool = all.filter(p => f === "all" || (f === "africa" ? p.af : f === "world" ? ["leaders", "science", "arts"].includes(p.c) : p.c === f));
-          faces = shuffle(this.unseen(pool, p => p.n, "face", each)).slice(0, each).map(p => {
-            // Wrong answers: same field and gender first, so it isn't a giveaway.
-            const near = [...shuffle(pool.filter(x => x.n !== p.n && x.g === p.g && x.c === p.c)), ...shuffle(pool.filter(x => x.n !== p.n && x.g === p.g)), ...shuffle(all.filter(x => x.n !== p.n && x.g === p.g))];
-            const o = shuffle([p.n, ...[...new Set(near.map(x => x.n))].slice(0, 3)]);
-            return { t: "face", n: p.n, img: p.img, d: p.d, src: "Wikipedia", o, a: o.indexOf(p.n) };
-          });
+          faces = shuffle(this.unseen(pool, p => p.n, "face", each)).slice(0, each).map(p => faceRound(p, pool, all));
         }
         pools.face = faces;
       }
@@ -984,7 +1024,7 @@ const TV = {
         for (const r of order) {
           const pic = n => photos[n] || photos[leadName(n)];
           if ((r.t === "tune" || r.t === "song") && pic(r.artist)) r.ap = pic(r.artist);
-          if (r.t === "face" && r.src === "Deezer" && pic(r.n)) { r.img = pic(r.n); r.src = "Wikipedia"; }
+          if (r.t === "face" && r.src === "Deezer" && pic(r.n)) { r.alt = r.img; r.img = pic(r.n); r.src = "Wikipedia"; }
         }
       }
       this.remember("tune", order.filter(r => r.t === "tune").map(r => r.id));
@@ -1192,7 +1232,7 @@ const TV = {
     else if (a === "mode") this.toggleMode(el.dataset.m);
     else if (a === "tune-mix") this.setTune(el.dataset.q, el.dataset.l);
     else if (a === "face-cat") this.setFaceCat(el.dataset.c);
-    else if (a === "sound") { this.needSound = false; this.audio?.play().catch(() => { this.needSound = true; this.renderHostbar(); }); }
+    else if (a === "sound") { this.needSound = false; this.audio?.play().catch(e => { if (e?.name === "NotAllowedError") { this.needSound = true; this.renderHostbar(); } }); }
     this.renderHostbar();
   },
   async addPhotos(files) {
@@ -1220,7 +1260,8 @@ const TV = {
     let extra = "";
     if (roomState === "none") extra = `<span class="pill dark">Server unreachable</span>`;
     else if (roomState === "ok" && !this.connected) extra = `<span class="pill dark">Reconnecting to the server</span>`;
-    paint($("#tv-status"), `${H.code}|${n}|${roomState}|${this.connected}`, `${extra}<span class="pill">Room ${esc(H.code)}</span><span class="pill num">${n} ${n === 1 ? "player" : "players"}</span>`);
+    if (this.clipFailed) extra += `<span class="pill dark">${this.clipFailed === "skip" ? "This song didn't load. Skipping it" : "This song didn't load. Press Next to skip"}</span>`;
+    paint($("#tv-status"), `${H.code}|${n}|${roomState}|${this.connected}|${this.clipFailed}`, `${extra}<span class="pill">Room ${esc(H.code)}</span><span class="pill num">${n} ${n === 1 ? "player" : "players"}</span>`);
   },
   renderHostbar() {
     const H = this.H, c = this.confirm?.a;
@@ -1401,18 +1442,18 @@ const TV = {
   // "· Jazz" after the round name, so everyone knows which music tonight's tune and artist rounds come from.
   musicTag(cur) { return cur && (cur.t === "tune" || (cur.t === "face" && themeOf(this.H).faces === "artists")) ? " · " + esc(this.H.tune.label) : ""; },
   ownerMedia(cur, reveal) {
-    if (cur?.t === "song") return this.songMedia(cur.title, cur.artist, (reveal && cur.ap) || cur.art);
+    if (cur?.t === "song") return this.songMedia(cur.title, cur.artist, (reveal && cur.ap) || cur.art, cur.art);
     return `<figure class="print"><img src="${this.H.photos[cur?.id]?.src || ""}" alt="Mystery photo ${this.H.r}"><figcaption>No. ${this.H.r}</figcaption></figure>`;
   },
-  songMedia(title, artist, art) {
-    return `<figure class="print song">${art ? `<img class="cover" src="${esc(art)}" alt="">` : `<div class="vinyl spin"><span>♪</span></div>`}<figcaption><b>${esc(title)}</b><span>${esc(artist)}</span></figcaption></figure>`;
+  songMedia(title, artist, art, alt) {
+    return `<figure class="print song">${art ? `<img class="cover" src="${esc(art)}" data-alt="${esc(alt && alt !== art ? alt : "")}" alt="">` : `<div class="vinyl spin"><span>♪</span></div>`}<figcaption><b>${esc(title)}</b><span>${esc(artist)}</span></figcaption></figure>`;
   },
   quizMedia(cur, reveal) {
     const cap = `<figcaption>No. ${this.H.r}</figcaption>`;
     if (cur.t === "flag") return `<figure class="print"><img class="flag" src="/flags/${encodeURIComponent(cur.c)}.svg" alt="Mystery flag">${cap}</figure>`;
-    if (cur.t === "face") return `<figure class="print"><img class="face ${reveal ? "" : "blurred"}" src="${esc(cur.img)}" alt="${reveal ? esc(cur.n) : "Mystery person"}" style="--blur:${Math.round(Q_SECS * 0.75)}s">${cap}</figure>`;
+    if (cur.t === "face") return `<figure class="print"><img class="face ${reveal ? "" : "blurred"}" src="${esc(cur.img)}" data-alt="${esc(cur.alt || "")}" alt="${reveal ? esc(cur.n) : "Mystery person"}" style="--blur:${Math.round(Q_SECS * 0.75)}s">${cap}</figure>`;
     // The reveal shows the artist's photo, so you see who you were just listening to.
-    if (cur.t === "tune") return reveal ? this.songMedia(cur.title, cur.artist, cur.ap || cur.art) : `<div class="vinyl spin" role="img" aria-label="A song is playing"><span>♪</span></div>`;
+    if (cur.t === "tune") return reveal ? this.songMedia(cur.title, cur.artist, cur.ap || cur.art, cur.art) : `<div class="vinyl spin" role="img" aria-label="A song is playing"><span>♪</span></div>`;
     return `<figure class="print">${shapeSvg(cur.id) || `<div class="loading">Loading the map…</div>`}${cap}</figure>`;
   },
   optsHtml(cur, rv) {
@@ -2026,6 +2067,12 @@ fileIn.addEventListener("change", () => {
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && mode) wake(); });
 // A new room code after the # (another QR code opened in the same tab) starts the page fresh.
 addEventListener("hashchange", () => location.reload());
+
+// Any picture that fails to load switches to its fallback (data-alt) when it has one.
+document.addEventListener("error", e => {
+  const im = e.target;
+  if (im?.tagName === "IMG" && im.dataset.alt && im.src !== im.dataset.alt) { const alt = im.dataset.alt; im.dataset.alt = ""; im.src = alt; }
+}, true);
 
 // ---------- boot ----------
 const last = store.get("wiw.mode");
