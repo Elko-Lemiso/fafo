@@ -3,6 +3,8 @@
 A party game for one TV and a room full of phones. The laptop plugged into the TV shows the game, and
 everyone plays on their phone. Friends join by scanning a QR code, and nobody needs an account.
 
+Play it at **https://fafo.up.railway.app**: open **https://fafo.up.railway.app/tv** on the laptop connected to the TV.
+
 ## Rounds
 
 Pick any mix in the TV lobby under **Rounds tonight**:
