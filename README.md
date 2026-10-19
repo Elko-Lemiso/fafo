@@ -31,8 +31,17 @@ A **Theme** ties the rounds together. Music makes the faces come from tonight's 
 maps and faces African, and so on. **Length** sets how many quiz rounds each type gets.
 
 Scoring: a right answer is 500 to 1,000 points, faster scores more. When someone guesses your photo or song
-wrong, you get 250 points. The last round counts double. Votes stay anonymous: the TV only shows how many
-people picked each answer. The game ends with a podium and a few awards.
+wrong, you get 250 points. The last round counts double. Each reveal shows who picked which answer; set
+**Votes** to Anonymous in the lobby to show only how many picked each one. The game ends with a podium and
+a few awards.
+
+**Sound:** the TV plays effects and a background loop, all made in the browser, and goes quiet under song
+clips. Browsers keep a page silent until someone clicks it, so press **Turn on sound** (or **Sound check**)
+in the lobby. Pick Music and effects, Effects only, or Off.
+
+**Pause:** press space (or P) on the TV, the Pause button, or Pause game on the phone of whoever started.
+Nothing moves on and no answers count while paused; resuming counts down 3-2-1. If a player drops out
+mid-question the game waits up to 20 seconds for them. The right arrow skips ahead.
 
 ## Run it on your laptop
 

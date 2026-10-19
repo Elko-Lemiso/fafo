@@ -242,6 +242,7 @@ button{font:inherit;color:inherit}
 .loc .hit{fill:var(--tomato);stroke:var(--ink);stroke-width:.6}
 .loc .pin{fill:none;stroke:var(--tomato);stroke-width:2.5}
 .stamp.low{top:80%}
+.stamp.long{white-space:normal;text-align:center;font-size:max(18px,4.4vmin);line-height:1.05;width:max-content;max-width:92%}
 .qside.quiz{gap:1.8vmin}
 .qside.quiz .qtitle{font-size:max(22px,5vmin)}
 .qfoot{display:flex;align-items:center;gap:2.4vmin}
@@ -335,6 +336,19 @@ button{font:inherit;color:inherit}
 .qtitle.likely{font-size:max(26px,6.6vmin);max-width:22ch}
 .ph-q{font-weight:800;font-size:20px;line-height:1.3}
 .emoji-q{font-size:54px;text-align:center;line-height:1.2}
+/* pause */
+.pause-ov{position:fixed;inset:0;z-index:20;display:grid;place-items:center;align-content:center;gap:2.4vmin;text-align:center;padding:4vmin;
+  background:rgba(29,20,15,.86);color:var(--paper);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.pause-ov[hidden]{display:none}
+.pause-ov .eyebrow{color:var(--sun)}
+.pause-ov .big{font-family:var(--display);font-size:max(56px,17vmin);line-height:.9;color:var(--sun);animation:slam .5s cubic-bezier(.2,1.4,.4,1) both}
+.pause-ov .why{font-size:max(16px,3.2vmin);font-weight:700;max-width:38ch;line-height:1.35}
+.pause-ov .cd{font-family:var(--display);font-size:max(96px,34vmin);line-height:.9;color:var(--sun);animation:slam .45s cubic-bezier(.2,1.4,.4,1) both}
+.pause-ov .hostbar .btn.sm{background:transparent;color:var(--paper);border-color:var(--paper);box-shadow:none}
+.tv.paused .stage *{animation-play-state:paused!important}
+.ph-foot{display:flex;justify-content:center}
+.ph-foot:empty{display:none}
+.rows .voters,.opt .voters{max-width:22vmin}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes unblur{from{filter:blur(28px) saturate(.6)}to{filter:blur(0) saturate(1)}}
 @keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
@@ -450,6 +464,102 @@ const store = {
 function paint(el, sig, html) { if (!el || el.dataset.sig === sig) return false; el.dataset.sig = sig; el.innerHTML = html; return true; }
 async function wake() { try { await navigator.wakeLock?.request("screen"); } catch {} }
 function vibrate(ms) { try { navigator.vibrate?.(ms); } catch {} }
+
+// ---------- sound: effects and a background loop, made in the browser so there are no audio files to load ----------
+// Browsers start audio switched off until someone clicks the page; unlock() is called on the TV's first click or key.
+const hz = m => 440 * 2 ** ((m - 69) / 12);
+const SFX = {
+  ctx: null, fx: null, mus: null, mood: "off", level: 0, want: { fx: true, music: true }, timer: 0, step: 0, next: 0, onState: null,
+  init() {
+    if (this.ctx) return this.ctx;
+    const C = window.AudioContext || window.webkitAudioContext;
+    if (!C) return null;
+    const c = this.ctx = new C(), out = c.createDynamicsCompressor();
+    out.connect(c.destination);
+    this.fx = c.createGain(); this.fx.gain.value = 0.9; this.fx.connect(out);
+    this.mus = c.createGain(); this.mus.gain.value = 0; this.mus.connect(out);
+    c.onstatechange = () => { this.onState?.(); if (this.ready() && this.mood !== "off" && !this.timer) this.loop(); };
+    return c;
+  },
+  unlock() { const c = this.init(); if (c && c.state !== "running") c.resume().catch(() => {}); },
+  ready() { return this.ctx?.state === "running"; },
+  // One note: quick attack, then it dies away.
+  note(f, at, dur, o = {}) {
+    const c = this.ctx, osc = c.createOscillator(), g = c.createGain(), v = o.vol ?? 0.2;
+    osc.type = o.type || "sine"; osc.frequency.setValueAtTime(f, at);
+    if (o.to) osc.frequency.exponentialRampToValueAtTime(o.to, at + dur);
+    g.gain.setValueAtTime(0.0001, at); g.gain.exponentialRampToValueAtTime(v, at + (o.att || 0.005)); g.gain.exponentialRampToValueAtTime(0.0001, at + dur);
+    osc.connect(g); g.connect(o.bus || this.fx); osc.start(at); osc.stop(at + dur + 0.02);
+  },
+  // Filtered noise for hats, claps and whooshes.
+  hiss(at, dur, o = {}) {
+    const c = this.ctx;
+    this.buf ||= (() => { const b = c.createBuffer(1, c.sampleRate, c.sampleRate), d = b.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; return b; })();
+    const s = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain(), v = o.vol ?? 0.08;
+    s.buffer = this.buf; f.type = o.ft || "highpass"; f.frequency.setValueAtTime(o.f || 7000, at);
+    if (o.fTo) f.frequency.exponentialRampToValueAtTime(o.fTo, at + dur);
+    g.gain.setValueAtTime(0.0001, at); g.gain.exponentialRampToValueAtTime(v, at + (o.att || 0.003)); g.gain.exponentialRampToValueAtTime(0.0001, at + dur);
+    s.connect(f); f.connect(g); g.connect(o.bus || this.fx); s.start(at, Math.random() * 0.5); s.stop(at + dur + 0.02);
+  },
+  play(name) {
+    if (!this.want.fx || !this.ready()) return;
+    const t = this.ctx.currentTime + 0.02, n = (m, d, o = {}) => this.note(hz(m), t + (o.at || 0), d, o);
+    const arp = (notes, gap, d, o) => notes.forEach((m, i) => n(m, d, { ...o, at: (o?.at || 0) + i * gap }));
+    switch (name) {
+      case "join": n(84, 0.12, { type: "triangle", vol: 0.2 }); n(91, 0.2, { type: "triangle", vol: 0.2, at: 0.07 }); break;
+      case "lock": this.note(1800, t, 0.06, { to: 1100, vol: 0.18 }); this.hiss(t, 0.03, { vol: 0.04 }); break;
+      case "tick": this.note(1500, t, 0.05, { type: "square", vol: 0.045 }); break;
+      case "buzz": this.note(110, t, 0.45, { type: "sawtooth", vol: 0.07 }); this.note(117, t, 0.45, { type: "sawtooth", vol: 0.07 }); break;
+      case "whoosh": this.hiss(t, 0.55, { ft: "bandpass", f: 300, fTo: 5000, vol: 0.14, att: 0.25 }); this.note(110, t + 0.3, 0.35, { to: 40, vol: 0.4 }); break;
+      case "reveal": this.hiss(t, 0.7, { f: 5000, vol: 0.06 }); [72, 76, 79, 84].forEach((m, i) => n(m, 0.6, { type: "triangle", vol: 0.1, at: i * 0.025 })); break;
+      case "board": arp([67, 71, 74, 79, 83], 0.06, 0.2, { type: "triangle", vol: 0.12 }); break;
+      case "fanfare":
+        arp([67, 72, 76], 0.16, 0.16, { type: "square", vol: 0.05 });
+        [72, 76, 79, 84].forEach(m => n(m, 1.2, { type: "triangle", vol: 0.1, at: 0.5 })); this.hiss(t + 0.5, 1.1, { f: 6000, vol: 0.05 }); break;
+      case "blip": n(76, 0.14, { type: "triangle", vol: 0.15 }); break;
+      case "pause": n(79, 0.16, { type: "triangle", vol: 0.16 }); n(72, 0.3, { type: "triangle", vol: 0.16, at: 0.13 }); break;
+      case "count": n(81, 0.14, { type: "square", vol: 0.06 }); break;
+      case "go": n(88, 0.35, { type: "square", vol: 0.07 }); break;
+      case "check": arp([72, 76, 79], 0.09, 0.2, { type: "triangle", vol: 0.14 }); [72, 76, 79, 84].forEach(m => n(m, 0.9, { type: "triangle", vol: 0.08, at: 0.3 })); break;
+    }
+  },
+  // The background loop: "groove" in the lobby and between rounds, "think" (no drums or chords) during questions, "off" under song clips.
+  setMood(mood, duck = 1) {
+    if (!this.ctx) return;
+    mood = this.want.music ? mood : "off";
+    const level = mood === "off" ? 0 : (mood === "think" ? 0.45 : 0.7) * duck;
+    this.mood = mood;
+    if (mood !== "off" && !this.timer && this.ready()) this.loop();
+    if (Math.abs(level - this.level) < 0.001) return;
+    const g = this.mus.gain, now = this.ctx.currentTime;
+    g.cancelScheduledValues(now); g.setValueAtTime(g.value, now); g.linearRampToValueAtTime(level, now + (level < this.level ? 0.6 : 1.4));
+    this.level = level;
+  },
+  loop() {
+    this.next = this.ctx.currentTime + 0.1; this.step = 0;
+    const sixteenth = 60 / 104 / 4;
+    this.timer = setInterval(() => {
+      if (!this.ready()) return;
+      if (this.mood === "off" && this.mus.gain.value < 0.002) { clearInterval(this.timer); this.timer = 0; return; }
+      while (this.next < this.ctx.currentTime + 0.25) { this.beat(this.step, this.next); this.next += sixteenth; this.step = (this.step + 1) % 64; }
+    }, 60);
+  },
+  // Four bars of C, Am, F, G with sevenths. One call per sixteenth note.
+  beat(s, at) {
+    const bar = s >> 4, i = s & 15, m = this.mus, think = this.mood === "think";
+    const [root, chord] = [[48, [60, 64, 67, 71]], [45, [60, 64, 67, 69]], [41, [60, 64, 65, 69]], [43, [59, 62, 65, 67]]][bar];
+    if (i % (think ? 4 : 2) === 0) this.hiss(at, i === 14 ? 0.09 : 0.03, { f: 8000, vol: think ? 0.02 : 0.035, bus: m });
+    if (think) {
+      if (i === 0 || i === 8) this.note(hz(root + (i === 8 ? 12 : 0)), at, 0.3, { type: "triangle", vol: 0.18, bus: m });
+      if (i === 0) for (const k of chord) this.note(hz(k), at, 1.6, { vol: 0.012, att: 0.4, bus: m });
+      return;
+    }
+    if (i === 0 || i === 8 || (i === 10 && bar === 3)) this.note(120, at, 0.2, { to: 45, vol: 0.4, bus: m });
+    if (i === 4 || i === 12) this.hiss(at, 0.12, { ft: "bandpass", f: 1800, vol: 0.1, bus: m });
+    if ([0, 3, 6, 8, 11, 14].includes(i)) this.note(hz(root + (i === 6 || i === 14 ? 12 : 0)), at, 0.18, { type: "triangle", vol: 0.2, bus: m });
+    if (i === 2 || i === 10) for (const k of chord) this.note(hz(k), at, i === 2 ? 0.4 : 0.22, { vol: 0.03, att: 0.01, bus: m });
+  },
+};
 
 // Downscale a picked photo to a TV-sized JPEG before it goes over the Wi-Fi.
 async function compress(file) {
@@ -656,9 +766,13 @@ const TV = {
       <header class="tv-top"><div class="logo">fafo</div><div class="tv-status" id="tv-status"></div></header>
       <main class="stage" id="stage"></main>
       <footer class="hostbar" id="hostbar"></footer>
+      <div class="pause-ov" id="pause-ov" hidden></div>
     </div>`;
     this.audio = new Audio(); this.audio.preload = "auto";
     this.audio.addEventListener("error", () => this.clipError());
+    SFX.init(); SFX.onState = () => { this.renderHostbar(); this.mood(); };
+    for (const ev of ["pointerdown", "keydown"]) document.addEventListener(ev, () => SFX.unlock(), true);
+    this.applySound();
     this.render();
     this.prefetch();
     if (roomState === "ok") this.onRoom();
@@ -668,7 +782,7 @@ const TV = {
   },
   fresh() {
     const code = Array.from(crypto.getRandomValues(new Uint8Array(4)), x => CODE_CHARS[x % CODE_CHARS.length]).join("");
-    return { code, gid: rid(6), ph: "lobby", r: 0, R: 0, rk: "", cur: null, order: [], players: {}, photos: {}, guesses: {}, phaseEnds: 0, qStart: 0, qDur: Q_SECS * 1000, rv: null, vip: null, modes: ["photo"], songs: {}, tune: { q: "top worldwide", label: "Today's hits" }, faceCat: "all", theme: "mix", len: "normal", impVar: "similar", turn: 0, savedAt: 0 };
+    return { code, gid: rid(6), ph: "lobby", r: 0, R: 0, rk: "", cur: null, order: [], players: {}, photos: {}, guesses: {}, phaseEnds: 0, qStart: 0, qDur: Q_SECS * 1000, rv: null, vip: null, modes: ["photo"], songs: {}, tune: { q: "top worldwide", label: "Today's hits" }, faceCat: "all", theme: "mix", len: "normal", impVar: "similar", snd: "all", anon: false, pause: null, turn: 0, savedAt: 0 };
   },
   revive(s) {
     const H = Object.assign(this.fresh(), s);
@@ -676,6 +790,7 @@ const TV = {
     if (!Array.isArray(H.modes) || !H.modes.length) H.modes = ["photo"];
     H.modes = H.modes.filter(m => MODES.includes(m)); if (!H.modes.length) H.modes = ["photo"];
     H.songs ||= {}; if (!H.tune?.q) H.tune = { q: "top worldwide", label: "Today's hits" }; H.faceCat ||= "all"; H.theme ||= "mix"; H.len ||= "normal"; H.impVar ||= "similar";
+    if (!["all", "fx", "off"].includes(H.snd)) H.snd = "all"; H.anon = !!H.anon; H.pause = null;
     H.order = (H.order || []).map(x => (typeof x === "string" ? { t: "photo", id: x } : x));
     if (typeof H.cur === "string") H.cur = { t: "photo", id: H.cur };
     for (const id of Object.keys(H.photos)) if (!H.photos[id]?.src) delete H.photos[id];
@@ -696,7 +811,7 @@ const TV = {
 
   onRoom() {
     if (!room) return this.render();
-    room.onPeers(ch => this.sync(ch.peers));
+    room.onPeers(ch => { this.peers = ch.peers; this.sync(ch.peers); });
     room.onConnection(c => { this.connected = c; this.renderStatus(); if (c) this.checkPhotos(); });
     this.connected = room.connected();
     this.push(true);
@@ -750,6 +865,7 @@ const TV = {
         if (Object.keys(H.players).length >= MAX_PLAYERS) continue;
         pl = H.players[pid] = { pid, name, color: this.nextColor(), score: 0, photos: [], songs: [], cmdK: p.cmd?.k ?? null, at: now, online: true };
         changed = true;
+        SFX.play("join");
       }
       if (pl.name !== name) { pl.name = name; changed = true; }
       if (!pl.online) { pl.online = true; changed = true; }
@@ -757,7 +873,7 @@ const TV = {
       // Imposter: `wk` = this phone has its secret word, `sw` = its player has looked at it, `dn` = done giving a clue.
       pl.wk = p.wk || null; pl.sw = p.sw || null; pl.rd = p.rd || null;
       if (this.isImp() && ["imp-word", "imp-clue", "imp-talk", "q"].includes(H.ph) && p.wk !== H.rk) this.sendWord(pid);
-      if (H.ph === "imp-clue" && p.dn === H.rk + ":" + H.turn && pid === H.cur.order[H.turn]) clueDone = true;
+      if (H.ph === "imp-clue" && !H.pause && p.dn === H.rk + ":" + H.turn && pid === H.cur.order[H.turn]) clueDone = true;
 
       // `ph` lists the photos this phone has finished uploading to the server.
       const want = Array.isArray(p.ph) ? p.ph.filter(isFid).slice(0, PER_PLAYER) : [];
@@ -788,20 +904,25 @@ const TV = {
       if ((pl.sending || 0) !== sending) { pl.sending = sending; this.renderRoster(); }
 
       const g = p.g;
-      if (H.ph === "q" && g && g.rk === H.rk && !H.guesses[pid]) {
+      if (H.ph === "q" && !H.pause && g && g.rk === H.rk && !H.guesses[pid]) {
         if (!this.isQuiz()) {
-          if (pid !== this.curOwner() && isPid(g.p) && g.p !== pid && H.players[g.p]) { H.guesses[pid] = { p: g.p, t: now }; changed = true; }
-        } else if (Number.isInteger(g.i) && g.i >= 0 && g.i < H.cur.o.length) { H.guesses[pid] = { i: g.i, t: now }; changed = true; }
+          if (pid !== this.curOwner() && isPid(g.p) && g.p !== pid && H.players[g.p]) { H.guesses[pid] = { p: g.p, t: now }; changed = true; SFX.play("lock"); }
+        } else if (Number.isInteger(g.i) && g.i >= 0 && g.i < H.cur.o.length) { H.guesses[pid] = { i: g.i, t: now }; changed = true; SFX.play("lock"); }
       }
       const c = p.cmd;
       if (c && typeof c.k === "string" && c.k !== pl.cmdK) { pl.cmdK = c.k; if (pid === H.vip) this.command(c.a); }
     }
-    for (const pl of Object.values(H.players)) if (!seen.has(pl.pid) && pl.online) { pl.online = false; changed = true; }
+    let lost = null;
+    for (const pl of Object.values(H.players)) if (!seen.has(pl.pid) && pl.online) {
+      pl.online = false; changed = true;
+      if (!H.pause && this.waitFor(pl.pid)) lost = pl.pid;
+    }
     if (!H.vip || !H.players[H.vip] || !H.players[H.vip].online) {
       const next = this.players().find(p => p.online)?.pid || H.vip;
       if (next !== H.vip) { H.vip = next; changed = true; }
     }
-    if (changed) { this.save(); this.render(); }
+    if (lost) this.pause(lost);
+    else if (changed) { this.save(); this.render(); }
     if (clueDone) return this.advance();
     if (H.ph === "imp-word" || H.ph === "imp-talk") this.render();
     this.push();
@@ -823,7 +944,9 @@ const TV = {
   command(a) {
     if (a === "start" && this.H.ph === "lobby" && this.canStart()) this.startGame();
     else if (a === "again" && this.H.ph === "end") this.playAgain();
-    else if (a === "next" && this.isImp() && this.H.ph === "rev") this.advance();
+    else if (a === "pause") this.pause();
+    else if (a === "resume") this.resume();
+    else if (a === "next" && this.isImp() && this.H.ph === "rev") { this.unpause(); this.advance(); }
     else if (typeof a === "string" && a.startsWith("mode:")) this.toggleMode(a.slice(5));
   },
   toggleMode(m) {
@@ -880,6 +1003,64 @@ const TV = {
   setFaceCat(c) {
     if (!FACE_CATS.some(([k]) => k === c) || this.H.ph !== "lobby") return;
     this.H.faceCat = c; this.save(); this.renderModes();
+  },
+  setSnd(v) {
+    if (!["all", "fx", "off"].includes(v)) return;
+    this.H.snd = v; this.applySound(); this.save(); this.renderModes();
+  },
+  setAnon(v) {
+    if (this.H.ph !== "lobby") return;
+    this.H.anon = v === "anon"; this.save(); this.renderModes();
+  },
+  applySound() { SFX.want = { fx: this.H.snd !== "off", music: this.H.snd === "all" }; this.mood(); },
+  // What the background loop does right now: quiet while people think, silent under song clips.
+  mood() {
+    const H = this.H, cur = H.cur, music = cur && (cur.t === "song" || cur.t === "tune");
+    let m = "groove";
+    if (H.pause) m = "think";
+    else if (music && (H.ph === "q" || H.ph === "rev")) m = "off";
+    else if (H.ph === "q" || IMP_PHASES.includes(H.ph)) m = "think";
+    SFX.setMood(m);
+  },
+
+  // ---------- pause ----------
+  // While paused nothing moves on and no answers count. Resuming runs a 3-2-1, then every clock carries on where it stopped.
+  inGame() { return !["lobby", "end"].includes(this.H.ph); },
+  pause(pid) {
+    const H = this.H;
+    if (!this.inGame()) return;
+    if (H.pause && !H.pause.cd) return;
+    if (H.pause) H.pause.cd = 0; // paused again during the countdown
+    else H.pause = { at: Date.now(), pid: isPid(pid) ? pid : null, cd: 0 };
+    if (this.audio && !this.audio.paused) { this.clipHeld = true; this.audio.pause(); }
+    SFX.play("pause");
+    this.save(); this.render(); this.push(true);
+  },
+  resume() {
+    const H = this.H;
+    if (!H.pause || H.pause.cd) return;
+    H.pause.cd = Date.now() + 3000; this.cdShown = 0;
+    this.save(); this.render(); this.push(true);
+  },
+  unpause() {
+    const H = this.H, p = H.pause;
+    if (!p) return;
+    const shift = Date.now() - p.at;
+    if (H.phaseEnds) H.phaseEnds += shift;
+    if (H.ph === "q") { H.qStart += shift; for (const g of Object.values(H.guesses)) g.t += shift; }
+    H.pause = null;
+    if (this.clipHeld) { this.clipHeld = false; this.audio?.play().catch(() => {}); }
+    this.save(); this.render(); this.push(true);
+    // Answers that came in while paused were ignored; read the phones again so they count now.
+    if (this.peers) this.sync(this.peers);
+  },
+  // Someone dropping out mid-question would miss it, so the game waits for them, once per player per round.
+  waitFor(pid) {
+    const H = this.H, key = H.rk + pid;
+    const needed = (H.ph === "q" && !H.guesses[pid] && pid !== this.curOwner()) || ["imp-word", "imp-clue", "imp-talk"].includes(H.ph);
+    if (!needed || this.waited?.has(key)) return false;
+    (this.waited ||= new Set()).add(key);
+    return true;
   },
   // Music plays from the TV. Browsers only allow sound after someone has clicked on the page, so the host bar offers a button if it's blocked.
   sound(ph) {
@@ -1122,10 +1303,14 @@ const TV = {
   },
   go(ph, secs = 0) {
     const H = this.H;
-    H.ph = ph; H.phaseEnds = secs ? Date.now() + secs * 1000 : 0;
-    if (ph === "q") { H.qStart = Date.now(); H.qDur = secs * 1000; }
+    const now = Date.now();
+    H.ph = ph; H.phaseEnds = secs ? now + secs * 1000 : 0;
+    if (ph === "q") { H.qStart = now; H.qDur = secs * 1000; }
     H.phDur = secs * 1000;
     this.sound(ph);
+    this.lastTick = 0;
+    const fx = { intro: "whoosh", rev: "reveal", lb: "board", end: "fanfare", "imp-clue": "blip" }[ph];
+    if (fx) SFX.play(fx);
     this.save(); this.render(); this.push(true);
   },
   advance() {
@@ -1222,7 +1407,7 @@ const TV = {
     H.songs = {};
     setTimeout(() => this.prefetch(), 0); // reload tonight's playlist if the page was reloaded mid-game
     room?.drop(Object.keys(H.photos));
-    H.gid = rid(6); H.ph = "lobby"; H.r = 0; H.R = 0; H.rk = ""; H.cur = null; H.order = []; H.photos = {}; H.guesses = {}; H.rv = null; H.phaseEnds = 0;
+    H.gid = rid(6); H.ph = "lobby"; H.r = 0; H.R = 0; H.rk = ""; H.cur = null; H.order = []; H.photos = {}; H.guesses = {}; H.rv = null; H.phaseEnds = 0; H.pause = null;
     for (const p of Object.values(H.players)) { p.photos = []; p.songs = []; p.score = 0; p.prev = 0; }
     this.save(); this.render(); this.push(true);
   },
@@ -1236,7 +1421,20 @@ const TV = {
 
   tick() {
     const H = this.H, now = Date.now();
-    if (H.phaseEnds && now >= H.phaseEnds) return this.advance();
+    if (H.pause) {
+      const p = H.pause;
+      if (p.cd) {
+        const s = Math.ceil((p.cd - now) / 1000);
+        if (s !== this.cdShown) { this.cdShown = s; if (s > 0) SFX.play("count"); this.renderPause(); this.push(true); }
+        if (now >= p.cd) { SFX.play("go"); this.unpause(); }
+      } else if (p.pid && (H.players[p.pid]?.online || !H.players[p.pid] || now - p.at > 20000)) this.resume();
+      return;
+    }
+    if (H.phaseEnds && now >= H.phaseEnds) {
+      // The buzzer only sounds when the clock ran out, not when everyone answered early.
+      if (H.ph === "q" && H.phaseEnds === H.qStart + H.qDur) SFX.play("buzz");
+      return this.advance();
+    }
     if (H.ph === "imp-word") {
       const ps = this.players().filter(p => p.online);
       if (ps.length && ps.every(p => p.sw === H.rk) && (!H.phaseEnds || H.phaseEnds - now > 1500)) { H.phaseEnds = now + 1500; this.push(true); }
@@ -1282,18 +1480,21 @@ const TV = {
       modes: H.modes,
       qz: this.isQuiz() && (H.ph === "q" || H.ph === "rev") ? { t: H.cur.t, o: H.cur.o, k: H.cur.ask || null, q: askOf(H.cur), e: H.cur.t === "emoji" ? H.cur.e : null } : null,
       lk: H.cur?.t === "likely" ? H.cur.lk : null,
+      pause: H.pause ? { cd: H.pause.cd ? Math.max(1, Math.ceil((H.pause.cd - now) / 1000)) : 0, who: H.pause.pid ? H.players[H.pause.pid]?.name || null : null } : null,
     };
     const body = JSON.stringify(pres);
     if (!force && body === this.lastBody && now - this.lastPush < 1000) return;
-    pres.left = H.phaseEnds ? Math.max(0, Math.round((H.phaseEnds - now) / 100) / 10) : null;
+    pres.left = H.phaseEnds ? Math.max(0, Math.round((H.phaseEnds - (H.pause ? H.pause.at : now)) / 100) / 10) : null;
     this.lastBody = body; this.lastPush = now;
     room.presence(pres).catch(e => console.warn("presence", e));
   },
 
   key(e) {
     if (e.target.closest?.("input,textarea,button")) return;
-    const ph = this.H.ph;
-    if ((e.key === " " || e.key === "ArrowRight") && ["intro", "q", "rev", "lb"].includes(ph)) { e.preventDefault(); this.advance(); }
+    const H = this.H, ph = H.ph;
+    // Space or P pauses and resumes; the right arrow skips ahead.
+    if ((e.key === " " || e.key === "p" || e.key === "P") && this.inGame()) { e.preventDefault(); return H.pause && !H.pause.cd ? this.resume() : this.pause(); }
+    if (e.key === "ArrowRight" && ["intro", "q", "rev", "lb", ...IMP_PHASES].includes(ph)) { e.preventDefault(); this.unpause(); this.advance(); }
     if (e.key === "Enter" && ph === "lobby" && this.canStart()) { e.preventDefault(); this.startGame(); }
   },
   act(a, el) {
@@ -1306,8 +1507,11 @@ const TV = {
     }
     this.confirm = null;
     if (a === "start" && this.canStart()) this.startGame();
-    else if (a === "next") this.advance();
-    else if (a === "end-game") this.go("end");
+    else if (a === "next") { this.unpause(); this.advance(); }
+    else if (a === "pause") this.pause();
+    else if (a === "resume") this.resume();
+    else if (a === "sound-check") { SFX.unlock(); setTimeout(() => SFX.play("check"), 80); }
+    else if (a === "end-game") { this.unpause(); this.go("end"); }
     else if (a === "again") this.playAgain();
     else if (a === "new-room") this.newRoom();
     else if (a === "exit") { store.del("wiw.mode"); location.href = "/"; }
@@ -1338,7 +1542,19 @@ const TV = {
   },
 
   // ---------- TV rendering ----------
-  render() { const tv = $(".tv"); if (tv) tv.dataset.ph = this.H.ph; this.renderStatus(); this.renderHostbar(); this.renderStage(); this.renderClock(); },
+  render() { const tv = $(".tv"); if (tv) tv.dataset.ph = this.H.ph; this.renderStatus(); this.renderHostbar(); this.renderStage(); this.renderClock(); this.renderPause(); this.mood(); },
+  renderPause() {
+    const H = this.H, p = H.pause, el = $("#pause-ov");
+    $(".tv")?.classList.toggle("paused", !!p);
+    if (!el) return;
+    el.hidden = !p;
+    if (!p) return paint(el, "", "");
+    const s = p.cd ? Math.max(1, Math.ceil((p.cd - Date.now()) / 1000)) : 0, who = H.players[p.pid];
+    paint(el, `${s}|${p.pid}|${who?.online}`, s ? `<p class="eyebrow">Back in</p><p class="cd num">${s}</p>`
+      : `<p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><h2 class="big">Paused</h2>
+        <p class="why">${who && !who.online ? `${esc(who.name)} dropped out. Waiting a moment for them to come back.` : "Grab a drink. Press space or Resume when everyone's back."}</p>
+        <div class="hostbar"><button class="btn primary" data-act="resume">Resume</button><button class="btn sm" data-act="next">Skip ahead</button></div>`);
+  },
   renderStatus() {
     const H = this.H, n = this.players().length;
     let extra = "";
@@ -1354,14 +1570,16 @@ const TV = {
     if (H.ph === "lobby") {
       const need = H.modes.every(m => CROWD_KINDS.includes(m)) ? "These rounds need at least 3 players" : photosOnly(H) ? "Start needs 2 players and 2 photos" : ownerOnly(H) ? "Start needs 2 players and 2 photos or songs" : "Start needs at least 1 player";
       const why = this.starting ? `<span class="why">Shuffling the rounds…</span>` : this.err ? `<span class="why">${esc(this.err)}</span>` : this.canStart() ? "" : `<span class="why">${need}</span>`;
-      html = `<button class="btn primary" data-act="start" ${this.canStart() ? "" : "disabled"}>Start game</button>${why}<button class="btn sm" data-act="new-room">${lbl("new-room", "New room")}</button>`;
+      // Until someone clicks, the browser keeps the TV silent, so the first button offered is the one that turns sound on.
+      const snd = H.snd === "off" ? "" : SFX.ready() ? `<button class="btn sm" data-act="sound-check">Sound check</button>` : `<button class="btn blue" data-act="sound-check">Turn on sound</button>`;
+      html = `<button class="btn primary" data-act="start" ${this.canStart() ? "" : "disabled"}>Start game</button>${why}${snd}<button class="btn sm" data-act="new-room">${lbl("new-room", "New room")}</button>`;
     } else if (H.ph === "end") {
       html = `<button class="btn primary" data-act="again">Play again</button><button class="btn sm" data-act="new-room">${lbl("new-room", "New room")}</button>`;
     } else {
-      html = `${this.needSound ? `<button class="btn primary" data-act="sound">Turn on sound</button>` : ""}<button class="btn sm" data-act="next">Next</button><button class="btn sm" data-act="end-game">${lbl("end-game", "End game")}</button>`;
+      html = `${this.needSound ? `<button class="btn primary" data-act="sound">Turn on sound</button>` : ""}<button class="btn sm" data-act="pause">Pause</button><button class="btn sm" data-act="next">Next</button><button class="btn sm" data-act="end-game">${lbl("end-game", "End game")}</button>`;
     }
     html += `<button class="btn sm" data-act="full">Full screen</button><button class="btn sm" data-act="exit">${lbl("exit", "Exit TV mode")}</button>`;
-    paint($("#hostbar"), `${H.ph}|${this.canStart()}|${c}|${this.starting}|${this.err}|${H.modes.join()}|${this.needSound}`, html);
+    paint($("#hostbar"), `${H.ph}|${this.canStart()}|${c}|${this.starting}|${this.err}|${H.modes.join()}|${this.needSound}|${SFX.ready()}|${H.snd}`, html);
   },
   renderStage() {
     const H = this.H, stage = $("#stage");
@@ -1438,27 +1656,38 @@ const TV = {
       <p class="points-key">${photosOnly(H) ? "Right guess: 500 to 1,000 points, faster scores more. Your photo fools someone: 250 each. The final photo counts double."
         : `Right answer: 500 to 1,000 points, faster scores more.${photos || songs ? " Your photo or song fools someone: 250 each." : ""} The final round counts double.`}</p>`);
   },
+  // Who picked this answer: their faces, or just a count when the room plays with anonymous votes.
+  votersHtml(ids, i) {
+    const P = this.H.players, who = ids.filter(id => P[id]), n = who.length, at = 0.4 + i * 0.25;
+    if (!n) return "<span></span>";
+    if (this.H.anon) return `<span class="votes num" style="animation-delay:${at.toFixed(2)}s">${n} ${n === 1 ? "vote" : "votes"}</span>`;
+    return `<span class="voters" aria-label="${esc(who.map(id => P[id].name).join(", "))}">${who.map((id, k) => `<span style="animation-delay:${(at + k * 0.08).toFixed(2)}s" title="${esc(P[id].name)}">${avatar(P[id].name, P[id].color)}</span>`).join("")}</span>`;
+  },
+  // Everyone who scored this round and how much. With anonymous votes only the count shows.
+  scorersHtml(rv, count, none) {
+    const P = this.H.players;
+    if (this.H.anon) return `<span class="delta">${count || none}</span>`;
+    const ids = Object.keys(rv.d || {}).filter(id => P[id] && rv.d[id] > 0).sort((a, b) => rv.d[b] - rv.d[a]);
+    return ids.map(id => `<span class="delta">${avatar(P[id].name, P[id].color)}${esc(P[id].name)} <b class="num">+${fmt(rv.d[id])}</b></span>`).join("") || `<span class="delta">${none}</span>`;
+  },
+  votesBy(g) { const v = {}; for (const [voter, pick] of Object.entries(g || {})) (v[pick] ||= []).push(voter); return v; },
   revealHtml() {
     if (this.isImp()) return this.impRevealHtml();
     if (this.H.cur?.t === "likely") return this.likelyRevealHtml();
     if (this.isQuiz()) return this.quizRevealHtml();
-    const H = this.H, rv = H.rv || { g: {}, d: {} }, ph = H.photos[H.cur?.id];
+    const H = this.H, rv = H.rv || { g: {}, d: {} };
     const P = H.players, owner = P[rv.o];
-    const votes = {};
-    for (const [voter, pick] of Object.entries(rv.g)) (votes[pick] ||= []).push(voter);
+    const votes = this.votesBy(rv.g);
     const ids = new Set(Object.keys(votes)); if (rv.o) ids.add(rv.o);
     const rows = [...ids].filter(id => P[id]).sort((a, b) => (votes[b]?.length || 0) - (votes[a]?.length || 0));
     const nv = Object.keys(rv.g).length;
     const t = 1.2 + nv * 0.18;
-    const rowHtml = rows.map((id, i) => {
-      const n = (votes[id] || []).length;
-      const v = n ? `<span class="votes num" style="animation-delay:${(0.4 + i * 0.25).toFixed(2)}s">${n} ${n === 1 ? "vote" : "votes"}</span>` : "";
-      return `<li class="${id === rv.o ? "win" : ""}">${avatar(P[id].name, P[id].color)}<span class="nm">${esc(P[id].name)}</span>${v || "<span></span>"}</li>`;
-    }).join("");
-    // Say how many got it right, not who. The owner is already revealed, so their bonus can show.
+    const rowHtml = rows.map((id, i) => `<li class="${id === rv.o ? "win" : ""}">${avatar(P[id].name, P[id].color)}<span class="nm">${esc(P[id].name)}</span>${this.votersHtml(votes[id] || [], i)}</li>`).join("");
     const right = votes[rv.o]?.length || 0;
-    const deltas = `<span class="delta">${right ? `${right} ${right === 1 ? "person" : "people"} got it right` : "Nobody got it right"}</span>`
-      + (owner && rv.d[rv.o] ? `<span class="delta">${avatar(owner.name, owner.color)}${esc(owner.name)} fooled ${nv - right} <b class="num">+${fmt(rv.d[rv.o])}</b></span>` : "");
+    const deltas = H.anon
+      ? `<span class="delta">${right ? `${right} ${right === 1 ? "person" : "people"} got it right` : "Nobody got it right"}</span>`
+        + (owner && rv.d[rv.o] ? `<span class="delta">${avatar(owner.name, owner.color)}${esc(owner.name)} fooled ${nv - right} <b class="num">+${fmt(rv.d[rv.o])}</b></span>` : "")
+      : this.scorersHtml(rv, "", "Nobody got it right");
     return `<section class="rgrid" style="--t:${t.toFixed(2)}s;--t2:${(t + 0.8).toFixed(2)}s">
       <div class="qphoto">${this.ownerMedia(H.cur, true)}
         ${owner ? `<div class="stamp ${H.cur?.t === "song" ? "low" : ""}">${H.cur?.t === "song" ? `${esc(owner.name)}'s pick!` : `It's ${esc(owner.name)}!`}</div>` : ""}</div>
@@ -1492,11 +1721,12 @@ const TV = {
       ${rest ? `<ol class="rest">${rest}</ol>` : ""}
       ${(aw => aw.length ? `<div class="awards">${aw.map(([p, title, detail]) => `<div class="award">${avatar(p.name, p.color)}<div><b>${esc(title)}</b><span>${esc(p.name)} · ${esc(detail)}</span></div></div>`).join("")}</div>` : "")(this.awards())}</section>`;
   },
-  // Only how many have answered, never who: one dot per player who can answer, filled once anyone locks in.
+  // Who has locked in so far (never what they picked). With anonymous votes, just a dot per player.
   renderLocks(owner) {
     const H = this.H, ps = this.players().filter(p => (p.online || H.guesses[p.pid]) && p.pid !== owner);
     const locked = ps.filter(p => H.guesses[p.pid]).length, guessers = ps.length;
     paint($("#lockcount"), `${locked}/${guessers}`, `Locked in <span class="num">${locked} of ${guessers}</span>`);
+    if (!H.anon) return paint($("#locks"), ps.map(p => p.pid + (H.guesses[p.pid] ? 1 : 0)).join(), ps.map(p => `<li class="lock ${H.guesses[p.pid] ? "in" : ""}">${avatar(p.name, p.color)}<span>${esc(p.name)}</span></li>`).join(""));
     paint($("#locks"), `${locked}/${guessers}`, Array.from({ length: guessers }, (_, i) => `<li class="dot ${i < locked ? "in" : ""}"></li>`).join(""));
   },
   renderModes() {
@@ -1504,11 +1734,15 @@ const TV = {
     if (!el) return;
     const custom = !TUNE_MIXES.some(([q]) => q === H.tune.q);
     const opt = (v, l, on) => `<option value="${esc(v)}" ${on ? "selected" : ""}>${esc(l)}</option>`;
-    paint(el, [H.modes.join(), H.theme, H.len, H.tune.q, this.mixNote, H.impVar].join("|"), `<p class="eyebrow">Rounds tonight</p>
+    paint(el, [H.modes.join(), H.theme, H.len, H.tune.q, this.mixNote, H.impVar, H.snd, H.anon].join("|"), `<p class="eyebrow">Rounds tonight</p>
       <div class="mode-row">${MODES.map(m => `<button class="mode ${H.modes.includes(m) ? "on" : ""}" data-act="mode" data-m="${m}" aria-pressed="${H.modes.includes(m)}">${MODE_LABEL[m]}</button>`).join("")}</div>
       <div class="sub">
         <label class="sub-l" for="theme-sel">Theme</label><select id="theme-sel" class="sel">${THEMES.map(t => opt(t.id, t.label, H.theme === t.id)).join("")}</select>
         <label class="sub-l" for="len-sel">Length</label><select id="len-sel" class="sel">${LENGTHS.map(([k, l]) => opt(k, l, H.len === k)).join("")}</select>
+      </div>
+      <div class="sub">
+        <label class="sub-l" for="snd-sel">Sound</label><select id="snd-sel" class="sel">${opt("all", "Music and effects", H.snd === "all")}${opt("fx", "Effects only", H.snd === "fx")}${opt("off", "Off", H.snd === "off")}</select>
+        <label class="sub-l" for="anon-sel">Votes</label><select id="anon-sel" class="sel">${opt("show", "Show who voted", !H.anon)}${opt("anon", "Anonymous", H.anon)}</select>
       </div>
       ${this.needMix() ? `<div class="sub"><label class="sub-l" for="tune-sel">Music</label>
         <select id="tune-sel" class="sel">${custom ? opt(H.tune.q, H.tune.label, true) : ""}${TUNE_GROUPS.map(([g, list]) => `<optgroup label="${esc(g)}">${list.map(([q, l]) => opt(q, l, H.tune.q === q)).join("")}</optgroup>`).join("")}</select>
@@ -1548,11 +1782,8 @@ const TV = {
     return `<figure class="print">${shapeSvg(cur.id) || `<div class="loading">Loading the map…</div>`}${cap}</figure>`;
   },
   optsHtml(cur, rv) {
-    return cur.o.map((label, k) => {
-      const n = rv ? Object.values(rv.g).filter(i => i === k).length : 0;
-      const v = n ? `<span class="votes num" style="animation-delay:${(0.4 + k * 0.25).toFixed(2)}s">${n} ${n === 1 ? "vote" : "votes"}</span>` : "<span></span>";
-      return `<li class="opt ${rv ? (k === rv.a ? "win" : "lose") : ""}" style="--oc:${OPT_COLORS[k]}"><b>${LETTERS[k]}</b><span>${esc(label)}</span>${v}</li>`;
-    }).join("");
+    const votes = rv ? this.votesBy(rv.g) : {};
+    return cur.o.map((label, k) => `<li class="opt ${rv ? (k === rv.a ? "win" : "lose") : ""}" style="--oc:${OPT_COLORS[k]}"><b>${LETTERS[k]}</b><span>${esc(label)}</span>${this.votersHtml(votes[k] || [], k)}</li>`).join("");
   },
   renderQuiz(stage) {
     const H = this.H, cur = H.cur, final = H.R > 1 && H.r === H.R;
@@ -1579,11 +1810,11 @@ const TV = {
     const H = this.H, cur = H.cur, rv = H.rv || { a: cur.a, g: {}, d: {} }, P = H.players;
     const nv = Object.keys(rv.g).length, t = 1.2 + nv * 0.18, loc = cur.t === "flag" || cur.t === "map" ? locatorSvg(cur.id) : "";
     const right = Object.values(rv.g).filter(i => i === rv.a).length;
-    const deltas = `<span class="delta">${right ? `${right} ${right === 1 ? "person" : "people"} got it right` : "Nobody got it right"}</span>`;
+    const deltas = this.scorersHtml(rv, right ? `${right} ${right === 1 ? "person" : "people"} got it right` : "", "Nobody got it right");
     if (cur.t === "trivia") return `<section class="tgrid" style="--t:${t.toFixed(2)}s;--t2:${(t + 0.8).toFixed(2)}s"><p class="eyebrow">${esc(cur.cat)}${rv.m > 1 ? " · Double points" : ""}</p>
       <h2 class="tqt">${esc(cur.q)}</h2><ol class="opts four">${this.optsHtml(cur, rv)}</ol><div class="deltas">${deltas}</div></section>`;
     return `<section class="rgrid" style="--t:${t.toFixed(2)}s;--t2:${(t + 0.8).toFixed(2)}s">
-      <div class="qphoto">${this.quizMedia(cur, true)}<div class="stamp low">${esc(cur.o[rv.a])}</div></div>
+      <div class="qphoto">${this.quizMedia(cur, true)}<div class="stamp low ${cur.o[rv.a].length > 14 ? "long" : ""}">${esc(cur.o[rv.a])}</div></div>
       <div class="rside">
         <p class="eyebrow">${nv ? "Votes" : "Nobody locked in an answer"}${rv.m > 1 ? " · Double points" : ""}</p>
         <ol class="opts">${this.optsHtml(cur, rv)}</ol>
@@ -1606,15 +1837,14 @@ const TV = {
   },
   likelyRevealHtml() {
     const H = this.H, rv = H.rv || { g: {}, d: {} }, P = H.players, tops = (rv.top || []).filter(id => P[id]);
-    const votes = {};
-    for (const pick of Object.values(rv.g || {})) votes[pick] = (votes[pick] || 0) + 1;
-    const rows = Object.keys(votes).filter(id => P[id]).sort((a, b) => votes[b] - votes[a]);
+    const votes = this.votesBy(rv.g);
+    const rows = Object.keys(votes).filter(id => P[id]).sort((a, b) => votes[b].length - votes[a].length);
     const t = 1.4 + rows.length * 0.25, sided = Object.keys(rv.d || {}).length, lead = tops.length === 1 ? P[tops[0]] : null;
-    const rowHtml = rows.map((id, i) => `<li class="${tops.includes(id) ? "win" : ""}">${avatar(P[id].name, P[id].color)}<span class="nm">${esc(P[id].name)}</span><span class="votes num" style="animation-delay:${(0.4 + i * 0.25).toFixed(2)}s">${votes[id]} ${votes[id] === 1 ? "vote" : "votes"}</span></li>`).join("");
+    const rowHtml = rows.map((id, i) => `<li class="${tops.includes(id) ? "win" : ""}">${avatar(P[id].name, P[id].color)}<span class="nm">${esc(P[id].name)}</span>${this.votersHtml(votes[id], i)}</li>`).join("");
     return `<section class="rgrid impr" style="--t:${t.toFixed(2)}s;--t2:${(t + 0.8).toFixed(2)}s">
       <div class="qphoto bigav"><p class="eyebrow">Most likely to ${esc(rv.lk || H.cur.lk)}</p>${lead ? avatar(lead.name, lead.color) : ""}${rows.length ? `<div class="stamp low">${lead ? esc(lead.name) + "!" : tops.length ? "It's a tie!" : "Split vote!"}</div>` : ""}</div>
       <div class="rside"><p class="eyebrow">${rows.length ? "Votes" : "Nobody voted"}${rv.m > 1 ? " · Double points" : ""}</p><ul class="rows">${rowHtml}</ul>
-        <div class="deltas"><span class="delta">${sided ? `${sided} ${sided === 1 ? "person" : "people"} sided with the room` : "Nobody scored this round"}</span></div></div></section>`;
+        <div class="deltas">${this.scorersHtml(rv, sided ? `${sided} ${sided === 1 ? "person" : "people"} sided with the room` : "", "Nobody scored this round")}</div></div></section>`;
   },
   renderImp(stage) {
     const H = this.H, cur = H.cur, P = H.players, final = H.R > 1 && H.r === H.R;
@@ -1649,17 +1879,13 @@ const TV = {
   },
   impRevealHtml() {
     const H = this.H, rv = H.rv || { g: {}, d: {} }, P = H.players, imp = P[rv.o];
-    const votes = {};
-    for (const pick of Object.values(rv.g || {})) votes[pick] = (votes[pick] || 0) + 1;
+    const votes = this.votesBy(rv.g);
     const ids = new Set(Object.keys(votes)); if (rv.o) ids.add(rv.o);
-    const rows = [...ids].filter(id => P[id]).sort((a, b) => (votes[b] || 0) - (votes[a] || 0));
+    const rows = [...ids].filter(id => P[id]).sort((a, b) => (votes[b]?.length || 0) - (votes[a]?.length || 0));
     const nv = Object.keys(rv.g || {}).length, t = 1.4 + rows.length * 0.25;
     const spotted = Object.entries(rv.g || {}).filter(([pid, pick]) => pid !== rv.o && pick === rv.o).length;
-    const rowHtml = rows.map((id, i) => {
-      const n = votes[id] || 0;
-      return `<li class="${id === rv.o ? "win" : ""}">${avatar(P[id].name, P[id].color)}<span class="nm">${esc(P[id].name)}</span>${n ? `<span class="votes num" style="animation-delay:${(0.4 + i * 0.25).toFixed(2)}s">${n} ${n === 1 ? "vote" : "votes"}</span>` : "<span></span>"}</li>`;
-    }).join("");
-    const result = rv.caught ? `<span class="delta">Caught! ${spotted} ${spotted === 1 ? "person" : "people"} spotted the imposter</span>`
+    const rowHtml = rows.map((id, i) => `<li class="${id === rv.o ? "win" : ""}">${avatar(P[id].name, P[id].color)}<span class="nm">${esc(P[id].name)}</span>${this.votersHtml(votes[id] || [], i)}</li>`).join("");
+    const result = rv.caught ? (H.anon ? `<span class="delta">Caught! ${spotted} ${spotted === 1 ? "person" : "people"} spotted the imposter</span>` : `<span class="delta">Caught!</span>${this.scorersHtml(rv, "", "")}`)
       : imp ? `<span class="delta">${avatar(imp.name, imp.color)}${esc(imp.name)} got away <b class="num">+${fmt(rv.d?.[rv.o] || 0)}</b></span>` : "";
     return `<section class="rgrid impr" style="--t:${t.toFixed(2)}s;--t2:${(t + 0.8).toFixed(2)}s">
       <div class="qphoto bigav"><p class="eyebrow">The imposter was</p>${imp ? avatar(imp.name, imp.color) : ""}${imp ? `<div class="stamp low">${esc(imp.name)}!</div>` : ""}</div>
@@ -1676,11 +1902,14 @@ const TV = {
     if (H.ph !== "q" && !IMP_PHASES.includes(H.ph)) return;
     const ring = $("#ring"), n = $("#clock-n"), clock = $("#clock");
     if (!ring || !n) return;
-    const left = Math.max(0, (H.phaseEnds - Date.now()) / 1000);
+    const left = Math.max(0, (H.phaseEnds - (H.pause ? H.pause.at : Date.now())) / 1000);
     ring.style.strokeDashoffset = String(100 * (1 - left / ((H.ph === "q" ? H.qDur : H.phDur || 1) / 1000)));
     const s = String(Math.ceil(left));
     if (n.textContent !== s) n.textContent = s;
     clock.classList.toggle("hurry", left <= 5);
+    // Ticks for the last five seconds, unless everyone has already answered and the clock was cut short.
+    const k = Math.ceil(left);
+    if (H.ph === "q" && H.phaseEnds && !H.pause && k <= 5 && k >= 1 && k !== this.lastTick && H.phaseEnds === H.qStart + H.qDur) { this.lastTick = k; SFX.play("tick"); }
   },
 };
 
@@ -1706,7 +1935,7 @@ const PH = {
       ? s.songs.filter(x => x && /^\d{1,15}$/.test(String(x.id))).slice(0, SONGS_PER_PLAYER)
         .map(x => ({ id: String(x.id), t: cleanText(x.t), a: cleanText(x.a), art: isArt(x.art), ap: isArt(x.ap), gid: x.gid || null }))
       : [];
-    app.innerHTML = `<div class="phone"><header class="ph-top" id="ph-top"></header><main class="ph-main" id="ph-main"></main></div>`;
+    app.innerHTML = `<div class="phone"><header class="ph-top" id="ph-top"></header><main class="ph-main" id="ph-main"></main><footer class="ph-foot" id="ph-foot"></footer></div>`;
     this.save();
     this.render();
     if (roomState === "ok") this.onRoom();
@@ -1888,6 +2117,7 @@ const PH = {
       this.g = { rk: H.rk, i }; vibrate(30); this.push(); return this.renderMain();
     }
     if (a === "mode") { this.cmd = { k: rid(6), a: "mode:" + el.dataset.m }; this.push(); vibrate(15); return; }
+    if (a === "pause" || a === "resume") { if (this.host?.vip !== this.pid) return; this.cmd = { k: rid(6), a }; this.push(); vibrate(15); return; }
     if (a === "start" || a === "again") {
       const cmd = this.cmd = { k: rid(6), a }; this.push(); vibrate(20);
       setTimeout(() => { if (this.cmd === cmd) { this.cmd = null; this.push(); this.renderMain(true); } }, 5000);
@@ -1903,7 +2133,19 @@ const PH = {
   },
 
   // ---------- phone rendering ----------
-  render() { this.renderTop(); this.renderMain(); },
+  render() { this.renderTop(); this.renderMain(); this.renderFoot(); },
+  // Whoever starts the game can pause it from their phone too.
+  renderFoot() {
+    const H = this.host, on = this.joined && H && H.vip === this.pid && !["lobby", "end"].includes(H.ph) && !H.pause;
+    paint($("#ph-foot"), on ? "pause" : "", on ? `<button class="btn sm" data-act="pause">Pause game</button>` : "");
+  },
+  rPaused(main) {
+    const H = this.host, p = H.pause, vip = H.vip === this.pid;
+    paint(main, ["pause", p.cd, p.who, vip].join("|"), `<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p>
+      <p class="ph-big">${p.cd ? `Back in ${p.cd}` : "Paused"}</p>
+      <p class="muted">${p.cd ? "Eyes on the TV." : p.who ? `Waiting for ${esc(p.who)} to reconnect.` : "Back in a moment."}</p></div>
+      ${vip && !p.cd ? `<button class="btn primary wide" data-act="resume">Resume game</button>` : ""}`);
+  },
   renderTop() {
     const me = this.me(), leaving = Date.now() < this.confirmLeave;
     const status = roomState === "ok" && !this.connected ? `<span class="pill dark" style="font-size:12px">Reconnecting</span>` : "";
@@ -1931,6 +2173,7 @@ const PH = {
     const H = this.host, me = this.me();
     if (!me) return paint(main, "wait-in", `<div class="card center"><p class="ph-h">Joining…</p><p class="muted">Hang on while the TV adds you.</p></div>`);
     if (H.ph === "lobby") return this.rLobby(main);
+    if (H.pause && H.ph !== "end") return this.rPaused(main);
     if (H.ph === "intro") return paint(main, "intro|" + H.rk, `<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">Eyes on the TV</p><p class="muted">${H.kind === "imp" ? "Imposter round. Your secret word is coming." : "Get ready to guess."}</p></div>`);
     if (IMP_PHASES.includes(H.ph)) return this.rImp(main);
     if (H.ph === "q") return this.rQuestion(main);
@@ -2161,7 +2404,7 @@ const PH = {
   },
   renderClock() {
     const bar = $("#tbar"), H = this.host;
-    if (!bar || !H || H.ph !== "q" || H.kind === "imp") return;
+    if (!bar || !H || H.ph !== "q" || H.kind === "imp" || H.pause) return;
     const total = Q_SECS;
     const left = Math.max(0, (this.deadline - Date.now()) / 1000);
     bar.style.width = Math.min(100, left / total * 100).toFixed(1) + "%";
@@ -2185,6 +2428,8 @@ app.addEventListener("change", e => {
   if (e.target.id === "theme-sel") TV.setTheme(e.target.value);
   if (e.target.id === "len-sel") TV.setLen(e.target.value);
   if (e.target.id === "imp-sel") TV.setImpVar(e.target.value);
+  if (e.target.id === "snd-sel") TV.setSnd(e.target.value);
+  if (e.target.id === "anon-sel") TV.setAnon(e.target.value);
 });
 app.addEventListener("submit", e => {
   e.preventDefault();
