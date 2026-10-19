@@ -39,6 +39,20 @@ a few awards.
 clips. Browsers keep a page silent until someone clicks it, so press **Turn on sound** (or **Sound check**)
 in the lobby. Pick Music and effects, Effects only, or Off.
 
+**Host:** a host introduces rounds, reacts to reveals and roasts the scoreboard, with a caption on the TV
+for every line. The lines are in `server/data/voice.json`. Record them once with ElevenLabs on your own
+computer; the key stays on your machine and only the MP3s are committed:
+
+```
+cd server
+node tools/make-voice.js --dry                        # what it would record
+node tools/make-voice.js --env ~/path/to/.env         # a .env file with ELEVENLABS_API_KEY
+node tools/make-voice.js --list --env ~/path/to/.env  # voices on your account; pick one with --voice "Name"
+```
+
+Run it again after editing lines; it only records new or changed ones. Without recordings the host shows
+captions only. The lobby's **Host** setting picks voice and captions, captions only, or off.
+
 **Pause:** press space (or P) on the TV, the Pause button, or Pause game on the phone of whoever started.
 Nothing moves on and no answers count while paused; resuming counts down 3-2-1. If a player drops out
 mid-question the game waits up to 20 seconds for them. The right arrow skips ahead.

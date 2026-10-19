@@ -349,6 +349,13 @@ button{font:inherit;color:inherit}
 .ph-foot{display:flex;justify-content:center}
 .ph-foot:empty{display:none}
 .rows .voters,.opt .voters{max-width:22vmin}
+/* the host's captions */
+.caption{pointer-events:none;position:fixed;left:50%;bottom:calc(2.4vmin + 58px);transform:translateX(-50%);z-index:25;width:max-content;max-width:min(86vw,1100px);display:flex;align-items:center;gap:1.4vmin;
+  background:var(--ink);color:var(--paper);border-radius:999px;padding:1vmin 2.6vmin 1vmin 1vmin;font-weight:800;font-size:max(15px,2.9vmin);line-height:1.2;box-shadow:0 .8vmin 0 rgba(29,20,15,.3);animation:cap .3s cubic-bezier(.3,1.4,.5,1) both}
+.caption[hidden]{display:none}
+.caption .mic{flex:none;display:grid;place-items:center;width:2.1em;height:2.1em;border-radius:50%;background:var(--sun);color:var(--ink);font-family:var(--display);font-weight:400;font-size:.85em;border:2px solid var(--paper)}
+.caption.talking .mic{animation:throb .3s ease-in-out infinite alternate}
+@keyframes cap{from{transform:translate(-50%,40%);opacity:0}to{transform:translateX(-50%);opacity:1}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes unblur{from{filter:blur(28px) saturate(.6)}to{filter:blur(0) saturate(1)}}
 @keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
@@ -464,6 +471,51 @@ const store = {
 function paint(el, sig, html) { if (!el || el.dataset.sig === sig) return false; el.dataset.sig = sig; el.innerHTML = html; return true; }
 async function wake() { try { await navigator.wakeLock?.request("screen"); } catch {} }
 function vibrate(ms) { try { navigator.vibrate?.(ms); } catch {} }
+
+// ---------- the host: short recorded lines (server/tools/make-voice.js) with a caption on the TV ----------
+// Lines without a recording, or with "Captions only" picked in the lobby, show as a caption alone.
+const VOICE = {
+  lines: [], rec: {}, recent: [], audio: null, until: 0, onTalk: null, isTalking: false,
+  load() {
+    return (this.loading ||= Promise.all([
+      fetch("/data/voice.json").then(r => r.json()).then(d => { this.lines = Array.isArray(d.lines) ? d.lines : []; }),
+      fetch("/voice/index.json").then(r => (r.ok ? r.json() : {})).then(d => { this.rec = d?.lines || {}; }).catch(() => {}),
+    ]).catch(() => { this.loading = null; }));
+  },
+  recorded() { return Object.keys(this.rec).length > 0; },
+  busy() { return Date.now() < this.until; },
+  // Says one of the lines for this moment, avoiding ones heard recently. A line already playing wins unless forced.
+  say(ev, mode, force) {
+    if (mode === "off" || (this.busy() && !force)) return false;
+    const list = this.lines.filter(l => l.ev === ev);
+    if (!list.length) return false;
+    // Lines not heard yet; once they've all been used, the half heard longest ago.
+    const fresh = list.filter(l => !this.recent.includes(l.id));
+    const pool = fresh.length ? fresh : list.slice().sort((x, y) => this.recent.indexOf(y.id) - this.recent.indexOf(x.id)).slice(0, Math.ceil(list.length / 2));
+    const l = pool[Math.floor(Math.random() * pool.length)];
+    this.recent = [l.id, ...this.recent].slice(0, 60);
+    const play = mode === "voice" && this.rec[l.id] === fnv(l.t);
+    this.show(l.t, play ? 7000 : Math.max(2400, l.t.length * 75));
+    if (!play) return true;
+    const a = this.audio ||= new Audio();
+    a.pause(); a.src = "/voice/" + encodeURIComponent(l.id) + ".mp3"; a.volume = 1;
+    a.onended = () => this.done();
+    a.onerror = () => this.done(2000);
+    this.talking(true);
+    a.play().catch(() => this.done(2000));
+    return true;
+  },
+  show(text, ms) {
+    const el = $("#caption");
+    this.until = Date.now() + ms;
+    if (el) { el.innerHTML = `<span class="mic" aria-hidden="true">F</span><span>${esc(text)}</span>`; el.hidden = false; el.style.animation = "none"; void el.offsetWidth; el.style.animation = ""; }
+    clearTimeout(this.hideT); this.hideT = setTimeout(() => this.hide(), ms);
+  },
+  done(ms = 500) { clearTimeout(this.hideT); this.until = Date.now() + ms; this.talking(false); this.hideT = setTimeout(() => this.hide(), ms); },
+  hide() { const el = $("#caption"); if (el) el.hidden = true; this.until = 0; this.talking(false); },
+  stop() { this.audio?.pause(); this.hide(); },
+  talking(on) { if (this.isTalking === on) return; this.isTalking = on; $("#caption")?.classList.toggle("talking", on); this.onTalk?.(on); },
+};
 
 // ---------- sound: effects and a background loop, made in the browser so there are no audio files to load ----------
 // Browsers start audio switched off until someone clicks the page; unlock() is called on the TV's first click or key.
@@ -767,10 +819,18 @@ const TV = {
       <main class="stage" id="stage"></main>
       <footer class="hostbar" id="hostbar"></footer>
       <div class="pause-ov" id="pause-ov" hidden></div>
+      <div class="caption" id="caption" role="status" aria-live="polite" hidden></div>
     </div>`;
     this.audio = new Audio(); this.audio.preload = "auto";
     this.audio.addEventListener("error", () => this.clipError());
     SFX.init(); SFX.onState = () => { this.renderHostbar(); this.mood(); };
+    VOICE.load().then(() => this.renderModes());
+    // While the host talks, the music and any song clip dip so the line can be heard.
+    VOICE.onTalk = on => {
+      this.duck = on; this.mood();
+      const a = this.audio, cur = this.H.cur;
+      if (a && !a.paused && cur && (cur.t === "song" || cur.t === "tune")) this.fade(on ? 0.3 : 1, on ? 250 : 700);
+    };
     for (const ev of ["pointerdown", "keydown"]) document.addEventListener(ev, () => SFX.unlock(), true);
     this.applySound();
     this.render();
@@ -782,7 +842,7 @@ const TV = {
   },
   fresh() {
     const code = Array.from(crypto.getRandomValues(new Uint8Array(4)), x => CODE_CHARS[x % CODE_CHARS.length]).join("");
-    return { code, gid: rid(6), ph: "lobby", r: 0, R: 0, rk: "", cur: null, order: [], players: {}, photos: {}, guesses: {}, phaseEnds: 0, qStart: 0, qDur: Q_SECS * 1000, rv: null, vip: null, modes: ["photo"], songs: {}, tune: { q: "top worldwide", label: "Today's hits" }, faceCat: "all", theme: "mix", len: "normal", impVar: "similar", snd: "all", anon: false, pause: null, turn: 0, savedAt: 0 };
+    return { code, gid: rid(6), ph: "lobby", r: 0, R: 0, rk: "", cur: null, order: [], players: {}, photos: {}, guesses: {}, phaseEnds: 0, qStart: 0, qDur: Q_SECS * 1000, rv: null, vip: null, modes: ["photo"], songs: {}, tune: { q: "top worldwide", label: "Today's hits" }, faceCat: "all", theme: "mix", len: "normal", impVar: "similar", snd: "all", host: "voice", anon: false, pause: null, turn: 0, savedAt: 0 };
   },
   revive(s) {
     const H = Object.assign(this.fresh(), s);
@@ -790,7 +850,7 @@ const TV = {
     if (!Array.isArray(H.modes) || !H.modes.length) H.modes = ["photo"];
     H.modes = H.modes.filter(m => MODES.includes(m)); if (!H.modes.length) H.modes = ["photo"];
     H.songs ||= {}; if (!H.tune?.q) H.tune = { q: "top worldwide", label: "Today's hits" }; H.faceCat ||= "all"; H.theme ||= "mix"; H.len ||= "normal"; H.impVar ||= "similar";
-    if (!["all", "fx", "off"].includes(H.snd)) H.snd = "all"; H.anon = !!H.anon; H.pause = null;
+    if (!["all", "fx", "off"].includes(H.snd)) H.snd = "all"; if (!["voice", "captions", "off"].includes(H.host)) H.host = "voice"; H.anon = !!H.anon; H.pause = null;
     H.order = (H.order || []).map(x => (typeof x === "string" ? { t: "photo", id: x } : x));
     if (typeof H.cur === "string") H.cur = { t: "photo", id: H.cur };
     for (const id of Object.keys(H.photos)) if (!H.photos[id]?.src) delete H.photos[id];
@@ -866,6 +926,7 @@ const TV = {
         pl = H.players[pid] = { pid, name, color: this.nextColor(), score: 0, photos: [], songs: [], cmdK: p.cmd?.k ?? null, at: now, online: true };
         changed = true;
         SFX.play("join");
+        if (H.ph === "lobby" && now - (this.joinSaid || 0) > 8000) { this.joinSaid = now; this.say(Object.keys(H.players).length === 1 ? "welcome" : "join"); }
       }
       if (pl.name !== name) { pl.name = name; changed = true; }
       if (!pl.online) { pl.online = true; changed = true; }
@@ -1020,7 +1081,16 @@ const TV = {
     if (H.pause) m = "think";
     else if (music && (H.ph === "q" || H.ph === "rev")) m = "off";
     else if (H.ph === "q" || IMP_PHASES.includes(H.ph)) m = "think";
-    SFX.setMood(m);
+    SFX.setMood(m, this.duck ? 0.35 : 1);
+  },
+  // The host speaks, or only shows a caption, or stays quiet. With all sound off, captions only.
+  say(ev, force) {
+    const H = this.H, mode = H.host === "off" ? "off" : H.host === "captions" || H.snd === "off" ? "captions" : "voice";
+    return VOICE.say(ev, mode, force);
+  },
+  setHost(v) {
+    if (!["voice", "captions", "off"].includes(v)) return;
+    this.H.host = v; if (v === "off") VOICE.stop(); this.save(); this.renderModes();
   },
 
   // ---------- pause ----------
@@ -1034,12 +1104,14 @@ const TV = {
     else H.pause = { at: Date.now(), pid: isPid(pid) ? pid : null, cd: 0 };
     if (this.audio && !this.audio.paused) { this.clipHeld = true; this.audio.pause(); }
     SFX.play("pause");
+    this.say(H.pause.pid ? "lost" : "pause", true);
     this.save(); this.render(); this.push(true);
   },
   resume() {
     const H = this.H;
     if (!H.pause || H.pause.cd) return;
     H.pause.cd = Date.now() + 3000; this.cdShown = 0;
+    this.say("resume", true);
     this.save(); this.render(); this.push(true);
   },
   unpause() {
@@ -1077,7 +1149,7 @@ const TV = {
       if (!a.src.includes(src)) a.src = src;
       clearInterval(this.fadeT);
       a.volume = 0; a.currentTime = 0;
-      a.play().then(() => { this.fade(1, 800); if (this.needSound) { this.needSound = false; this.renderHostbar(); } })
+      a.play().then(() => { this.fade(this.duck ? 0.3 : 1, 800); if (this.needSound) { this.needSound = false; this.renderHostbar(); } })
         .catch(e => { a.volume = 1; if (e?.name === "NotAllowedError") { this.needSound = true; this.renderHostbar(); } });
       return;
     }
@@ -1311,8 +1383,33 @@ const TV = {
     this.lastTick = 0;
     const fx = { intro: "whoosh", rev: "reveal", lb: "board", end: "fanfare", "imp-clue": "blip" }[ph];
     if (fx) SFX.play(fx);
+    this.speak(ph);
     this.save(); this.render(); this.push(true);
   },
+  // What the host says as each part of a round starts.
+  speak(ph) {
+    const H = this.H, kind = H.cur?.t;
+    if (ph === "intro") {
+      const last = this.lastKind; this.lastKind = kind;
+      if (H.r === 1) return this.say("start", true);
+      if (H.R > 1 && H.r === H.R) return this.say("final", true);
+      // A new kind of round always gets an intro; another of the same kind only sometimes.
+      if (kind !== last || Math.random() < 0.45) this.say("intro-" + kind);
+    } else if (ph === "rev" && this.revEv) {
+      const ev = this.revEv, rk = H.rk, wait = 1800 + Object.keys(H.rv?.g || {}).length * 180;
+      this.revEv = null;
+      if ((ev === "rev-some" || ev === "rev-all") && Math.random() < 0.35) return;
+      // After the answer is stamped on screen.
+      setTimeout(() => { if (this.H.rk === rk && this.H.ph === "rev" && !this.H.pause) this.say(ev); }, wait);
+    } else if (ph === "lb") {
+      const s = this.players().map(p => p.score).sort((a, b) => b - a), gap = s.length > 1 ? s[0] - s[1] : 0;
+      this.say(s.length > 1 && gap <= 400 ? "lb-close" : gap >= 2500 ? "lb-far" : "lb");
+    } else if (ph === "end") {
+      const s = this.players().map(p => p.score).sort((a, b) => b - a);
+      this.say(s.length > 1 && s[0] === s[1] ? "end-tie" : "end", true);
+    }
+  },
+  outcome(right, nv) { return !right ? "rev-none" : right === nv ? "rev-all" : right === 1 && nv >= 3 ? "rev-one" : "rev-some"; },
   advance() {
     const H = this.H;
     if (H.ph === "intro") return this.isImp() ? this.impStart() : this.go("q", Q_SECS);
@@ -1361,6 +1458,7 @@ const TV = {
       for (const p of Object.values(H.players)) p.prev = p.score;
       for (const [pid, v] of Object.entries(d)) if (H.players[pid]) H.players[pid].score += v;
       H.rv = { o: imp, g, d, m: mult, caught, w: H.cur.w, x: H.impVar === "none" ? null : H.cur.x, cat: H.cur.cat };
+      this.revEv = caught ? "imp-caught" : "imp-escaped";
       return this.go("rev"); // stays up until the host taps Next round
     }
     if (H.cur.t === "likely") {
@@ -1373,6 +1471,7 @@ const TV = {
       for (const p of Object.values(H.players)) p.prev = p.score;
       for (const [pid, v] of Object.entries(d)) if (H.players[pid]) H.players[pid].score += v;
       H.rv = { o: leaders[0] || null, top: leaders, g, d, m: mult, lk: H.cur.lk };
+      this.revEv = leaders.length === 1 ? "likely-agree" : Object.keys(g).length ? "likely-split" : null;
       return this.go("rev", this.revSecs(Object.keys(g).length));
     }
     if (this.isQuiz()) {
@@ -1383,6 +1482,7 @@ const TV = {
       for (const p of Object.values(H.players)) p.prev = p.score;
       for (const [pid, v] of Object.entries(d)) if (H.players[pid]) H.players[pid].score += v;
       H.rv = { a: H.cur.a, g, d, m: mult };
+      this.revEv = this.outcome(Object.keys(d).length, Object.keys(g).length);
       return this.go("rev", this.revSecs(Object.keys(g).length));
     }
     let fooled = 0;
@@ -1399,6 +1499,8 @@ const TV = {
     for (const p of Object.values(H.players)) p.prev = p.score;
     for (const [pid, v] of Object.entries(d)) if (H.players[pid]) H.players[pid].score += v;
     H.rv = { o: owner, g, d, m: mult };
+    const nv = Object.keys(g).length, right = nv - fooled;
+    this.revEv = nv >= 2 && !right ? "rev-fooled" : nv >= 2 && right === nv ? "rev-easy" : this.outcome(right, nv);
     this.go("rev", this.revSecs(Object.keys(g).length));
   },
   playAgain() {
@@ -1406,6 +1508,7 @@ const TV = {
     this.audio?.pause();
     H.songs = {};
     setTimeout(() => this.prefetch(), 0); // reload tonight's playlist if the page was reloaded mid-game
+    this.say("again", true);
     room?.drop(Object.keys(H.photos));
     H.gid = rid(6); H.ph = "lobby"; H.r = 0; H.R = 0; H.rk = ""; H.cur = null; H.order = []; H.photos = {}; H.guesses = {}; H.rv = null; H.phaseEnds = 0; H.pause = null;
     for (const p of Object.values(H.players)) { p.photos = []; p.songs = []; p.score = 0; p.prev = 0; }
@@ -1450,7 +1553,11 @@ const TV = {
     if (H.ph === "q") {
       const owner = this.curOwner();
       const eligible = Object.values(H.players).filter(p => p.online && p.pid !== owner);
-      if (eligible.length && eligible.every(p => H.guesses[p.pid]) && (!H.phaseEnds || H.phaseEnds - now > 1200)) { H.phaseEnds = now + 1200; this.push(true); }
+      if (eligible.length && eligible.every(p => H.guesses[p.pid]) && (!H.phaseEnds || H.phaseEnds - now > 1200)) {
+        const early = !H.phaseEnds || H.phaseEnds - now > 6000;
+        H.phaseEnds = now + 1200; this.push(true);
+        if (early && eligible.length >= 2 && !["song", "tune"].includes(H.cur?.t) && Math.random() < 0.35) this.say("allin");
+      }
     }
     if (H.ph === "lobby") {
       let pruned = false;
@@ -1510,7 +1617,7 @@ const TV = {
     else if (a === "next") { this.unpause(); this.advance(); }
     else if (a === "pause") this.pause();
     else if (a === "resume") this.resume();
-    else if (a === "sound-check") { SFX.unlock(); setTimeout(() => SFX.play("check"), 80); }
+    else if (a === "sound-check") { SFX.unlock(); setTimeout(() => { SFX.play("check"); setTimeout(() => this.say("check", true), 700); }, 80); }
     else if (a === "end-game") { this.unpause(); this.go("end"); }
     else if (a === "again") this.playAgain();
     else if (a === "new-room") this.newRoom();
@@ -1734,7 +1841,7 @@ const TV = {
     if (!el) return;
     const custom = !TUNE_MIXES.some(([q]) => q === H.tune.q);
     const opt = (v, l, on) => `<option value="${esc(v)}" ${on ? "selected" : ""}>${esc(l)}</option>`;
-    paint(el, [H.modes.join(), H.theme, H.len, H.tune.q, this.mixNote, H.impVar, H.snd, H.anon].join("|"), `<p class="eyebrow">Rounds tonight</p>
+    paint(el, [H.modes.join(), H.theme, H.len, H.tune.q, this.mixNote, H.impVar, H.snd, H.anon, H.host, VOICE.recorded()].join("|"), `<p class="eyebrow">Rounds tonight</p>
       <div class="mode-row">${MODES.map(m => `<button class="mode ${H.modes.includes(m) ? "on" : ""}" data-act="mode" data-m="${m}" aria-pressed="${H.modes.includes(m)}">${MODE_LABEL[m]}</button>`).join("")}</div>
       <div class="sub">
         <label class="sub-l" for="theme-sel">Theme</label><select id="theme-sel" class="sel">${THEMES.map(t => opt(t.id, t.label, H.theme === t.id)).join("")}</select>
@@ -1742,6 +1849,7 @@ const TV = {
       </div>
       <div class="sub">
         <label class="sub-l" for="snd-sel">Sound</label><select id="snd-sel" class="sel">${opt("all", "Music and effects", H.snd === "all")}${opt("fx", "Effects only", H.snd === "fx")}${opt("off", "Off", H.snd === "off")}</select>
+        <label class="sub-l" for="host-sel">Host</label><select id="host-sel" class="sel">${opt("voice", VOICE.recorded() ? "Voice and captions" : "Captions (no voice recorded yet)", H.host === "voice")}${opt("captions", "Captions only", H.host === "captions")}${opt("off", "Off", H.host === "off")}</select>
         <label class="sub-l" for="anon-sel">Votes</label><select id="anon-sel" class="sel">${opt("show", "Show who voted", !H.anon)}${opt("anon", "Anonymous", H.anon)}</select>
       </div>
       ${this.needMix() ? `<div class="sub"><label class="sub-l" for="tune-sel">Music</label>
@@ -1909,7 +2017,7 @@ const TV = {
     clock.classList.toggle("hurry", left <= 5);
     // Ticks for the last five seconds, unless everyone has already answered and the clock was cut short.
     const k = Math.ceil(left);
-    if (H.ph === "q" && H.phaseEnds && !H.pause && k <= 5 && k >= 1 && k !== this.lastTick && H.phaseEnds === H.qStart + H.qDur) { this.lastTick = k; SFX.play("tick"); }
+    if (H.ph === "q" && H.phaseEnds && !H.pause && k <= 5 && k >= 1 && k !== this.lastTick && H.phaseEnds === H.qStart + H.qDur) { this.lastTick = k; SFX.play("tick"); if (k === 5 && !["song", "tune"].includes(H.cur?.t) && Math.random() < 0.5) this.say("hurry"); }
   },
 };
 
@@ -2430,6 +2538,7 @@ app.addEventListener("change", e => {
   if (e.target.id === "imp-sel") TV.setImpVar(e.target.value);
   if (e.target.id === "snd-sel") TV.setSnd(e.target.value);
   if (e.target.id === "anon-sel") TV.setAnon(e.target.value);
+  if (e.target.id === "host-sel") TV.setHost(e.target.value);
 });
 app.addEventListener("submit", e => {
   e.preventDefault();

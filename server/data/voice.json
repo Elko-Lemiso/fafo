@@ -1,0 +1,200 @@
+{
+  "about": "The host's lines. ev says when a line can play; t is what's said and shown as the caption. Record them with tools/make-voice.js. Changing a line's text makes the script record it again.",
+  "lines": [
+    { "id": "welcome-1", "ev": "welcome", "t": "Welcome to fafo. Phones out, scan the code, let's get going." },
+    { "id": "welcome-2", "ev": "welcome", "t": "Evening, everyone. Scan the code on the screen to join." },
+    { "id": "welcome-3", "ev": "welcome", "t": "Right, who's playing? Scan the code and pick a name." },
+    { "id": "welcome-4", "ev": "welcome", "t": "Welcome to fafo, where you find out who your friends really are." },
+
+    { "id": "join-1", "ev": "join", "t": "Ooh, a new challenger." },
+    { "id": "join-2", "ev": "join", "t": "Look who finally showed up." },
+    { "id": "join-3", "ev": "join", "t": "Another one. Lovely." },
+    { "id": "join-4", "ev": "join", "t": "Welcome aboard." },
+    { "id": "join-5", "ev": "join", "t": "They're in. No backing out now." },
+    { "id": "join-6", "ev": "join", "t": "Fresh competition." },
+    { "id": "join-7", "ev": "join", "t": "Good name. Questionable choice of friends." },
+    { "id": "join-8", "ev": "join", "t": "Make yourself at home." },
+    { "id": "join-9", "ev": "join", "t": "The more the merrier." },
+
+    { "id": "start-1", "ev": "start", "t": "Right then. Let's play." },
+    { "id": "start-2", "ev": "start", "t": "Here we go. Phones at the ready." },
+    { "id": "start-3", "ev": "start", "t": "Game on. May the best friend win." },
+    { "id": "start-4", "ev": "start", "t": "Let's find out who's been paying attention." },
+    { "id": "start-5", "ev": "start", "t": "No pressure. Well, a little bit of pressure." },
+    { "id": "start-6", "ev": "start", "t": "Let the games begin." },
+
+    { "id": "intro-photo-1", "ev": "intro-photo", "t": "Whose photo is this? Think hard." },
+    { "id": "intro-photo-2", "ev": "intro-photo", "t": "A photo from one of you. Whose is it?" },
+    { "id": "intro-photo-3", "ev": "intro-photo", "t": "Someone in this room took this one." },
+    { "id": "intro-photo-4", "ev": "intro-photo", "t": "Look closely. Whose is it?" },
+    { "id": "intro-photo-5", "ev": "intro-photo", "t": "Somebody's camera roll is about to be exposed." },
+    { "id": "intro-photo-6", "ev": "intro-photo", "t": "Next photo. Keep a straight face, whoever you are." },
+
+    { "id": "intro-song-1", "ev": "intro-song", "t": "Whose song is this? Somebody picked it." },
+    { "id": "intro-song-2", "ev": "intro-song", "t": "Listen up. Which one of you chose this?" },
+    { "id": "intro-song-3", "ev": "intro-song", "t": "This one says a lot about someone." },
+    { "id": "intro-song-4", "ev": "intro-song", "t": "Whose taste in music are we judging now?" },
+    { "id": "intro-song-5", "ev": "intro-song", "t": "Somebody's favourite song. Whose?" },
+
+    { "id": "intro-tune-1", "ev": "intro-tune", "t": "Name that tune. Ears open." },
+    { "id": "intro-tune-2", "ev": "intro-tune", "t": "Here comes a song. What is it?" },
+    { "id": "intro-tune-3", "ev": "intro-tune", "t": "Listen carefully. Name that tune." },
+    { "id": "intro-tune-4", "ev": "intro-tune", "t": "You know this one. Probably." },
+    { "id": "intro-tune-5", "ev": "intro-tune", "t": "Music round. No humming along." },
+    { "id": "intro-tune-6", "ev": "intro-tune", "t": "Quiet, everyone. Here it comes." },
+
+    { "id": "intro-face-1", "ev": "intro-face", "t": "Famous faces. Who is it?" },
+    { "id": "intro-face-2", "ev": "intro-face", "t": "It starts blurry. Guess early for more points." },
+    { "id": "intro-face-3", "ev": "intro-face", "t": "Somebody famous. Who is it?" },
+    { "id": "intro-face-4", "ev": "intro-face", "t": "Who's behind the blur?" },
+    { "id": "intro-face-5", "ev": "intro-face", "t": "You've definitely seen this face before." },
+
+    { "id": "intro-flag-1", "ev": "intro-flag", "t": "Flag round. Which country?" },
+    { "id": "intro-flag-2", "ev": "intro-flag", "t": "Name that flag." },
+    { "id": "intro-flag-3", "ev": "intro-flag", "t": "Here's a flag. Where's it from?" },
+    { "id": "intro-flag-4", "ev": "intro-flag", "t": "Flags. Geography nerds, this is your moment." },
+    { "id": "intro-flag-5", "ev": "intro-flag", "t": "Careful. Some of these look very alike." },
+
+    { "id": "intro-map-1", "ev": "intro-map", "t": "Name the country from its shape." },
+    { "id": "intro-map-2", "ev": "intro-map", "t": "Here's an outline. Which country?" },
+    { "id": "intro-map-3", "ev": "intro-map", "t": "Map round. No turning your head sideways." },
+    { "id": "intro-map-4", "ev": "intro-map", "t": "One shape, four guesses. Which country?" },
+
+    { "id": "intro-cap-1", "ev": "intro-cap", "t": "Capital cities. Careful, these get tricky." },
+    { "id": "intro-cap-2", "ev": "intro-cap", "t": "What's the capital? It's not always the biggest city." },
+    { "id": "intro-cap-3", "ev": "intro-cap", "t": "Capital round. Think before you tap." },
+    { "id": "intro-cap-4", "ev": "intro-cap", "t": "Name the capital. Don't fall for the famous one." },
+
+    { "id": "intro-big-1", "ev": "intro-big", "t": "Which is bigger? Trust your gut." },
+    { "id": "intro-big-2", "ev": "intro-big", "t": "Two countries. Which one's larger?" },
+    { "id": "intro-big-3", "ev": "intro-big", "t": "Size matters this round. Which is bigger?" },
+    { "id": "intro-big-4", "ev": "intro-big", "t": "Maps lie. Which country is really bigger?" },
+
+    { "id": "intro-trivia-1", "ev": "intro-trivia", "t": "Trivia time." },
+    { "id": "intro-trivia-2", "ev": "intro-trivia", "t": "Here's one for the know-it-alls." },
+    { "id": "intro-trivia-3", "ev": "intro-trivia", "t": "Brains on. Trivia round." },
+    { "id": "intro-trivia-4", "ev": "intro-trivia", "t": "Trivia. Read the question carefully." },
+    { "id": "intro-trivia-5", "ev": "intro-trivia", "t": "Question time. No phoning a friend." },
+
+    { "id": "intro-emoji-1", "ev": "intro-emoji", "t": "Emoji puzzle. Decode it." },
+    { "id": "intro-emoji-2", "ev": "intro-emoji", "t": "Read the emoji. What is it?" },
+    { "id": "intro-emoji-3", "ev": "intro-emoji", "t": "Emoji round. Think like a teenager." },
+    { "id": "intro-emoji-4", "ev": "intro-emoji", "t": "Little pictures, big brain. What is it?" },
+
+    { "id": "intro-imp-1", "ev": "intro-imp", "t": "Imposter round. Check your secret word, and keep it secret." },
+    { "id": "intro-imp-2", "ev": "intro-imp", "t": "One of you has a different word. Find them." },
+    { "id": "intro-imp-3", "ev": "intro-imp", "t": "Imposter time. Trust no one." },
+    { "id": "intro-imp-4", "ev": "intro-imp", "t": "Someone's bluffing this round. Watch their faces." },
+
+    { "id": "intro-likely-1", "ev": "intro-likely", "t": "Who's most likely to? Be honest. Brutally honest." },
+    { "id": "intro-likely-2", "ev": "intro-likely", "t": "Time to judge your friends." },
+    { "id": "intro-likely-3", "ev": "intro-likely", "t": "Most likely to. Choose wisely, they'll find out." },
+    { "id": "intro-likely-4", "ev": "intro-likely", "t": "This one's about you lot. Vote." },
+
+    { "id": "final-1", "ev": "final", "t": "Final round. Double points. Everything to play for." },
+    { "id": "final-2", "ev": "final", "t": "Last one. Double points. Don't blow it." },
+    { "id": "final-3", "ev": "final", "t": "This is it. Final round, double points." },
+    { "id": "final-4", "ev": "final", "t": "One more round, worth double. Anyone can still win." },
+
+    { "id": "hurry-1", "ev": "hurry", "t": "Five seconds." },
+    { "id": "hurry-2", "ev": "hurry", "t": "Clock's ticking." },
+    { "id": "hurry-3", "ev": "hurry", "t": "Hurry up." },
+    { "id": "hurry-4", "ev": "hurry", "t": "Come on, lock it in." },
+    { "id": "hurry-5", "ev": "hurry", "t": "Any time now." },
+
+    { "id": "allin-1", "ev": "allin", "t": "Everyone's in." },
+    { "id": "allin-2", "ev": "allin", "t": "All locked in. Let's see." },
+    { "id": "allin-3", "ev": "allin", "t": "That was quick." },
+    { "id": "allin-4", "ev": "allin", "t": "Confident lot, aren't you?" },
+
+    { "id": "rev-all-1", "ev": "rev-all", "t": "Every single one of you. Too easy." },
+    { "id": "rev-all-2", "ev": "rev-all", "t": "Clean sweep. Well done." },
+    { "id": "rev-all-3", "ev": "rev-all", "t": "Everybody got it. I'll make the next one harder." },
+    { "id": "rev-all-4", "ev": "rev-all", "t": "Full marks all round. Suspicious." },
+
+    { "id": "rev-none-1", "ev": "rev-none", "t": "Not a single one of you. Impressive." },
+    { "id": "rev-none-2", "ev": "rev-none", "t": "Nobody. Absolutely nobody." },
+    { "id": "rev-none-3", "ev": "rev-none", "t": "Wow. Zero for everyone." },
+    { "id": "rev-none-4", "ev": "rev-none", "t": "I'm not angry. Just disappointed." },
+    { "id": "rev-none-5", "ev": "rev-none", "t": "Well, that went badly." },
+
+    { "id": "rev-one-1", "ev": "rev-one", "t": "Only one of you got it. Show-off." },
+    { "id": "rev-one-2", "ev": "rev-one", "t": "Just one person. Take a bow." },
+    { "id": "rev-one-3", "ev": "rev-one", "t": "One genius in the room." },
+    { "id": "rev-one-4", "ev": "rev-one", "t": "A lone hero." },
+
+    { "id": "rev-some-1", "ev": "rev-some", "t": "Some of you knew that." },
+    { "id": "rev-some-2", "ev": "rev-some", "t": "A few of you got it." },
+    { "id": "rev-some-3", "ev": "rev-some", "t": "Not bad. Not great either." },
+    { "id": "rev-some-4", "ev": "rev-some", "t": "Some sharp minds in here." },
+    { "id": "rev-some-5", "ev": "rev-some", "t": "Half the room knew it. The other half is guessing." },
+
+    { "id": "rev-fooled-1", "ev": "rev-fooled", "t": "Fooled the whole room. Poker face of the year." },
+    { "id": "rev-fooled-2", "ev": "rev-fooled", "t": "Nobody saw that coming." },
+    { "id": "rev-fooled-3", "ev": "rev-fooled", "t": "Masterful deception." },
+    { "id": "rev-fooled-4", "ev": "rev-fooled", "t": "You lot don't know each other at all." },
+
+    { "id": "rev-easy-1", "ev": "rev-easy", "t": "Well, that was obvious." },
+    { "id": "rev-easy-2", "ev": "rev-easy", "t": "Everyone knew that was yours." },
+    { "id": "rev-easy-3", "ev": "rev-easy", "t": "Couldn't be more you if you tried." },
+
+    { "id": "imp-caught-1", "ev": "imp-caught", "t": "Caught red-handed." },
+    { "id": "imp-caught-2", "ev": "imp-caught", "t": "Busted. Nice detective work." },
+    { "id": "imp-caught-3", "ev": "imp-caught", "t": "The imposter has been found." },
+    { "id": "imp-caught-4", "ev": "imp-caught", "t": "Nowhere to hide." },
+
+    { "id": "imp-escaped-1", "ev": "imp-escaped", "t": "The imposter got away with it." },
+    { "id": "imp-escaped-2", "ev": "imp-escaped", "t": "Wrong person. The imposter walks free." },
+    { "id": "imp-escaped-3", "ev": "imp-escaped", "t": "Fooled you all." },
+    { "id": "imp-escaped-4", "ev": "imp-escaped", "t": "A natural liar. Watch out for this one." },
+
+    { "id": "likely-agree-1", "ev": "likely-agree", "t": "The people have spoken." },
+    { "id": "likely-agree-2", "ev": "likely-agree", "t": "Pretty much unanimous." },
+    { "id": "likely-agree-3", "ev": "likely-agree", "t": "No surprises there." },
+    { "id": "likely-agree-4", "ev": "likely-agree", "t": "Sorry. Your friends have decided." },
+
+    { "id": "likely-split-1", "ev": "likely-split", "t": "A split vote. Interesting." },
+    { "id": "likely-split-2", "ev": "likely-split", "t": "Nobody can agree on this one." },
+    { "id": "likely-split-3", "ev": "likely-split", "t": "Opinions are divided." },
+
+    { "id": "lb-1", "ev": "lb", "t": "Let's check the scores." },
+    { "id": "lb-2", "ev": "lb", "t": "Here's how it stands." },
+    { "id": "lb-3", "ev": "lb", "t": "Scoreboard time." },
+    { "id": "lb-4", "ev": "lb", "t": "Look at that scoreboard." },
+    { "id": "lb-5", "ev": "lb", "t": "Halfway decent. Some of you." },
+
+    { "id": "lb-close-1", "ev": "lb-close", "t": "It's close at the top." },
+    { "id": "lb-close-2", "ev": "lb-close", "t": "Neck and neck." },
+    { "id": "lb-close-3", "ev": "lb-close", "t": "Anyone's game." },
+
+    { "id": "lb-far-1", "ev": "lb-far", "t": "Somebody's running away with it." },
+    { "id": "lb-far-2", "ev": "lb-far", "t": "Can anyone catch the leader?" },
+    { "id": "lb-far-3", "ev": "lb-far", "t": "The rest of you need to wake up." },
+
+    { "id": "end-1", "ev": "end", "t": "That's the game. Let's see the winner." },
+    { "id": "end-2", "ev": "end", "t": "Game over. And the winner is…" },
+    { "id": "end-3", "ev": "end", "t": "We have a champion." },
+    { "id": "end-4", "ev": "end", "t": "And that's that. Bragging rights go to…" },
+
+    { "id": "end-tie-1", "ev": "end-tie", "t": "It's a tie. Nobody gets bragging rights." },
+    { "id": "end-tie-2", "ev": "end-tie", "t": "A tie. Unbelievable. Rematch?" },
+
+    { "id": "pause-1", "ev": "pause", "t": "Paused. Go grab a drink." },
+    { "id": "pause-2", "ev": "pause", "t": "Taking a little break." },
+    { "id": "pause-3", "ev": "pause", "t": "Pause. Nobody move." },
+
+    { "id": "lost-1", "ev": "lost", "t": "We've lost someone. Give them a moment." },
+    { "id": "lost-2", "ev": "lost", "t": "Somebody dropped out. Hang on." },
+
+    { "id": "resume-1", "ev": "resume", "t": "And we're back." },
+    { "id": "resume-2", "ev": "resume", "t": "Right, where were we?" },
+    { "id": "resume-3", "ev": "resume", "t": "Back to it." },
+
+    { "id": "again-1", "ev": "again", "t": "Again? Love it." },
+    { "id": "again-2", "ev": "again", "t": "Rematch. Let's go." },
+    { "id": "again-3", "ev": "again", "t": "One more game. It's always one more game." },
+
+    { "id": "check-1", "ev": "check", "t": "Sound check. Can everyone hear me?" },
+    { "id": "check-2", "ev": "check", "t": "Testing, testing. Is this thing on?" }
+  ]
+}

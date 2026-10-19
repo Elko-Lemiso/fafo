@@ -58,7 +58,7 @@ for (const f of ["bungee", "barlow", "barlow-condensed"]) {
 require("./quiz")(app, MODULES);
 require("./music")(app);
 app.get("/data/faces.json", (req, res) => res.sendFile(path.join(__dirname, "data", "faces.json"), { maxAge: "1d" }));
-for (const f of ["imposter", "emoji", "likely"]) app.get(`/data/${f}.json`, (req, res) => res.sendFile(path.join(__dirname, "data", f + ".json"), { maxAge: "1h" }));
+for (const f of ["imposter", "emoji", "likely", "voice"]) app.get(`/data/${f}.json`, (req, res) => res.sendFile(path.join(__dirname, "data", f + ".json"), { maxAge: "1h" }));
 
 app.post("/api/photos/:id", express.raw({ type: () => true, limit: MAX_PHOTO_BYTES }), (req, res) => {
   const id = req.params.id, pid = req.get("x-pid"), code = req.get("x-code"), buf = req.body;
@@ -79,6 +79,8 @@ app.get("/photos/:id", (req, res) => {
   res.type("jpeg").set("Cache-Control", "private, max-age=86400, immutable").send(p.buf);
 });
 
+// The host's recorded lines (made with tools/make-voice.js). The list of recordings can change with a deploy, so it isn't cached long.
+app.use("/voice", express.static(path.join(PUBLIC, "voice"), { maxAge: "7d", setHeaders: (res, p) => { if (p.endsWith(".json")) res.set("Cache-Control", "no-cache"); } }));
 app.get(["/", "/tv"], (req, res) => res.set("Cache-Control", "no-cache").sendFile(path.join(PUBLIC, "index.html")));
 app.use((req, res) => res.status(404).type("text").send("Not found"));
 
