@@ -93,8 +93,8 @@ button{font:inherit;color:inherit}
 .lobby .lede{font-size:max(15px,2.5vmin);margin-top:2.4vmin;max-width:34ch}
 .joincard{margin-top:4vmin;display:flex;gap:3vmin;align-items:center;background:var(--paper);border:3px solid var(--ink);border-radius:2vmin;
   box-shadow:0 1vmin 0 var(--ink);padding:2.4vmin;width:fit-content;max-width:100%;transform:rotate(-1.2deg)}
-.qr svg{width:max(140px,27vmin);height:max(140px,27vmin);display:block}
-.code{font-family:var(--display);font-size:max(36px,9vmin);letter-spacing:.06em;line-height:1}
+.qr svg{width:max(140px,min(27vmin,19vw));height:max(140px,min(27vmin,19vw));display:block}
+.code{font-family:var(--display);font-size:clamp(30px,min(9vmin,5vw),130px);letter-spacing:.06em;line-height:1}
 .joincard .small{font-size:max(13px,2vmin);color:var(--ink-soft);max-width:22ch;line-height:1.35;margin-top:1vmin}
 .roster{align-self:stretch;display:flex;flex-direction:column;gap:2vmin;min-height:0;justify-content:center}
 .roster-head{display:flex;justify-content:space-between;align-items:baseline}
@@ -274,7 +274,21 @@ button{font:inherit;color:inherit}
 .tune-form input{font:inherit;font-weight:700;font-size:max(12px,1.8vmin);padding:.3em .8em;border:2px solid var(--ink);border-radius:999px;background:#fff;color:var(--ink);min-width:0;width:24ch}
 .sel{font:inherit;font-weight:800;font-size:max(12px,1.9vmin);padding:.3em .7em;border:2px solid var(--ink);border-radius:999px;background:var(--paper);color:var(--ink);cursor:pointer}
 .modes .mode{font-size:max(12px,1.8vmin);padding:.35em .8em;border-width:2px}
-.roster{min-height:0;overflow-y:auto}
+.roster{min-height:0;overflow-y:auto;justify-content:safe center}
+.tonight{background:var(--paper);border:3px solid var(--ink);border-radius:1.6vmin;box-shadow:0 .7vmin 0 var(--ink);padding:1.6vmin 2.2vmin;display:flex;flex-direction:column;gap:.8vmin}
+.tonight-top{display:flex;justify-content:space-between;align-items:center;gap:2vmin}
+.tonight-modes{font-family:var(--display);font-size:max(16px,3vmin);line-height:1.15;text-wrap:balance}
+.tonight-sub{font-weight:700;color:var(--ink-soft);font-size:max(13px,2vmin)}
+.tonight-sub:empty{display:none}
+.settings{position:fixed;inset:0;z-index:18;display:grid;place-items:center;padding:3vmin;background:rgba(29,20,15,.6);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.settings[hidden]{display:none}
+.settings-card{background:var(--sun);border:3px solid var(--ink);border-radius:2vmin;box-shadow:0 1vmin 0 var(--ink);width:min(1250px,100%);max-height:100%;overflow-y:auto;padding:2.6vmin 3vmin;display:flex;flex-direction:column;gap:1.6vmin}
+.settings-head{display:flex;justify-content:space-between;align-items:center;gap:2vmin}
+.settings-head h2{font-family:var(--display);font-size:max(22px,4.4vmin)}
+.mgroup{display:grid;grid-template-columns:max(110px,15vmin) minmax(0,1fr);gap:1.4vmin;align-items:start}
+.mgroup .sub-l{padding-top:.5em}
+.settings-foot{display:flex;gap:1vmin;justify-content:flex-end;flex-wrap:wrap;border-top:2px dashed var(--ink-soft);padding-top:1.4vmin}
+@media (max-width:760px){.mgroup{grid-template-columns:minmax(0,1fr)}}
 .mixnote{width:100%;font-size:max(11px,1.7vmin);font-weight:700;color:var(--ink-soft)}
 .vinyl{width:min(50vmin,90%);aspect-ratio:1;border-radius:50%;background:repeating-radial-gradient(circle at 50% 50%,#1D140F 0 2px,#33271F 2px 5px);border:3px solid var(--ink);display:grid;place-items:center;box-shadow:1vmin 1.2vmin 0 var(--sun-deep)}
 .vinyl span{width:34%;aspect-ratio:1;border-radius:50%;background:var(--tomato);display:grid;place-items:center;font-family:var(--display);font-size:max(24px,6vmin);color:var(--paper);border:3px solid var(--ink)}
@@ -457,7 +471,7 @@ const COLORS = ["#D93A26","#2342C6","#11704F","#7339D6","#C42F78","#0B7584","#B5
 const CODE_CHARS = "ABCDEFGHJKMNPQRSTUVWXYZ";
 // Kinds of round. Photo games play every photo; flag and map rounds come in sets of ROUNDS (fewer when mixed).
 const ROUNDS = 10, SONGS_PER_PLAYER = 3;
-const MODES = ["photo", "song", "prof", "said", "ttl", "quip", "bluff", "meld", "tune", "face", "flag", "map", "cap", "big", "trivia", "num", "odd", "emoji", "imp", "likely", "wyr", "nhie"];
+const MODES = ["photo", "song", "prof", "said", "ttl", "hot", "quip", "bluff", "meld", "tune", "face", "flag", "map", "cap", "big", "trivia", "num", "odd", "emoji", "imp", "likely", "wyr", "nhie"];
 // Owner rounds show something a player brought, and everyone guesses which player. The rest are quiz rounds with 4 answers.
 const OWNER_KINDS = ["photo", "song", "prof"];
 // Rounds where you answer by picking a player rather than one of 4 answers.
@@ -465,7 +479,14 @@ const PLAYER_KINDS = ["photo", "song", "prof", "imp", "likely"];
 // Modes that need at least 3 players to make sense.
 const CROWD_KINDS = ["prof", "said", "quip", "bluff", "imp", "likely", "wyr", "nhie"];
 // Modes that work with 2 players.
-const PAIR_KINDS = ["ttl", "meld"];
+const PAIR_KINDS = ["ttl", "meld", "hot"];
+// How the round picker groups the modes in the TV's settings. Anything not listed here shows under "More".
+const MODE_GROUPS = [
+  ["About you", ["photo", "song", "prof", "said", "ttl", "hot", "meld", "likely", "wyr", "nhie"]],
+  ["Write and bluff", ["quip", "bluff", "capt"]],
+  ["Secret roles", ["imp", "fakin"]],
+  ["Quiz", ["tune", "face", "flag", "map", "cap", "big", "trivia", "num", "year", "hilo", "odd", "emoji", "buzz"]],
+];
 // Rounds with no right answer: Would you rather (score for siding with the room) and Never have I ever (just for fun).
 const POLL_KINDS = ["wyr", "nhie"];
 // Quiz rounds shown as text across the screen rather than next to a picture.
@@ -487,12 +508,12 @@ const DIFFS = [["easy", "Easy"], ["normal", "Normal"], ["hard", "Hard"]];
 // No clocks in Imposter: each step moves on when the players are ready (the TV's Next button can always skip).
 const IMP_ROUNDS = { quick: 2, normal: 3, long: 5 };
 const IMP_PHASES = ["imp-word", "imp-clue", "imp-talk"];
-const MODE_LABEL = { photo: "Whose photo", song: "Whose song", prof: "Whose answer", said: "Who said it", ttl: "Two truths and a lie", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather", nhie: "Never have I ever", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps", cap: "Capitals", big: "Which is bigger", trivia: "Trivia", emoji: "Emoji puzzles", imp: "Imposter", likely: "Most likely to" };
-const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", prof: "Whose answer?", said: "Who said it?", ttl: "Two truths and a lie", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather?", nhie: "Never have I ever", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country", cap: "Capital cities", big: "Which is bigger?", trivia: "Trivia", emoji: "Emoji puzzle", imp: "Imposter", likely: "Most likely to…" };
+const MODE_LABEL = { photo: "Whose photo", song: "Whose song", prof: "Whose answer", said: "Who said it", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather", nhie: "Never have I ever", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps", cap: "Capitals", big: "Which is bigger", trivia: "Trivia", emoji: "Emoji puzzles", imp: "Imposter", likely: "Most likely to" };
+const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", prof: "Whose answer?", said: "Who said it?", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather?", nhie: "Never have I ever", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country", cap: "Capital cities", big: "Which is bigger?", trivia: "Trivia", emoji: "Emoji puzzle", imp: "Imposter", likely: "Most likely to…" };
 const KIND_ASK = { photo: "Whose photo is this?", song: "Whose song is this?", prof: "Whose answer is this?", said: "Who wrote this?", face: "Who is this?", flag: "Which country's flag is this?", map: "Which country has this shape?", big: "Which country is bigger?", imp: "Who's the imposter?" };
 const KIND_ASK_PHONE = { photo: "Whose photo is on the TV?", song: "Whose song is playing?", prof: "Whose answer is on the TV?", said: "Who wrote this?", face: "Who's on the TV?", flag: "Which country's flag is on the TV?", map: "Which country is the shape on the TV?", big: "Which country is bigger?", imp: "Who's the imposter?" };
 const askOf = c => (c.t === "tune" ? (c.ask === "artist" ? "Who's the artist?" : "What's this song?")
-  : c.t === "cap" ? `What's the capital of ${c.cn}?` : c.t === "trivia" || c.t === "ttl" ? c.q
+  : c.t === "cap" ? `What's the capital of ${c.cn}?` : c.t === "trivia" || c.t === "ttl" || c.t === "hot" ? c.q
   : c.t === "odd" ? "Which is the odd one out?" : c.t === "num" ? c.q : c.t === "wyr" ? (c.q || "Would you rather…") : c.t === "nhie" ? `Never have I ever ${c.q}…`
   : c.t === "emoji" ? `Which ${{ song: "song", tv: "TV show" }[c.ty] || "film"} is this?` : c.t === "likely" ? `Who's most likely to ${c.lk}?` : KIND_ASK[c.t]);
 // Music for "Name that tune" and the Music theme, grouped for the TV's dropdown. Each entry is [Deezer search, label].
@@ -1204,7 +1225,7 @@ const TV = {
   prefetch() {
     const H = this.H;
     if (H.modes.includes("face")) getFaces().catch(() => {});
-    for (const [m, f] of [["emoji", "emoji"], ["likely", "likely"], ["prof", "profile"], ["quip", "quips"], ["said", "said"], ["meld", "meld"]]) if (H.modes.includes(m)) getData(f).catch(() => {});
+    for (const [m, f] of [["emoji", "emoji"], ["likely", "likely"], ["prof", "profile"], ["quip", "quips"], ["said", "said"], ["meld", "meld"], ["hot", "hot"]]) if (H.modes.includes(m)) getData(f).catch(() => {});
     if (H.spicy !== "off") getData("quips").catch(() => {});
     if (H.modes.includes("cap") || H.modes.includes("big")) getCountries().catch(() => {});
     if (this.needMix() && !this.mixNote) this.setTune(H.tune.q, H.tune.label);
@@ -1594,6 +1615,13 @@ const TV = {
           return { t: "meld", ps, ans: {} };
         });
       }
+      if (modes.includes("hot") && online >= 2) {
+        // Hot seat: one player answers about themselves while the rest guess. Everyone gets a turn before anyone has two.
+        const Q = await getData("hot"), people = shuffle(this.players().filter(p => p.online)), n = Math.min(each, people.length * 2);
+        const hot = H.spicy === "off" ? [] : shuffle(this.unseen(Q.cheeky || [], x => x.q, "hot", n)).slice(0, Math.round(n / 3));
+        const qs = shuffle([...hot.map(x => ({ ...x, sp: true })), ...shuffle(this.unseen(Q.questions, x => x.q, "hot", n)).slice(0, n - hot.length)]);
+        pools.hot = qs.map((x, i) => { const p = people[i % people.length]; return { t: "hot", pid: p.pid, k: x.q, q: x.q.replace(/\{name\}/g, p.name), me: x.me, o: x.o, a: -1, sp: !!x.sp }; });
+      }
       // Two truths and a lie: one round is everyone writing, then each player's three statements in turn.
       if (modes.includes("ttl") && online >= 2) pools.ttl = Array.from({ length: H.len === "long" ? 2 : 1 }, () => ({ t: "ttl", ans: {} }));
       if (modes.includes("bluff") && online >= 3) {
@@ -1661,6 +1689,7 @@ const TV = {
       this.remember("nhie", order.filter(r => r.t === "nhie").map(r => r.q));
       this.remember("bluff", order.filter(r => r.t === "bluff").map(r => r.q));
       this.remember("said", order.filter(r => r.t === "said").map(r => r.q));
+      this.remember("hot", order.filter(r => r.t === "hot").map(r => r.k));
       this.remember("meld", order.filter(r => r.t === "meld").flatMap(r => r.ps.map(m => m.q)));
       if (this.H !== H || H.ph !== "lobby") return;
       H.order = order; H.R = order.length; H.r = 0; H.rv = null;
@@ -1725,6 +1754,7 @@ const TV = {
     if (t === "likely") return rv.top || [];
     if (t === "quip") { const [a, b] = rv.v || [0, 0]; return a === b ? [] : [rv.by[a < b ? 0 : 1]]; }
     if (t === "lash") return (rv.a || []).filter((x, k) => !rv.v[k]).map(x => x[0]);
+    if (t === "hot") return rv.a < 0 ? [] : Object.entries(rv.g || {}).filter(([, i]) => i !== rv.a).map(([pid]) => pid);
     if (t === "meld") return (rv.gs || []).flatMap(x => x.by.filter((pid, k) => !x.hit[k]));
     if (t === "bluff") return Object.entries(rv.g || {}).filter(([, i]) => !rv.opts?.[i]?.tr).map(([pid]) => pid);
     if (t === "nhie") return Object.entries(rv.g || {}).filter(([, i]) => i === 0).map(([pid]) => pid);
@@ -1858,6 +1888,22 @@ const TV = {
       H.rv = { q: m.q, a: m.by.map(pid => ans[pid] || ""), by: m.by, g, d, m: mult, v, sweep, mi: H.cur.mi, n: H.cur.ps.length };
       this.revEv = sweep ? "quip-sweep" : has[0] !== has[1] ? null : v[0] === v[1] ? "quip-tie" : "quip-win";
       return this.go("rev", REVEAL_SECS - 1);
+    }
+    if (H.cur.t === "hot") {
+      // The player in the hot seat sets the right answer. Guessing it scores like a quiz answer; they earn 200 for everyone who knew.
+      const s = H.cur.pid, a = Number.isInteger(H.guesses[s]?.i) ? H.guesses[s].i : -1;
+      let right = 0;
+      for (const [pid, x] of Object.entries(H.guesses)) {
+        if (pid === s) continue;
+        g[pid] = x.i;
+        if (a >= 0 && x.i === a) { right++; d[pid] = Math.round((500 + 500 * Math.max(0, Math.min(1, 1 - (x.t - H.qStart) / H.qDur))) * mult / 10) * 10; this.stat(pid, x.t - H.qStart); }
+      }
+      if (right && H.players[s]) d[s] = right * 200 * mult;
+      score();
+      H.rv = { a, o: s, g, d, m: mult };
+      const nv = Object.keys(g).length;
+      this.revEv = a < 0 || !nv ? null : right === nv ? "hot-known" : !right ? "hot-unknown" : this.outcome(right, nv);
+      return this.go("rev", this.revSecs(nv));
     }
     if (H.cur.t === "meld") {
       // 1,000 each when your answer matches a partner's.
@@ -2093,7 +2139,8 @@ const TV = {
       sa: H.cur?.t === "said" && ["q", "rev"].includes(H.ph) && H.cur.ord ? [H.cur.q, H.cur.a, H.cur.mi + 1, H.cur.ord.length] : null,
       rv: ["rev", "lb", "end"].includes(H.ph) ? H.rv : null,
       modes: H.modes,
-      qz: this.isQuiz() && (H.ph === "q" || H.ph === "rev") ? { t: H.cur.t, o: H.cur.o || null, k: H.cur.ask || null, q: askOf(H.cur), e: H.cur.t === "emoji" ? H.cur.e : null, u: H.cur.u || null, y: H.cur.y ? 1 : 0 } : null,
+      qz: this.isQuiz() && (H.ph === "q" || H.ph === "rev") ? { t: H.cur.t, o: H.cur.o || null, k: H.cur.ask || null, q: askOf(H.cur), e: H.cur.t === "emoji" ? H.cur.e : null, u: H.cur.u || null, y: H.cur.y ? 1 : 0,
+        ...(H.cur.t === "hot" ? { me: H.cur.me, s: H.cur.pid } : {}) } : null,
       lk: H.cur?.t === "likely" ? H.cur.lk : null,
       // Writing rounds: the prompts while writing, then the answers being voted on. `x` marks whose they are, hashed like `x` above.
       qp: H.ph === "qw" && this.isWrite() ? (H.cur.t === "ttl" ? { ttl: 1 } : H.cur.t === "meld" ? { ps: H.cur.ps.map(m => [m.q, m.by]), meld: 1 } : ["lash", "bluff", "said"].includes(H.cur.t) ? { lash: H.cur.q, bluff: H.cur.t === "bluff" ? 1 : 0, said: H.cur.t === "said" ? 1 : 0 } : { ps: H.cur.ps.map(m => [m.q, m.by]) }) : null,
@@ -2112,30 +2159,33 @@ const TV = {
   },
 
   key(e) {
-    if (e.target.closest?.("input,textarea,button")) return;
+    if (e.key === "Escape" && this.settingsOpen) { e.preventDefault(); return this.openSettings(false); }
+    if (e.target.closest?.("input,textarea,button,select")) return;
     const H = this.H, ph = H.ph;
     // Space or P pauses and resumes; the right arrow skips ahead.
     if ((e.key === " " || e.key === "p" || e.key === "P") && this.inGame()) { e.preventDefault(); return H.pause && !H.pause.cd ? this.resume() : this.pause(); }
     if (e.key === "ArrowRight" && ["intro", "q", "rev", "lb", ...IMP_PHASES].includes(ph)) { e.preventDefault(); this.unpause(); this.advance(); }
-    if (e.key === "Enter" && ph === "lobby" && this.canStart()) { e.preventDefault(); this.startGame(); }
+    if (e.key === "Enter" && ph === "lobby" && !this.settingsOpen && this.canStart()) { e.preventDefault(); this.startGame(); }
   },
   act(a, el) {
     const now = Date.now();
     const twoTap = a === "new-room" || a === "end-game" || a === "exit";
     if (twoTap && !(this.confirm?.a === a && now < this.confirm.until)) {
-      this.confirm = { a, until: now + 3000 }; this.renderHostbar();
-      setTimeout(() => { if (this.confirm?.a === a && Date.now() >= this.confirm.until) { this.confirm = null; this.renderHostbar(); } }, 3100);
+      this.confirm = { a, until: now + 3000 }; this.renderHostbar(); this.renderModes();
+      setTimeout(() => { if (this.confirm?.a === a && Date.now() >= this.confirm.until) { this.confirm = null; this.renderHostbar(); this.renderModes(); } }, 3100);
       return;
     }
     this.confirm = null;
-    if (a === "start" && this.canStart()) this.startGame();
+    if (a === "start" && this.canStart()) { this.openSettings(false); this.startGame(); }
+    else if (a === "settings") this.openSettings(true);
+    else if (a === "settings-done") this.openSettings(false);
     else if (a === "next") { this.unpause(); this.advance(); }
     else if (a === "pause") this.pause();
     else if (a === "resume") this.resume();
     else if (a === "sound-check") { SFX.unlock(); setTimeout(() => { SFX.play("check"); setTimeout(() => this.say("check", true), 700); }, 80); }
     else if (a === "end-game") { this.unpause(); this.go("end"); }
     else if (a === "again") this.playAgain();
-    else if (a === "new-room") this.newRoom();
+    else if (a === "new-room") { this.settingsOpen = false; this.newRoom(); }
     else if (a === "exit") { store.del("wiw.mode"); location.href = "/"; }
     else if (a === "full") { if (document.fullscreenElement) document.exitFullscreen?.().catch(() => {}); else document.documentElement.requestFullscreen?.().catch(() => {}); }
     else if (a === "add-photo") { this.addFor = el.dataset.pid; fileIn.value = ""; fileIn.click(); }
@@ -2194,23 +2244,28 @@ const TV = {
       const why = this.starting ? `<span class="why">Shuffling the rounds…</span>` : this.err ? `<span class="why">${esc(this.err)}</span>` : this.canStart() ? "" : `<span class="why">${need}</span>`;
       // Until someone clicks, the browser keeps the TV silent, so the first button offered is the one that turns sound on.
       const snd = H.snd === "off" ? "" : SFX.ready() ? `<button class="btn sm" data-act="sound-check">Sound check</button>` : `<button class="btn blue" data-act="sound-check">Turn on sound</button>`;
-      html = `<button class="btn primary" data-act="start" ${this.canStart() ? "" : "disabled"}>Start game</button>${why}${snd}<button class="btn sm" data-act="new-room">${lbl("new-room", "New room")}</button>`;
+      html = `<button class="btn primary" data-act="start" ${this.canStart() ? "" : "disabled"}>Start game</button>${why}${snd}`;
     } else if (H.ph === "end") {
       html = `<button class="btn primary" data-act="again">Play again</button><button class="btn sm" data-act="new-room">${lbl("new-room", "New room")}</button>`;
     } else {
       html = `${this.needSound ? `<button class="btn primary" data-act="sound">Turn on sound</button>` : ""}<button class="btn sm" data-act="pause">Pause</button><button class="btn sm" data-act="next">Next</button><button class="btn sm" data-act="end-game">${lbl("end-game", "End game")}</button>`;
     }
-    html += `<button class="btn sm" data-act="full">Full screen</button><button class="btn sm" data-act="exit">${lbl("exit", "Exit TV mode")}</button>`;
+    html += `<button class="btn sm" data-act="full">Full screen</button>${H.ph === "lobby" ? "" : `<button class="btn sm" data-act="exit">${lbl("exit", "Exit TV mode")}</button>`}`;
     paint($("#hostbar"), `${H.ph}|${this.canStart()}|${c}|${this.starting}|${this.err}|${H.modes.join()}|${this.needSound}|${SFX.ready()}|${H.snd}`, html);
   },
   renderStage() {
     const H = this.H, stage = $("#stage");
     if (H.ph === "lobby") {
-      paint(stage, "lobby|" + H.code, `<section class="lobby"><div id="lobby-left"></div><div class="roster"><div id="modes" class="modes"></div><div id="roster" class="roster-body"></div></div></section>`);
+      // The lobby is what the room looks at while people arrive: how to join, who's in, and one line about tonight.
+      // Everything you can change lives behind Rounds & settings.
+      paint(stage, "lobby|" + H.code, `<section class="lobby"><div id="lobby-left"></div><div class="roster"><div id="tonight" class="tonight"></div><div id="roster" class="roster-body"></div></div>
+        <div class="settings" id="settings" ${this.settingsOpen ? "" : "hidden"}><div class="settings-card" role="dialog" aria-modal="true" aria-label="Rounds and settings">
+          <div class="settings-head"><h2>Rounds &amp; settings</h2><button class="btn primary sm" data-act="settings-done">Done</button></div>
+          <div id="modes" class="modes"></div></div></div></section>`);
       const url = JOIN_BASE + "#" + H.code;
       const brings = [H.modes.includes("photo") && "photos", H.modes.includes("song") && "songs", H.modes.includes("prof") && "quick answers"].filter(Boolean).join(" and ");
       const lede = photosOnly(H) ? "Send in photos from your phone. One pops up on the TV. Guess whose it is."
-        : `Tonight: ${H.modes.map(m => MODE_LABEL[m]).join(", ")}. ${brings ? `Add your ${brings} from your phone, then answer there too.` : "Answer on your phone. The fastest right answer scores most."}`;
+        : brings ? `Scan to join, then add your ${brings} on your phone.` : "One TV, everyone's phones. Scan to join.";
       paint($("#lobby-left"), H.code + "|" + url + "|" + roomState + "|" + H.modes.join(), `
         <h1 class="wordmark fafo" aria-label="fafo"><span>fa</span><span class="two">fo</span></h1>
         <p class="lede">${lede}</p>
@@ -2223,6 +2278,7 @@ const TV = {
       this.renderModes();
       return this.renderRoster();
     }
+    this.settingsOpen = false;
     if (H.ph === "intro") {
       const final = H.R > 1 && H.r === H.R, only = photosOnly(H), kind = H.cur?.t;
       const big = only ? (final ? "Final photo" : "Photo " + H.r) : final ? "Final round" : KIND_BIG[kind] || "Round " + H.r;
@@ -2278,9 +2334,7 @@ const TV = {
     paint(el, sig, `
       <div class="roster-head"><h2>Players</h2><span class="count num">${ps.length}/${MAX_PLAYERS}</span></div>
       ${ps.length ? `<ul class="pgrid">${cards}</ul>` : `<div class="empty">Nobody yet. Scan the code with a phone camera to join.</div>`}
-      ${photos ? `${total ? `<div class="film" aria-hidden="true">${frames}</div>` : ""}<p class="filmcap num">${cap}</p>` : ""}
-      <p class="points-key">${photosOnly(H) ? "Right guess: 500 to 1,000 points, faster scores more. Your photo fools someone: 250 each. The final photo counts double."
-        : `Right answer: 500 to 1,000 points, faster scores more.${photos || songs ? " Your photo or song fools someone: 250 each." : ""} The final round counts double.`}</p>`);
+      ${photos ? `${total ? `<div class="film" aria-hidden="true">${frames}</div>` : ""}<p class="filmcap num">${cap}</p>` : ""}`);
   },
   // Who picked this answer: their faces, or just a count when the room plays with anonymous votes.
   votersHtml(ids, i) {
@@ -2361,13 +2415,33 @@ const TV = {
     if (!H.anon) return paint($("#locks"), ps.map(p => p.pid + (H.guesses[p.pid] ? 1 : 0)).join(), ps.map(p => `<li class="lock ${H.guesses[p.pid] ? "in" : ""}">${face(p)}<span>${esc(p.name)}</span></li>`).join(""));
     paint($("#locks"), `${locked}/${guessers}`, Array.from({ length: guessers }, (_, i) => `<li class="dot ${i < locked ? "in" : ""}"></li>`).join(""));
   },
+  // The lobby's one card about tonight: the rounds picked and anything unusual about the settings.
+  renderTonight() {
+    const H = this.H, el = $("#tonight");
+    if (!el) return;
+    const t = themeOf(H), bits = [t.id !== "mix" && "Theme: " + t.label, (LENGTHS.find(([k]) => k === H.len) || LENGTHS[1])[1] + " game", H.diff !== "normal" && (DIFFS.find(([k]) => k === H.diff) || [])[1], H.spicy !== "off" && "18+", H.drinks && "Drinks on"].filter(Boolean);
+    paint(el, [H.modes.join(), H.theme, H.len, H.diff, H.spicy, H.drinks].join("|"), `<div class="tonight-top"><p class="eyebrow">Tonight</p><button class="btn sm" data-act="settings">Rounds &amp; settings</button></div>
+      <p class="tonight-modes">${H.modes.map(m => esc(MODE_LABEL[m])).join(" · ")}</p><p class="tonight-sub">${esc(bits.join(" · "))}</p>`);
+  },
+  openSettings(on) {
+    if (on && this.H.ph !== "lobby") return;
+    this.settingsOpen = on;
+    const el = $("#settings");
+    if (el) el.hidden = !on;
+    if (on) $("#settings [data-act=settings-done]")?.focus();
+  },
   renderModes() {
+    this.renderTonight();
     const H = this.H, el = $("#modes");
     if (!el) return;
     const custom = !TUNE_MIXES.some(([q]) => q === H.tune.q);
     const opt = (v, l, on) => `<option value="${esc(v)}" ${on ? "selected" : ""}>${esc(l)}</option>`;
-    paint(el, [H.modes.join(), H.theme, H.len, H.tune.q, this.mixNote, H.impVar, H.snd, H.anon, H.host, VOICE.recorded(), H.spicy, H.drinks, H.diff].join("|"), `<p class="eyebrow">Rounds tonight</p>
-      <div class="mode-row">${MODES.map(m => `<button class="mode ${H.modes.includes(m) ? "on" : ""}" data-act="mode" data-m="${m}" aria-pressed="${H.modes.includes(m)}">${MODE_LABEL[m]}</button>`).join("")}</div>
+    const chip = m => `<button class="mode ${H.modes.includes(m) ? "on" : ""}" data-act="mode" data-m="${m}" aria-pressed="${H.modes.includes(m)}">${MODE_LABEL[m]}</button>`;
+    const grouped = MODE_GROUPS.flatMap(([, l]) => l), more = MODES.filter(m => !grouped.includes(m)), c = this.confirm?.a;
+    const groups = [...MODE_GROUPS.map(([g, l]) => [g, l.filter(m => MODES.includes(m))]), ["More", more]].filter(([, l]) => l.length);
+    paint(el, [H.modes.join(), H.theme, H.len, H.tune.q, this.mixNote, H.impVar, H.snd, H.anon, H.host, VOICE.recorded(), H.spicy, H.drinks, H.diff, c].join("|"), `<p class="eyebrow">Rounds tonight</p>
+      ${groups.map(([g, l]) => `<div class="mgroup"><span class="sub-l">${esc(g)}</span><div class="mode-row">${l.map(chip).join("")}</div></div>`).join("")}
+      <p class="eyebrow">Settings</p>
       <div class="sub">
         <label class="sub-l" for="theme-sel">Theme</label><select id="theme-sel" class="sel">${THEMES.map(t => opt(t.id, t.label, H.theme === t.id)).join("")}</select>
         <label class="sub-l" for="len-sel">Length</label><select id="len-sel" class="sel">${LENGTHS.map(([k, l]) => opt(k, l, H.len === k)).join("")}</select>
@@ -2387,7 +2461,8 @@ const TV = {
         <form id="tune-form" class="tune-form" novalidate><input id="tune-in" maxlength="60" placeholder="Or type an artist or playlist" autocomplete="off"><button class="chipb" type="submit">Use</button></form></div>` : ""}
       ${H.modes.includes("imp") ? `<div class="sub"><label class="sub-l" for="imp-sel">Imposter gets</label>
         <select id="imp-sel" class="sel">${opt("similar", "A similar word (they don't know)", H.impVar === "similar")}${opt("none", "No word (they know)", H.impVar === "none")}</select></div>` : ""}
-      <p class="mixnote">${esc(this.themeNote())}</p>`);
+      <p class="mixnote">${esc(this.themeNote())}</p>
+      <div class="settings-foot"><button class="btn sm" data-act="new-room">${c === "new-room" ? "Tap again to confirm" : "New room"}</button><button class="btn sm" data-act="exit">${c === "exit" ? "Tap again to confirm" : "Exit TV mode"}</button></div>`);
   },
   // One line that says where tonight's quiz rounds come from.
   themeNote() {
@@ -2433,6 +2508,13 @@ const TV = {
     const H = this.H, cur = H.cur, final = H.R > 1 && H.r === H.R;
     const foot = `<div class="qfoot"><div class="clock" id="clock"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="bg" cx="50" cy="50" r="46"/><circle class="ring" id="ring" cx="50" cy="50" r="40" pathLength="100"/></svg><span id="clock-n" class="num"></span></div>
           <div><p class="eyebrow" id="lockcount"></p><ul class="locks" id="locks"></ul></div></div>`;
+    if (cur.t === "hot") {
+      const sp = H.players[cur.pid];
+      paint(stage, "q|" + H.rk, `<section class="tgrid"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Hot seat${final ? " · Double points" : ""}</p>
+        <div class="speaker">${sp ? face(sp) : ""}<div><p class="eyebrow">${esc(sp?.name || "Someone")} is in the hot seat</p><h2 class="tqt">${esc(askOf(cur))}</h2></div></div>
+        <ol class="opts four">${this.optsHtml(cur)}</ol>${foot}</section>`);
+      return this.renderLocks(null);
+    }
     if (cur.t === "ttl") {
       const sp = H.players[cur.pid];
       paint(stage, "q|" + H.rk, `<section class="tgrid"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Two truths and a lie · ${cur.mi + 1} of ${cur.ord.length}${final ? " · Double points" : ""}</p>
@@ -2464,6 +2546,13 @@ const TV = {
     const right = Object.values(rv.g).filter(i => i === rv.a).length;
     const deltas = this.scorersHtml(rv, right ? `${right} ${right === 1 ? "person" : "people"} got it right` : "", "Nobody got it right");
     if (cur.t === "num") return this.numRevealHtml();
+    if (cur.t === "hot") {
+      const sp = P[rv.o], name = esc(sp?.name || "They");
+      const line = rv.a < 0 ? `<span class="delta">${name} didn't answer, so nobody scores</span>` : this.scorersHtml(rv, right ? `${right} ${right === 1 ? "person" : "people"} knew` : "", "Nobody knew");
+      return `<section class="tgrid" style="--t:${t.toFixed(2)}s;--t2:${(t + 0.8).toFixed(2)}s"><p class="eyebrow">Hot seat${rv.m > 1 ? " · Double points" : ""}</p>
+        <div class="speaker">${sp ? face(sp) : ""}<h2 class="tqt">${esc(askOf(cur))}</h2></div><ol class="opts four">${this.optsHtml(cur, rv)}</ol>
+        <div class="deltas">${line}${this.sipHtml()}</div></section>`;
+    }
     if (cur.t === "ttl") {
       const sp = P[rv.o];
       return `<section class="tgrid" style="--t:${t.toFixed(2)}s;--t2:${(t + 0.8).toFixed(2)}s"><p class="eyebrow">Two truths and a lie${rv.m > 1 ? " · Double points" : ""}</p>
@@ -3226,11 +3315,13 @@ const PH = {
     }
     if (this.g?.rk === H.rk && Number.isInteger(this.g.i)) {
       const k = this.g.i;
-      return paint(main, "qz-lock|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">Locked in</p><span class="opt-pill" style="--oc:${OPT_COLORS[k]}"><b>${LETTERS[k]}</b>${esc(opts[k] ?? "")}</span><p class="muted">Waiting for everyone else.</p></div>`);
+      return paint(main, "qz-lock|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">${H.qz.t === "hot" && H.qz.s === this.pid ? "Your answer" : "Locked in"}</p><span class="opt-pill" style="--oc:${OPT_COLORS[k]}"><b>${LETTERS[k]}</b>${esc(opts[k] ?? "")}</span><p class="muted">Waiting for everyone else.</p></div>`);
     }
-    paint(main, "qz|" + H.rk, `${tbar}<div class="card"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · ${esc(MODE_LABEL[qz.t] || "")}${H.R > 1 && H.r === H.R ? " · Double points" : ""}</p>
+    const seat = qz.t === "hot" && qz.s === this.pid;
+    paint(main, "qz|" + H.rk, `${tbar}<div class="card"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · ${seat ? "You're in the hot seat" : esc(MODE_LABEL[qz.t] || "")}${H.R > 1 && H.r === H.R ? " · Double points" : ""}</p>
       ${qz.e ? `<p class="emoji-q">${esc(qz.e)}</p>` : ""}
-      <p class="${qz.t === "trivia" ? "ph-q" : "ph-h"}">${esc(qz.q || KIND_ASK_PHONE[qz.t] || "Pick an answer")}</p>
+      <p class="${qz.t === "trivia" ? "ph-q" : "ph-h"}">${esc(seat ? qz.me : qz.q || KIND_ASK_PHONE[qz.t] || "Pick an answer")}</p>
+      ${seat ? `<p class="muted">Answer honestly. Everyone else is guessing what you'll pick, and you score for each one who gets it.</p>` : qz.t === "hot" ? `<p class="muted">What did ${esc(this.nameOf(qz.s)?.[1] || "they")} pick?</p>` : ""}
       <div class="answers">${opts.map((o, k) => `<button class="answer" style="--oc:${OPT_COLORS[k]}" data-act="answer" data-i="${k}"><b>${LETTERS[k]}</b><span>${esc(o)}</span></button>`).join("")}</div></div>`);
   },
   sendNum() {
@@ -3253,6 +3344,13 @@ const PH = {
       const n = rv.n || [0, 0];
       if (H.qz.t === "nhie") { head = mine === 0 ? "You have!" : mine === 1 ? "Never" : "No answer"; sub = `${n[0]} ${n[0] === 1 ? "has" : "have"}, ${n[1]} never.`; }
       else { cls = pts ? "good" : ""; head = mine === undefined ? "No vote" : rv.side < 0 ? "Split vote" : pts ? "With the room" : "Odd one out"; sub = pts ? `+${fmt(pts)} points` : `${n[0]} against ${n[1]}.`; }
+      return card();
+    }
+    if (H.qz.t === "hot") {
+      const name = esc(this.nameOf(rv.o)?.[1] || "They"), knew = Object.values(rv.g || {}).filter(i => i === rv.a).length, n = Object.keys(rv.g || {}).length;
+      if (rv.o === this.pid) { cls = knew ? "good" : ""; head = rv.a < 0 ? "No answer" : knew === n && n ? "They know you!" : knew ? `${knew} of ${n} knew` : "Nobody knew"; sub = pts ? `+${fmt(pts)} points` : rv.a < 0 ? "You didn't answer, so nobody scored." : "No points this time."; return card(); }
+      cls = rv.a < 0 ? "" : mine === rv.a ? "good" : "bad"; head = rv.a < 0 ? "No answer" : mine === rv.a ? "You know them!" : Number.isInteger(mine) ? "Not quite" : "Too slow";
+      sub = rv.a < 0 ? `${name} didn't answer.` : (mine === rv.a ? `+${fmt(pts)} points. ` : "") + `${name} said “${right}”.`;
       return card();
     }
     if (H.qz.t === "ttl" && rv.o === this.pid) {

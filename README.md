@@ -7,7 +7,8 @@ Play it at **https://fafo.up.railway.app**: open **https://fafo.up.railway.app/t
 
 ## Rounds
 
-Pick any mix in the TV lobby under **Rounds tonight**:
+The TV lobby shows the join code, who's in, and tonight's rounds. Press **Rounds & settings** on the TV to pick any
+mix (whoever starts the game can also pick from their phone):
 
 - **Whose photo:** everyone adds up to 5 photos from their phone (baby pictures work great). Each one
   pops up on the TV and everyone guesses whose it is. Every photo gets played.
@@ -20,6 +21,9 @@ Pick any mix in the TV lobby under **Rounds tonight**:
 - **Two truths and a lie:** everyone types two true things about themselves and one lie. Then each player's three
   statements go up on the TV in a random order, and the room picks the lie: 500 to 1,000 for spotting it, and 250 to
   the writer for everyone who picked a truth. Needs 2 players.
+- **Hot seat:** one player gets a question about themselves on their phone ("What would you grab first in a fire?")
+  and answers honestly, while everyone else guesses what they picked from the same four options. A right guess scores
+  500 to 1,000, and the player in the hot seat earns 200 for everyone who knew. Everyone gets a turn. Needs 2 players.
 - **Quips:** everyone gets two prompts on their phone ("The worst thing to hear from your pilot") and types an
   answer. Each prompt went to two players, and the room votes for the funnier one: 250 a vote, plus 250 for
   taking every vote. With Quips on, the game ends with the **Last Lash**: one prompt for everyone, then
@@ -63,7 +67,7 @@ maps and faces African, and so on. **Length** sets how many quiz rounds each typ
 
 Scoring: a right answer is 500 to 1,000 points, faster scores more. When someone guesses your photo or song
 wrong, you get 250 points. The last round counts double. Each reveal shows who picked which answer; set
-**Votes** to Anonymous in the lobby to show only how many picked each one. The game ends with a podium and
+**Votes** to Anonymous in Rounds & settings to show only how many picked each one. The game ends with a podium and
 a few awards.
 
 **Spicy (18+):** set Spicy to Cheeky for dating, exes and group-chat prompts in Quips and Most likely to, or
@@ -76,7 +80,7 @@ phones. Selfies live in the server's memory only, like photos, and each phone re
 
 **Sound:** the TV plays effects and a background loop, all made in the browser, and goes quiet under song
 clips. Browsers keep a page silent until someone clicks it, so press **Turn on sound** (or **Sound check**)
-in the lobby. Pick Music and effects, Effects only, or Off.
+in the lobby. Rounds & settings picks Music and effects, Effects only, or Off.
 
 **Host:** a host introduces rounds, reacts to reveals and roasts the scoreboard, with a caption on the TV
 for every line. The lines are in `server/data/voice.json`. Record them once with ElevenLabs on your own
@@ -87,10 +91,13 @@ cd server
 node tools/make-voice.js --dry                        # what it would record
 node tools/make-voice.js --env ~/path/to/.env         # a .env file with ELEVENLABS_API_KEY
 node tools/make-voice.js --list --env ~/path/to/.env  # voices on your account; pick one with --voice "Name"
+node tools/make-voice.js --env ~/path/to/.env --voice Liam --model eleven_multilingual_v2 --stability 0.3 --style 0.65
 ```
 
 Run it again after editing lines; it only records new or changed ones. Without recordings the host shows
-captions only. The lobby's **Host** setting picks voice and captions, captions only, or off.
+captions only. The current recordings use Liam on eleven_multilingual_v2 with low stability and high style, for an
+excited game-show delivery; changing the voice, model or settings records every line again. The **Host** setting in
+Rounds & settings picks voice and captions, captions only, or off.
 
 **Pause:** press space (or P) on the TV, the Pause button, or Pause game on the phone of whoever started.
 Nothing moves on and no answers count while paused; resuming counts down 3-2-1. If a player drops out
@@ -154,7 +161,7 @@ Then phones can join over mobile data, with no shared Wi-Fi needed.
   photos through Wikipedia.
 - `server/data/faces.json` is the famous-faces list with Wikipedia photos. Rebuild it with `python3 server/data/build-faces.py server/data/faces.json`.
 - `server/data/imposter.json`, `emoji.json` and `likely.json` hold the Imposter word pairs, emoji puzzles and
-  Most likely to prompts. `said.json` and `meld.json` hold the Who said it and Mind meld prompts. `trivia-fallback.json` is the offline trivia set.
+  Most likely to prompts. `said.json`, `meld.json` and `hot.json` hold the Who said it, Mind meld and Hot seat prompts. `trivia-fallback.json` is the offline trivia set.
 - `whos-who.html` is the original Claude artifact version, kept for reference.
 
 Photos of famous people come from Wikipedia and Wikimedia Commons under free licences; song clips and cover art come from Deezer.

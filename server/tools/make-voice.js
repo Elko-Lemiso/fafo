@@ -7,6 +7,8 @@
 //   node tools/make-voice.js --dry                     say what would be recorded and how many characters, without the key
 //   node tools/make-voice.js --list --env …            list the voices on your account
 //   node tools/make-voice.js --voice "George" --env …  record everything again in another voice
+//   --model eleven_multilingual_v2 --stability 0.3 --style 0.65   how it's said: lower stability and more style
+//                                                      sound livelier. Changing any of these records everything again.
 "use strict";
 const fs = require("fs"), path = require("path"), os = require("os");
 const ROOT = path.join(__dirname, ".."), OUT = path.join(ROOT, "public", "voice"), INDEX = path.join(OUT, "index.json");
@@ -21,7 +23,7 @@ function keyFrom(file) {
   const m = text.match(/^\s*(?:export\s+)?(?:ELEVENLABS_API_KEY|XI_API_KEY)\s*=\s*["']?([^"'\s#]+)/m);
   return m ? m[1] : "";
 }
-const MODEL = opt("--model", "eleven_turbo_v2_5");
+const num = (n, d) => { const v = Number(opt(n, "")); return opt(n, "") !== "" && Number.isFinite(v) ? Math.max(0, Math.min(1, v)) : d; };
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 (async () => {
@@ -37,9 +39,13 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   const lines = JSON.parse(fs.readFileSync(path.join(ROOT, "data", "voice.json"), "utf8")).lines;
   const index = fs.existsSync(INDEX) ? JSON.parse(fs.readFileSync(INDEX, "utf8")) : { lines: {} };
   const voiceName = opt("--voice", index.voice || "Charlie");
-  const redo = flag("--force") || (index.voice && index.voice !== voiceName);
+  // The model and voice settings default to whatever the last recording used.
+  const MODEL = opt("--model", index.model || "eleven_turbo_v2_5"), was = index.settings || { stability: 0.35, style: 0.45 };
+  const settings = { stability: num("--stability", was.stability), similarity_boost: 0.8, style: num("--style", was.style), use_speaker_boost: true };
+  const redo = flag("--force") || (index.voice && index.voice !== voiceName) || (index.model && index.model !== MODEL)
+    || (index.settings && (index.settings.stability !== settings.stability || index.settings.style !== settings.style));
   const todo = lines.filter(l => redo || index.lines[l.id] !== fnv(l.t) || !fs.existsSync(path.join(OUT, l.id + ".mp3")));
-  console.log(`${todo.length} of ${lines.length} lines to record, ${todo.reduce((n, l) => n + l.t.length, 0)} characters, voice "${voiceName}", model ${MODEL}.`);
+  console.log(`${todo.length} of ${lines.length} lines to record, ${todo.reduce((n, l) => n + l.t.length, 0)} characters, voice "${voiceName}", model ${MODEL}, stability ${settings.stability}, style ${settings.style}.`);
   if (flag("--dry") || !todo.length) return;
 
   const vr = await api("/v1/voices");
@@ -49,7 +55,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
     || (/^[A-Za-z0-9]{20}$/.test(voiceName) ? { voice_id: voiceName } : null);
   if (!voice) { console.error(`No voice called "${voiceName}". Run with --list to see yours.`); process.exit(1); }
   if (redo) index.lines = {};
-  index.voice = voiceName; index.model = MODEL;
+  index.voice = voiceName; index.model = MODEL; index.settings = { stability: settings.stability, style: settings.style };
   fs.mkdirSync(OUT, { recursive: true });
   let done = 0;
   for (const l of todo) {
@@ -57,7 +63,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
     for (let tries = 0; tries < 4; tries++) {
       r = await api(`/v1/text-to-speech/${voice.voice_id}?output_format=mp3_44100_64`, {
         method: "POST", headers: { "Content-Type": "application/json", Accept: "audio/mpeg" },
-        body: JSON.stringify({ text: l.t, model_id: MODEL, voice_settings: { stability: 0.35, similarity_boost: 0.8, style: 0.45, use_speaker_boost: true } }),
+        body: JSON.stringify({ text: l.t, model_id: MODEL, voice_settings: settings }),
       });
       if (r.status !== 429 && r.status < 500) break;
       await sleep(2000 * (tries + 1));
