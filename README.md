@@ -14,6 +14,10 @@ Pick any mix in the TV lobby under **Rounds tonight**:
 - **Whose song:** everyone picks up to 3 songs on their phone. The TV plays a clip and everyone guesses who picked it.
 - **Whose answer:** everyone taps answers to four quick questions on their phone ("Dream weekend", "Worst
   habit"). The TV shows one answer nobody else picked, and the room guesses whose it is. Needs 3 players.
+- **Quips:** everyone gets two prompts on their phone ("The worst thing to hear from your pilot") and types an
+  answer. Each prompt went to two players, and the room votes for the funnier one: 250 a vote, plus 250 for
+  taking every vote. With Quips on, the game ends with the **Last Lash**: one prompt for everyone, then
+  everyone votes for the best. Needs 3 players.
 - **Name that tune:** the TV plays a clip and phones pick the song or the artist. Choose from about 50 genres,
   decades and moods, or type any artist or playlist.
 - **Famous faces:** a photo of a well-known person sharpens from a blur. Answer early to score more.
@@ -36,6 +40,11 @@ Scoring: a right answer is 500 to 1,000 points, faster scores more. When someone
 wrong, you get 250 points. The last round counts double. Each reveal shows who picked which answer; set
 **Votes** to Anonymous in the lobby to show only how many picked each one. The game ends with a podium and
 a few awards.
+
+**Spicy (18+):** set Spicy to Cheeky for dating, exes and group-chat prompts in Quips and Most likely to, or
+Savage for friendly roasts. The scoreboard then dares whoever is last (they can always pass). Any phone can tap
+**Too far** to skip a spicy round on the spot. **Drinks** adds a "Sip" line to each reveal for whoever lost it;
+any drink counts. Prompts live in `server/data/quips.json` and `likely.json`.
 
 **Selfies:** each phone can take a selfie, which replaces the player's letter everywhere on the TV and the
 phones. Selfies live in the server's memory only, like photos, and each phone re-sends its own after a restart.

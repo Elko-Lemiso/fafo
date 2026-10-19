@@ -41,6 +41,27 @@
     { "id": "intro-prof-3", "ev": "intro-prof", "t": "Who said that? Think about it." },
     { "id": "intro-prof-4", "ev": "intro-prof", "t": "How well do you really know each other?" },
 
+    { "id": "intro-quip-1", "ev": "intro-quip", "t": "Quips. Get your thumbs ready." },
+    { "id": "intro-quip-2", "ev": "intro-quip", "t": "Writing time. Be funny. Or at least try." },
+    { "id": "intro-quip-3", "ev": "intro-quip", "t": "Quips. Two of you, one prompt, and the room decides." },
+
+    { "id": "intro-lash-1", "ev": "intro-lash", "t": "The Last Lash. Everyone writes, everyone votes." },
+    { "id": "intro-lash-2", "ev": "intro-lash", "t": "Last Lash. Double points. Make it count." },
+
+    { "id": "quip-sweep-1", "ev": "quip-sweep", "t": "A landslide. Every single vote." },
+    { "id": "quip-sweep-2", "ev": "quip-sweep", "t": "Total wipeout." },
+    { "id": "quip-sweep-3", "ev": "quip-sweep", "t": "Not even close." },
+
+    { "id": "quip-win-1", "ev": "quip-win", "t": "The people have chosen." },
+    { "id": "quip-win-2", "ev": "quip-win", "t": "A clear winner." },
+    { "id": "quip-win-3", "ev": "quip-win", "t": "That one got the laughs." },
+
+    { "id": "quip-tie-1", "ev": "quip-tie", "t": "Dead even. Nobody wins, nobody loses." },
+    { "id": "quip-tie-2", "ev": "quip-tie", "t": "A draw. You're both equally funny. Or not." },
+
+    { "id": "lash-win-1", "ev": "lash-win", "t": "And the best answer goes to…" },
+    { "id": "lash-win-2", "ev": "lash-win", "t": "Comedy gold. Take a bow." },
+
     { "id": "intro-tune-1", "ev": "intro-tune", "t": "Name that tune. Ears open." },
     { "id": "intro-tune-2", "ev": "intro-tune", "t": "Here comes a song. What is it?" },
     { "id": "intro-tune-3", "ev": "intro-tune", "t": "Listen carefully. Name that tune." },
