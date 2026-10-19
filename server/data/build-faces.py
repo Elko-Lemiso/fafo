@@ -1,5 +1,7 @@
 # Build faces.json: hand-picked well-known people, with their lead photo from Wikipedia (free licences only).
 # Each entry: Wikipedia title | gender | african (1/0). Display name = title without "(...)".
+# Wikidata adds each person's birth year (b), country (cc) and its region (rg, sr). The game uses those to pick
+# wrong answers that could pass for the right one: same job, same part of the world, same era.
 import json, re, sys, time, urllib.parse, urllib.request
 
 UA = "fafo-party-game/1.0 (https://github.com/Elko-Lemiso/fafo)"
@@ -43,7 +45,17 @@ Audrey Hepburn|f|0;Charlie Chaplin|m|0;Pedro Pascal|m|0;Cillian Murphy|m|0;Anne 
 Oprah Winfrey|f|0;Ellen DeGeneres|f|0;Steve Harvey|m|0;Gordon Ramsay|m|0;Kim Kardashian|f|0;Kylie Jenner|f|0;MrBeast|m|0;
 Khaby Lame|m|0;Naomi Campbell|f|0;Tyra Banks|f|0;Jimmy Fallon|m|0;Will Ferrell|m|0;Morgan Freeman|m|0;
 Lupita Nyong'o|f|1;Trevor Noah|m|1;Daniel Kaluuya|m|0;Genevieve Nnaji|f|1;Omotola Jalade Ekeinde|f|1;Elsa Majimbo|f|1;
-Charlize Theron|f|1;Thuso Mbedu|f|1;Funke Akindele|f|1
+Charlize Theron|f|1;Thuso Mbedu|f|1;Funke Akindele|f|1;
+Jet Li|m|0;Donnie Yen|m|0;Chow Yun-fat|m|0;Bruce Lee|m|0;Michelle Yeoh|f|0;Lucy Liu|f|0;Ken Watanabe|m|0;Simu Liu|m|0;Awkwafina|f|0;
+Gong Li|f|0;Zhang Ziyi|f|0;Lee Byung-hun|m|0;Laurence Fishburne|m|0;Forest Whitaker|m|0;Jamie Foxx|m|0;Eddie Murphy|m|0;
+Wesley Snipes|m|0;Don Cheadle|m|0;Danny Glover|m|0;Michael B. Jordan|m|0;John Boyega|m|0;Mahershala Ali|m|0;Chiwetel Ejiofor|m|0;
+Djimon Hounsou|m|1;Taraji P. Henson|f|0;Angela Bassett|f|0;Regina King|f|0;Octavia Spencer|f|0;Whoopi Goldberg|f|0;Kerry Washington|f|0;
+Aamir Khan|m|0;Salman Khan|m|0;Hrithik Roshan|m|0;Amitabh Bachchan|m|0;Deepika Padukone|f|0;Aishwarya Rai Bachchan|f|0;Katrina Kaif|f|0;
+Matt Damon|m|0;Mark Wahlberg|m|0;Ben Affleck|m|0;Chris Pratt|m|0;Chris Evans (actor)|m|0;Chris Pine|m|0;Ryan Gosling|m|0;Bradley Cooper|m|0;
+Jake Gyllenhaal|m|0;Christian Bale|m|0;Matthew McConaughey|m|0;George Clooney|m|0;Javier Bardem|m|0;Antonio Banderas|m|0;Jason Statham|m|0;
+Vin Diesel|m|0;Jennifer Garner|f|0;Rachel McAdams|f|0;Amy Adams|f|0;Kate Winslet|f|0;Cate Blanchett|f|0;Natalie Portman|f|0;
+Keira Knightley|f|0;Mila Kunis|f|0;Kristen Stewart|f|0;Jessica Alba|f|0;Eva Mendes|f|0;Salma Hayek|f|0;Penélope Cruz|f|0;Sofía Vergara|f|0;
+Richard Mofe-Damijo|m|1;Ramsey Nouah|m|1;Pete Edochie|m|1;Rita Dominic|f|1;Mercy Johnson|f|1;Nse Ikpe-Etim|f|1;Sarah Hassan|f|1;Edi Gathegi|m|1
 """,
 "sport": """
 Cristiano Ronaldo|m|0;Lionel Messi|m|0;Neymar|m|0;Kylian Mbappé|m|0;Erling Haaland|m|0;LeBron James|m|0;Michael Jordan|m|0;
@@ -55,7 +67,15 @@ Coco Gauff|f|0;Alex Morgan|f|0;Shelly-Ann Fraser-Pryce|f|0;Sha'Carri Richardson|
 Mohamed Salah|m|1;Didier Drogba|m|1;Samuel Eto'o|m|1;Sadio Mané|m|1;Riyad Mahrez|m|1;Achraf Hakimi|m|1;Victor Osimhen|m|1;
 Francis Ngannou|m|1;Haile Gebrselassie|m|1;Mo Farah|m|1;Caster Semenya|f|1;Eliud Kipchoge|m|1;Faith Kipyegon|f|1;
 David Rudisha|m|1;Victor Wanyama|m|1;Mary Keitany|f|1;Paul Tergat|m|1;Kelvin Kiptum|m|1;Ferdinand Omanyala|m|1;
-Beatrice Chebet|f|1;Hellen Obiri|f|1;Tirunesh Dibaba|f|1;Kenenisa Bekele|m|1;George Weah|m|1;Yaya Touré|m|1;Jay-Jay Okocha|m|1
+Beatrice Chebet|f|1;Hellen Obiri|f|1;Tirunesh Dibaba|f|1;Kenenisa Bekele|m|1;George Weah|m|1;Yaya Touré|m|1;Jay-Jay Okocha|m|1;
+Harry Kane|m|0;Kevin De Bruyne|m|0;Luka Modrić|m|0;Robert Lewandowski|m|0;Karim Benzema|m|0;Antoine Griezmann|m|0;Vinícius Júnior|m|0;
+Son Heung-min|m|0;Thierry Henry|m|0;Wayne Rooney|m|0;Steven Gerrard|m|0;Andrés Iniesta|m|0;Xavi|m|0;Sergio Ramos|m|0;Gareth Bale|m|0;
+Luis Suárez|m|0;Zlatan Ibrahimović|m|0;Ronaldo (Brazilian footballer)|m|0;Kaká|m|0;Paul Pogba|m|0;N'Golo Kanté|m|0;
+Pierre-Emerick Aubameyang|m|1;Michael Essien|m|1;Nwankwo Kanu|m|1;Kevin Durant|m|0;Giannis Antetokounmpo|m|0;Magic Johnson|m|0;
+Kareem Abdul-Jabbar|m|0;Dwyane Wade|m|0;Joel Embiid|m|1;Luka Dončić|m|0;Carl Lewis|m|0;Florence Griffith Joyner|f|0;Allyson Felix|f|0;
+Noah Lyles|m|0;Andy Murray|m|0;Maria Sharapova|f|0;Carlos Alcaraz|m|0;Iga Świątek|f|0;Anthony Joshua|m|0;Tyson Fury|m|0;
+Manny Pacquiao|m|0;Elaine Thompson-Herah|f|0;Sydney McLaughlin-Levrone|f|0;Brigid Kosgei|f|1;Vivian Cheruiyot|f|1;
+Catherine Ndereba|f|1;Julius Yego|m|1
 """,
 "leaders": """
 Barack Obama|m|0;Michelle Obama|f|0;Donald Trump|m|0;Joe Biden|m|0;Kamala Harris|f|0;Elizabeth II|f|0;Charles III|m|0;
@@ -89,11 +109,59 @@ Chinua Achebe|m|1;Ngũgĩ wa Thiong'o|m|1;Chimamanda Ngozi Adichie|f|1;Wole Soyi
 El Anatsui|m|1;Esther Mahlangu|f|1;Ousmane Sembène|m|1;Binyavanga Wainaina|m|1;Yvonne Adhiambo Owuor|f|1
 """,
 }
+# People who are easy to mix up at a glance, so a wrong answer can pass for the right one. Each line is one group; someone
+# can be in several. The game scores a shared group above job, country and era.
+LOOK = """
+Samuel L. Jackson;Morgan Freeman;Laurence Fishburne;Danny Glover;Forest Whitaker;Denzel Washington
+Denzel Washington;Wesley Snipes;Don Cheadle;Jamie Foxx;Will Smith;Eddie Murphy;Idris Elba
+Chadwick Boseman;Michael B. Jordan;Mahershala Ali;John Boyega;Daniel Kaluuya;Chiwetel Ejiofor;Idris Elba;Djimon Hounsou
+Viola Davis;Angela Bassett;Regina King;Octavia Spencer;Taraji P. Henson;Whoopi Goldberg;Oprah Winfrey
+Lupita Nyong'o;Thuso Mbedu;Sarah Hassan;Genevieve Nnaji;Rita Dominic;Kerry Washington;Zendaya
+Halle Berry;Kerry Washington;Zendaya;Tyra Banks;Naomi Campbell
+Jackie Chan;Jet Li;Donnie Yen;Chow Yun-fat;Bruce Lee
+Michelle Yeoh;Gong Li;Zhang Ziyi;Lucy Liu;Awkwafina
+Shah Rukh Khan;Aamir Khan;Salman Khan;Hrithik Roshan;Amitabh Bachchan
+Priyanka Chopra;Deepika Padukone;Aishwarya Rai Bachchan;Katrina Kaif
+Brad Pitt;Matt Damon;Leonardo DiCaprio;Ryan Gosling;Chris Pine;Chris Evans;Chris Hemsworth;Chris Pratt;Bradley Cooper;Jake Gyllenhaal
+Tom Hanks;George Clooney;Tom Cruise;Johnny Depp;Keanu Reeves;Matthew McConaughey;Christian Bale
+Dwayne Johnson;Vin Diesel;Jason Statham;Arnold Schwarzenegger;Sylvester Stallone
+Jennifer Aniston;Jennifer Garner;Rachel McAdams;Amy Adams;Julia Roberts;Sandra Bullock;Nicole Kidman;Cate Blanchett;Kate Winslet
+Scarlett Johansson;Margot Robbie;Jennifer Lawrence;Emma Stone;Kristen Stewart;Emma Watson;Natalie Portman;Keira Knightley;Mila Kunis;Anne Hathaway
+Salma Hayek;Penélope Cruz;Sofía Vergara;Eva Mendes;Jessica Alba;Gal Gadot
+Beyoncé;Rihanna;Alicia Keys;Janet Jackson;Mariah Carey;Whitney Houston;SZA;Doja Cat;Tems;Tiwa Savage;Ayra Starr;Tyla
+Kanye West;Jay-Z;Drake;Kendrick Lamar;Pharrell Williams;50 Cent;Snoop Dogg;Tupac Shakur;Ice Cube;Chris Brown;Usher;The Weeknd
+Taylor Swift;Sabrina Carpenter;Olivia Rodrigo;Selena Gomez;Miley Cyrus;Katy Perry;Britney Spears;Ariana Grande;Billie Eilish;Dua Lipa;Lady Gaga
+Ed Sheeran;Harry Styles;Justin Bieber;Post Malone;Bruno Mars;Chris Martin
+John Coltrane;Miles Davis;Charlie Parker;Dizzy Gillespie;Thelonious Monk;Herbie Hancock;Duke Ellington;Louis Armstrong;Quincy Jones
+Ella Fitzgerald;Billie Holiday;Nina Simone;Sarah Vaughan;Etta James;Aretha Franklin
+Marvin Gaye;Otis Redding;Sam Cooke;Al Green;Bill Withers;Smokey Robinson;Stevie Wonder;Lionel Richie;Ray Charles
+Bob Marley;Peter Tosh;Jimmy Cliff;Lucky Dube
+Mick Jagger;Steven Tyler;Robert Plant;Axl Rose;Ozzy Osbourne;Bono;Freddie Mercury;David Bowie
+Bad Bunny;J Balvin;Daddy Yankee;Ricky Martin;Marc Anthony;Enrique Iglesias
+Shakira;Jennifer Lopez;Karol G;Rosalía;Celia Cruz
+Garth Brooks;Kenny Rogers;Willie Nelson;Tim McGraw;Keith Urban;Blake Shelton;Luke Combs;Morgan Wallen
+LeBron James;Kevin Durant;Stephen Curry;Kobe Bryant;Michael Jordan;Dwyane Wade;Magic Johnson;Shaquille O'Neal;Kareem Abdul-Jabbar;Joel Embiid;Giannis Antetokounmpo
+Usain Bolt;Carl Lewis;Noah Lyles;Ferdinand Omanyala
+Serena Williams;Venus Williams;Coco Gauff;Naomi Osaka
+Roger Federer;Rafael Nadal;Novak Djokovic;Andy Murray;Carlos Alcaraz
+Cristiano Ronaldo;Lionel Messi;Neymar;Kylian Mbappé;Erling Haaland;Harry Kane;Kevin De Bruyne;Robert Lewandowski;Luka Modrić;Jude Bellingham
+Mohamed Salah;Riyad Mahrez;Achraf Hakimi;Karim Benzema
+Didier Drogba;Samuel Eto'o;Yaya Touré;Michael Essien;Sadio Mané;Pierre-Emerick Aubameyang;Victor Osimhen;George Weah;Nwankwo Kanu;Jay-Jay Okocha;Victor Wanyama;Paul Pogba;N'Golo Kanté;Thierry Henry
+Muhammad Ali;Mike Tyson;Floyd Mayweather Jr.;Anthony Joshua;Francis Ngannou
+Simone Biles;Shelly-Ann Fraser-Pryce;Sha'Carri Richardson;Allyson Felix;Florence Griffith Joyner;Elaine Thompson-Herah
+Nelson Mandela;Desmond Tutu;Kofi Annan;Julius Nyerere;Jomo Kenyatta;Mwai Kibaki;Daniel arap Moi
+William Ruto;Uhuru Kenyatta;Raila Odinga;Yoweri Museveni;Paul Kagame;Cyril Ramaphosa;Bola Tinubu;John Magufuli;Abiy Ahmed
+Elon Musk;Mark Zuckerberg;Jeff Bezos;Bill Gates;Steve Jobs;Larry Page;Sergey Brin;Sam Altman;Tim Cook;Steve Wozniak
+Albert Einstein;Nikola Tesla;Thomas Edison;Alexander Graham Bell;Charles Darwin;Sigmund Freud
+Pablo Picasso;Salvador Dalí;Vincent van Gogh;Claude Monet
+Chinua Achebe;Wole Soyinka;Ngũgĩ wa Thiong'o;Naguib Mahfouz
+"""
 CATS = {"music": "Music", "screen": "Film & TV", "sport": "Sport", "leaders": "Leaders", "science": "Science & business", "arts": "Arts & books"}
 
 def api(titles):
-    params = {"action": "query", "format": "json", "formatversion": "2", "redirects": "1", "prop": "pageimages|description",
-              "piprop": "thumbnail|name", "pithumbsize": "640", "pilicense": "free", "titles": "|".join(titles)}
+    params = {"action": "query", "format": "json", "formatversion": "2", "redirects": "1", "prop": "pageimages|description|pageprops",
+              "piprop": "thumbnail|name", "pithumbsize": "640", "pilicense": "free", "titles": "|".join(titles),
+              "ppprop": "wikibase_item"}
     req = urllib.request.Request("https://en.wikipedia.org/w/api.php?" + urllib.parse.urlencode(params), headers={"User-Agent": UA})
     with urllib.request.urlopen(req, timeout=60) as r:
         return json.load(r)["query"]
@@ -125,8 +193,67 @@ for i in range(0, len(people), 50):
         if name.lower().endswith(".svg"):
             missing.append(p["title"] + " (svg)"); continue
         out.append({"n": re.sub(r"\s*\(.*\)$", "", p["title"]), "c": p["c"], "g": p["g"], "af": p["af"],
-                    "img": th["source"], "w": th["width"], "h": th["height"], "d": (page.get("description") or "")[:80]})
+                    "img": th["source"], "w": th["width"], "h": th["height"], "d": (page.get("description") or "")[:80],
+                    "q": (page.get("pageprops") or {}).get("wikibase_item", "")})
     time.sleep(0.5)
+
+# ---- Wikidata: birth year and country, then the country's region from the world-countries package.
+def wd(ids):
+    req = urllib.request.Request("https://www.wikidata.org/w/api.php?" + urllib.parse.urlencode(
+        {"action": "wbgetentities", "format": "json", "props": "claims", "ids": "|".join(ids)}), headers={"User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return json.load(r).get("entities", {})
+def ids_of(claims, prop):
+    return [c["mainsnak"]["datavalue"]["value"]["id"] for c in claims.get(prop, []) if c["mainsnak"].get("datavalue")]
+claims = {}
+qs = [p["q"] for p in out if p.get("q")]
+for i in range(0, len(qs), 50):
+    for k, e in wd(qs[i:i + 50]).items(): claims[k] = e.get("claims", {})
+    time.sleep(0.3)
+countries = sorted({c for cl in claims.values() for c in ids_of(cl, "P27")})
+iso = {}
+for i in range(0, len(countries), 50):
+    for k, e in wd(countries[i:i + 50]).items():
+        v = e.get("claims", {}).get("P297", [])
+        if v and v[0]["mainsnak"].get("datavalue"): iso[k] = v[0]["mainsnak"]["datavalue"]["value"].lower()
+    time.sleep(0.3)
+import os
+wc = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "node_modules", "world-countries", "countries.json")))
+where = {c["cca2"].lower(): (c["region"], c["subregion"]) for c in wc}
+# Nationality as Wikipedia's description puts it ("Hong Kong martial artist", "Kenyan runner") beats Wikidata's
+# citizenship list, which is in no particular order for people with several.
+words = {}
+for c in wc:
+    for w in [c["name"]["common"], *(c.get("demonyms", {}).get("eng", {}) or {}).values()]:
+        if w: words[w.lower()] = c["cca2"].lower()
+words.update({"english": "gb", "scottish": "gb", "welsh": "gb", "british": "gb", "hong kong": "hk", "american": "us", "soviet": "ru", "congolese": "cd"})
+def from_desc(d):
+    toks = re.findall(r"[A-Za-z'’.-]+", d or "")
+    for n in (3, 2, 1):
+        w = " ".join(toks[:n]).lower()
+        if w in words: return words[w]
+    return ""
+# Where neither source gives a usable country.
+FIX = {"Lupita Nyong'o": "ke", "Narendra Modi": "in", "14th Dalai Lama": "cn", "Thomas Sankara": "bf", "Haile Selassie": "et"}
+# States that no longer exist count as the country that followed them.
+GONE = {"Q15180": "ru", "Q36704": "rs", "Q33946": "cz", "Q16957": "de", "Q174193": "gb", "Q161885": "gb", "Q179876": "gb", "Q8680": "gb", "Q83286": "rs", "Q29999": "nl"}
+for p in out:
+    cl = claims.get(p.pop("q", ""), {})
+    born = [c["mainsnak"]["datavalue"]["value"]["time"] for c in cl.get("P569", []) if c["mainsnak"].get("datavalue")]
+    if born: p["b"] = int(born[0][1:5]) * (-1 if born[0].startswith("-") else 1)
+    pref = sorted(cl.get("P27", []), key=lambda c: c.get("rank") != "preferred")
+    cits = [c["mainsnak"]["datavalue"]["value"]["id"] for c in pref if c["mainsnak"].get("datavalue")]
+    cc = FIX.get(p["n"]) or from_desc(p["d"]) or next((iso.get(c) or GONE.get(c) for c in cits if iso.get(c) or GONE.get(c)), "")
+    if cc: p["cc"] = cc; p["rg"], p["sr"] = where.get(cc, ("", ""))
+groups = [[n.strip() for n in line.split(";") if n.strip()] for line in LOOK.strip().splitlines()]
+names = {p["n"] for p in out}
+for i, g in enumerate(groups):
+    for n in g:
+        if n not in names: print("  look group", i, "has no", n)
+for p in out:
+    lk = [i for i, g in enumerate(groups) if p["n"] in g]
+    if lk: p["lk"] = lk
+print(sum(1 for p in out if "b" in p), "with a birth year;", sum(1 for p in out if p.get("cc")), "with a country;", sum(1 for p in out if p.get("lk")), "in a look-alike group")
 
 json.dump({"cats": CATS, "people": out}, open(sys.argv[1], "w"), ensure_ascii=False, indent=0)
 print(f"{len(out)} people with photos; missing {len(missing)}: {missing}")

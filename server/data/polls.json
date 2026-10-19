@@ -1,0 +1,61 @@
+{
+  "about": "Rounds with no right answer. nhie: 'Never have I ever …' (phones tap I have or Never; the TV shows who). wyr: 'Would you rather …' pairs, and hot: hot takes to agree or disagree with; both score for siding with most of the room. cheeky lists only play when Spicy is on.",
+  "nhie": [
+    "been on TV", "broken a bone", "fallen asleep in class", "sung karaoke", "eaten a whole pizza by myself", "lied about my age",
+    "cried at a film", "lost my phone on a night out", "met a celebrity", "pretended to be sick to skip work or school",
+    "forgotten a friend's birthday", "sent a message to the wrong person", "been stuck in a lift", "laughed so hard I cried",
+    "worn the same outfit two days in a row", "fallen over in public", "re-gifted a present", "looked up an ex online",
+    "googled myself", "cheated at a board game", "eaten food off the floor", "been on a safari", "climbed a mountain",
+    "missed a flight", "dyed my hair a wild colour", "slept in a car", "cut my own hair", "been in a newspaper", "stayed up all night",
+    "sent a voice note longer than five minutes", "left someone on read on purpose", "pretended to know the words to a song",
+    "danced in the rain", "got lost in my own city", "ridden a boda boda", "fallen asleep on a matatu and missed my stop",
+    "used someone else's Netflix", "eaten nyama choma at 2am", "lied in this game", "walked into a glass door",
+    "waved back at someone who wasn't waving at me", "called a teacher 'Mum' or 'Dad'", "laughed at a funeral",
+    "pretended to be on the phone to avoid someone", "eaten something past its date on purpose", "sung in the shower this week"
+  ],
+  "nhie_cheeky": [
+    "kissed someone in this room", "had a crush on a friend's partner", "been dumped by text", "dumped someone by text",
+    "gone on a blind date", "lied on a dating app", "had a holiday romance", "kissed someone on a first date", "ghosted someone",
+    "been ghosted", "drunk-texted an ex", "woken up not knowing where I was", "gone skinny dipping", "flirted my way out of a fine",
+    "had a secret relationship", "said 'I love you' first and regretted it", "pretended to be single", "kissed someone in a taxi",
+    "dated two people at once", "looked up a crush's ex", "lied to my parents about where I was sleeping", "had a crush on a teacher"
+  ],
+  "wyr": [
+    ["be able to fly", "be invisible"], ["always be 10 minutes late", "always be 20 minutes early"], ["lose your phone", "lose your wallet"],
+    ["have no internet for a month", "have no music for a year"], ["fight one horse-sized duck", "fight a hundred duck-sized horses"],
+    ["only eat sweet food", "only eat savoury food"], ["know when you'll die", "know how you'll die"], ["be famous", "be rich and unknown"],
+    ["go back in time", "see the future"], ["have a rewind button for your life", "have a pause button for your life"],
+    ["never use social media again", "never watch TV again"], ["sit in traffic for three hours", "be stuck in a lift for one hour"],
+    ["speak every language", "play every instrument"], ["have a personal chef", "have a personal driver"],
+    ["live in the city", "live in the countryside"], ["be the funniest person in the room", "be the smartest person in the room"],
+    ["give up coffee", "give up sugar"], ["always say what you think", "never speak again"],
+    ["have your browser history made public", "have your messages made public"], ["win the lottery", "live twice as long"],
+    ["hug a lion", "swim with sharks"], ["wear one colour forever", "never wear the same outfit twice"],
+    ["have a pet giraffe", "have a pet penguin"], ["eat ugali every day", "never eat ugali again"],
+    ["be a famous footballer", "be a famous musician"], ["sleep in a haunted house", "sleep in a tree house in the jungle"],
+    ["always be cold", "always be hot"], ["talk to animals", "read minds"],
+    ["be the best player on a losing team", "be the worst player on a winning team"], ["never have to sleep", "never have to eat"],
+    ["explore space", "explore the deep sea"], ["lose all your photos", "lose all your contacts"],
+    ["be a kid again for a day", "be 80 for a day"], ["spend a week alone on an island", "spend a week in a tiny flat with your in-laws"],
+    ["know all the gossip", "never hear gossip again"], ["sing every time you speak", "dance every time you walk"],
+    ["live without your phone", "live without your bed"], ["have a photographic memory", "be able to forget anything you want"]
+  ],
+  "wyr_cheeky": [
+    ["date someone with no sense of humour", "date someone with no sense of style"], ["have your ex as your boss", "have your boss as your ex"],
+    ["read your partner's messages", "have them read yours"], ["be caught singing in the shower", "be caught dancing in your underwear"],
+    ["have your parents see your search history", "have your boss see your camera roll"],
+    ["date a great kisser who's boring", "date a bad kisser who's hilarious"], ["have a secret admirer", "be someone's secret admirer"],
+    ["post your last message on social media", "post the last photo you took"], ["relive your worst date", "relive your most embarrassing moment"],
+    ["marry for love and be broke", "marry for money and be bored"]
+  ],
+  "hot": [
+    "Pineapple belongs on pizza.", "Voice notes are better than texts.", "Cats are better than dogs.", "The book is always better than the film.",
+    "Breakfast is the most important meal of the day.", "It's fine to recline your seat on a plane.", "Ugali is better than rice.",
+    "Chapati is better than bread.", "Morning people are happier.", "Christmas songs before December should be banned.",
+    "Tea is better than coffee.", "Socks with sandals are fine.", "Football is the best sport.", "You should split the bill on a first date.",
+    "Reality TV is better than drama.", "Phones should be banned at dinner.", "It's okay to be late to a party.",
+    "Superhero films are overrated.", "Remakes are always worse than the original.", "Cold pizza beats hot pizza.",
+    "Working from home beats the office.", "Wedding guests should never wear white.", "Nyama choma beats a burger.",
+    "Gengetone is better than Afrobeats.", "A matatu with loud music is the best way to travel.", "Ketchup belongs in the fridge."
+  ]
+}

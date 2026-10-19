@@ -18,6 +18,9 @@ Pick any mix in the TV lobby under **Rounds tonight**:
   answer. Each prompt went to two players, and the room votes for the funnier one: 250 a vote, plus 250 for
   taking every vote. With Quips on, the game ends with the **Last Lash**: one prompt for everyone, then
   everyone votes for the best. Needs 3 players.
+- **Bluff:** a real but unlikely fact with a blank ("A group of flamingos is called a ___"). Everyone writes a
+  fake answer, then picks the truth from among the fakes: 500 for finding it, 250 for every player your fake
+  fools. Needs 3 players.
 - **Name that tune:** the TV plays a clip and phones pick the song or the artist. Choose from about 50 genres,
   decades and moods, or type any artist or playlist.
 - **Famous faces:** a photo of a well-known person sharpens from a blur. Answer early to score more.
@@ -25,13 +28,25 @@ Pick any mix in the TV lobby under **Rounds tonight**:
 - **Capitals:** pick a country's capital, with nearby capitals as the wrong answers.
 - **Which is bigger:** two countries' flags side by side; pick the larger one.
 - **Trivia:** general knowledge from Open Trivia DB, matched to the theme, with built-in questions if there's no internet.
-- **Emoji puzzles:** a film or song told in emoji.
+- **Closest number:** "How tall is the Eiffel Tower, in metres?" Everyone types a number; the closest three
+  score 1,000, 500 and 250, and spot on earns 500 more.
+- **Odd one out:** four things, one doesn't belong. The reveal says why.
+- **Emoji puzzles:** a film, song or TV show told in emoji. The clues tell the story (the door in Titanic,
+  "mom's spaghetti") rather than spelling out the title.
 - **Most likely to:** "Who's most likely to miss a flight?" Everyone votes for a player; you score when you pick
   the same person as most of the room. Needs at least 3 players.
+- **Would you rather** and hot takes: pick a side; you score 200 when most of the room picked the same. Needs 3.
+- **Never have I ever:** phones tap I have or Never, and the TV shows who. No points, just confessions. Needs 3.
 - **Imposter:** everyone gets the same secret word on their phone, except one person who gets a similar word
   (or no word, if you choose). Everyone says a one-word clue out loud in turn, talks it over, then votes. There's
   no clock: each step moves on when the players are ready. Spotting the imposter scores 500; an imposter who gets
   away scores 1,000. Needs at least 3 players.
+
+**Difficulty** sets how believable the wrong answers are. On Normal and Hard, famous faces are up against people
+who could pass for them (same job, same part of the world, same era, plus hand-picked look-alike groups in
+`build-faces.py`); flags come with look-alikes like Chad and Romania; Capitals offer the city people mistake for
+the capital (Sydney, Lagos, Mombasa); Which is bigger pairs countries of nearly the same size; emoji puzzles get
+harder clues; trivia drops its easy questions. Look-alike flags and trap cities live in `server/data/geo.json`.
 
 A **Theme** ties the rounds together. Music makes the faces come from tonight's playlist, Africa keeps flags,
 maps and faces African, and so on. **Length** sets how many quiz rounds each type gets.

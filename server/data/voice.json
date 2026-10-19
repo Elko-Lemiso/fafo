@@ -62,6 +62,26 @@
     { "id": "lash-win-1", "ev": "lash-win", "t": "And the best answer goes to…" },
     { "id": "lash-win-2", "ev": "lash-win", "t": "Comedy gold. Take a bow." },
 
+    { "id": "intro-bluff-1", "ev": "intro-bluff", "t": "Bluff. Lie convincingly." },
+    { "id": "intro-bluff-2", "ev": "intro-bluff", "t": "Time to lie. Make it believable." },
+    { "id": "intro-bluff-3", "ev": "intro-bluff", "t": "One true answer, lots of lies. Find the truth." },
+
+    { "id": "intro-num-1", "ev": "intro-num", "t": "Closest number. Nobody gets this exactly. Probably." },
+    { "id": "intro-num-2", "ev": "intro-num", "t": "Numbers round. Make a wild guess." },
+    { "id": "intro-num-3", "ev": "intro-num", "t": "Guess the number. Closest wins." },
+
+    { "id": "intro-odd-1", "ev": "intro-odd", "t": "Odd one out. Which one doesn't belong?" },
+    { "id": "intro-odd-2", "ev": "intro-odd", "t": "Spot the odd one out." },
+    { "id": "intro-odd-3", "ev": "intro-odd", "t": "One of these is not like the others." },
+
+    { "id": "intro-wyr-1", "ev": "intro-wyr", "t": "Would you rather. Choose wisely." },
+    { "id": "intro-wyr-2", "ev": "intro-wyr", "t": "Tough choices ahead." },
+    { "id": "intro-wyr-3", "ev": "intro-wyr", "t": "Would you rather. No sitting on the fence." },
+
+    { "id": "intro-nhie-1", "ev": "intro-nhie", "t": "Never have I ever. Be honest." },
+    { "id": "intro-nhie-2", "ev": "intro-nhie", "t": "Confession time." },
+    { "id": "intro-nhie-3", "ev": "intro-nhie", "t": "Never have I ever. We'll know if you're lying." },
+
     { "id": "intro-tune-1", "ev": "intro-tune", "t": "Name that tune. Ears open." },
     { "id": "intro-tune-2", "ev": "intro-tune", "t": "Here comes a song. What is it?" },
     { "id": "intro-tune-3", "ev": "intro-tune", "t": "Listen carefully. Name that tune." },

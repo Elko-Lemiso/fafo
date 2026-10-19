@@ -39,14 +39,16 @@ module.exports = function quiz(app, MODULES) {
     if (j.response_code !== 0) throw new Error("Open Trivia DB answered " + j.response_code);
     const d = s => Buffer.from(String(s), "base64").toString("utf8").trim();
     return j.results
-      .map(x => ({ q: d(x.question), a: d(x.correct_answer), w: x.incorrect_answers.map(d), cat: d(x.category).replace(/^(Entertainment|Science): /, ""), hard: d(x.difficulty) === "hard" }))
-      .filter(x => !x.hard && !SKIP.test(x.cat) && x.q.length <= 200 && x.w.length === 3 && [x.a, ...x.w].every(s => s && s.length <= 48));
+      .map(x => ({ q: d(x.question), a: d(x.correct_answer), w: x.incorrect_answers.map(d), cat: d(x.category).replace(/^(Entertainment|Science): /, ""), lv: d(x.difficulty) }))
+      .filter(x => !SKIP.test(x.cat) && x.q.length <= 200 && x.w.length === 3 && [x.a, ...x.w].every(s => s && s.length <= 48));
   }
   app.get("/api/trivia", async (req, res) => {
     const n = Math.max(1, Math.min(30, Number(req.query.n) || 10));
     const [cat, match] = TRIVIA_CATS[req.query.theme] || [0, null];
+    // Easy: only easy questions. Normal: easy and medium. Hard: medium and hard.
+    const ok = { easy: ["easy"], hard: ["medium", "hard"] }[req.query.diff] || ["easy", "medium"];
     let pick = [];
-    try { pick = shuffle(await openTrivia(cat)).slice(0, n); } catch (e) { console.warn("  Trivia: using the built-in questions (" + e.message + ")"); }
+    try { pick = shuffle((await openTrivia(cat)).filter(x => ok.includes(x.lv))).slice(0, n); } catch (e) { console.warn("  Trivia: using the built-in questions (" + e.message + ")"); }
     if (pick.length < n) {
       const spare = FALLBACK.filter(x => !match || match.test(x.cat));
       pick = pick.concat(shuffle(spare.length >= n - pick.length ? spare : FALLBACK.slice()).slice(0, n - pick.length));
