@@ -86,6 +86,27 @@
     { "id": "hot-unknown-1", "ev": "hot-unknown", "t": "Nobody knew that. Do you lot even talk?" },
     { "id": "hot-unknown-2", "ev": "hot-unknown", "t": "Full of surprises, this one." },
 
+    { "id": "intro-fakin-1", "ev": "intro-fakin", "t": "Fakin' it! One of you has a different question. Find the faker!" },
+    { "id": "intro-fakin-2", "ev": "intro-fakin", "t": "Check your phone! Answer the question, and don't give anything away!" },
+    { "id": "intro-fakin-3", "ev": "intro-fakin", "t": "Somebody's faking it this round! Watch closely!" },
+    { "id": "fakin-caught-1", "ev": "fakin-caught", "t": "Caught faking it! Nice work, detectives!" },
+    { "id": "fakin-caught-2", "ev": "fakin-caught", "t": "Busted! You can't fake it with this lot!" },
+    { "id": "fakin-escaped-1", "ev": "fakin-escaped", "t": "The faker got away with it! Smooth!" },
+    { "id": "fakin-escaped-2", "ev": "fakin-escaped", "t": "Wrong person! The real faker is laughing at you!" },
+
+    { "id": "intro-year-1", "ev": "intro-year", "t": "Guess the year! Closest wins!" },
+    { "id": "intro-year-2", "ev": "intro-year", "t": "When did it happen? Get as close as you can!" },
+    { "id": "intro-year-3", "ev": "intro-year", "t": "Time travel round! Name that year!" },
+    { "id": "intro-hilo-1", "ev": "intro-hilo", "t": "Higher or lower! Trust your gut!" },
+    { "id": "intro-hilo-2", "ev": "intro-hilo", "t": "Higher or lower? Make the call!" },
+    { "id": "intro-hilo-3", "ev": "intro-hilo", "t": "One number on the board. Is the next one bigger?" },
+
+    { "id": "intro-buzz-1", "ev": "intro-buzz", "t": "Buzzer round! First right answer wins!" },
+    { "id": "intro-buzz-2", "ev": "intro-buzz", "t": "Fingers on buzzers! But get it wrong and it costs you!" },
+    { "id": "intro-buzz-3", "ev": "intro-buzz", "t": "Speed round! Fastest right answer takes it all!" },
+    { "id": "buzz-win-1", "ev": "buzz-win", "t": "Fastest finger in the room!" },
+    { "id": "buzz-win-2", "ev": "buzz-win", "t": "Too quick for the rest of you!" },
+
     { "id": "intro-bluff-1", "ev": "intro-bluff", "t": "Bluff! Lie convincingly!" },
     { "id": "intro-bluff-2", "ev": "intro-bluff", "t": "Time to lie! Make it believable!" },
     { "id": "intro-bluff-3", "ev": "intro-bluff", "t": "One true answer, lots of lies! Find the truth!" },

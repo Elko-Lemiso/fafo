@@ -2,6 +2,7 @@
 // fafo: a party game for one TV and a room full of phones. Serves the page, relays live state between the TV and the phones,
 // and keeps uploaded photos in memory. The TV page still owns the game; this server only passes messages.
 const path = require("path");
+const fs = require("fs");
 const os = require("os");
 const http = require("http");
 const express = require("express");
@@ -62,7 +63,7 @@ for (const f of ["bungee", "barlow", "barlow-condensed"]) {
 require("./quiz")(app, MODULES);
 require("./music")(app);
 app.get("/data/faces.json", (req, res) => res.sendFile(path.join(__dirname, "data", "faces.json"), { maxAge: "1d" }));
-for (const f of ["imposter", "emoji", "likely", "voice", "profile", "quips", "geo", "bluff", "numbers", "odd", "polls", "said", "meld", "hot"]) app.get(`/data/${f}.json`, (req, res) => res.sendFile(path.join(__dirname, "data", f + ".json"), { maxAge: "1h" }));
+for (const f of ["imposter", "emoji", "likely", "voice", "profile", "quips", "geo", "bluff", "numbers", "odd", "polls", "said", "meld", "hot", "fakin", "hilo", "kenya"]) app.get(`/data/${f}.json`, (req, res) => res.sendFile(path.join(__dirname, "data", f + ".json"), { maxAge: "1h" }));
 
 app.post("/api/photos/:id", express.raw({ type: () => true, limit: MAX_PHOTO_BYTES }), (req, res) => {
   const id = req.params.id, pid = req.get("x-pid"), code = req.get("x-code"), buf = req.body;
@@ -109,7 +110,21 @@ app.get("/avatars/:pid", (req, res) => {
 
 // The host's recorded lines (made with tools/make-voice.js). The list of recordings can change with a deploy, so it isn't cached long.
 app.use("/voice", express.static(path.join(PUBLIC, "voice"), { maxAge: "7d", setHeaders: (res, p) => { if (p.endsWith(".json")) res.set("Cache-Control", "no-cache"); } }));
-app.get(["/", "/tv"], (req, res) => res.set("Cache-Control", "no-cache").sendFile(path.join(PUBLIC, "index.html")));
+// Smart-TV browsers lag years behind phones: a 2020 Samsung or LG runs a Chrome 69 to 79 engine. The page is written in
+// modern JavaScript, so its script is served rewritten (by esbuild) into syntax those engines understand.
+const esbuild = require("esbuild");
+let pageCache = { mtime: 0, html: "" };
+function page() {
+  const file = path.join(PUBLIC, "index.html"), mtime = fs.statSync(file).mtimeMs;
+  if (pageCache.mtime === mtime) return pageCache.html;
+  let html = fs.readFileSync(file, "utf8");
+  try {
+    html = html.replace(/<script>([\s\S]*?)<\/script>/g, (all, code) => `<script>${esbuild.transformSync(code, { loader: "js", target: "chrome61", charset: "utf8", logLevel: "silent" }).code}</script>`);
+  } catch (e) { console.warn("  Couldn't prepare the page for older TV browsers:", e.message); }
+  pageCache = { mtime, html };
+  return html;
+}
+app.get(["/", "/tv"], (req, res) => res.set("Cache-Control", "no-cache").type("html").send(page()));
 app.use((req, res) => res.status(404).type("text").send("Not found"));
 
 // ---------- live state relay ----------

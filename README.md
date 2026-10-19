@@ -44,6 +44,11 @@ mix (whoever starts the game can also pick from their phone):
 - **Trivia:** general knowledge from Open Trivia DB, matched to the theme, with built-in questions if there's no internet.
 - **Closest number:** "How tall is the Eiffel Tower, in metres?" Everyone types a number; the closest three
   score 1,000, 500 and 250, and spot on earns 500 more.
+- **Guess the year:** "The Berlin Wall falls. What year was it?" Events, films, songs and birthdays; everyone types a
+  year and it scores like Closest number. With it on, Closest number leaves out its year questions.
+- **Higher or lower:** one card shows a number ("Mount Kenya, 5,199 m"), the next is hidden ("Kilimanjaro?"): higher or
+  lower? Also taller or shorter for buildings, longer or shorter for rivers, and before or after for years. Two
+  values are only paired when they're far enough apart that no source could flip the answer.
 - **Odd one out:** four things, one doesn't belong. The reveal says why.
 - **Emoji puzzles:** a film, song or TV show told in emoji. The clues tell the story (the door in Titanic,
   "mom's spaghetti") rather than spelling out the title.
@@ -55,12 +60,20 @@ mix (whoever starts the game can also pick from their phone):
   (or no word, if you choose). Everyone says a one-word clue out loud in turn, talks it over, then votes. There's
   no clock: each step moves on when the players are ready. Spotting the imposter scores 500; an imposter who gets
   away scores 1,000. Needs at least 3 players.
+- **Fakin' it:** everyone gets the same question on their phone ("Who here is the best cook?", "How many countries
+  have you been to?", "Can you swim?") except one player, who gets a different one. Everyone answers by pointing at a
+  player, typing a number or tapping yes or no. Then the TV shows the real question and every answer; talk it over
+  (no clock) and vote for the faker. Spotting them scores 500; a faker who gets away scores 1,000. Needs 3 players.
 
 **Difficulty** sets how believable the wrong answers are. On Normal and Hard, famous faces are up against people
 who could pass for them (same job, same part of the world, same era, plus hand-picked look-alike groups in
 `build-faces.py`); flags come with look-alikes like Chad and Romania; Capitals offer the city people mistake for
 the capital (Sydney, Lagos, Mombasa); Which is bigger pairs countries of nearly the same size; emoji puzzles get
 harder clues; trivia drops its easy questions. Look-alike flags and trap cities live in `server/data/geo.json`.
+
+**Kenya pack:** with the Africa theme, about half of Trivia, Bluff and Odd one out is local (places, presidents,
+runners, Sheng), and Guess the year and Higher or lower lean on African events, people and rivers. It lives in
+`server/data/kenya.json`.
 
 A **Theme** ties the rounds together. Music makes the faces come from tonight's playlist, Africa keeps flags,
 maps and faces African, and so on. **Length** sets how many quiz rounds each type gets.
@@ -101,7 +114,20 @@ Rounds & settings picks voice and captions, captions only, or off.
 
 **Pause:** press space (or P) on the TV, the Pause button, or Pause game on the phone of whoever started.
 Nothing moves on and no answers count while paused; resuming counts down 3-2-1. If a player drops out
-mid-question the game waits up to 20 seconds for them. The right arrow skips ahead.
+mid-question the game waits up to 20 seconds for them. N skips ahead (or the next-track button on a remote).
+
+## Play on a TV without a laptop
+
+The TV screen is just a web page, so anything on the TV with a browser can run it:
+
+- **Smart TV browser** (Samsung Internet, LG's web browser, Sony, Hisense and others): open
+  `fafo.up.railway.app`. TVs are recognised and open straight into the TV screen.
+- **Fire TV Stick:** open the Silk browser and go to `fafo.up.railway.app/tv`.
+- **Google TV / Android TV:** install a browser from the store (TV Bro works well) and go to the same address.
+
+Press OK once on **Turn on sound** (it's already selected), then put the remote down: everyone joins by scanning
+the QR code, and whoever joins first can change every setting and start the game from their phone. Older TVs
+(roughly 2019 onwards) are fine: the server rewrites the page's script for older browser engines.
 
 ## Run it on your laptop
 
@@ -161,7 +187,7 @@ Then phones can join over mobile data, with no shared Wi-Fi needed.
   photos through Wikipedia.
 - `server/data/faces.json` is the famous-faces list with Wikipedia photos. Rebuild it with `python3 server/data/build-faces.py server/data/faces.json`.
 - `server/data/imposter.json`, `emoji.json` and `likely.json` hold the Imposter word pairs, emoji puzzles and
-  Most likely to prompts. `said.json`, `meld.json` and `hot.json` hold the Who said it, Mind meld and Hot seat prompts. `trivia-fallback.json` is the offline trivia set.
+  Most likely to prompts. `said.json`, `meld.json`, `hot.json` and `fakin.json` hold the Who said it, Mind meld, Hot seat and Fakin' it prompts; `hilo.json` the Higher or lower and Guess the year facts; `kenya.json` the Kenya pack. `trivia-fallback.json` is the offline trivia set.
 - `whos-who.html` is the original Claude artifact version, kept for reference.
 
 Photos of famous people come from Wikipedia and Wikimedia Commons under free licences; song clips and cover art come from Deezer.
