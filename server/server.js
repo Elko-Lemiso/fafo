@@ -62,7 +62,7 @@ for (const f of ["bungee", "barlow", "barlow-condensed"]) {
 require("./quiz")(app, MODULES);
 require("./music")(app);
 app.get("/data/faces.json", (req, res) => res.sendFile(path.join(__dirname, "data", "faces.json"), { maxAge: "1d" }));
-for (const f of ["imposter", "emoji", "likely", "voice", "profile", "quips", "geo", "bluff", "numbers", "odd", "polls"]) app.get(`/data/${f}.json`, (req, res) => res.sendFile(path.join(__dirname, "data", f + ".json"), { maxAge: "1h" }));
+for (const f of ["imposter", "emoji", "likely", "voice", "profile", "quips", "geo", "bluff", "numbers", "odd", "polls", "said"]) app.get(`/data/${f}.json`, (req, res) => res.sendFile(path.join(__dirname, "data", f + ".json"), { maxAge: "1h" }));
 
 app.post("/api/photos/:id", express.raw({ type: () => true, limit: MAX_PHOTO_BYTES }), (req, res) => {
   const id = req.params.id, pid = req.get("x-pid"), code = req.get("x-code"), buf = req.body;

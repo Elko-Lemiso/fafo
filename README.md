@@ -14,6 +14,9 @@ Pick any mix in the TV lobby under **Rounds tonight**:
 - **Whose song:** everyone picks up to 3 songs on their phone. The TV plays a clip and everyone guesses who picked it.
 - **Whose answer:** everyone taps answers to four quick questions on their phone ("Dream weekend", "Worst
   habit"). The TV shows one answer nobody else picked, and the room guesses whose it is. Needs 3 players.
+- **Who said it:** everyone answers one prompt about themselves on their phone ("Your go-to karaoke song"). Then
+  each answer goes up on the TV and the room guesses who wrote it: 500 to 1,000 for a right guess, and 250 to the
+  writer for every guess they fool. An answer two people both gave is skipped. Needs 3 players.
 - **Quips:** everyone gets two prompts on their phone ("The worst thing to hear from your pilot") and types an
   answer. Each prompt went to two players, and the room votes for the funnier one: 250 a vote, plus 250 for
   taking every vote. With Quips on, the game ends with the **Last Lash**: one prompt for everyone, then
@@ -144,7 +147,7 @@ Then phones can join over mobile data, with no shared Wi-Fi needed.
   photos through Wikipedia.
 - `server/data/faces.json` is the famous-faces list with Wikipedia photos. Rebuild it with `python3 server/data/build-faces.py server/data/faces.json`.
 - `server/data/imposter.json`, `emoji.json` and `likely.json` hold the Imposter word pairs, emoji puzzles and
-  Most likely to prompts. `trivia-fallback.json` is the offline trivia set.
+  Most likely to prompts. `said.json` holds the Who said it prompts. `trivia-fallback.json` is the offline trivia set.
 - `whos-who.html` is the original Claude artifact version, kept for reference.
 
 Photos of famous people come from Wikipedia and Wikimedia Commons under free licences; song clips and cover art come from Deezer.

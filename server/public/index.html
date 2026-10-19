@@ -362,7 +362,8 @@ button{font:inherit;color:inherit}
 .pq .chips button.on{background:var(--cobalt);color:var(--paper)}
 .print.prof{padding:3.4vmin 4vmin;max-width:min(66vmin,100%);gap:1.6vmin;transform:rotate(-1.5deg)}
 .prof-q{font-family:var(--label);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:max(14px,2.8vmin);color:var(--ink-soft)}
-.prof-a{font-family:var(--display);font-size:max(30px,7.6vmin);line-height:1;text-wrap:balance}
+.prof-a{font-family:var(--display);font-size:max(30px,7.6vmin);line-height:1;text-wrap:balance;overflow-wrap:anywhere}
+.prof-a.long{font-size:max(22px,5vmin);line-height:1.05}
 /* Quips and the Last Lash */
 .quips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3vmin;align-items:stretch}
 .quipcard{position:relative;background:var(--paper);border:3px solid var(--ink);border-radius:2vmin;box-shadow:0 1vmin 0 var(--ink);padding:2.4vmin 2.6vmin 2.2vmin 8vmin;
@@ -440,20 +441,23 @@ const COLORS = ["#D93A26","#2342C6","#11704F","#7339D6","#C42F78","#0B7584","#B5
 const CODE_CHARS = "ABCDEFGHJKMNPQRSTUVWXYZ";
 // Kinds of round. Photo games play every photo; flag and map rounds come in sets of ROUNDS (fewer when mixed).
 const ROUNDS = 10, SONGS_PER_PLAYER = 3;
-const MODES = ["photo", "song", "prof", "quip", "bluff", "tune", "face", "flag", "map", "cap", "big", "trivia", "num", "odd", "emoji", "imp", "likely", "wyr", "nhie"];
+const MODES = ["photo", "song", "prof", "said", "quip", "bluff", "tune", "face", "flag", "map", "cap", "big", "trivia", "num", "odd", "emoji", "imp", "likely", "wyr", "nhie"];
 // Owner rounds show something a player brought, and everyone guesses which player. The rest are quiz rounds with 4 answers.
 const OWNER_KINDS = ["photo", "song", "prof"];
 // Rounds where you answer by picking a player rather than one of 4 answers.
 const PLAYER_KINDS = ["photo", "song", "prof", "imp", "likely"];
 // Modes that need at least 3 players to make sense.
-const CROWD_KINDS = ["prof", "quip", "bluff", "imp", "likely", "wyr", "nhie"];
+const CROWD_KINDS = ["prof", "said", "quip", "bluff", "imp", "likely", "wyr", "nhie"];
+// Modes that work with 2 players.
+const PAIR_KINDS = [];
 // Rounds with no right answer: Would you rather (score for siding with the room) and Never have I ever (just for fun).
 const POLL_KINDS = ["wyr", "nhie"];
 // Quiz rounds shown as text across the screen rather than next to a picture.
 const TEXT_KINDS = ["trivia", "odd", "num", "wyr", "nhie"];
 // Writing rounds: Quips (two players answer the same prompt, the room votes) and the Last Lash finale (everyone answers one prompt).
-const WRITE_KINDS = ["quip", "lash", "bluff"];
-const QW_SECS = { quip: 90, lash: 75, bluff: 60 }, QV_SECS = { quip: 15, lash: 25, bluff: 20 };
+// Who said it writes like the Last Lash, then the room guesses each answer's author like Whose answer.
+const WRITE_KINDS = ["quip", "lash", "bluff", "said"];
+const QW_SECS = { quip: 90, lash: 75, bluff: 60, said: 60 }, QV_SECS = { quip: 15, lash: 25, bluff: 20 };
 const SPICE = [["off", "Off"], ["cheeky", "Cheeky (18+)"], ["savage", "Savage (18+)"]];
 // Difficulty mostly changes the wrong answers: Easy picks obvious ones, Hard picks the ones that could pass for right.
 const DIFFS = [["easy", "Easy"], ["normal", "Normal"], ["hard", "Hard"]];
@@ -461,10 +465,10 @@ const DIFFS = [["easy", "Easy"], ["normal", "Normal"], ["hard", "Hard"]];
 // No clocks in Imposter: each step moves on when the players are ready (the TV's Next button can always skip).
 const IMP_ROUNDS = { quick: 2, normal: 3, long: 5 };
 const IMP_PHASES = ["imp-word", "imp-clue", "imp-talk"];
-const MODE_LABEL = { photo: "Whose photo", song: "Whose song", prof: "Whose answer", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather", nhie: "Never have I ever", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps", cap: "Capitals", big: "Which is bigger", trivia: "Trivia", emoji: "Emoji puzzles", imp: "Imposter", likely: "Most likely to" };
-const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", prof: "Whose answer?", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather?", nhie: "Never have I ever", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country", cap: "Capital cities", big: "Which is bigger?", trivia: "Trivia", emoji: "Emoji puzzle", imp: "Imposter", likely: "Most likely to…" };
-const KIND_ASK = { photo: "Whose photo is this?", song: "Whose song is this?", prof: "Whose answer is this?", face: "Who is this?", flag: "Which country's flag is this?", map: "Which country has this shape?", big: "Which country is bigger?", imp: "Who's the imposter?" };
-const KIND_ASK_PHONE = { photo: "Whose photo is on the TV?", song: "Whose song is playing?", prof: "Whose answer is on the TV?", face: "Who's on the TV?", flag: "Which country's flag is on the TV?", map: "Which country is the shape on the TV?", big: "Which country is bigger?", imp: "Who's the imposter?" };
+const MODE_LABEL = { photo: "Whose photo", song: "Whose song", prof: "Whose answer", said: "Who said it", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather", nhie: "Never have I ever", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps", cap: "Capitals", big: "Which is bigger", trivia: "Trivia", emoji: "Emoji puzzles", imp: "Imposter", likely: "Most likely to" };
+const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", prof: "Whose answer?", said: "Who said it?", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather?", nhie: "Never have I ever", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country", cap: "Capital cities", big: "Which is bigger?", trivia: "Trivia", emoji: "Emoji puzzle", imp: "Imposter", likely: "Most likely to…" };
+const KIND_ASK = { photo: "Whose photo is this?", song: "Whose song is this?", prof: "Whose answer is this?", said: "Who wrote this?", face: "Who is this?", flag: "Which country's flag is this?", map: "Which country has this shape?", big: "Which country is bigger?", imp: "Who's the imposter?" };
+const KIND_ASK_PHONE = { photo: "Whose photo is on the TV?", song: "Whose song is playing?", prof: "Whose answer is on the TV?", said: "Who wrote this?", face: "Who's on the TV?", flag: "Which country's flag is on the TV?", map: "Which country is the shape on the TV?", big: "Which country is bigger?", imp: "Who's the imposter?" };
 const askOf = c => (c.t === "tune" ? (c.ask === "artist" ? "Who's the artist?" : "What's this song?")
   : c.t === "cap" ? `What's the capital of ${c.cn}?` : c.t === "trivia" ? c.q
   : c.t === "odd" ? "Which is the odd one out?" : c.t === "num" ? c.q : c.t === "wyr" ? (c.q || "Would you rather…") : c.t === "nhie" ? `Never have I ever ${c.q}…`
@@ -994,11 +998,11 @@ const TV = {
 
   players() { return Object.values(this.H.players).sort((a, b) => a.at - b.at); },
   ownerOf(id) { return this.H.photos[id]?.pid || null; },
-  curOwner() { const c = this.H.cur; return c?.t === "photo" ? this.ownerOf(c.id) : c?.t === "song" || c?.t === "prof" ? c.pid : null; },
+  curOwner() { const c = this.H.cur; return c?.t === "photo" ? this.ownerOf(c.id) : c?.t === "song" || c?.t === "prof" || c?.t === "said" ? c.pid || null : null; },
   isQuiz() { return !!this.H.cur && !PLAYER_KINDS.includes(this.H.cur.t) && !WRITE_KINDS.includes(this.H.cur.t); },
   isWrite() { return WRITE_KINDS.includes(this.H.cur?.t); },
   // Which prompts this player writes for: two in Quips, the one in the Last Lash.
-  writesFor(pid) { const c = this.H.cur; return c?.t === "lash" || c?.t === "bluff" ? [0] : c?.t === "quip" ? c.ps.map((m, i) => (m.by.includes(pid) ? i : -1)).filter(i => i >= 0) : []; },
+  writesFor(pid) { const c = this.H.cur; return c?.t === "lash" || c?.t === "bluff" || c?.t === "said" ? [0] : c?.t === "quip" ? c.ps.map((m, i) => (m.by.includes(pid) ? i : -1)).filter(i => i >= 0) : []; },
   canVote(pid, i) {
     const c = this.H.cur;
     if (c?.t === "quip") return !c.ps[c.mi].by.includes(pid) && (i === 0 || i === 1);
@@ -1018,6 +1022,7 @@ const TV = {
     if (this.H.ph !== "lobby" || this.starting) return false;
     const online = this.players().filter(p => p.online).length;
     if (this.H.modes.every(m => CROWD_KINDS.includes(m))) return online >= 3;
+    if (this.H.modes.every(m => CROWD_KINDS.includes(m) || PAIR_KINDS.includes(m))) return online >= 2;
     if (!ownerOnly(this.H)) return online >= 1;
     const items = (this.H.modes.includes("photo") ? this.photoCount() : 0) + (this.H.modes.includes("song") ? this.songCount() : 0) + (this.H.modes.includes("prof") && online >= 3 ? 2 : 0);
     return online >= 2 && items >= 2;
@@ -1167,7 +1172,7 @@ const TV = {
   prefetch() {
     const H = this.H;
     if (H.modes.includes("face")) getFaces().catch(() => {});
-    for (const [m, f] of [["emoji", "emoji"], ["likely", "likely"], ["prof", "profile"], ["quip", "quips"]]) if (H.modes.includes(m)) getData(f).catch(() => {});
+    for (const [m, f] of [["emoji", "emoji"], ["likely", "likely"], ["prof", "profile"], ["quip", "quips"], ["said", "said"]]) if (H.modes.includes(m)) getData(f).catch(() => {});
     if (H.spicy !== "off") getData("quips").catch(() => {});
     if (H.modes.includes("cap") || H.modes.includes("big")) getCountries().catch(() => {});
     if (this.needMix() && !this.mixNote) this.setTune(H.tune.q, H.tune.label);
@@ -1539,6 +1544,13 @@ const TV = {
             .map(x => ({ ...x, o: ["I have", "Never"], a: -1 }));
         }
       }
+      if (modes.includes("said") && online >= 3) {
+        // Who said it: everyone answers one prompt about themselves. With Spicy on, about half the prompts are cheeky.
+        const S = await getData("said"), n = { quick: 1, normal: 1, long: 2 }[H.len] || 1;
+        const hot = H.spicy === "off" ? [] : shuffle(this.unseen(S.cheeky || [], x => x, "said", n)).slice(0, Math.round(n / 2 + Math.random() * 0.5));
+        const plain = shuffle(this.unseen(S.prompts, x => x, "said", n)).slice(0, n - hot.length);
+        pools.said = shuffle([...hot.map(q => ({ q, sp: true })), ...plain.map(q => ({ q }))]).map(x => ({ t: "said", q: x.q, sp: !!x.sp, ans: {} }));
+      }
       if (modes.includes("bluff") && online >= 3) {
         const F = (await getData("bluff")).facts, n = { quick: 2, normal: 3, long: 4 }[H.len] || 3;
         pools.bluff = shuffle(this.unseen(F, x => x.q, "bluff", n)).slice(0, n).map(x => ({ t: "bluff", q: x.q, truth: x.a, ans: {} }));
@@ -1603,6 +1615,7 @@ const TV = {
       this.remember("wyr", order.filter(r => r.t === "wyr").map(r => r.q || r.o.join("|")));
       this.remember("nhie", order.filter(r => r.t === "nhie").map(r => r.q));
       this.remember("bluff", order.filter(r => r.t === "bluff").map(r => r.q));
+      this.remember("said", order.filter(r => r.t === "said").map(r => r.q));
       if (this.H !== H || H.ph !== "lobby") return;
       H.order = order; H.R = order.length; H.r = 0; H.rv = null;
       for (const p of Object.values(H.players)) { p.score = 0; p.prev = 0; p.st = { right: 0, fast: 0, fooled: 0 }; }
@@ -1684,6 +1697,8 @@ const TV = {
   outcome(right, nv) { return !right ? "rev-none" : right === nv ? "rev-all" : right === 1 && nv >= 3 ? "rev-one" : "rev-some"; },
   advance() {
     const H = this.H;
+    // A TV that reloaded partway through the guessing in Who said it picks up at the answer it was on.
+    if (H.ph === "intro" && H.cur?.t === "said" && H.cur.ord?.length) return this.askNext(Math.min(H.cur.mi || 0, H.cur.ord.length - 1));
     if (H.ph === "intro") return this.isImp() ? this.impStart() : this.isWrite() ? this.go("qw", QW_SECS[H.cur.t]) : this.go("q", Q_SECS);
     if (H.ph === "qw") return this.startVote(0);
     if (H.ph === "qv") return this.reveal();
@@ -1693,6 +1708,7 @@ const TV = {
     if (H.ph === "q") return this.reveal();
     if (H.ph === "rev") {
       if (H.cur?.t === "quip") { const n = this.nextMatch(H.cur.mi + 1); if (n >= 0) return this.startVote(n); }
+      if (H.cur?.t === "said" && H.cur.mi + 1 < (H.cur.ord || []).length) return this.askNext(H.cur.mi + 1);
       return this.endRound();
     }
     if (H.ph === "lb") return this.nextRound();
@@ -1707,6 +1723,14 @@ const TV = {
   startVote(from) {
     const H = this.H, cur = H.cur, base = H.gid + "-" + H.r;
     H.guesses = {};
+    if (cur.t === "said") {
+      // Answers two people both gave can't be pinned on one of them, so only one-of-a-kind answers are played.
+      const norm = x => String(x || "").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ""), all = Object.entries(cur.ans[0] || {}).filter(([pid, a]) => H.players[pid] && norm(a));
+      const n = {}; for (const [, a] of all) n[norm(a)] = (n[norm(a)] || 0) + 1;
+      cur.ord = shuffle(all.filter(([, a]) => n[norm(a)] === 1).map(([pid, a]) => ({ pid, a })));
+      cur.dup = all.length - cur.ord.length;
+      return cur.ord.length ? this.askNext(0) : this.endRound();
+    }
     if (cur.t === "bluff") {
       const norm = x => String(x || "").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ""), fakes = new Map();
       for (const [pid, text] of Object.entries(cur.ans[0] || {})) {
@@ -1731,6 +1755,13 @@ const TV = {
     this.go("qv", QV_SECS.quip);
   },
   nextMatch(from) { const c = this.H.cur; for (let i = from; i < c.ps.length; i++) if (c.ps[i].by.some(pid => c.ans[i]?.[pid])) return i; return -1; },
+  // Who said it: put the next answer on the TV. Each one is its own question, with its own guesses.
+  askNext(i) {
+    const H = this.H, cur = H.cur, x = cur.ord[i];
+    cur.mi = i; cur.pid = x.pid; cur.a = x.a;
+    H.rk = H.gid + "-" + H.r + "-a" + i; H.guesses = {}; H.rv = null;
+    this.go("q", Q_SECS);
+  },
   stat(pid, ms) {
     const p = this.H.players[pid];
     if (!p) return;
@@ -1970,13 +2001,15 @@ const TV = {
       imp: this.isImp() && ["intro", ...IMP_PHASES, "q", "rev"].includes(H.ph) ? { cat: H.cur.cat, sp: H.ph === "imp-clue" ? H.cur.order[H.turn] : null, turn: H.turn || 0, n: H.cur.order.length, none: H.impVar === "none" ? 1 : 0 } : null,
       aw: H.ph === "end" ? this.awards().map(([p, title, detail]) => [p.pid, title, detail]) : null,
       vip: H.vip || null, can: this.canStart() ? 1 : 0,
-      x: H.ph === "q" && !this.isQuiz() ? fnv(this.curOwner() + H.rk) : null,
+      x: H.ph === "q" && this.curOwner() ? fnv(this.curOwner() + H.rk) : null,
+      // Who said it: the answer the room is guessing about, and which one of how many.
+      sa: H.cur?.t === "said" && ["q", "rev"].includes(H.ph) && H.cur.ord ? [H.cur.q, H.cur.a, H.cur.mi + 1, H.cur.ord.length] : null,
       rv: ["rev", "lb", "end"].includes(H.ph) ? H.rv : null,
       modes: H.modes,
       qz: this.isQuiz() && (H.ph === "q" || H.ph === "rev") ? { t: H.cur.t, o: H.cur.o || null, k: H.cur.ask || null, q: askOf(H.cur), e: H.cur.t === "emoji" ? H.cur.e : null, u: H.cur.u || null, y: H.cur.y ? 1 : 0 } : null,
       lk: H.cur?.t === "likely" ? H.cur.lk : null,
       // Writing rounds: the prompts while writing, then the answers being voted on. `x` marks whose they are, hashed like `x` above.
-      qp: H.ph === "qw" && this.isWrite() ? (H.cur.t === "lash" || H.cur.t === "bluff" ? { lash: H.cur.q, bluff: H.cur.t === "bluff" ? 1 : 0 } : { ps: H.cur.ps.map(m => [m.q, m.by]) }) : null,
+      qp: H.ph === "qw" && this.isWrite() ? (["lash", "bluff", "said"].includes(H.cur.t) ? { lash: H.cur.q, bluff: H.cur.t === "bluff" ? 1 : 0, said: H.cur.t === "said" ? 1 : 0 } : { ps: H.cur.ps.map(m => [m.q, m.by]) }) : null,
       qv: H.ph === "qv" && this.isWrite() ? (H.cur.t === "bluff" ? { q: H.cur.q, a: H.cur.opts.map(o => o.t), x: H.cur.opts.map(o => o.by.map(pid => fnv(pid + H.rk))) }
         : H.cur.t === "lash" ? { q: H.cur.q, a: H.cur.ord.map(pid => H.cur.ans[0][pid]), x: H.cur.ord.map(pid => fnv(pid + H.rk)) }
         : (m => ({ q: m.q, a: m.by.map(pid => H.cur.ans[H.cur.mi]?.[pid] || ""), x: m.by.map(pid => fnv(pid + H.rk)) }))(H.cur.ps[H.cur.mi])) : null,
@@ -2070,7 +2103,7 @@ const TV = {
     const lbl = (a, t) => (c === a ? "Tap again to confirm" : t);
     let html = "";
     if (H.ph === "lobby") {
-      const need = H.modes.every(m => CROWD_KINDS.includes(m)) ? "These rounds need at least 3 players" : photosOnly(H) ? "Start needs 2 players and 2 photos" : ownerOnly(H) ? "Start needs 2 players and 2 photos or songs" : "Start needs at least 1 player";
+      const need = H.modes.every(m => CROWD_KINDS.includes(m)) ? "These rounds need at least 3 players" : H.modes.every(m => CROWD_KINDS.includes(m) || PAIR_KINDS.includes(m)) ? "These rounds need at least 2 players" : photosOnly(H) ? "Start needs 2 players and 2 photos" : ownerOnly(H) ? "Start needs 2 players and 2 photos or songs" : "Start needs at least 1 player";
       const why = this.starting ? `<span class="why">Shuffling the rounds…</span>` : this.err ? `<span class="why">${esc(this.err)}</span>` : this.canStart() ? "" : `<span class="why">${need}</span>`;
       // Until someone clicks, the browser keeps the TV silent, so the first button offered is the one that turns sound on.
       const snd = H.snd === "off" ? "" : SFX.ready() ? `<button class="btn sm" data-act="sound-check">Sound check</button>` : `<button class="btn blue" data-act="sound-check">Turn on sound</button>`;
@@ -2116,10 +2149,11 @@ const TV = {
     if (H.ph === "q") {
       if (this.isQuiz()) return this.renderQuiz(stage);
       const final = H.R > 1 && H.r === H.R;
+      const said = H.cur.t === "said" ? ` · Who said it · Answer ${H.cur.mi + 1} of ${H.cur.ord.length}` : "";
       paint(stage, "q|" + H.rk, `<section class="qgrid">
         <div class="qphoto">${this.ownerMedia(H.cur)}</div>
         <div class="qside">
-          <p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}${final ? " · Double points" : ""}</p>
+          <p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}${said}${final ? " · Double points" : ""}</p>
           <h2 class="qtitle">${KIND_ASK[H.cur.t]}</h2>
           <div class="clock" id="clock"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="bg" cx="50" cy="50" r="46"/><circle class="ring" id="ring" cx="50" cy="50" r="40" pathLength="100"/></svg><span id="clock-n" class="num"></span></div>
           <p class="eyebrow" id="lockcount"></p>
@@ -2198,11 +2232,11 @@ const TV = {
       : this.scorersHtml(rv, "", "Nobody got it right");
     return `<section class="rgrid" style="--t:${t.toFixed(2)}s;--t2:${(t + 0.8).toFixed(2)}s">
       <div class="qphoto">${this.ownerMedia(H.cur, true)}
-        ${owner ? `<div class="stamp ${H.cur?.t === "song" || H.cur?.t === "prof" ? "low" : ""}">${H.cur?.t === "song" ? `${esc(owner.name)}'s pick!` : `It's ${esc(owner.name)}!`}</div>` : ""}</div>
+        ${owner ? `<div class="stamp ${["song", "prof", "said"].includes(H.cur?.t) ? "low" : ""}">${H.cur?.t === "song" ? `${esc(owner.name)}'s pick!` : H.cur?.t === "said" ? `${esc(owner.name)} said it!` : `It's ${esc(owner.name)}!`}</div>` : ""}</div>
       <div class="rside">
         <p class="eyebrow">Votes${rv.m > 1 ? " · Double points" : ""}</p>
         ${nv ? `<ul class="rows">${rowHtml}</ul>` : `<p class="nobody">Nobody locked in a guess.</p><ul class="rows">${rowHtml}</ul>`}
-        <div class="deltas">${deltas || `<span class="delta">No points this photo</span>`}${this.sipHtml()}</div>
+        <div class="deltas">${deltas || `<span class="delta">No points this ${unitOf(H).toLowerCase()}</span>`}${this.sipHtml()}</div>
       </div></section>`;
   },
   boardHtml(title) {
@@ -2283,6 +2317,7 @@ const TV = {
   musicTag(cur) { return cur && (cur.t === "tune" || (cur.t === "face" && themeOf(this.H).faces === "artists")) ? " · " + esc(this.H.tune.label) : ""; },
   ownerMedia(cur, reveal) {
     if (cur?.t === "prof") return `<figure class="print prof"><span class="prof-q">${esc(cur.q)}</span><span class="prof-a">${esc(cur.a)}</span></figure>`;
+    if (cur?.t === "said") return `<figure class="print prof"><span class="prof-q">${esc(cur.q)}</span><span class="prof-a ${String(cur.a).length > 24 ? "long" : ""}">${esc(cur.a)}</span></figure>`;
     if (cur?.t === "song") return this.songMedia(cur.title, cur.artist, (reveal && cur.ap) || cur.art, cur.art);
     return `<figure class="print"><img src="${this.H.photos[cur?.id]?.src || ""}" alt="Mystery photo ${this.H.r}"><figcaption>No. ${this.H.r}</figcaption></figure>`;
   },
@@ -2376,10 +2411,11 @@ const TV = {
   },
   clockHtml() { return `<div class="clock" id="clock"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="bg" cx="50" cy="50" r="46"/><circle class="ring" id="ring" cx="50" cy="50" r="40" pathLength="100"/></svg><span id="clock-n" class="num"></span></div>`; },
   renderWrite(stage) {
-    const H = this.H, cur = H.cur, lash = cur.t === "lash", bluff = cur.t === "bluff", final = H.R > 1 && H.r === H.R;
+    const H = this.H, cur = H.cur, lash = cur.t === "lash", bluff = cur.t === "bluff", said = cur.t === "said", final = H.R > 1 && H.r === H.R;
     paint(stage, "qw|" + H.rk, `<section class="imp"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · ${MODE_LABEL[cur.t]}${final ? " · Double points" : ""}</p>
-      <h2 class="qtitle">${lash || bluff ? esc(cur.q) : "Write something funny"}</h2>
+      <h2 class="qtitle">${lash || bluff || said ? esc(cur.q) : "Write something funny"}</h2>
       <p class="lede">${bluff ? "Fill in the blank with a fake answer that sounds true. Then everyone tries to spot the real one among the fakes."
+        : said ? "Everyone answers on their phone, honestly. Then each answer goes up here and the room guesses who wrote it. Fool them and you score."
         : lash ? "Everyone answers this one on their phone. Then you all vote for the best." : "Everyone has two prompts on their phone. Each prompt goes to two of you, and the room votes for the funnier answer."}</p>
       <div class="qfoot">${this.clockHtml()}<div><p class="eyebrow" id="lockcount"></p><ul class="locks" id="locks"></ul></div></div></section>`);
     const ps = this.players().filter(p => p.online), done = ps.filter(p => this.writesFor(p.pid).every(i => cur.ans[i]?.[p.pid]));
@@ -2803,7 +2839,8 @@ const PH = {
     const done = sent.length === mine.length;
     const did = paint(main, ["qw", H.rk, sent.map(x => x[0]).join()].join("|"), `${tbar}${mine.map(([i, q]) => this.qa.a[i]
       ? `<div class="card"><p class="eyebrow">Sent</p><p class="ph-q">${esc(q)}</p><p class="ph-h" style="font-size:22px">${esc(this.qa.a[i])}</p></div>`
-      : `<form class="card qa-form" data-i="${i}" novalidate><p class="eyebrow">${qp.bluff ? "Bluff" : H.kind === "lash" ? "Last Lash" : `Prompt ${mine.findIndex(x => x[0] === i) + 1} of ${mine.length}`}</p><p class="ph-h" style="font-size:22px">${esc(q)}</p>
+      : `<form class="card qa-form" data-i="${i}" novalidate><p class="eyebrow">${qp.bluff ? "Bluff" : qp.said ? "Who said it" : H.kind === "lash" ? "Last Lash" : `Prompt ${mine.findIndex(x => x[0] === i) + 1} of ${mine.length}`}</p><p class="ph-h" style="font-size:22px">${esc(q)}</p>
+          ${qp.said ? `<p class="muted">Answer honestly. The TV shows it later and everyone guesses it was you. Same answer as someone else? Then it isn't played.</p>` : ""}
           <div class="field"><label for="qa-in-${i}">${qp.bluff ? "A fake answer that sounds true" : "Your answer"}</label><input id="qa-in-${i}" maxlength="70" autocomplete="off" enterkeyhint="send"></div>
           <button class="btn primary wide" type="submit">Send</button></form>`).join("")}
       ${done ? `<p class="muted" style="text-align:center">All sent. Waiting for the others.</p>` : ""}`);
@@ -2877,7 +2914,7 @@ const PH = {
     if (!me) return paint(main, "wait-in", `<div class="card center"><p class="ph-h">Joining…</p><p class="muted">Hang on while the TV adds you.</p></div>`);
     if (H.ph === "lobby") return this.rLobby(main);
     if (H.pause && H.ph !== "end") return this.rPaused(main);
-    if (H.ph === "intro") return paint(main, "intro|" + H.rk, `<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">Eyes on the TV</p><p class="muted">${H.kind === "imp" ? "Imposter round. Your secret word is coming." : H.kind === "quip" || H.kind === "lash" || H.kind === "bluff" ? "Get your thumbs ready. You'll be writing." : "Get ready to guess."}</p></div>`);
+    if (H.ph === "intro") return paint(main, "intro|" + H.rk, `<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">Eyes on the TV</p><p class="muted">${H.kind === "imp" ? "Imposter round. Your secret word is coming." : WRITE_KINDS.includes(H.kind) ? "Get your thumbs ready. You'll be writing." : "Get ready to guess."}</p></div>`);
     if (IMP_PHASES.includes(H.ph)) return this.rImp(main);
     if (H.ph === "qw") return this.rWrite(main);
     if (H.ph === "qv") return this.rVote(main);
@@ -3035,9 +3072,10 @@ const PH = {
       const pick = this.nameOf(this.g.p);
       return paint(main, "q-lock|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">Locked in</p>${pick ? faceA(pick) : ""}<p class="ph-big">${esc(pick?.[1] || "?")}</p><p class="muted">Waiting for everyone else.</p></div>`);
     }
-    const opts = this.pl().filter(p => p[0] !== this.pid);
-    paint(main, "q|" + H.rk + "|" + opts.map(p => p[0]).join(), `${tbar}<div class="card"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}${H.R > 1 && H.r === H.R ? " · Double points" : ""}</p>
-      <p class="ph-h">${esc(H.kind === "likely" ? `Who's most likely to ${H.lk || "…"}?` : KIND_ASK_PHONE[H.kind] || KIND_ASK_PHONE.photo)}</p>
+    const opts = this.pl().filter(p => p[0] !== this.pid), sa = Array.isArray(H.sa) ? H.sa : null;
+    paint(main, "q|" + H.rk + "|" + opts.map(p => p[0]).join(), `${tbar}<div class="card"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}${sa ? ` · Answer ${esc(sa[2])} of ${esc(sa[3])}` : ""}${H.R > 1 && H.r === H.R ? " · Double points" : ""}</p>
+      ${sa ? `<p class="muted">${esc(sa[0])}</p><p class="ph-h" style="font-size:24px">“${esc(sa[1])}”</p>` : ""}
+      <p class="${sa ? "eyebrow" : "ph-h"}">${esc(H.kind === "likely" ? `Who's most likely to ${H.lk || "…"}?` : KIND_ASK_PHONE[H.kind] || KIND_ASK_PHONE.photo)}</p>
       <div class="choices">${opts.map(p => `<button class="choice" data-act="guess" data-pid="${p[0]}">${faceA(p)}<span>${esc(p[1])}</span></button>`).join("")}</div></div>`);
   },
   rQuiz(main) {

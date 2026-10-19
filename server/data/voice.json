@@ -62,6 +62,10 @@
     { "id": "lash-win-1", "ev": "lash-win", "t": "And the best answer goes to…" },
     { "id": "lash-win-2", "ev": "lash-win", "t": "Comedy gold. Take a bow." },
 
+    { "id": "intro-said-1", "ev": "intro-said", "t": "Who said it. Answer honestly, then try to look innocent." },
+    { "id": "intro-said-2", "ev": "intro-said", "t": "Tell us about yourself. We'll work out who's who." },
+    { "id": "intro-said-3", "ev": "intro-said", "t": "One question, all of you. Then we guess who wrote what." },
+
     { "id": "intro-bluff-1", "ev": "intro-bluff", "t": "Bluff. Lie convincingly." },
     { "id": "intro-bluff-2", "ev": "intro-bluff", "t": "Time to lie. Make it believable." },
     { "id": "intro-bluff-3", "ev": "intro-bluff", "t": "One true answer, lots of lies. Find the truth." },
