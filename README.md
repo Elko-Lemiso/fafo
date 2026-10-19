@@ -17,6 +17,9 @@ Pick any mix in the TV lobby under **Rounds tonight**:
 - **Who said it:** everyone answers one prompt about themselves on their phone ("Your go-to karaoke song"). Then
   each answer goes up on the TV and the room guesses who wrote it: 500 to 1,000 for a right guess, and 250 to the
   writer for every guess they fool. An answer two people both gave is skipped. Needs 3 players.
+- **Two truths and a lie:** everyone types two true things about themselves and one lie. Then each player's three
+  statements go up on the TV in a random order, and the room picks the lie: 500 to 1,000 for spotting it, and 250 to
+  the writer for everyone who picked a truth. Needs 2 players.
 - **Quips:** everyone gets two prompts on their phone ("The worst thing to hear from your pilot") and types an
   answer. Each prompt went to two players, and the room votes for the funnier one: 250 a vote, plus 250 for
   taking every vote. With Quips on, the game ends with the **Last Lash**: one prompt for everyone, then

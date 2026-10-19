@@ -66,6 +66,10 @@
     { "id": "intro-said-2", "ev": "intro-said", "t": "Tell us about yourself. We'll work out who's who." },
     { "id": "intro-said-3", "ev": "intro-said", "t": "One question, all of you. Then we guess who wrote what." },
 
+    { "id": "intro-ttl-1", "ev": "intro-ttl", "t": "Two truths and a lie. Lie well." },
+    { "id": "intro-ttl-2", "ev": "intro-ttl", "t": "Tell us two true things and one lie. We'll see how well we know you." },
+    { "id": "intro-ttl-3", "ev": "intro-ttl", "t": "Time to find out who's a good liar." },
+
     { "id": "intro-bluff-1", "ev": "intro-bluff", "t": "Bluff. Lie convincingly." },
     { "id": "intro-bluff-2", "ev": "intro-bluff", "t": "Time to lie. Make it believable." },
     { "id": "intro-bluff-3", "ev": "intro-bluff", "t": "One true answer, lots of lies. Find the truth." },
