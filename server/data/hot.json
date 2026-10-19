@@ -1,5 +1,5 @@
 {
-  "about": "Hot seat: one player answers a question about themselves on their phone (me), while everyone else guesses what they picked (q, where {name} becomes their name). o is the four options. cheeky only plays with Spicy on.",
+  "about": "Hot seat: one player answers a question about themselves on their phone (me), while everyone else guesses what they picked (q, where {name} becomes their name). o is the four options. cheeky only plays with Spicy on. wild only on No holds barred.",
   "questions": [
     { "q": "What's {name}'s ideal Friday night?", "me": "What's your ideal Friday night?", "o": ["Out dancing", "Dinner with friends", "Sofa and a series", "An early night"] },
     { "q": "What would {name} grab first in a fire?", "me": "What would you grab first in a fire?", "o": ["Phone", "Wallet", "Laptop", "Photos"] },
@@ -45,5 +45,19 @@
     { "q": "How long would {name} wait to text back a crush?", "me": "How long would you wait to text back a crush?", "o": ["Straight away", "An hour", "A day", "Days, make them wait"] },
     { "q": "What's {name}'s hangover cure?", "me": "What's your hangover cure?", "o": ["Sleep", "Greasy food", "More drinks", "Water and painkillers"] },
     { "q": "How does {name} leave a party?", "me": "How do you leave a party?", "o": ["Say bye to everyone", "Sneak out", "Last one out", "Get carried home"] }
+  ],
+  "wild": [
+    {"q": "How many people has {name} slept with?", "me": "How many people have you slept with?", "o": ["0 to 3", "4 to 10", "11 to 20", "Lost count"]},
+    {"q": "Where's the wildest place {name} has had sex?", "me": "Where's the wildest place you've had sex?", "o": ["A car", "Outdoors", "Someone else's bed", "Nowhere wild yet"]},
+    {"q": "What's {name} like in bed?", "me": "What are you like in bed?", "o": ["Takes charge", "Follows the lead", "All talk", "Falls asleep"]},
+    {"q": "How does {name} like it?", "me": "How do you like it?", "o": ["Romantic", "Rough", "Quick", "Kinky"]},
+    {"q": "Has {name} ever sent a nude?", "me": "Have you ever sent a nude?", "o": ["Never", "Once", "Plenty", "Sending one tonight"]},
+    {"q": "What turns {name} on most?", "me": "What turns you on most?", "o": ["Confidence", "A great smile", "A great body", "Money"]},
+    {"q": "What's in {name}'s bedside drawer?", "me": "What's in your bedside drawer?", "o": ["Condoms", "Toys", "Lube", "Snacks"]},
+    {"q": "When did {name} last have sex?", "me": "When did you last have sex?", "o": ["This week", "This month", "This year", "Don't ask"]},
+    {"q": "How does {name} feel about a threesome?", "me": "How do you feel about a threesome?", "o": ["Done it", "Would try it", "Only after a few drinks", "Never"]},
+    {"q": "What does {name} do the morning after?", "me": "What do you do the morning after?", "o": ["Make breakfast", "Go again", "Sneak out", "Pretend to be asleep"]},
+    {"q": "How loud is {name} in bed?", "me": "How loud are you in bed?", "o": ["Silent", "Normal", "Loud", "The neighbours complain"]},
+    {"q": "What's {name}'s go-to move?", "me": "What's your go-to move?", "o": ["Neck kisses", "Dirty talk", "Slow dancing", "Straight to it"]}
   ]
 }

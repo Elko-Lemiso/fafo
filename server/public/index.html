@@ -522,7 +522,9 @@ const QUIZ_WRITE = ["ttl"];
 // Writing rounds where each player's answer then gets its own question, one after another.
 const EACH_KINDS = ["said", "ttl"];
 const QW_SECS = { quip: 90, lash: 75, bluff: 60, said: 60, ttl: 150, meld: 45 }, QV_SECS = { quip: 15, lash: 25, bluff: 20 };
-const SPICE = [["off", "Off"], ["cheeky", "Cheeky (18+)"], ["savage", "Savage (18+)"]];
+// Spicy levels. Cheeky adds dating and group-chat prompts, Savage adds roasts, and No holds barred is the adults-only night:
+// sex, hookups, drinking and filth, from each mode's "wild" list, for most of the rounds. Anyone can still tap Too far.
+const SPICE = [["off", "Off"], ["cheeky", "Cheeky (18+)"], ["savage", "Savage (18+)"], ["wild", "No holds barred (18+)"]];
 // Difficulty mostly changes the wrong answers: Easy picks obvious ones, Hard picks the ones that could pass for right.
 const DIFFS = [["easy", "Easy"], ["normal", "Normal"], ["hard", "Hard"]];
 // Imposter: everyone gets the same secret word except one player. Clues go round the room out loud, then everyone votes.
@@ -1488,6 +1490,17 @@ const TV = {
     const seen = new Set(this.H.recent?.[kind] || []), fresh = list.filter(x => !seen.has(key(x)));
     return fresh.length >= need ? fresh : list;
   },
+  // Spicy prompts for tonight's level: Cheeky draws on the cheeky list, Savage adds the savage one, and No holds barred
+  // plays its own wild list first. `D` holds the lists; `k` renames them for files that call them something else.
+  spicyPick(D, n, key, kind, k = {}) {
+    const lv = this.H.spicy;
+    if (lv === "off" || n <= 0 || !D) return [];
+    const mild = [...(D[k.cheeky || "cheeky"] || []), ...(lv !== "cheeky" ? D[k.savage || "savage"] || [] : [])];
+    const wild = lv === "wild" ? shuffle(this.unseen(D[k.wild || "wild"] || [], key, kind, n)).slice(0, n) : [];
+    return [...wild, ...shuffle(this.unseen(mild, key, kind, n - wild.length)).slice(0, n - wild.length)];
+  },
+  // The share of a mode's rounds that are spicy: its usual share on Cheeky and Savage, most of them on No holds barred.
+  spicyShare(usual) { return this.H.spicy === "off" ? 0 : this.H.spicy === "wild" ? Math.max(usual, 0.75) : usual; },
   remember(kind, keys) {
     const H = this.H;
     H.recent ||= {};
@@ -1556,22 +1569,24 @@ const TV = {
         const data = await getImposter(), n = IMP_ROUNDS[H.len] || 3;
         let pairs = data.pairs.filter(p => theme.id === "mix" || (p.th || []).includes(theme.id));
         if (pairs.length < n * 2) pairs = data.pairs;
-        pairs = shuffle(this.unseen(pairs, p => p.w + "|" + p.x, "imp", n)).slice(0, n);
+        const wildPairs = H.spicy === "wild" ? shuffle(this.unseen(data.wild || [], p => p.w + "|" + p.x, "imp", n)).slice(0, Math.ceil(n * 0.6)).map(p => ({ ...p, sp: true })) : [];
+        pairs = shuffle([...wildPairs, ...shuffle(this.unseen(pairs, p => p.w + "|" + p.x, "imp", n)).slice(0, n - wildPairs.length)]);
         const people = this.players().filter(p => p.online).map(p => p.pid), imps = shuffle(people.slice());
         pools.imp = pairs.map((p, i) => {
           const flip = Math.random() < 0.5, imp = imps[i % imps.length];
           // Clues go round in a random order, and the imposter never goes first.
           const order = shuffle(people.slice());
           if (order[0] === imp) order.push(order.shift());
-          return { t: "imp", k: p.w + "|" + p.x, cat: p.c, w: flip ? p.x : p.w, x: flip ? p.w : p.x, imp, order };
+          return { t: "imp", k: p.w + "|" + p.x, cat: p.c, w: flip ? p.x : p.w, x: flip ? p.w : p.x, imp, order, sp: !!p.sp };
         });
       }
       if (modes.includes("fakin") && online >= 3) {
         // Either question of a pair can be the real one. Each round a different player fakes it.
-        const F = (await getData("fakin")).rounds, n = IMP_ROUNDS[H.len] || 3, fakers = shuffle(this.players().filter(p => p.online).map(p => p.pid));
-        pools.fakin = shuffle(this.unseen(F, x => x.q, "fakin", n)).slice(0, n).map((x, i) => {
+        const D = await getData("fakin"), F = D.rounds, n = IMP_ROUNDS[H.len] || 3, fakers = shuffle(this.players().filter(p => p.online).map(p => p.pid));
+        const wild = H.spicy === "wild" ? shuffle(this.unseen(D.wild || [], x => x.q, "fakin", n)).slice(0, Math.ceil(n * 0.67)).map(x => ({ ...x, sp: true })) : [];
+        pools.fakin = shuffle([...wild, ...shuffle(this.unseen(F, x => x.q, "fakin", n)).slice(0, n - wild.length)]).map((x, i) => {
           const flip = Math.random() < 0.5;
-          return { t: "fakin", k: x.q, ty: x.t, q: flip ? x.x : x.q, x: flip ? x.q : x.x, imp: fakers[i % fakers.length], ans: {} };
+          return { t: "fakin", k: x.q, ty: x.t, q: flip ? x.x : x.q, x: flip ? x.q : x.x, imp: fakers[i % fakers.length], ans: {}, sp: !!x.sp };
         });
       }
       if (modes.includes("flag") || modes.includes("map")) {
@@ -1638,10 +1653,10 @@ const TV = {
         });
       }
       if (modes.includes("likely") && online >= 3) {
-        // With Spicy on, about half the prompts come from the spicy list.
-        const L = await getData("likely"), hot = H.spicy === "off" ? [] : [...(L.cheeky || []), ...(H.spicy === "savage" ? L.savage || [] : [])];
-        const nHot = hot.length ? Math.round(each / 2) : 0, pick = (list, n) => shuffle(this.unseen(list, x => x, "likely", n)).slice(0, n);
-        pools.likely = shuffle([...pick(hot, nHot).map(lk => ({ t: "likely", lk, sp: true })), ...pick(L.prompts, each - nHot).map(lk => ({ t: "likely", lk }))]);
+        // With Spicy on, about half the prompts come from the spicy lists; on No holds barred, most of them.
+        const L = await getData("likely"), hot = this.spicyPick(L, Math.round(each * this.spicyShare(0.5)), x => x, "likely");
+        const pick = (list, n) => shuffle(this.unseen(list, x => x, "likely", n)).slice(0, n);
+        pools.likely = shuffle([...hot.map(lk => ({ t: "likely", lk, sp: true })), ...pick(L.prompts, each - hot.length).map(lk => ({ t: "likely", lk }))]);
       }
       if (modes.includes("odd")) {
         const sets = (await getData("odd")).sets, nK = kenya ? Math.ceil(each / 2) : 0;
@@ -1688,42 +1703,48 @@ const TV = {
         }
       }
       if ((modes.includes("wyr") || modes.includes("nhie")) && online >= 3) {
-        // With Spicy on, about half come from the cheeky lists.
-        const P = await getData("polls"), hot = H.spicy !== "off";
+        // With Spicy on, a third of Would you rather and half of Never have I ever are spicy; on No holds barred, most of them.
+        const P = await getData("polls");
         const pick = (list, n, kind, key = x => x) => shuffle(this.unseen(list, key, kind, n)).slice(0, n);
         if (modes.includes("wyr")) {
-          const plain = [...P.wyr.map(o => ({ o })), ...P.hot.map(q => ({ q, o: ["Agree", "Disagree"] }))], spicy = hot ? P.wyr_cheeky.map(o => ({ o, sp: true })) : [];
-          const nHot = spicy.length ? Math.round(each / 3) : 0, key = x => x.q || x.o.join("|");
-          pools.wyr = shuffle([...pick(spicy, nHot, "wyr", key), ...pick(plain, each - nHot, "wyr", key)]).map(x => ({ t: "wyr", q: x.q || "", o: x.o, a: -1, sp: !!x.sp }));
+          const plain = [...P.wyr.map(o => ({ o })), ...P.hot.map(q => ({ q, o: ["Agree", "Disagree"] }))], key = x => x.q || x.o.join("|");
+          const spicy = this.spicyPick({ cheeky: P.wyr_cheeky.map(o => ({ o })), wild: [...(P.wyr_wild || []).map(o => ({ o })), ...(P.hot_wild || []).map(q => ({ q, o: ["Agree", "Disagree"] }))] },
+            Math.round(each * this.spicyShare(1 / 3)), key, "wyr").map(x => ({ ...x, sp: true }));
+          pools.wyr = shuffle([...spicy, ...pick(plain, each - spicy.length, "wyr", key)]).map(x => ({ t: "wyr", q: x.q || "", o: x.o, a: -1, sp: !!x.sp }));
         }
         if (modes.includes("nhie")) {
-          const nHot = hot ? Math.round(each / 2) : 0;
-          pools.nhie = shuffle([...pick(P.nhie_cheeky, nHot, "nhie").map(q => ({ t: "nhie", q, sp: true })), ...pick(P.nhie, each - nHot, "nhie").map(q => ({ t: "nhie", q }))])
+          const spicy = this.spicyPick({ cheeky: P.nhie_cheeky, wild: P.nhie_wild }, Math.round(each * this.spicyShare(0.5)), x => x, "nhie");
+          pools.nhie = shuffle([...spicy.map(q => ({ t: "nhie", q, sp: true })), ...pick(P.nhie, each - spicy.length, "nhie").map(q => ({ t: "nhie", q }))])
             .map(x => ({ ...x, o: ["I have", "Never"], a: -1 }));
         }
       }
       if (modes.includes("said") && online >= 3) {
         // Who said it: everyone answers one prompt about themselves. With Spicy on, about half the prompts are cheeky.
         const S = await getData("said"), n = { quick: 1, normal: 1, long: 2 }[H.len] || 1;
-        const hot = H.spicy === "off" ? [] : shuffle(this.unseen(S.cheeky || [], x => x, "said", n)).slice(0, Math.round(n / 2 + Math.random() * 0.5));
+        const hot = this.spicyPick(S, H.spicy === "wild" ? n : Math.round(n / 2 + Math.random() * 0.5), x => x, "said");
         const plain = shuffle(this.unseen(S.prompts, x => x, "said", n)).slice(0, n - hot.length);
         pools.said = shuffle([...hot.map(q => ({ q, sp: true })), ...plain.map(q => ({ q }))]).map(x => ({ t: "said", q: x.q, sp: !!x.sp, ans: {} }));
       }
       if (modes.includes("meld") && online >= 2) {
         // Mind meld: random pairs (one three if the count is odd), each pair with its own prompt. New pairs every round.
-        const M = (await getData("meld")).prompts, n = { quick: 2, normal: 3, long: 4 }[H.len] || 3, people = this.players().filter(p => p.online).map(p => p.pid);
+        const MD = await getData("meld"), M = MD.prompts, n = { quick: 2, normal: 3, long: 4 }[H.len] || 3, people = this.players().filter(p => p.online).map(p => p.pid);
+        // No holds barred: most pairs get a filthy prompt.
+        const W = H.spicy === "wild" ? shuffle(this.unseen(MD.wild || [], x => x, "meld", n * Math.ceil(people.length / 2))) : [];
         const prompts = shuffle(this.unseen(M, x => x, "meld", n * Math.ceil(people.length / 2)));
         pools.meld = Array.from({ length: n }, () => {
           const ring = shuffle(people.slice()), ps = [];
-          for (let i = 0; i + 1 < ring.length; i += 2) ps.push({ q: prompts.pop() || M[Math.floor(Math.random() * M.length)], by: ring.slice(i, i + 2) });
+          for (let i = 0; i + 1 < ring.length; i += 2) {
+            const w = W.length && Math.random() < 0.7 ? W.pop() : null;
+            ps.push({ q: w || prompts.pop() || M[Math.floor(Math.random() * M.length)], by: ring.slice(i, i + 2), sp: !!w });
+          }
           if (ring.length % 2) ps[ps.length - 1].by.push(ring[ring.length - 1]);
-          return { t: "meld", ps, ans: {} };
+          return { t: "meld", ps, ans: {}, sp: ps.some(m => m.sp) };
         });
       }
       if (modes.includes("hot") && online >= 2) {
         // Hot seat: one player answers about themselves while the rest guess. Everyone gets a turn before anyone has two.
         const Q = await getData("hot"), people = shuffle(this.players().filter(p => p.online)), n = Math.min(each, people.length * 2);
-        const hot = H.spicy === "off" ? [] : shuffle(this.unseen(Q.cheeky || [], x => x.q, "hot", n)).slice(0, Math.round(n / 3));
+        const hot = this.spicyPick(Q, Math.round(n * this.spicyShare(1 / 3)), x => x.q, "hot");
         const qs = shuffle([...hot.map(x => ({ ...x, sp: true })), ...shuffle(this.unseen(Q.questions, x => x.q, "hot", n)).slice(0, n - hot.length)]);
         pools.hot = qs.map((x, i) => { const p = people[i % people.length]; return { t: "hot", pid: p.pid, k: x.q, q: x.q.replace(/\{name\}/g, p.name), me: x.me, o: x.o, a: -1, sp: !!x.sp }; });
       }
@@ -1738,7 +1759,8 @@ const TV = {
       if (modes.includes("quip") && online >= 3) {
         const Q = await getData("quips"), people = this.players().filter(p => p.online);
         const norm = shuffle(this.unseen([...Q.classic, ...Q.friends, ...Q.kenya], x => x, "quip", people.length * 2));
-        const hot = H.spicy === "off" ? [] : shuffle(this.unseen([...Q.cheeky, ...(H.spicy === "savage" ? Q.savage : [])], x => x, "quip", people.length));
+        // Taken from the end, so on No holds barred the wild prompts come first.
+        const wild = H.spicy === "wild", hot = this.spicyPick(Q, people.length * (wild ? 4 : 1), x => x, "quip").reverse();
         // {name} in a prompt becomes someone other than the two people answering it.
         const fill = (t, by) => t.replace(/\{name\}/g, () => { const o = people.filter(p => !by.includes(p.pid)); return (o[Math.floor(Math.random() * o.length)] || people[0]).name; });
         pools.quip = [];
@@ -1746,18 +1768,20 @@ const TV = {
           // Each prompt goes to two neighbours in a shuffled ring, so everyone writes two answers.
           const ring = shuffle(people.map(p => p.pid)), ps = [];
           for (let i = 0; i < ring.length; i++) {
-            const sp = i % 2 === 1 && hot.length > 0, raw = sp ? hot.pop() : norm.pop();
+            const sp = hot.length > 0 && (wild ? i % 4 !== 0 : i % 2 === 1), raw = sp ? hot.pop() : norm.pop();
             if (!raw) break;
             const by = [ring[i], ring[(i + 1) % ring.length]];
             ps.push({ q: fill(raw, by), raw, by, sp });
           }
           if (ps.length) pools.quip.push({ t: "quip", ps, ans: {}, mi: 0, sp: ps.some(m => m.sp) });
         }
-        const finals = [...Q.lash.map(t => ({ t })), ...(H.spicy !== "off" ? (Q.lash_spicy || []).map(t => ({ t, sp: true })) : [])];
+        const finals = wild && Q.lash_wild?.length ? Q.lash_wild.map(t => ({ t, sp: true })) : [...Q.lash.map(t => ({ t })), ...(H.spicy !== "off" ? (Q.lash_spicy || []).map(t => ({ t, sp: true })) : [])];
         const f = shuffle(this.unseen(finals, x => x.t, "lash", 1))[0];
-        if (f) lash = { t: "lash", q: f.t, ans: {}, sp: !!f.sp };
+        // {name} in the finale becomes anyone in the room.
+        if (f) lash = { t: "lash", q: f.t.replace(/\{name\}/g, () => people[Math.floor(Math.random() * people.length)].name), raw: f.t, ans: {}, sp: !!f.sp };
       }
-      this.dares = H.spicy !== "off" ? (await getData("quips").catch(() => null))?.dares || [] : [];
+      const DQ = H.spicy !== "off" ? await getData("quips").catch(() => null) : null;
+      this.dares = !DQ ? [] : H.spicy === "wild" && DQ.dares_wild?.length ? [...DQ.dares_wild, ...DQ.dares_wild, ...DQ.dares] : DQ.dares || [];
       // Mix the kinds: each round draws a kind at random, weighted by how many of that kind are left.
       const order = [];
       for (let n = MODES.reduce((sum, k) => sum + (pools[k]?.length || 0), 0); n > 0; n--) {
@@ -1788,7 +1812,7 @@ const TV = {
       this.remember("likely", order.filter(r => r.t === "likely").map(r => r.lk));
       this.remember("prof", order.filter(r => r.t === "prof").map(r => r.k));
       this.remember("quip", order.filter(r => r.t === "quip").flatMap(r => r.ps.map(m => m.raw)));
-      this.remember("lash", order.filter(r => r.t === "lash").map(r => r.q));
+      this.remember("lash", order.filter(r => r.t === "lash").map(r => r.raw || r.q));
       this.remember("odd", order.filter(r => r.t === "odd").map(r => [...r.o].sort().join()));
       this.remember("num", order.filter(r => r.t === "num").map(r => r.q));
       this.remember("year", order.filter(r => r.t === "year").map(r => r.k));
@@ -1839,7 +1863,7 @@ const TV = {
     const H = this.H, kind = H.cur?.t;
     if (ph === "intro") {
       const last = this.lastKind; this.lastKind = kind;
-      if (H.r === 1) return this.say("start", true);
+      if (H.r === 1) return (H.spicy === "wild" && this.say("start-wild", true)) || this.say("start", true);
       if (H.R > 1 && H.r === H.R) return this.say("final", true);
       // A new kind of round always gets an intro; another of the same kind only sometimes.
       if (kind !== last || Math.random() < 0.45) this.say("intro-" + kind);
@@ -2299,7 +2323,7 @@ const TV = {
       qv: H.ph === "qv" && this.isWrite() ? (H.cur.t === "bluff" ? { q: H.cur.q, a: H.cur.opts.map(o => o.t), x: H.cur.opts.map(o => o.by.map(pid => fnv(pid + H.rk))) }
         : H.cur.t === "lash" ? { q: H.cur.q, a: H.cur.ord.map(pid => H.cur.ans[0][pid]), x: H.cur.ord.map(pid => fnv(pid + H.rk)) }
         : (m => ({ q: m.q, a: m.by.map(pid => H.cur.ans[H.cur.mi]?.[pid] || ""), x: m.by.map(pid => fnv(pid + H.rk)) }))(H.cur.ps[H.cur.mi])) : null,
-      sp: H.cur?.sp ? 1 : 0, spicy: H.spicy !== "off" ? 1 : 0, drinks: H.drinks ? 1 : 0,
+      sp: H.cur?.sp ? 1 : 0, spicy: H.spicy === "wild" ? 2 : H.spicy !== "off" ? 1 : 0, drinks: H.drinks ? 1 : 0,
       dare: H.ph === "lb" ? H.dare || null : null,
       // The lobby settings, so whoever starts the game can change them from their phone instead of the TV.
       cfg: H.ph === "lobby" ? { th: H.theme, len: H.len, diff: H.diff, snd: H.snd, host: H.host, anon: H.anon ? 1 : 0, spicy: H.spicy, drinks: H.drinks ? 1 : 0, imp: H.impVar, tune: H.tune.q, tl: H.tune.label, mix: this.needMix() ? 1 : 0 } : null,
@@ -2577,7 +2601,7 @@ const TV = {
   renderTonight() {
     const H = this.H, el = $("#tonight");
     if (!el) return;
-    const t = themeOf(H), bits = [t.id !== "mix" && "Theme: " + t.label, (LENGTHS.find(([k]) => k === H.len) || LENGTHS[1])[1] + " game", H.diff !== "normal" && (DIFFS.find(([k]) => k === H.diff) || [])[1], H.spicy !== "off" && "18+", H.drinks && "Drinks on"].filter(Boolean);
+    const t = themeOf(H), bits = [t.id !== "mix" && "Theme: " + t.label, (LENGTHS.find(([k]) => k === H.len) || LENGTHS[1])[1] + " game", H.diff !== "normal" && (DIFFS.find(([k]) => k === H.diff) || [])[1], H.spicy === "wild" ? "No holds barred (18+)" : H.spicy !== "off" && "18+", H.drinks && "Drinks on"].filter(Boolean);
     paint(el, [H.modes.join(), H.theme, H.len, H.diff, H.spicy, H.drinks].join("|"), `<div class="tonight-top"><p class="eyebrow">Tonight</p><button class="btn sm" data-act="settings">Rounds &amp; settings</button></div>
       <p class="tonight-modes">${H.modes.map(m => esc(MODE_LABEL[m])).join(" · ")}</p><p class="tonight-sub">${esc(bits.join(" · "))}</p>`);
   },
@@ -2631,7 +2655,8 @@ const TV = {
     if (H.modes.includes("trivia")) bits.push("Trivia: " + ({ mix: "anything", music: "music", screen: "film and TV", sport: "sport", world: "history", africa: "Kenya and geography" }[themeOf(H).id] || "anything"));
     if (themeOf(H).id === "africa" && ["bluff", "odd", "year", "hilo"].some(m => H.modes.includes(m))) bits.push("Kenya pack: local questions mixed in");
     if (H.modes.includes("quip")) bits.push("Quips, then a Last Lash finale");
-    if (H.spicy !== "off") bits.push(`Spicy: ${H.spicy === "savage" ? "savage roasts" : "cheeky"}, 18+. Anyone can tap Too far`);
+    if (H.spicy === "wild") bits.push("No holds barred: sex, hookups and drinking, adults only. Anyone can tap Too far");
+    else if (H.spicy !== "off") bits.push(`Spicy: ${H.spicy === "savage" ? "savage roasts" : "cheeky"}, 18+. Anyone can tap Too far`);
     if (H.modes.includes("emoji")) bits.push("Emoji: " + ({ music: "songs", screen: "films and TV" }[themeOf(H).id] || "films, songs and TV"));
     return bits.join(" · ");
   },
@@ -3448,7 +3473,8 @@ const PH = {
       : `<p class="muted">Tonight: ${modes.map(m => MODE_LABEL[m]).join(", ")}${H.th && H.th !== "Anything goes" ? ` · Theme: ${esc(H.th)}` : ""}</p>`;
     paint(el, [vip, H.can, starting, ps.map(p => p[0] + p[1] + p[7]).join(), vipName, modes.join(), H.th, this.av, H.spicy].join("|"), `
       <p class="eyebrow">Rounds tonight</p>${picker}
-      ${H.spicy ? `<p class="warn">18+ tonight: some prompts are spicy. Tap Too far on your phone to skip one, no questions asked.</p>` : ""}
+      ${H.spicy === 2 ? `<p class="warn">No holds barred tonight: sex, hookups, drinking and filthy questions. Adults only. Tap Too far on your phone to skip anything, no questions asked.</p>`
+        : H.spicy ? `<p class="warn">18+ tonight: some prompts are spicy. Tap Too far on your phone to skip one, no questions asked.</p>` : ""}
       ${vip ? `<button class="btn primary wide" data-act="start" ${H.can && !starting ? "" : "disabled"}>${starting ? "Starting…" : "Start game"}</button>
         <p class="muted">${H.can ? (brings ? `Start when everyone's ${brings} are in.` : "Start when everyone's in.") : ownerOnly(H) ? "You can start once 2 players have added photos or songs." : "Waiting for players."}</p>`
       : `<p class="ph-h" style="font-size:20px">Waiting for ${esc(vipName || "the host")} to start</p>`}

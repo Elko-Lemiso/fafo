@@ -1,5 +1,5 @@
 {
-  "about": "Most likely to: the TV shows 'Who's most likely to …' plus one of these. cheeky and savage only play when Spicy is on in the lobby.",
+  "about": "Most likely to: the TV shows 'Who's most likely to …' plus one of these. cheeky and savage only play when Spicy is on in the lobby. wild only on No holds barred.",
   "prompts": [
     "become famous",
     "miss a flight",
@@ -104,5 +104,35 @@
     "take three business days to reply",
     "be secretly bad at their job",
     "fall for a pyramid scheme"
+  ],
+  "wild": [
+    "have a secret OnlyFans",
+    "sleep with someone on the first date",
+    "hook up with someone tonight",
+    "have the highest body count",
+    "get caught having sex in public",
+    "own the most sex toys",
+    "send a nude to the wrong person",
+    "have a friend with benefits right now",
+    "be dating two people at once",
+    "have had a threesome",
+    "join the mile-high club",
+    "hook up with an ex at a wedding",
+    "fake it in bed",
+    "film a sex tape",
+    "end up in a strip club tonight",
+    "go home with a stranger",
+    "do the walk of shame this weekend",
+    "have the kinkiest search history",
+    "get a hickey somewhere embarrassing",
+    "sleep with their boss",
+    "be the loudest in bed",
+    "have done it in a car",
+    "lie about their body count",
+    "be into something really weird in bed",
+    "skinny-dip with strangers",
+    "black out before midnight",
+    "wake up next to someone whose name they don't know",
+    "slide into an ex's DMs tonight"
   ]
 }

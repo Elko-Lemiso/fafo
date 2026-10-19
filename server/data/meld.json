@@ -1,5 +1,5 @@
 {
-  "about": "Mind meld: two players get the same prompt and each types an answer without talking. Matching answers (ignoring case, plurals, 'the' and one typo) score 1,000 each. Prompts should have a few obvious answers, not one.",
+  "about": "Mind meld: two players get the same prompt and each types an answer without talking. Matching answers (ignoring case, plurals, 'the' and one typo) score 1,000 each. Prompts should have a few obvious answers, not one. wild prompts only play on No holds barred.",
   "prompts": [
     "A fruit",
     "A colour",
@@ -61,5 +61,27 @@
     "Something with buttons",
     "An insect",
     "A reason to be late"
+  ],
+  "wild": [
+    "A sex position",
+    "Something in a bedside drawer",
+    "A place to have sex",
+    "A slang word for sex",
+    "A condom brand",
+    "Something kinky",
+    "A body part you'd kiss",
+    "A sexy song",
+    "A drinking game",
+    "Something you'd say in bed",
+    "A type of underwear",
+    "A dating app",
+    "A shot you'd order",
+    "A famous sex symbol",
+    "Something you'd find on a walk of shame",
+    "Something that happens at an after-party",
+    "A body part people find sexy",
+    "A cheap drink",
+    "A pet name for a lover",
+    "A reason to leave a party early"
   ]
 }

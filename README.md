@@ -88,6 +88,12 @@ Savage for friendly roasts. The scoreboard then dares whoever is last (they can 
 **Too far** to skip a spicy round on the spot. **Drinks** adds a "Sip" line to each reveal for whoever lost it;
 any drink counts. Prompts live in `server/data/quips.json` and `likely.json`.
 
+**No holds barred (18+):** the top Spicy level, for adults who all want it. Sex, hookups, kinks, nudes, drinking and
+filthy dares, in most rounds of Quips (and a filthy Last Lash), Most likely to, Never have I ever, Would you rather and
+hot takes, Who said it, Hot seat, Mind meld, Imposter and Fakin' it. Every phone gets an adults-only warning in the
+lobby, and Too far still skips anything. Each mode's data file has its own `wild` list (`nhie_wild`, `wyr_wild` and
+`hot_wild` in `polls.json`; `lash_wild` and `dares_wild` in `quips.json`).
+
 **Selfies:** each phone can take a selfie, which replaces the player's letter everywhere on the TV and the
 phones. Selfies live in the server's memory only, like photos, and each phone re-sends its own after a restart.
 

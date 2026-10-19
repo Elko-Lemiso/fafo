@@ -1,5 +1,5 @@
 {
-  "about": "Who said it: everyone answers one prompt about themselves, then each answer goes on the TV and the room guesses who wrote it. prompts are always in; cheeky only plays with Spicy on.",
+  "about": "Who said it: everyone answers one prompt about themselves, then each answer goes on the TV and the room guesses who wrote it. prompts are always in; cheeky only plays with Spicy on. wild only on No holds barred.",
   "prompts": [
     "Your go-to karaoke song",
     "The first thing you'd buy if you won the lottery",
@@ -57,5 +57,23 @@
     "The most embarrassing thing you've texted the wrong person",
     "Your worst hangover, in five words",
     "The lie you tell most often"
+  ],
+  "wild": [
+    "Your biggest turn-on",
+    "Your biggest turn-off",
+    "The wildest place you've had sex",
+    "Your go-to bedroom song",
+    "Your worst sex ever, in five words",
+    "Your secret kink, in three words",
+    "What you'd do with a free hotel room and no rules",
+    "Your most embarrassing moment in bed",
+    "What you'd call your OnlyFans",
+    "Your celebrity hall pass",
+    "The best place you've ever hooked up",
+    "Your dirtiest text, cleaned up for TV",
+    "The wildest thing in your bedside drawer",
+    "Your ideal one-night stand, in three words",
+    "The worst thing someone has said to you in bed",
+    "How you'd describe your body count, in one word"
   ]
 }

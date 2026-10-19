@@ -1,5 +1,5 @@
 {
-  "about": "Fakin' it: everyone answers q on their phone, except one player who gets x instead. Both are the same type, so the faker's answer can blend in. t: who = point at a player (you can pick yourself), num = type a number, yn = yes or no. Either question can end up as the real one.",
+  "about": "Fakin' it: everyone answers q on their phone, except one player who gets x instead. Both are the same type, so the faker's answer can blend in. t: who = point at a player (you can pick yourself), num = type a number, yn = yes or no. Either question can end up as the real one. wild rounds only play on No holds barred.",
   "rounds": [
     { "t": "who", "q": "Who here is the best cook?", "x": "Who here eats the most?" },
     { "t": "who", "q": "Who here is most likely to be late?", "x": "Who here takes the longest to get ready?" },
@@ -39,5 +39,22 @@
     { "t": "yn", "q": "Do you prefer tea to coffee?", "x": "Do you prefer mornings to evenings?" },
     { "t": "yn", "q": "Have you ever climbed a mountain?", "x": "Have you ever camped outdoors?" },
     { "t": "yn", "q": "Have you ever met someone famous?", "x": "Have you ever asked a stranger for a photo?" }
+  ],
+  "wild": [
+    {"t": "who", "q": "Who here is best in bed?", "x": "Who here is the best kisser?"},
+    {"t": "who", "q": "Who here has the highest body count?", "x": "Who here has had the most exes?"},
+    {"t": "who", "q": "Who here would you call for a booty call?", "x": "Who here would you call for a night out?"},
+    {"t": "who", "q": "Who here would go home with a stranger tonight?", "x": "Who here will stay out latest tonight?"},
+    {"t": "who", "q": "Who here has the dirtiest mind?", "x": "Who here tells the dirtiest jokes?"},
+    {"t": "num", "q": "How many people have you slept with?", "x": "How many people have you kissed?"},
+    {"t": "num", "q": "Out of 10, how good are you in bed?", "x": "Out of 10, how good a kisser are you?"},
+    {"t": "num", "q": "How many times have you had sex this month?", "x": "How many drinks have you had this week?"},
+    {"t": "num", "q": "How many one-night stands have you had?", "x": "How many first dates have you been on?"},
+    {"t": "yn", "q": "Have you ever had sex in public?", "x": "Have you ever skinny-dipped?"},
+    {"t": "yn", "q": "Have you ever sent a nude?", "x": "Have you ever received a nude?"},
+    {"t": "yn", "q": "Have you ever had a one-night stand?", "x": "Have you ever kissed a stranger?"},
+    {"t": "yn", "q": "Have you ever had a threesome?", "x": "Have you ever been to a strip club?"},
+    {"t": "yn", "q": "Have you ever faked it in bed?", "x": "Have you ever faked being sick to skip work?"},
+    {"t": "yn", "q": "Have you ever been caught having sex?", "x": "Have you ever been caught sneaking out?"}
   ]
 }

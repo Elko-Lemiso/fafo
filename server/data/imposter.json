@@ -1,5 +1,5 @@
 {
-  "about": "Imposter rounds: everyone gets word w, one player gets the similar word x (or no word). c is the category shown to everyone. th lists the themes a pair fits; pairs without th are general.",
+  "about": "Imposter rounds: everyone gets word w, one player gets the similar word x (or no word). c is the category shown to everyone. th lists the themes a pair fits; pairs without th are general. wild pairs only play on No holds barred.",
   "pairs": [
     { "w": "Pizza", "x": "Burger", "c": "Food" },
     { "w": "Coffee", "x": "Tea", "c": "Drinks" },
@@ -142,5 +142,23 @@
     { "w": "Swahili", "x": "Sheng", "c": "Languages", "th": ["africa"] },
     { "w": "Shilling", "x": "Rand", "c": "Money", "th": ["africa", "world"] },
     { "w": "Sukuma wiki", "x": "Spinach", "c": "Food", "th": ["africa"] }
+  ],
+  "wild": [
+    {"w": "Condom", "x": "Lube", "c": "Bedroom"},
+    {"w": "Handcuffs", "x": "Blindfold", "c": "Bedroom"},
+    {"w": "Lingerie", "x": "Swimsuit", "c": "Clothes"},
+    {"w": "Strip club", "x": "Nightclub", "c": "Nights out"},
+    {"w": "Booty call", "x": "First date", "c": "Dating"},
+    {"w": "One-night stand", "x": "Holiday fling", "c": "Dating"},
+    {"w": "Hickey", "x": "Lipstick on the collar", "c": "Evidence"},
+    {"w": "Sexting", "x": "Flirting", "c": "Dating"},
+    {"w": "Walk of shame", "x": "Hangover", "c": "Morning after"},
+    {"w": "Body shot", "x": "Tequila shot", "c": "Drinks"},
+    {"w": "Skinny-dipping", "x": "Hot tub", "c": "Party"},
+    {"w": "Mile-high club", "x": "Hotel room", "c": "Travel"},
+    {"w": "Kama Sutra", "x": "Fifty Shades of Grey", "c": "Books"},
+    {"w": "Nude", "x": "Selfie", "c": "Phone"},
+    {"w": "Pole dance", "x": "Lap dance", "c": "Dance"},
+    {"w": "Sugar daddy", "x": "Boyfriend", "c": "Dating"}
   ]
 }

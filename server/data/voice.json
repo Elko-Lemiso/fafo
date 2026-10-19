@@ -22,6 +22,9 @@
     { "id": "start-4", "ev": "start", "t": "Let's find out who's been paying attention!" },
     { "id": "start-5", "ev": "start", "t": "No pressure! Well, a little bit of pressure!" },
     { "id": "start-6", "ev": "start", "t": "Let the games begin!" },
+    { "id": "start-wild-1", "ev": "start-wild", "t": "No holds barred tonight! What happens here stays here!" },
+    { "id": "start-wild-2", "ev": "start-wild", "t": "Adults only from here on! Let's get filthy!" },
+    { "id": "start-wild-3", "ev": "start-wild", "t": "Phones out, inhibitions off! Let's go!" },
 
     { "id": "intro-photo-1", "ev": "intro-photo", "t": "Whose photo is this? Think hard!" },
     { "id": "intro-photo-2", "ev": "intro-photo", "t": "A photo from one of you! Whose is it?" },
