@@ -36,6 +36,11 @@
     { "id": "intro-song-4", "ev": "intro-song", "t": "Whose taste in music are we judging now?" },
     { "id": "intro-song-5", "ev": "intro-song", "t": "Somebody's favourite song. Whose?" },
 
+    { "id": "intro-prof-1", "ev": "intro-prof", "t": "Whose answer is this?" },
+    { "id": "intro-prof-2", "ev": "intro-prof", "t": "One of you picked this. Who?" },
+    { "id": "intro-prof-3", "ev": "intro-prof", "t": "Who said that? Think about it." },
+    { "id": "intro-prof-4", "ev": "intro-prof", "t": "How well do you really know each other?" },
+
     { "id": "intro-tune-1", "ev": "intro-tune", "t": "Name that tune. Ears open." },
     { "id": "intro-tune-2", "ev": "intro-tune", "t": "Here comes a song. What is it?" },
     { "id": "intro-tune-3", "ev": "intro-tune", "t": "Listen carefully. Name that tune." },

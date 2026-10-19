@@ -40,6 +40,10 @@ function lanAddresses() {
 const photos = new Map(); // id -> { buf, pid, code, at }
 let photoBytes = 0;
 function forget(id) { const p = photos.get(id); if (p) { photoBytes -= p.buf.length; photos.delete(id); } }
+// Selfies: one small square JPEG per player. The phone that sends the first one sets a key, so nobody else can replace it.
+const avatars = new Map(); // pid -> { buf, key, at }
+const MAX_AVATAR_BYTES = 120 * 1024, MAX_AVATARS = 800;
+const isKey = s => typeof s === "string" && /^[a-z0-9]{12,40}$/.test(s);
 
 // ---------- http ----------
 const app = express();
@@ -58,7 +62,7 @@ for (const f of ["bungee", "barlow", "barlow-condensed"]) {
 require("./quiz")(app, MODULES);
 require("./music")(app);
 app.get("/data/faces.json", (req, res) => res.sendFile(path.join(__dirname, "data", "faces.json"), { maxAge: "1d" }));
-for (const f of ["imposter", "emoji", "likely", "voice"]) app.get(`/data/${f}.json`, (req, res) => res.sendFile(path.join(__dirname, "data", f + ".json"), { maxAge: "1h" }));
+for (const f of ["imposter", "emoji", "likely", "voice", "profile"]) app.get(`/data/${f}.json`, (req, res) => res.sendFile(path.join(__dirname, "data", f + ".json"), { maxAge: "1h" }));
 
 app.post("/api/photos/:id", express.raw({ type: () => true, limit: MAX_PHOTO_BYTES }), (req, res) => {
   const id = req.params.id, pid = req.get("x-pid"), code = req.get("x-code"), buf = req.body;
@@ -77,6 +81,30 @@ app.get("/photos/:id", (req, res) => {
   const p = photos.get(req.params.id);
   if (!p) return res.status(404).end();
   res.type("jpeg").set("Cache-Control", "private, max-age=86400, immutable").send(p.buf);
+});
+
+app.post("/api/avatar/:pid", express.raw({ type: () => true, limit: MAX_AVATAR_BYTES }), (req, res) => {
+  const pid = req.params.pid, key = req.get("x-key"), buf = req.body;
+  if (!isPid(pid) || !isKey(key)) return res.status(400).json({ error: "bad request" });
+  if (!Buffer.isBuffer(buf) || buf.length < 4 || buf[0] !== 0xff || buf[1] !== 0xd8) return res.status(415).json({ error: "send a JPEG" });
+  const have = avatars.get(pid);
+  if (have && have.key !== key) return res.status(409).json({ error: "taken" });
+  avatars.delete(pid);
+  avatars.set(pid, { buf, key, at: Date.now() });
+  while (avatars.size > MAX_AVATARS) avatars.delete(avatars.keys().next().value);
+  res.status(201).json({ ok: true });
+});
+app.delete("/api/avatar/:pid", (req, res) => {
+  const have = avatars.get(req.params.pid);
+  if (have && have.key !== req.get("x-key")) return res.status(409).json({ error: "taken" });
+  avatars.delete(req.params.pid);
+  res.status(204).end();
+});
+// The address carries a version (?v=), so a new selfie shows up straight away and old ones can be cached.
+app.get("/avatars/:pid", (req, res) => {
+  const a = avatars.get(req.params.pid);
+  if (!a) return res.status(404).end();
+  res.type("jpeg").set("Cache-Control", "private, max-age=86400").send(a.buf);
 });
 
 // The host's recorded lines (made with tools/make-voice.js). The list of recordings can change with a deploy, so it isn't cached long.

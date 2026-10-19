@@ -1,0 +1,29 @@
+{
+  "about": "Quick profile: each phone answers a few of these with one tap. 'Whose answer?' rounds show one player's answer, when nobody else picked the same, and the room guesses whose it is.",
+  "questions": [
+    { "id": "weekend", "q": "Dream weekend", "o": ["Beach", "Mountains", "City break", "Festival", "Sofa and snacks", "Road trip"] },
+    { "id": "karaoke", "q": "Karaoke pick", "o": ["Power ballad", "Rap verse", "Rock anthem", "Afrobeats", "Disney song", "I don't sing"] },
+    { "id": "power", "q": "Superpower", "o": ["Invisibility", "Flying", "Mind reading", "Teleporting", "Time travel", "Super strength"] },
+    { "id": "habit", "q": "Worst habit", "o": ["Always late", "Glued to my phone", "Snacking", "Procrastinating", "Oversharing", "Leaving people on read"] },
+    { "id": "breakfast", "q": "Perfect breakfast", "o": ["Full fry-up", "Just coffee", "Cereal", "Chapati and chai", "Skip it", "Last night's leftovers"] },
+    { "id": "party", "q": "At a party you're", "o": ["The DJ", "On the dance floor", "In the kitchen", "First to leave", "Last to leave", "Taking the photos"] },
+    { "id": "pet", "q": "Pet of choice", "o": ["Dog", "Cat", "Fish", "Snake", "Parrot", "No pets, ever"] },
+    { "id": "holiday", "q": "Holiday style", "o": ["Plan every minute", "Wing it", "Pool and cocktails", "Backpacking", "Visiting family", "Stay at home"] },
+    { "id": "need", "q": "Can't live without", "o": ["Music", "Coffee", "My phone", "The gym", "Netflix", "My bed"] },
+    { "id": "talent", "q": "Secret talent", "o": ["Cooking", "Dancing", "Singing", "Drawing", "Fixing things", "Impressions"] },
+    { "id": "fear", "q": "Biggest fear", "o": ["Spiders", "Heights", "Public speaking", "Deep water", "Clowns", "Being broke"] },
+    { "id": "film", "q": "Film night pick", "o": ["Comedy", "Horror", "Romance", "Action", "Documentary", "Cartoon"] },
+    { "id": "million", "q": "First thing with a million", "o": ["Buy a house", "Travel the world", "Give it away", "Start a business", "Buy a car", "Invest it"] },
+    { "id": "texting", "q": "Texting style", "o": ["Voice notes", "Long essays", "One word", "Only emojis", "Memes", "Reply next week"] },
+    { "id": "kid", "q": "Dream job as a kid", "o": ["Doctor", "Pilot", "Footballer", "Pop star", "Astronaut", "Teacher"] },
+    { "id": "date", "q": "Ideal first date", "o": ["Fancy dinner", "Cinema", "Picnic", "Something adventurous", "Cooking at home", "Club night"] },
+    { "id": "weak", "q": "Can't say no to", "o": ["Chocolate", "Shoes", "Gadgets", "A nap", "Gossip", "Takeaway"] },
+    { "id": "shower", "q": "In the shower you", "o": ["Sing", "Win old arguments", "Plan your day", "Think about nothing", "Question life", "Think about food"] },
+    { "id": "zombie", "q": "In a zombie apocalypse you're", "o": ["The leader", "The medic", "The cook", "The scavenger", "The comic relief", "First to go"] },
+    { "id": "morning", "q": "Mornings are", "o": ["For the gym", "For snoozing", "Coffee first, words later", "My best time", "What mornings?", "For breakfast in bed"] },
+    { "id": "group", "q": "In the group chat you", "o": ["Send memes", "Plan everything", "Lurk silently", "Start drama", "Reply hours later", "Send voice notes"] },
+    { "id": "sport", "q": "Sport you'd win gold in", "o": ["Sprinting", "Swimming", "Football", "Chess", "Darts", "Napping"] },
+    { "id": "drink", "q": "Order at the bar", "o": ["Beer", "Cocktail", "Wine", "Soft drink", "Water, please", "Whatever's cheapest"] },
+    { "id": "decade", "q": "Decade you'd live in", "o": ["60s", "70s", "80s", "90s", "2000s", "The future"] }
+  ]
+}

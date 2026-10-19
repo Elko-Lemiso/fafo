@@ -12,6 +12,8 @@ Pick any mix in the TV lobby under **Rounds tonight**:
 - **Whose photo:** everyone adds up to 5 photos from their phone (baby pictures work great). Each one
   pops up on the TV and everyone guesses whose it is. Every photo gets played.
 - **Whose song:** everyone picks up to 3 songs on their phone. The TV plays a clip and everyone guesses who picked it.
+- **Whose answer:** everyone taps answers to four quick questions on their phone ("Dream weekend", "Worst
+  habit"). The TV shows one answer nobody else picked, and the room guesses whose it is. Needs 3 players.
 - **Name that tune:** the TV plays a clip and phones pick the song or the artist. Choose from about 50 genres,
   decades and moods, or type any artist or playlist.
 - **Famous faces:** a photo of a well-known person sharpens from a blur. Answer early to score more.
@@ -34,6 +36,9 @@ Scoring: a right answer is 500 to 1,000 points, faster scores more. When someone
 wrong, you get 250 points. The last round counts double. Each reveal shows who picked which answer; set
 **Votes** to Anonymous in the lobby to show only how many picked each one. The game ends with a podium and
 a few awards.
+
+**Selfies:** each phone can take a selfie, which replaces the player's letter everywhere on the TV and the
+phones. Selfies live in the server's memory only, like photos, and each phone re-sends its own after a restart.
 
 **Sound:** the TV plays effects and a background loop, all made in the browser, and goes quiet under song
 clips. Browsers keep a page silent until someone clicks it, so press **Turn on sound** (or **Sound check**)

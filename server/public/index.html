@@ -349,6 +349,20 @@ button{font:inherit;color:inherit}
 .ph-foot{display:flex;justify-content:center}
 .ph-foot:empty{display:none}
 .rows .voters,.opt .voters{max-width:22vmin}
+/* selfies and quick profiles */
+.avatar{position:relative;overflow:hidden}
+.avatar .av-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;background:var(--c)}
+.selfie-row{display:flex;align-items:center;gap:14px}
+.selfie-row .avatar{font-size:26px}
+.selfie-btns{display:flex;gap:8px;flex-wrap:wrap}
+.pq{display:flex;flex-direction:column;gap:8px}
+.pq+.pq{border-top:2px dashed var(--ink-soft);padding-top:12px;margin-top:6px}
+.pq b{font-weight:800;font-size:17px}
+.pq .chips button{font:inherit;font-weight:700;font-size:15px;border:2px solid var(--ink);border-radius:999px;background:#fff;color:var(--ink);padding:6px 12px;cursor:pointer}
+.pq .chips button.on{background:var(--cobalt);color:var(--paper)}
+.print.prof{padding:3.4vmin 4vmin;max-width:min(66vmin,100%);gap:1.6vmin;transform:rotate(-1.5deg)}
+.prof-q{font-family:var(--label);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:max(14px,2.8vmin);color:var(--ink-soft)}
+.prof-a{font-family:var(--display);font-size:max(30px,7.6vmin);line-height:1;text-wrap:balance}
 /* the host's captions */
 .caption{pointer-events:none;position:fixed;left:50%;bottom:calc(2.4vmin + 58px);transform:translateX(-50%);z-index:25;width:max-content;max-width:min(86vw,1100px);display:flex;align-items:center;gap:1.4vmin;
   background:var(--ink);color:var(--paper);border-radius:999px;padding:1vmin 2.6vmin 1vmin 1vmin;font-weight:800;font-size:max(15px,2.9vmin);line-height:1.2;box-shadow:0 .8vmin 0 rgba(29,20,15,.3);animation:cap .3s cubic-bezier(.3,1.4,.5,1) both}
@@ -374,6 +388,7 @@ button{font:inherit;color:inherit}
 <body>
 <div id="app"></div>
 <input type="file" id="file-in" accept="image/*" multiple hidden>
+<input type="file" id="selfie-in" accept="image/*" capture="user" hidden>
 
 <script src="/vendor/qrcode.js"></script>
 <script src="/socket.io/socket.io.min.js"></script>
@@ -394,21 +409,21 @@ const COLORS = ["#D93A26","#2342C6","#11704F","#7339D6","#C42F78","#0B7584","#B5
 const CODE_CHARS = "ABCDEFGHJKMNPQRSTUVWXYZ";
 // Kinds of round. Photo games play every photo; flag and map rounds come in sets of ROUNDS (fewer when mixed).
 const ROUNDS = 10, SONGS_PER_PLAYER = 3;
-const MODES = ["photo", "song", "tune", "face", "flag", "map", "cap", "big", "trivia", "emoji", "imp", "likely"];
+const MODES = ["photo", "song", "prof", "tune", "face", "flag", "map", "cap", "big", "trivia", "emoji", "imp", "likely"];
 // Owner rounds show something a player brought, and everyone guesses which player. The rest are quiz rounds with 4 answers.
-const OWNER_KINDS = ["photo", "song"];
+const OWNER_KINDS = ["photo", "song", "prof"];
 // Rounds where you answer by picking a player rather than one of 4 answers.
-const PLAYER_KINDS = ["photo", "song", "imp", "likely"];
+const PLAYER_KINDS = ["photo", "song", "prof", "imp", "likely"];
 // Modes that need at least 3 players to make sense.
-const CROWD_KINDS = ["imp", "likely"];
+const CROWD_KINDS = ["prof", "imp", "likely"];
 // Imposter: everyone gets the same secret word except one player. Clues go round the room out loud, then everyone votes.
 // No clocks in Imposter: each step moves on when the players are ready (the TV's Next button can always skip).
 const IMP_ROUNDS = { quick: 2, normal: 3, long: 5 };
 const IMP_PHASES = ["imp-word", "imp-clue", "imp-talk"];
-const MODE_LABEL = { photo: "Whose photo", song: "Whose song", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps", cap: "Capitals", big: "Which is bigger", trivia: "Trivia", emoji: "Emoji puzzles", imp: "Imposter", likely: "Most likely to" };
-const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country", cap: "Capital cities", big: "Which is bigger?", trivia: "Trivia", emoji: "Emoji puzzle", imp: "Imposter", likely: "Most likely to…" };
-const KIND_ASK = { photo: "Whose photo is this?", song: "Whose song is this?", face: "Who is this?", flag: "Which country's flag is this?", map: "Which country has this shape?", big: "Which country is bigger?", imp: "Who's the imposter?" };
-const KIND_ASK_PHONE = { photo: "Whose photo is on the TV?", song: "Whose song is playing?", face: "Who's on the TV?", flag: "Which country's flag is on the TV?", map: "Which country is the shape on the TV?", big: "Which country is bigger?", imp: "Who's the imposter?" };
+const MODE_LABEL = { photo: "Whose photo", song: "Whose song", prof: "Whose answer", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps", cap: "Capitals", big: "Which is bigger", trivia: "Trivia", emoji: "Emoji puzzles", imp: "Imposter", likely: "Most likely to" };
+const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", prof: "Whose answer?", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country", cap: "Capital cities", big: "Which is bigger?", trivia: "Trivia", emoji: "Emoji puzzle", imp: "Imposter", likely: "Most likely to…" };
+const KIND_ASK = { photo: "Whose photo is this?", song: "Whose song is this?", prof: "Whose answer is this?", face: "Who is this?", flag: "Which country's flag is this?", map: "Which country has this shape?", big: "Which country is bigger?", imp: "Who's the imposter?" };
+const KIND_ASK_PHONE = { photo: "Whose photo is on the TV?", song: "Whose song is playing?", prof: "Whose answer is on the TV?", face: "Who's on the TV?", flag: "Which country's flag is on the TV?", map: "Which country is the shape on the TV?", big: "Which country is bigger?", imp: "Who's the imposter?" };
 const askOf = c => (c.t === "tune" ? (c.ask === "artist" ? "Who's the artist?" : "What's this song?")
   : c.t === "cap" ? `What's the capital of ${c.cn}?` : c.t === "trivia" ? c.q
   : c.t === "emoji" ? `Which ${c.ty === "song" ? "song" : "film"} is this?` : c.t === "likely" ? `Who's most likely to ${c.lk}?` : KIND_ASK[c.t]);
@@ -462,7 +477,12 @@ const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.f
 const fmt = n => Number(n || 0).toLocaleString("en-US");
 const ordinal = n => n + (["th", "st", "nd", "rd"][(n % 100 - 20) % 10] || ["th", "st", "nd", "rd"][n % 100] || "th");
 const color = i => COLORS[((i | 0) % COLORS.length + COLORS.length) % COLORS.length];
-const avatar = (name, ci, cls = "") => `<span class="avatar ${cls}" style="--c:${color(ci)}" aria-hidden="true">${esc((cleanName(name)[0] || "?").toUpperCase())}</span>`;
+// A player's selfie when they took one, otherwise their initial on their colour. AV maps a player id to their selfie's address.
+const AV = {};
+function setAV(pid, v) { if (typeof v === "string" && /^[a-z0-9]{1,12}$/.test(v)) AV[pid] = `/avatars/${pid}?v=${v}`; else delete AV[pid]; }
+const avatar = (name, ci, cls = "", pid) => `<span class="avatar ${cls}" style="--c:${color(ci)}" aria-hidden="true">${esc((cleanName(name)[0] || "?").toUpperCase())}${AV[pid] ? `<img class="av-img" src="${esc(AV[pid])}" alt="">` : ""}</span>`;
+const face = (p, cls) => avatar(p.name, p.color, cls, p.pid);
+const faceA = (p, cls) => avatar(p[1], p[2], cls, p[0]);
 const store = {
   get(k) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : null; } catch { return null; } },
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch { return false; } },
@@ -629,6 +649,19 @@ async function compress(file) {
       max = Math.round(max * 0.84); q = Math.max(0.6, q - 0.06);
     }
     return out;
+  } finally { URL.revokeObjectURL(url); }
+}
+
+// A selfie: the middle square of the picture, 256 pixels across.
+async function compressSquare(file) {
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = url; });
+    const side = Math.min(img.naturalWidth, img.naturalHeight), c = document.createElement("canvas");
+    c.width = c.height = 256;
+    const ctx = c.getContext("2d"); ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, 256, 256);
+    ctx.drawImage(img, (img.naturalWidth - side) / 2, (img.naturalHeight - side) / 2, side, side, 0, 0, 256, 256);
+    return c.toDataURL("image/jpeg", 0.82).split(",")[1] || "";
   } finally { URL.revokeObjectURL(url); }
 }
 
@@ -814,6 +847,7 @@ const TV = {
     mode = "tv"; store.set("wiw.mode", { m: "tv", at: Date.now() });
     const s = store.get("wiw.host");
     this.H = s && Date.now() - (s.savedAt || 0) < 4 * 3600e3 ? this.revive(s) : this.fresh();
+    for (const p of Object.values(this.H.players)) setAV(p.pid, p.av);
     app.innerHTML = `<div class="tv">
       <header class="tv-top"><div class="logo">fafo</div><div class="tv-status" id="tv-status"></div></header>
       <main class="stage" id="stage"></main>
@@ -891,7 +925,7 @@ const TV = {
 
   players() { return Object.values(this.H.players).sort((a, b) => a.at - b.at); },
   ownerOf(id) { return this.H.photos[id]?.pid || null; },
-  curOwner() { const c = this.H.cur; return c?.t === "photo" ? this.ownerOf(c.id) : c?.t === "song" ? c.pid : null; },
+  curOwner() { const c = this.H.cur; return c?.t === "photo" ? this.ownerOf(c.id) : c?.t === "song" || c?.t === "prof" ? c.pid : null; },
   isQuiz() { return !!this.H.cur && !PLAYER_KINDS.includes(this.H.cur.t); },
   isImp() { return this.H.cur?.t === "imp"; },
   songCount() { return Object.keys(this.H.songs).length; },
@@ -902,7 +936,7 @@ const TV = {
     const online = this.players().filter(p => p.online).length;
     if (this.H.modes.every(m => CROWD_KINDS.includes(m))) return online >= 3;
     if (!ownerOnly(this.H)) return online >= 1;
-    const items = (this.H.modes.includes("photo") ? this.photoCount() : 0) + (this.H.modes.includes("song") ? this.songCount() : 0);
+    const items = (this.H.modes.includes("photo") ? this.photoCount() : 0) + (this.H.modes.includes("song") ? this.songCount() : 0) + (this.H.modes.includes("prof") && online >= 3 ? 2 : 0);
     return online >= 2 && items >= 2;
   },
   nextColor() {
@@ -931,6 +965,15 @@ const TV = {
       if (pl.name !== name) { pl.name = name; changed = true; }
       if (!pl.online) { pl.online = true; changed = true; }
       pl.seen = now;
+      // `av` = the version of this player's selfie on the server.
+      const av = typeof p.av === "string" && /^[a-z0-9]{1,12}$/.test(p.av) ? p.av : null;
+      if ((pl.av || null) !== av) { pl.av = av; setAV(pid, av); changed = true; }
+      // `pf` = quick profile answers, question id to the option tapped.
+      if (H.ph === "lobby") {
+        const pf = {};
+        if (p.pf && typeof p.pf === "object" && !Array.isArray(p.pf)) for (const [k, v] of Object.entries(p.pf).slice(0, 12)) if (/^[a-z0-9-]{1,20}$/.test(k) && Number.isInteger(v) && v >= 0 && v < 8) pf[k] = v;
+        if (JSON.stringify(pl.pf || {}) !== JSON.stringify(pf)) { pl.pf = pf; changed = true; }
+      }
       // Imposter: `wk` = this phone has its secret word, `sw` = its player has looked at it, `dn` = done giving a clue.
       pl.wk = p.wk || null; pl.sw = p.sw || null; pl.rd = p.rd || null;
       if (this.isImp() && ["imp-word", "imp-clue", "imp-talk", "q"].includes(H.ph) && p.wk !== H.rk) this.sendWord(pid);
@@ -1025,7 +1068,7 @@ const TV = {
   prefetch() {
     const H = this.H;
     if (H.modes.includes("face")) getFaces().catch(() => {});
-    for (const [m, f] of [["emoji", "emoji"], ["likely", "likely"]]) if (H.modes.includes(m)) getData(f).catch(() => {});
+    for (const [m, f] of [["emoji", "emoji"], ["likely", "likely"], ["prof", "profile"]]) if (H.modes.includes(m)) getData(f).catch(() => {});
     if (H.modes.includes("cap") || H.modes.includes("big")) getCountries().catch(() => {});
     if (this.needMix() && !this.mixNote) this.setTune(H.tune.q, H.tune.label);
     if (!H.modes.includes("flag") && !H.modes.includes("map") && !["flag", "map"].includes(H.cur?.t)) return;
@@ -1230,6 +1273,16 @@ const TV = {
       // Every photo and every picked song gets played.
       if (modes.includes("photo") && online >= 2) pools.photo = spread(this.players().flatMap(p => p.photos.filter(id => H.photos[id])), id => this.ownerOf(id)).map(id => ({ t: "photo", id }));
       if (modes.includes("song") && online >= 2) pools.song = spread(Object.values(H.songs).filter(x => H.players[x.pid]), x => x.pid).map(x => ({ t: "song", id: x.id, pid: x.pid, title: x.title, artist: x.artist, art: x.art, ap: x.ap || "" }));
+      if (modes.includes("prof") && online >= 3) {
+        // One player's answer, only when nobody else in the room tapped the same one. At most one round per question.
+        const bank = (await getData("profile")).questions, ps = this.players().filter(p => p.online && p.pf), seen = new Set(H.recent?.prof || []), out = [];
+        for (const q of shuffle(bank.slice())) {
+          const ans = ps.filter(p => Number.isInteger(p.pf[q.id]) && q.o[p.pf[q.id]]);
+          const solo = shuffle(ans.filter(p => ans.filter(x => x.pf[q.id] === p.pf[q.id]).length === 1 && !seen.has(p.pid + q.id)));
+          if (solo.length) out.push({ t: "prof", pid: solo[0].pid, q: q.q, a: q.o[solo[0].pf[q.id]], k: solo[0].pid + q.id });
+        }
+        pools.prof = spread(out, x => x.pid).slice(0, Math.max(each, ps.length));
+      }
       if (modes.includes("tune")) {
         const mix = await getMix(H.tune.q);
         const songs = shuffle(this.unseen(mix.tracks, x => x.id, "tune", each)).slice(0, each);
@@ -1355,6 +1408,7 @@ const TV = {
       this.remember("big", order.filter(r => r.t === "big").map(r => r.cc[0]));
       this.remember("emoji", order.filter(r => r.t === "emoji").map(r => r.e));
       this.remember("likely", order.filter(r => r.t === "likely").map(r => r.lk));
+      this.remember("prof", order.filter(r => r.t === "prof").map(r => r.k));
       if (this.H !== H || H.ph !== "lobby") return;
       H.order = order; H.R = order.length; H.r = 0; H.rv = null;
       for (const p of Object.values(H.players)) { p.score = 0; p.prev = 0; p.st = { right: 0, fast: 0, fooled: 0 }; }
@@ -1577,7 +1631,7 @@ const TV = {
     const H = this.H, now = Date.now();
     const pres = {
       app: APP, role: "h", code: H.code, gid: H.gid, ph: H.ph, r: H.r, R: H.R, rk: H.rk || null,
-      pl: this.players().map(p => [p.pid, p.name, p.color, p.score, p.online ? 1 : 0, p.photos, p.songs || []]),
+      pl: this.players().map(p => [p.pid, p.name, p.color, p.score, p.online ? 1 : 0, p.photos, p.songs || [], p.av || ""]),
       kind: H.cur?.t || null, th: themeOf(H).label,
       imp: this.isImp() && ["intro", ...IMP_PHASES, "q", "rev"].includes(H.ph) ? { cat: H.cur.cat, sp: H.ph === "imp-clue" ? H.cur.order[H.turn] : null, turn: H.turn || 0, n: H.cur.order.length, none: H.impVar === "none" ? 1 : 0 } : null,
       aw: H.ph === "end" ? this.awards().map(([p, title, detail]) => [p.pid, title, detail]) : null,
@@ -1693,7 +1747,7 @@ const TV = {
     if (H.ph === "lobby") {
       paint(stage, "lobby|" + H.code, `<section class="lobby"><div id="lobby-left"></div><div class="roster"><div id="modes" class="modes"></div><div id="roster" class="roster-body"></div></div></section>`);
       const url = JOIN_BASE + "#" + H.code;
-      const brings = [H.modes.includes("photo") && "photos", H.modes.includes("song") && "songs"].filter(Boolean).join(" and ");
+      const brings = [H.modes.includes("photo") && "photos", H.modes.includes("song") && "songs", H.modes.includes("prof") && "quick answers"].filter(Boolean).join(" and ");
       const lede = photosOnly(H) ? "Send in photos from your phone. One pops up on the TV. Guess whose it is."
         : `Tonight: ${H.modes.map(m => MODE_LABEL[m]).join(", ")}. ${brings ? `Add your ${brings} from your phone, then answer there too.` : "Answer on your phone. The fastest right answer scores most."}`;
       paint($("#lobby-left"), H.code + "|" + url + "|" + roomState + "|" + H.modes.join(), `
@@ -1740,16 +1794,17 @@ const TV = {
     if (!el) return;
     const ps = this.players(), total = this.photoCount();
     const photos = this.photosOn(), songs = H.modes.includes("song");
-    const sig = ps.map(p => [p.pid, p.name, p.color, p.photos.length, (p.songs || []).length, p.online ? 1 : 0, H.vip === p.pid ? 1 : 0, p.sending || 0].join(",")).join(";") + "|" + total + "|" + H.modes.join();
+    const sig = ps.map(p => [p.pid, p.name, p.color, p.photos.length, (p.songs || []).length, p.online ? 1 : 0, H.vip === p.pid ? 1 : 0, p.sending || 0, p.av, Object.keys(p.pf || {}).length].join(",")).join(";") + "|" + total + "|" + H.modes.join();
     const cards = ps.map(p => {
       const bits = photos ? [p.photos.length === 1 ? "1 photo" : p.photos.length + " photos"] : [];
       if (photos && p.sending) bits.push(`sending ${p.sending} more`);
       if (songs) bits.push((p.songs || []).length === 1 ? "1 song" : (p.songs || []).length + " songs");
+      if (H.modes.includes("prof")) { const n = Object.keys(p.pf || {}).length; bits.push(n === 1 ? "1 answer" : n + " answers"); }
       if (H.vip === p.pid) bits.push("starts the game");
       if (!p.online) bits.push("offline");
       if (!bits.length) bits.push("ready");
       const fresh = !this.seen.has(p.pid); this.seen.add(p.pid);
-      return `<li class="pcard ${p.online ? "" : "off"} ${fresh ? "pop" : ""}">${avatar(p.name, p.color)}
+      return `<li class="pcard ${p.online ? "" : "off"} ${fresh ? "pop" : ""}">${face(p)}
         <div class="pc-body"><span class="nm">${esc(p.name)}</span><span class="meta">${bits.join(" · ")}</span></div>
         ${photos && p.photos.length < PER_PLAYER ? `<button class="addph" data-act="add-photo" data-pid="${p.pid}" title="Add a photo for ${esc(p.name)} from this computer">+ Photo</button>` : ""}</li>`;
     }).join("");
@@ -1768,14 +1823,14 @@ const TV = {
     const P = this.H.players, who = ids.filter(id => P[id]), n = who.length, at = 0.4 + i * 0.25;
     if (!n) return "<span></span>";
     if (this.H.anon) return `<span class="votes num" style="animation-delay:${at.toFixed(2)}s">${n} ${n === 1 ? "vote" : "votes"}</span>`;
-    return `<span class="voters" aria-label="${esc(who.map(id => P[id].name).join(", "))}">${who.map((id, k) => `<span style="animation-delay:${(at + k * 0.08).toFixed(2)}s" title="${esc(P[id].name)}">${avatar(P[id].name, P[id].color)}</span>`).join("")}</span>`;
+    return `<span class="voters" aria-label="${esc(who.map(id => P[id].name).join(", "))}">${who.map((id, k) => `<span style="animation-delay:${(at + k * 0.08).toFixed(2)}s" title="${esc(P[id].name)}">${face(P[id])}</span>`).join("")}</span>`;
   },
   // Everyone who scored this round and how much. With anonymous votes only the count shows.
   scorersHtml(rv, count, none) {
     const P = this.H.players;
     if (this.H.anon) return `<span class="delta">${count || none}</span>`;
     const ids = Object.keys(rv.d || {}).filter(id => P[id] && rv.d[id] > 0).sort((a, b) => rv.d[b] - rv.d[a]);
-    return ids.map(id => `<span class="delta">${avatar(P[id].name, P[id].color)}${esc(P[id].name)} <b class="num">+${fmt(rv.d[id])}</b></span>`).join("") || `<span class="delta">${none}</span>`;
+    return ids.map(id => `<span class="delta">${face(P[id])}${esc(P[id].name)} <b class="num">+${fmt(rv.d[id])}</b></span>`).join("") || `<span class="delta">${none}</span>`;
   },
   votesBy(g) { const v = {}; for (const [voter, pick] of Object.entries(g || {})) (v[pick] ||= []).push(voter); return v; },
   revealHtml() {
@@ -1789,15 +1844,15 @@ const TV = {
     const rows = [...ids].filter(id => P[id]).sort((a, b) => (votes[b]?.length || 0) - (votes[a]?.length || 0));
     const nv = Object.keys(rv.g).length;
     const t = 1.2 + nv * 0.18;
-    const rowHtml = rows.map((id, i) => `<li class="${id === rv.o ? "win" : ""}">${avatar(P[id].name, P[id].color)}<span class="nm">${esc(P[id].name)}</span>${this.votersHtml(votes[id] || [], i)}</li>`).join("");
+    const rowHtml = rows.map((id, i) => `<li class="${id === rv.o ? "win" : ""}">${face(P[id])}<span class="nm">${esc(P[id].name)}</span>${this.votersHtml(votes[id] || [], i)}</li>`).join("");
     const right = votes[rv.o]?.length || 0;
     const deltas = H.anon
       ? `<span class="delta">${right ? `${right} ${right === 1 ? "person" : "people"} got it right` : "Nobody got it right"}</span>`
-        + (owner && rv.d[rv.o] ? `<span class="delta">${avatar(owner.name, owner.color)}${esc(owner.name)} fooled ${nv - right} <b class="num">+${fmt(rv.d[rv.o])}</b></span>` : "")
+        + (owner && rv.d[rv.o] ? `<span class="delta">${face(owner)}${esc(owner.name)} fooled ${nv - right} <b class="num">+${fmt(rv.d[rv.o])}</b></span>` : "")
       : this.scorersHtml(rv, "", "Nobody got it right");
     return `<section class="rgrid" style="--t:${t.toFixed(2)}s;--t2:${(t + 0.8).toFixed(2)}s">
       <div class="qphoto">${this.ownerMedia(H.cur, true)}
-        ${owner ? `<div class="stamp ${H.cur?.t === "song" ? "low" : ""}">${H.cur?.t === "song" ? `${esc(owner.name)}'s pick!` : `It's ${esc(owner.name)}!`}</div>` : ""}</div>
+        ${owner ? `<div class="stamp ${H.cur?.t === "song" || H.cur?.t === "prof" ? "low" : ""}">${H.cur?.t === "song" ? `${esc(owner.name)}'s pick!` : `It's ${esc(owner.name)}!`}</div>` : ""}</div>
       <div class="rside">
         <p class="eyebrow">Votes${rv.m > 1 ? " · Double points" : ""}</p>
         ${nv ? `<ul class="rows">${rowHtml}</ul>` : `<p class="nobody">Nobody locked in a guess.</p><ul class="rows">${rowHtml}</ul>`}
@@ -1810,7 +1865,7 @@ const TV = {
     const rows = ps.map((p, i) => {
       const rank = 1 + ps.filter(q => q.score > p.score).length;
       const up = p.score - (p.prev ?? p.score);
-      return `<li style="animation-delay:${(i * 0.06).toFixed(2)}s"><span class="rank num">${rank}</span>${avatar(p.name, p.color)}
+      return `<li style="animation-delay:${(i * 0.06).toFixed(2)}s"><span class="rank num">${rank}</span>${face(p)}
         <span class="bar" style="--c:${color(p.color)};--w:${Math.max(2, p.score / top * 100).toFixed(1)}%"><i></i><span>${esc(p.name)}</span></span>
         <span><span class="score num">${fmt(p.score)}</span>${up > 0 ? `<span class="up num">+${fmt(up)}</span>` : ""}</span></li>`;
     }).join("");
@@ -1821,19 +1876,19 @@ const TV = {
     if (!ps.length) return `<section class="end"><h2 class="qtitle">Game over</h2></section>`;
     const best = ps[0].score, winners = ps.filter(p => p.score === best);
     const title = winners.length > 1 ? "It's a tie!" : `${esc(winners[0].name)} wins!`;
-    const slot = (p, cls, place) => p ? `<div class="step ${cls}">${avatar(p.name, p.color)}<span class="nm">${esc(p.name)}</span><div class="block">${place}<small class="num">${fmt(p.score)}</small></div></div>` : `<div class="step ${cls}"></div>`;
+    const slot = (p, cls, place) => p ? `<div class="step ${cls}">${face(p)}<span class="nm">${esc(p.name)}</span><div class="block">${place}<small class="num">${fmt(p.score)}</small></div></div>` : `<div class="step ${cls}"></div>`;
     const rest = ps.slice(3).map((p, i) => `<li>${ordinal(i + 4)} ${esc(p.name)} · <span class="num">${fmt(p.score)}</span></li>`).join("");
     return `<section class="end"><p class="eyebrow">Final scores</p><h2 class="qtitle">${title}</h2>
       <div class="podium">${slot(ps[1], "p2", "2nd")}${slot(ps[0], "p1", "1st")}${slot(ps[2], "p3", "3rd")}</div>
       ${rest ? `<ol class="rest">${rest}</ol>` : ""}
-      ${(aw => aw.length ? `<div class="awards">${aw.map(([p, title, detail]) => `<div class="award">${avatar(p.name, p.color)}<div><b>${esc(title)}</b><span>${esc(p.name)} · ${esc(detail)}</span></div></div>`).join("")}</div>` : "")(this.awards())}</section>`;
+      ${(aw => aw.length ? `<div class="awards">${aw.map(([p, title, detail]) => `<div class="award">${face(p)}<div><b>${esc(title)}</b><span>${esc(p.name)} · ${esc(detail)}</span></div></div>`).join("")}</div>` : "")(this.awards())}</section>`;
   },
   // Who has locked in so far (never what they picked). With anonymous votes, just a dot per player.
   renderLocks(owner) {
     const H = this.H, ps = this.players().filter(p => (p.online || H.guesses[p.pid]) && p.pid !== owner);
     const locked = ps.filter(p => H.guesses[p.pid]).length, guessers = ps.length;
     paint($("#lockcount"), `${locked}/${guessers}`, `Locked in <span class="num">${locked} of ${guessers}</span>`);
-    if (!H.anon) return paint($("#locks"), ps.map(p => p.pid + (H.guesses[p.pid] ? 1 : 0)).join(), ps.map(p => `<li class="lock ${H.guesses[p.pid] ? "in" : ""}">${avatar(p.name, p.color)}<span>${esc(p.name)}</span></li>`).join(""));
+    if (!H.anon) return paint($("#locks"), ps.map(p => p.pid + (H.guesses[p.pid] ? 1 : 0)).join(), ps.map(p => `<li class="lock ${H.guesses[p.pid] ? "in" : ""}">${face(p)}<span>${esc(p.name)}</span></li>`).join(""));
     paint($("#locks"), `${locked}/${guessers}`, Array.from({ length: guessers }, (_, i) => `<li class="dot ${i < locked ? "in" : ""}"></li>`).join(""));
   },
   renderModes() {
@@ -1872,6 +1927,7 @@ const TV = {
   // "· Jazz" after the round name, so everyone knows which music tonight's tune and artist rounds come from.
   musicTag(cur) { return cur && (cur.t === "tune" || (cur.t === "face" && themeOf(this.H).faces === "artists")) ? " · " + esc(this.H.tune.label) : ""; },
   ownerMedia(cur, reveal) {
+    if (cur?.t === "prof") return `<figure class="print prof"><span class="prof-q">${esc(cur.q)}</span><span class="prof-a">${esc(cur.a)}</span></figure>`;
     if (cur?.t === "song") return this.songMedia(cur.title, cur.artist, (reveal && cur.ap) || cur.art, cur.art);
     return `<figure class="print"><img src="${this.H.photos[cur?.id]?.src || ""}" alt="Mystery photo ${this.H.r}"><figcaption>No. ${this.H.r}</figcaption></figure>`;
   },
@@ -1948,9 +2004,9 @@ const TV = {
     const votes = this.votesBy(rv.g);
     const rows = Object.keys(votes).filter(id => P[id]).sort((a, b) => votes[b].length - votes[a].length);
     const t = 1.4 + rows.length * 0.25, sided = Object.keys(rv.d || {}).length, lead = tops.length === 1 ? P[tops[0]] : null;
-    const rowHtml = rows.map((id, i) => `<li class="${tops.includes(id) ? "win" : ""}">${avatar(P[id].name, P[id].color)}<span class="nm">${esc(P[id].name)}</span>${this.votersHtml(votes[id], i)}</li>`).join("");
+    const rowHtml = rows.map((id, i) => `<li class="${tops.includes(id) ? "win" : ""}">${face(P[id])}<span class="nm">${esc(P[id].name)}</span>${this.votersHtml(votes[id], i)}</li>`).join("");
     return `<section class="rgrid impr" style="--t:${t.toFixed(2)}s;--t2:${(t + 0.8).toFixed(2)}s">
-      <div class="qphoto bigav"><p class="eyebrow">Most likely to ${esc(rv.lk || H.cur.lk)}</p>${lead ? avatar(lead.name, lead.color) : ""}${rows.length ? `<div class="stamp low">${lead ? esc(lead.name) + "!" : tops.length ? "It's a tie!" : "Split vote!"}</div>` : ""}</div>
+      <div class="qphoto bigav"><p class="eyebrow">Most likely to ${esc(rv.lk || H.cur.lk)}</p>${lead ? face(lead) : ""}${rows.length ? `<div class="stamp low">${lead ? esc(lead.name) + "!" : tops.length ? "It's a tie!" : "Split vote!"}</div>` : ""}</div>
       <div class="rside"><p class="eyebrow">${rows.length ? "Votes" : "Nobody voted"}${rv.m > 1 ? " · Double points" : ""}</p><ul class="rows">${rowHtml}</ul>
         <div class="deltas">${this.scorersHtml(rv, sided ? `${sided} ${sided === 1 ? "person" : "people"} sided with the room` : "", "Nobody scored this round")}</div></div></section>`;
   },
@@ -1972,9 +2028,9 @@ const TV = {
       const sp = P[cur.order[H.turn]];
       return paint(stage, "impc|" + H.rk + "|" + H.turn, `<section class="imp">
         <p class="eyebrow">Clue ${H.turn + 1} of ${cur.order.length} · ${esc(cur.cat)}</p>
-        <div class="speaker">${sp ? avatar(sp.name, sp.color) : ""}<h2 class="big-name">${esc(sp?.name || "Next up")}</h2></div>
+        <div class="speaker">${sp ? face(sp) : ""}<h2 class="big-name">${esc(sp?.name || "Next up")}</h2></div>
         <p class="lede">Say one word about your word, out loud. Not too obvious, not too vague. Then tap Done on your phone.</p>
-        <ol class="turns">${cur.order.map((pid, i) => P[pid] ? `<li class="${i < H.turn ? "done" : i === H.turn ? "now" : ""}">${avatar(P[pid].name, P[pid].color)}<span>${esc(P[pid].name)}</span></li>` : "").join("")}</ol></section>`);
+        <ol class="turns">${cur.order.map((pid, i) => P[pid] ? `<li class="${i < H.turn ? "done" : i === H.turn ? "now" : ""}">${face(P[pid])}<span>${esc(P[pid].name)}</span></li>` : "").join("")}</ol></section>`);
     }
     if (H.ph === "imp-talk") {
       paint(stage, "impt|" + H.rk, `<section class="imp">${head}<h2 class="qtitle">Who's the imposter?</h2>
@@ -1992,11 +2048,11 @@ const TV = {
     const rows = [...ids].filter(id => P[id]).sort((a, b) => (votes[b]?.length || 0) - (votes[a]?.length || 0));
     const nv = Object.keys(rv.g || {}).length, t = 1.4 + rows.length * 0.25;
     const spotted = Object.entries(rv.g || {}).filter(([pid, pick]) => pid !== rv.o && pick === rv.o).length;
-    const rowHtml = rows.map((id, i) => `<li class="${id === rv.o ? "win" : ""}">${avatar(P[id].name, P[id].color)}<span class="nm">${esc(P[id].name)}</span>${this.votersHtml(votes[id] || [], i)}</li>`).join("");
+    const rowHtml = rows.map((id, i) => `<li class="${id === rv.o ? "win" : ""}">${face(P[id])}<span class="nm">${esc(P[id].name)}</span>${this.votersHtml(votes[id] || [], i)}</li>`).join("");
     const result = rv.caught ? (H.anon ? `<span class="delta">Caught! ${spotted} ${spotted === 1 ? "person" : "people"} spotted the imposter</span>` : `<span class="delta">Caught!</span>${this.scorersHtml(rv, "", "")}`)
-      : imp ? `<span class="delta">${avatar(imp.name, imp.color)}${esc(imp.name)} got away <b class="num">+${fmt(rv.d?.[rv.o] || 0)}</b></span>` : "";
+      : imp ? `<span class="delta">${face(imp)}${esc(imp.name)} got away <b class="num">+${fmt(rv.d?.[rv.o] || 0)}</b></span>` : "";
     return `<section class="rgrid impr" style="--t:${t.toFixed(2)}s;--t2:${(t + 0.8).toFixed(2)}s">
-      <div class="qphoto bigav"><p class="eyebrow">The imposter was</p>${imp ? avatar(imp.name, imp.color) : ""}${imp ? `<div class="stamp low">${esc(imp.name)}!</div>` : ""}</div>
+      <div class="qphoto bigav"><p class="eyebrow">The imposter was</p>${imp ? face(imp) : ""}${imp ? `<div class="stamp low">${esc(imp.name)}!</div>` : ""}</div>
       <div class="rside">
         <p class="eyebrow">${nv ? "Votes" : "Nobody voted"}${rv.m > 1 ? " · Double points" : ""}</p>
         <ul class="rows">${rowHtml}</ul>
@@ -2043,6 +2099,16 @@ const PH = {
       ? s.songs.filter(x => x && /^\d{1,15}$/.test(String(x.id))).slice(0, SONGS_PER_PLAYER)
         .map(x => ({ id: String(x.id), t: cleanText(x.t), a: cleanText(x.a), art: isArt(x.art), ap: isArt(x.ap), gid: x.gid || null }))
       : [];
+    // The selfie: `ak` proves to the server it's this phone's, `av` is its version, `avB64` the picture itself.
+    this.ak = typeof s.ak === "string" && /^[a-z0-9]{16}$/.test(s.ak) ? s.ak : rid(16);
+    this.avB64 = typeof s.avB64 === "string" && s.avB64.length < 200000 && B64.test(s.avB64) ? s.avB64 : "";
+    this.av = this.avB64 ? fnv(this.avB64).slice(0, 10) : null; this.avUp = false;
+    if (this.avB64) AV[this.pid] = "data:image/jpeg;base64," + this.avB64;
+    // Quick profile: answers by question id, the questions this phone is showing, and the game they were picked for.
+    this.pf = {};
+    if (s.pf && typeof s.pf === "object") for (const [k, v] of Object.entries(s.pf).slice(-12)) if (/^[a-z0-9-]{1,20}$/.test(k) && Number.isInteger(v)) this.pf[k] = v;
+    this.pfQs = Array.isArray(s.pfQs) ? s.pfQs.filter(k => typeof k === "string").slice(0, 6) : [];
+    this.pfGid = typeof s.pfGid === "string" ? s.pfGid : null;
     app.innerHTML = `<div class="phone"><header class="ph-top" id="ph-top"></header><main class="ph-main" id="ph-main"></main><footer class="ph-foot" id="ph-foot"></footer></div>`;
     this.save();
     this.render();
@@ -2051,7 +2117,7 @@ const PH = {
     wake();
   },
   save() {
-    const base = { pid: this.pid, name: this.name, code: this.code, joined: this.joined, songs: this.songs };
+    const base = { pid: this.pid, name: this.name, code: this.code, joined: this.joined, songs: this.songs, ak: this.ak, avB64: this.avB64, pf: this.pf, pfQs: this.pfQs, pfGid: this.pfGid };
     // Uploaded photos can be shown from the server again, so only unsent ones keep their pixels here.
     const photos = this.photos.map(p => ({ id: p.id, gid: p.gid, up: p.up, b64: p.up ? undefined : p.b64 }));
     if (!store.set("wiw.phone", { ...base, photos })) store.set("wiw.phone", { ...base, photos: photos.filter(p => p.up) });
@@ -2060,10 +2126,36 @@ const PH = {
     if (!room) return this.render();
     room.onPeers(ch => this.sync(ch.peers));
     room.onWhisper?.(d => this.gotWord(d));
-    room.onConnection(c => { this.connected = c; this.render(); if (c) this.checkPhotos(); });
+    room.onConnection(c => { this.connected = c; this.render(); if (c) { this.checkPhotos(); this.sendSelfie(); } });
     this.connected = room.connected();
+    if (this.connected) this.sendSelfie();
     this.push();
     this.render();
+  },
+  async setSelfie(file) {
+    try {
+      const b64 = await compressSquare(file);
+      if (!b64) throw new Error("empty");
+      this.avB64 = b64; this.av = fnv(b64).slice(0, 10); this.avUp = false; this.err = "";
+      AV[this.pid] = "data:image/jpeg;base64," + b64;
+    } catch { this.err = "That picture couldn't be read. Try another."; }
+    this.save(); this.render(); this.renderSelfie();
+    this.sendSelfie();
+  },
+  async sendSelfie() {
+    if (!this.avB64 || !this.joined) return;
+    try {
+      const bin = atob(this.avB64), buf = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+      const r = await fetch("/api/avatar/" + this.pid, { method: "POST", headers: { "Content-Type": "image/jpeg", "X-Key": this.ak }, body: buf });
+      if (r.status !== 201) throw new Error("selfie " + r.status);
+      this.avUp = true; this.push();
+    } catch { this.avUp = false; }
+  },
+  removeSelfie() {
+    if (this.avB64) fetch("/api/avatar/" + this.pid, { method: "DELETE", headers: { "X-Key": this.ak } }).catch(() => {});
+    this.avB64 = ""; this.av = null; this.avUp = false; delete AV[this.pid];
+    this.save(); this.push(); this.render(); this.renderSelfie();
   },
   // After a reconnect, re-send photos the server lost; drop ones this phone can't re-send.
   async checkPhotos() {
@@ -2109,6 +2201,7 @@ const PH = {
       if (dirty) { this.save(); this.push(); }
       if (this.cmd && this.host.ph !== (prev?.ph)) this.cmd = null;
     }
+    for (const p of this.pl()) if (p[0] !== this.pid) setAV(p[0], p[7]);
     this.pump();
     this.render();
   },
@@ -2126,6 +2219,7 @@ const PH = {
       sg: this.songs.map(x => [x.id, x.t, x.a, x.art, x.ap || ""]),
       g: this.g ?? null, cmd: this.cmd ?? null,
       wk: this.secret?.rk || null, sw: this.sw || null, dn: this.dn || null, rd: this.rd || null,
+      av: this.avUp ? this.av : null, pf: this.pf,
     }).catch(e => console.warn("presence", e));
   },
 
@@ -2183,7 +2277,7 @@ const PH = {
       if (!name) { this.err = "Type your name first."; return this.renderMain(true); }
       if (!/^[A-Z]{4}$/.test(code)) { this.err = "The room code is the 4 letters on the TV."; return this.renderMain(true); }
       this.name = name; this.code = code; this.joined = true; this.err = "";
-      this.save(); this.push(); vibrate(20); return this.render();
+      this.save(); this.push(); vibrate(20); this.sendSelfie(); return this.render();
     }
     if (a === "pick-host") { this.code = el.dataset.code; return this.render(); }
     if (a === "add") { fileIn.value = ""; return fileIn.click(); }
@@ -2225,6 +2319,15 @@ const PH = {
       this.g = { rk: H.rk, i }; vibrate(30); this.push(); return this.renderMain();
     }
     if (a === "mode") { this.cmd = { k: rid(6), a: "mode:" + el.dataset.m }; this.push(); vibrate(15); return; }
+    if (a === "selfie") { $("#selfie-in").value = ""; return $("#selfie-in").click(); }
+    if (a === "selfie-rm") return this.removeSelfie();
+    if (a === "pf") {
+      const q = el.dataset.q, i = Number(el.dataset.i);
+      if (!/^[a-z0-9-]{1,20}$/.test(q) || !Number.isInteger(i)) return;
+      delete this.pf[q]; this.pf[q] = i; // re-added so the newest answers are the ones kept
+      const keys = Object.keys(this.pf); while (keys.length > 12) delete this.pf[keys.shift()];
+      vibrate(12); this.save(); this.push(); return this.renderProf();
+    }
     if (a === "pause" || a === "resume") { if (this.host?.vip !== this.pid) return; this.cmd = { k: rid(6), a }; this.push(); vibrate(15); return; }
     if (a === "start" || a === "again") {
       const cmd = this.cmd = { k: rid(6), a }; this.push(); vibrate(20);
@@ -2257,11 +2360,11 @@ const PH = {
   renderTop() {
     const me = this.me(), leaving = Date.now() < this.confirmLeave;
     const status = roomState === "ok" && !this.connected ? `<span class="pill dark" style="font-size:12px">Reconnecting</span>` : "";
-    paint($("#ph-top"), `${this.code}|${this.joined}|${me?.[1]}|${me?.[2]}|${leaving}|${this.connected}`, `
+    paint($("#ph-top"), `${this.code}|${this.joined}|${me?.[1]}|${me?.[2]}|${leaving}|${this.connected}|${this.av}`, `
       <span class="logo">fafo</span>${status}
       <span class="room">${this.code ? "Room " + esc(this.code) : ""}</span>
       ${this.joined ? `<button class="btn ghost" data-act="leave">${leaving ? "Tap to leave" : "Leave"}</button>` : ""}
-      ${this.joined && me ? `<span class="me" title="${esc(me[1])}">${avatar(me[1], me[2])}</span>` : ""}`);
+      ${this.joined && me ? `<span class="me" title="${esc(me[1])}">${faceA(me)}</span>` : ""}`);
   },
   renderMain(force) {
     const main = $("#ph-main");
@@ -2309,7 +2412,10 @@ const PH = {
   rLobby(main) {
     const H = this.host, vip = H.vip === this.pid, modes = this.modes(), photos = modes.includes("photo"), songs = modes.includes("song");
     // The layout only changes with the game or the round types, so typing a song search isn't interrupted.
-    paint(main, ["lobby", H.gid, modes.join(), vip].join("|"), `${photos ? `<section class="card">
+    paint(main, ["lobby", H.gid, modes.join(), vip].join("|"), `<section class="card" id="selfie"></section>
+      ${modes.includes("prof") ? `<section class="card"><p class="eyebrow">Whose answer</p><p class="ph-h">Quick questions</p>
+        <p class="muted">One tap each. Later the TV shows an answer and everyone guesses whose it is.</p><div id="prof"></div></section>` : ""}
+      ${photos ? `<section class="card">
         <p class="eyebrow">You're in</p>
         <p class="ph-h">Add your photos</p>
         <p class="muted">Pick up to ${PER_PLAYER}. Baby pictures, holiday shots, your pet, anything. Nobody sees them until they're on the TV.</p>
@@ -2326,7 +2432,30 @@ const PH = {
       ${!photos && !songs ? `<section class="card"><p class="eyebrow">You're in</p><p class="ph-h">Get ready</p>
         <p class="muted">The TV asks the questions. Pick your answer here. The fastest right answer scores most.</p></section>` : ""}
       <section class="card" id="ctrl"></section>`);
-    this.renderCtrl(); this.renderPhotos(); this.renderSongs();
+    this.renderCtrl(); this.renderPhotos(); this.renderSongs(); this.renderSelfie(); this.renderProf();
+  },
+  renderSelfie() {
+    const el = $("#selfie"), me = this.me();
+    if (!el || !me) return;
+    paint(el, [this.av, me[1], me[2], this.err].join("|"), `<div class="selfie-row">${faceA(me)}<div><p class="ph-h" style="font-size:20px">Your face</p>
+        <p class="muted">${this.av ? "Everyone sees this next to your name." : "Take a selfie so the TV shows your face instead of a letter."}</p></div></div>
+      <div class="selfie-btns"><button class="btn sm ${this.av ? "" : "blue"}" data-act="selfie">${this.av ? "Retake" : "Take a selfie"}</button>${this.av ? `<button class="btn sm" data-act="selfie-rm">Remove</button>` : ""}</div>`);
+  },
+  // Four questions per game, new ones each time the TV starts a fresh lobby.
+  renderProf() {
+    const el = $("#prof"), H = this.host;
+    if (!el || !H) return;
+    getData("profile").then(d => {
+      const bank = d.questions, byId = new Map(bank.map(q => [q.id, q]));
+      if (this.pfGid !== H.gid || !this.pfQs.length || this.pfQs.some(k => !byId.has(k))) {
+        const fresh = shuffle(bank.filter(q => !(q.id in this.pf))), pool = fresh.length >= 4 ? fresh : shuffle(bank.slice());
+        this.pfQs = pool.slice(0, 4).map(q => q.id); this.pfGid = H.gid; this.save();
+      }
+      const qs = this.pfQs.map(k => byId.get(k)).filter(Boolean), done = qs.filter(q => Number.isInteger(this.pf[q.id])).length;
+      paint(el, JSON.stringify([this.pfQs, qs.map(q => this.pf[q.id] ?? -1)]), qs.map(q => `<div class="pq"><b>${esc(q.q)}</b><div class="chips">${q.o.map((o, i) =>
+        `<button type="button" class="${this.pf[q.id] === i ? "on" : ""}" data-act="pf" data-q="${esc(q.id)}" data-i="${i}" aria-pressed="${this.pf[q.id] === i}">${esc(o)}</button>`).join("")}</div></div>`).join("")
+        + `<p class="muted">${done === qs.length ? "All done. Change any answer until the game starts." : `${done} of ${qs.length} answered.`}</p>`);
+    }).catch(() => paint(el, "err", `<p class="muted">Couldn't load the questions. Check the connection.</p>`));
   },
   renderCtrl() {
     const el = $("#ctrl");
@@ -2337,12 +2466,12 @@ const PH = {
     const picker = vip
       ? `<div class="mode-pick">${MODES.map(m => `<button class="mode ${modes.includes(m) ? "on" : ""}" data-act="mode" data-m="${m}" aria-pressed="${modes.includes(m)}">${MODE_LABEL[m]}</button>`).join("")}</div>`
       : `<p class="muted">Tonight: ${modes.map(m => MODE_LABEL[m]).join(", ")}${H.th && H.th !== "Anything goes" ? ` · Theme: ${esc(H.th)}` : ""}</p>`;
-    paint(el, [vip, H.can, starting, ps.map(p => p[0] + p[1]).join(), vipName, modes.join(), H.th].join("|"), `
+    paint(el, [vip, H.can, starting, ps.map(p => p[0] + p[1] + p[7]).join(), vipName, modes.join(), H.th, this.av].join("|"), `
       <p class="eyebrow">Rounds tonight</p>${picker}
       ${vip ? `<button class="btn primary wide" data-act="start" ${H.can && !starting ? "" : "disabled"}>${starting ? "Starting…" : "Start game"}</button>
         <p class="muted">${H.can ? (brings ? `Start when everyone's ${brings} are in.` : "Start when everyone's in.") : ownerOnly(H) ? "You can start once 2 players have added photos or songs." : "Waiting for players."}</p>`
       : `<p class="ph-h" style="font-size:20px">Waiting for ${esc(vipName || "the host")} to start</p>`}
-      <div class="chips">${ps.map(p => `<span class="chip">${avatar(p[1], p[2])}${esc(p[1])}</span>`).join("")}</div>`);
+      <div class="chips">${ps.map(p => `<span class="chip">${faceA(p)}${esc(p[1])}</span>`).join("")}</div>`);
   },
   renderSongs() {
     const mine = $("#mysongs"), res = $("#song-results");
@@ -2409,12 +2538,12 @@ const PH = {
     if (owner) return paint(main, "q-own|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">This one's yours</p><p class="muted">Keep a straight face. Every wrong guess earns you points.</p></div>`);
     if (this.g?.rk === H.rk) {
       const pick = this.nameOf(this.g.p);
-      return paint(main, "q-lock|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">Locked in</p>${pick ? avatar(pick[1], pick[2]) : ""}<p class="ph-big">${esc(pick?.[1] || "?")}</p><p class="muted">Waiting for everyone else.</p></div>`);
+      return paint(main, "q-lock|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">Locked in</p>${pick ? faceA(pick) : ""}<p class="ph-big">${esc(pick?.[1] || "?")}</p><p class="muted">Waiting for everyone else.</p></div>`);
     }
     const opts = this.pl().filter(p => p[0] !== this.pid);
     paint(main, "q|" + H.rk + "|" + opts.map(p => p[0]).join(), `${tbar}<div class="card"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}${H.R > 1 && H.r === H.R ? " · Double points" : ""}</p>
       <p class="ph-h">${esc(H.kind === "likely" ? `Who's most likely to ${H.lk || "…"}?` : KIND_ASK_PHONE[H.kind] || KIND_ASK_PHONE.photo)}</p>
-      <div class="choices">${opts.map(p => `<button class="choice" data-act="guess" data-pid="${p[0]}">${avatar(p[1], p[2])}<span>${esc(p[1])}</span></button>`).join("")}</div></div>`);
+      <div class="choices">${opts.map(p => `<button class="choice" data-act="guess" data-pid="${p[0]}">${faceA(p)}<span>${esc(p[1])}</span></button>`).join("")}</div></div>`);
   },
   rQuiz(main) {
     const H = this.host, qz = H.qz, opts = Array.isArray(qz.o) ? qz.o.slice(0, 4).map(String) : [];
@@ -2546,6 +2675,7 @@ app.addEventListener("submit", e => {
   if (mode === "phone" && e.target.id === "song-form") return PH.searchSongs();
   if (mode === "phone") PH.act("join");
 });
+$("#selfie-in").addEventListener("change", e => { const f = e.target.files?.[0]; if (f && mode === "phone") PH.setSelfie(f); });
 fileIn.addEventListener("change", () => {
   const files = Array.from(fileIn.files || []);
   if (!files.length) return;
@@ -2558,6 +2688,7 @@ addEventListener("hashchange", () => location.reload());
 // Any picture that fails to load switches to its fallback (data-alt) when it has one.
 document.addEventListener("error", e => {
   const im = e.target;
+  if (im?.tagName === "IMG" && im.classList.contains("av-img")) return im.remove();
   if (im?.tagName === "IMG" && im.dataset.alt && im.src !== im.dataset.alt) { const alt = im.dataset.alt; im.dataset.alt = ""; im.src = alt; }
 }, true);
 
