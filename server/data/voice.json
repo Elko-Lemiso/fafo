@@ -70,6 +70,14 @@
     { "id": "intro-ttl-2", "ev": "intro-ttl", "t": "Tell us two true things and one lie. We'll see how well we know you." },
     { "id": "intro-ttl-3", "ev": "intro-ttl", "t": "Time to find out who's a good liar." },
 
+    { "id": "intro-meld-1", "ev": "intro-meld", "t": "Mind meld. Think like your partner. No talking." },
+    { "id": "intro-meld-2", "ev": "intro-meld", "t": "Same prompt, same answer. Let's see who's on the same wavelength." },
+    { "id": "intro-meld-3", "ev": "intro-meld", "t": "Pairs time. Read each other's minds." },
+    { "id": "meld-match-1", "ev": "meld-match", "t": "Great minds think alike." },
+    { "id": "meld-match-2", "ev": "meld-match", "t": "Spooky. Are you two sharing a brain?" },
+    { "id": "meld-none-1", "ev": "meld-none", "t": "Not one match. You lot don't think alike at all." },
+    { "id": "meld-none-2", "ev": "meld-none", "t": "Zero mind melds. Awkward." },
+
     { "id": "intro-bluff-1", "ev": "intro-bluff", "t": "Bluff. Lie convincingly." },
     { "id": "intro-bluff-2", "ev": "intro-bluff", "t": "Time to lie. Make it believable." },
     { "id": "intro-bluff-3", "ev": "intro-bluff", "t": "One true answer, lots of lies. Find the truth." },

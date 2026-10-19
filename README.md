@@ -27,6 +27,10 @@ Pick any mix in the TV lobby under **Rounds tonight**:
 - **Bluff:** a real but unlikely fact with a blank ("A group of flamingos is called a ___"). Everyone writes a
   fake answer, then picks the truth from among the fakes: 500 for finding it, 250 for every player your fake
   fools. Needs 3 players.
+- **Mind meld:** players are paired up (one group of three if the numbers are odd) and each pair gets the same
+  prompt ("A fruit", "A famous Kenyan"). Type what you think your partner will type, without talking: matching
+  answers score 1,000 each. Case, "the", plurals, number words and a small typo don't stop a match. New pairs every
+  round. Needs 2 players.
 - **Name that tune:** the TV plays a clip and phones pick the song or the artist. Choose from about 50 genres,
   decades and moods, or type any artist or playlist.
 - **Famous faces:** a photo of a well-known person sharpens from a blur. Answer early to score more.
@@ -150,7 +154,7 @@ Then phones can join over mobile data, with no shared Wi-Fi needed.
   photos through Wikipedia.
 - `server/data/faces.json` is the famous-faces list with Wikipedia photos. Rebuild it with `python3 server/data/build-faces.py server/data/faces.json`.
 - `server/data/imposter.json`, `emoji.json` and `likely.json` hold the Imposter word pairs, emoji puzzles and
-  Most likely to prompts. `said.json` holds the Who said it prompts. `trivia-fallback.json` is the offline trivia set.
+  Most likely to prompts. `said.json` and `meld.json` hold the Who said it and Mind meld prompts. `trivia-fallback.json` is the offline trivia set.
 - `whos-who.html` is the original Claude artifact version, kept for reference.
 
 Photos of famous people come from Wikipedia and Wikimedia Commons under free licences; song clips and cover art come from Deezer.
