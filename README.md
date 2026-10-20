@@ -8,9 +8,11 @@ Play it at **https://fafo.up.railway.app**: open **https://fafo.up.railway.app/t
 ## Rounds
 
 The TV lobby shows the join code, who's in, and tonight's rounds. Whoever joined first is the host: their phone
-opens with a **Tonight** card, and **Change** opens a full-screen picker with **quick picks** (Get to know you, Party
-chaos, Quiz night, Music and movies, Just the two of us, Classic fafo), then every mode with a line about what it is
-and how many players it needs, plus a Settings tab. Picks show on the phone straight away and reach the TV even when
+opens with a **Tonight** card, and **Change** opens a full-screen game picker: **game nights** that set a whole night
+in one tap (Get to know you, Party chaos, Quiz night, Music and movies, Just the two of us, Classic fafo), filters by
+kind, and a card for every game with its icon, what it is, how many players it needs, what you do, and a **How to
+play** section with the steps and the scoring. The TV's picker shows the same cards. The first time a game comes up
+in a night, the TV and every phone show its three steps before it starts. Picks show on the phone straight away and reach the TV even when
 tapped quickly. The same rounds and settings are under **Rounds & settings** on the TV:
 
 - **Whose photo:** everyone adds up to 5 photos from their phone (baby pictures work great). Each one
