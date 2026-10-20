@@ -75,6 +75,9 @@ tapped quickly. The same rounds and settings are under **Rounds & settings** on 
   far it drifted. A guess that nails what was being drawn scores 1,000 for the drawer and the guesser; a close one
   (a key word in common) 400. Drawings upload like photos and live in the server's memory. Prompts are in
   `server/data/draw.json`, with a `wild` list for No holds barred. Needs 3 players.
+- **Lowest number wins:** everyone secretly picks a number from 1 to 10 on their phone. Numbers more than one player
+  picked are knocked out, and the lowest number left wins. Three goes a round, worth 300, 600 and 1,000. The reveal
+  shows who picked what, crosses out the clashes and lights up the winner. Needs 3 players.
 - **Split or steal:** two players face off over a pot of 2,000 points. They talk it out, then each picks Split or
   Steal in secret on their phone while everyone else bets on how it ends. Both split: 1,000 each. One steals: they
   take all 2,000. Both steal: nobody gets a thing. A right bet wins 300. Everyone faces off once before anyone goes

@@ -602,6 +602,24 @@ button{touch-action:manipulation}
 .ssb:active{transform:translateY(5px);box-shadow:0 1px 0 var(--ink)}
 @keyframes flipout{from{transform:rotateY(0)}to{transform:rotateY(90deg)}}
 @keyframes flipin{from{transform:rotateY(90deg)}to{transform:rotateY(0)}}
+/* Lowest number wins */
+.low{height:100%;display:flex;flex-direction:column;justify-content:center;gap:2.6vmin;max-width:1500px;margin:0 auto;width:100%}
+.low .lede{max-width:60ch;font-size:max(15px,2.6vmin);margin:0}
+.lnums{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:1.2vmin;align-items:start}
+.lnums li{display:flex;flex-direction:column;align-items:center;gap:1vmin;animation:pop .4s calc(var(--i) * .04s) cubic-bezier(.3,1.6,.5,1) both}
+.lnums li>b{display:grid;place-items:center;width:100%;aspect-ratio:1;background:var(--paper);border:3px solid var(--ink);border-radius:1.4vmin;box-shadow:0 .7vmin 0 var(--ink);font-family:var(--display);font-weight:400;font-size:max(22px,5.6vmin);position:relative}
+.lwho{display:flex;flex-wrap:wrap;justify-content:center;gap:.4vmin;min-height:4vmin}
+.lwho>span{display:inline-flex;animation:drop .35s cubic-bezier(.3,1.5,.5,1) both}
+.lwho .avatar{font-size:max(10px,1.7vmin);border-width:2px}
+.low.rev .lnums li.clash>b{animation:knock .4s var(--t,2.2s) both}
+.low.rev .lnums li.clash>b::after{content:"";position:absolute;left:12%;right:12%;top:50%;height:.8vmin;background:var(--tomato);border-radius:999px;transform:rotate(-30deg);animation:fadein .2s var(--t,2.2s) both}
+.low.rev .lnums li.solo>b{animation:dim .4s var(--t,2.2s) both}
+.low.rev .lnums li.win>b{animation:win .5s calc(var(--t,2.2s) + .3s) both}
+.lowh{font-family:var(--display);font-weight:400;font-size:max(26px,6.4vmin);line-height:1;animation:slam .5s calc(var(--t,2.2s) + .4s) cubic-bezier(.2,1.4,.4,1) both}
+.lowpad{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.lowb{font-family:var(--display);font-size:30px;aspect-ratio:1;border:3px solid var(--ink);border-radius:14px;background:var(--paper);box-shadow:0 5px 0 var(--ink);cursor:pointer;color:var(--ink)}
+.lowb:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+@keyframes knock{to{background:#E7D9B0;color:var(--ink-soft);transform:scale(.92)}}
 /* Draw it */
 .dwcard{gap:10px}
 .dprompt{font-size:24px}
@@ -704,13 +722,13 @@ const COLORS = ["#D93A26","#2342C6","#11704F","#7339D6","#C42F78","#0B7584","#B5
 const CODE_CHARS = "ABCDEFGHJKMNPQRSTUVWXYZ";
 // Kinds of round. Photo games play every photo; flag and map rounds come in sets of ROUNDS (fewer when mixed).
 const ROUNDS = 10, SONGS_PER_PLAYER = 3;
-const MODES = ["photo", "song", "prof", "said", "ttl", "hot", "quip", "bluff", "draw", "meld", "tune", "face", "flag", "map", "cap", "big", "trivia", "buzz", "num", "year", "hilo", "odd", "emoji", "imp", "fakin", "split", "likely", "wyr", "nhie"];
+const MODES = ["photo", "song", "prof", "said", "ttl", "hot", "quip", "bluff", "draw", "meld", "tune", "face", "flag", "map", "cap", "big", "trivia", "buzz", "num", "year", "hilo", "odd", "emoji", "imp", "fakin", "split", "low", "likely", "wyr", "nhie"];
 // Owner rounds show something a player brought, and everyone guesses which player. The rest are quiz rounds with 4 answers.
 const OWNER_KINDS = ["photo", "song", "prof"];
 // Rounds where you answer by picking a player rather than one of 4 answers.
 const PLAYER_KINDS = ["photo", "song", "prof", "imp", "fakin", "likely"];
 // Modes that need at least 3 players to make sense.
-const CROWD_KINDS = ["prof", "said", "quip", "bluff", "draw", "imp", "fakin", "likely", "wyr", "nhie"];
+const CROWD_KINDS = ["prof", "said", "quip", "bluff", "draw", "imp", "fakin", "low", "likely", "wyr", "nhie"];
 // Modes that work with 2 players.
 const PAIR_KINDS = ["ttl", "meld", "hot", "split"];
 // What each mode is, for the pickers: an icon, a one-line pitch, what kind of game it is, how a round goes, and how it scores.
@@ -731,6 +749,7 @@ const MODE_CARD = {
   bluff: { i: "🃏", tag: "Write · Bluff", blurb: "Write a fake answer to a real fact. Then find the truth among the fakes.", how: ["A true fact with a blank appears", "Write a fake answer that sounds true", "Pick the real one among everyone's fakes"], score: "500 for finding the truth, and 250 for every player your fake fools." },
   imp: { i: "🕵️", tag: "Talk · Vote", blurb: "Everyone has the same secret word except one. Find the imposter.", how: ["Check your secret word on your phone", "Take turns saying a one-word clue out loud", "Talk it over, then vote"], score: "500 for spotting the imposter. 1,000 to the imposter if they get away." },
   fakin: { i: "🎭", tag: "Bluff · Vote", blurb: "Everyone gets the same question except one player. Spot the faker.", how: ["Answer your question on your phone", "The TV shows the real question and every answer", "Talk it over and vote for the faker"], score: "500 for spotting the faker. 1,000 to the faker if they get away." },
+  low: { i: "🎯", tag: "Mind games", blurb: "Everyone secretly picks a number from 1 to 10. The lowest number nobody else picked wins.", how: ["Pick a number from 1 to 10 in secret", "Numbers two people picked are knocked out", "The lowest number left wins. Three goes, the stakes go up"], score: "The winner takes 300, then 600, then 1,000. Nobody left standing? Nobody scores." },
   split: { i: "💰", tag: "Nerve · Bet", blurb: "Two players, one pot of points. Split it, or steal the lot?", how: ["Two of you face off over a pot of points", "Talk it out, then pick Split or Steal in secret", "Everyone else bets on how it ends"], score: "Both split: half each. One steals: they take it all. Both steal: nobody gets a thing. A right bet wins 300." },
   tune: { i: "🎧", tag: "Music", blurb: "A clip plays on the TV. Name the song or the artist.", how: ["Choose the music in Settings", "The TV plays a clip", "Pick the song or artist from four"], score: QUIZ_SCORE },
   face: { i: "🌟", tag: "Quiz", blurb: "A famous face slowly sharpens from a blur. Who is it?", how: ["A blurred photo appears", "It sharpens over the round", "Pick who it is from four"], score: QUIZ_SCORE },
@@ -759,14 +778,14 @@ const EMOJI_OK = (() => {
 })();
 const modeIcon = m => (EMOJI_OK && MODE_CARD[m]?.i ? MODE_CARD[m].i : `<span class="ginit">${esc((MODE_LABEL[m] || "?").replace(/^(the|a) /i, "").split(/\s+/).slice(0, 2).map(w => w[0]).join("").toUpperCase())}</span>`);
 // The group colour behind each mode's icon.
-const GROUP_COLOR = { "About you": "#D93A26", "Write and bluff": "#2342C6", "Secret roles": "#7339D6", "Quiz": "#11704F" };
+const GROUP_COLOR = { "About you": "#D93A26", "Write and bluff": "#2342C6", "Secret roles": "#7339D6", "Mind games": "#B5530B", "Quiz": "#11704F" };
 const modeGroup = m => (MODE_GROUPS.find(([, l]) => l.includes(m)) || ["More"])[0];
 // What a mode needs before it can play: enough players, or something brought from the phones.
 const modeNeeds = m => [CROWD_KINDS.includes(m) ? 3 : PAIR_KINDS.includes(m) || OWNER_KINDS.includes(m) ? 2 : 1, { photo: "Bring photos", song: "Pick songs", prof: "Quick answers first" }[m] || ""];
 // One-tap sets of rounds for a kind of night. Picking one replaces the current rounds.
 const PRESETS = [
   ["know", "Get to know you", ["prof", "said", "ttl", "hot", "likely", "nhie"]],
-  ["chaos", "Party chaos", ["quip", "draw", "fakin", "imp", "split", "likely", "wyr"]],
+  ["chaos", "Party chaos", ["quip", "draw", "fakin", "imp", "split", "low", "likely", "wyr"]],
   ["quiz", "Quiz night", ["trivia", "buzz", "flag", "cap", "year", "hilo", "odd"]],
   ["music", "Music and movies", ["song", "tune", "face", "emoji"]],
   ["two", "Just the two of us", ["meld", "hot", "ttl", "split", "hilo", "trivia"]],
@@ -776,7 +795,8 @@ const PRESETS = [
 const MODE_GROUPS = [
   ["About you", ["photo", "song", "prof", "said", "ttl", "hot", "meld", "likely", "wyr", "nhie"]],
   ["Write and bluff", ["quip", "bluff", "draw", "capt"]],
-  ["Secret roles", ["imp", "fakin", "split"]],
+  ["Secret roles", ["imp", "fakin"]],
+  ["Mind games", ["split", "low"]],
   ["Quiz", ["tune", "face", "flag", "map", "cap", "big", "trivia", "buzz", "num", "year", "hilo", "odd", "emoji"]],
 ];
 // Rounds with no right answer: Would you rather (score for siding with the room) and Never have I ever (just for fun).
@@ -810,6 +830,9 @@ const FK_PHASES = ["fk-ans", "fk-talk"], FK_SECS = 45, SECRET_PHASES = [...IMP_P
 // Split or steal: two players face off over a pot of points. Each picks Split or Steal in secret on their phone while
 // everyone else bets on how it ends. Both split: half each. One steals: they take it all. Both steal: nobody gets a thing.
 const SPLIT_POT = 2000, SPLIT_SECS = 45, SPLIT_BET = 300, SPLIT_BETS = ["Both split", "Someone steals", "Both steal"];
+// Lowest number wins: everyone secretly picks a number from 1 to LOW_MAX. Numbers more than one player picked are knocked
+// out, and the lowest number left wins. Three goes a round, each worth more than the last.
+const LOW_MAX = 10, LOW_SECS = 15, LOW_PTS = [300, 600, 1000];
 // Reactions: any phone can throw these onto the TV while it waits. Words stand in for the emoji on TVs that can't show emoji.
 const REACTS = [["😂", "LOL"], ["🔥", "FIRE"], ["😱", "OMG"], ["👏", "CLAP"], ["💀", "DEAD"], ["🍻", "CHEERS"], ["", "BOO!"], ["", "TOO EASY"]];
 // Twists (Rounds & settings, on by default): now and then a round gets a twist, announced on its title card. Never the
@@ -830,8 +853,8 @@ const DRAW_SECS = 60, GUESS_SECS = 30, DRAW_W = 640, DRAW_H = 480;
 const DRAW_STOP = new Set(["the", "and", "with", "for", "from", "into", "onto", "that", "this", "its", "his", "her", "their", "out", "off", "over", "under", "some", "who", "while"]);
 const drawWords = t => String(t || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(/[^\p{L}\p{N}]+/u).filter(w => w.length >= 3 && !DRAW_STOP.has(w)).map(w => (w.length > 3 ? w.replace(/s$/, "") : w));
 const drawMatch = (want, got) => { if (!want || !got) return 0; if (meldSame(want, got)) return 2; const a = new Set(drawWords(want)); return drawWords(got).some(w => a.has(w)) ? 1 : 0; };
-const MODE_LABEL = { photo: "Whose photo", song: "Whose song", prof: "Whose answer", said: "Who said it", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather", nhie: "Never have I ever", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps", cap: "Capitals", big: "Which is bigger", trivia: "Trivia", emoji: "Emoji puzzles", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", draw: "Draw it", likely: "Most likely to" };
-const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", prof: "Whose answer?", said: "Who said it?", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather?", nhie: "Never have I ever", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country", cap: "Capital cities", big: "Which is bigger?", trivia: "Trivia", emoji: "Emoji puzzle", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", draw: "Draw it", likely: "Most likely to…" };
+const MODE_LABEL = { photo: "Whose photo", song: "Whose song", prof: "Whose answer", said: "Who said it", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather", nhie: "Never have I ever", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps", cap: "Capitals", big: "Which is bigger", trivia: "Trivia", emoji: "Emoji puzzles", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", low: "Lowest number wins", draw: "Draw it", likely: "Most likely to" };
+const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", prof: "Whose answer?", said: "Who said it?", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather?", nhie: "Never have I ever", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country", cap: "Capital cities", big: "Which is bigger?", trivia: "Trivia", emoji: "Emoji puzzle", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", low: "Lowest number wins", draw: "Draw it", likely: "Most likely to…" };
 const KIND_ASK = { photo: "Whose photo is this?", song: "Whose song is this?", prof: "Whose answer is this?", said: "Who wrote this?", face: "Who is this?", flag: "Which country's flag is this?", map: "Which country has this shape?", big: "Which country is bigger?", imp: "Who's the imposter?", fakin: "Who had the other question?" };
 const KIND_ASK_PHONE = { photo: "Whose photo is on the TV?", song: "Whose song is playing?", prof: "Whose answer is on the TV?", said: "Who wrote this?", face: "Who's on the TV?", flag: "Which country's flag is on the TV?", map: "Which country is the shape on the TV?", big: "Which country is bigger?", imp: "Who's the imposter?", fakin: "Who had the other question?" };
 const askOf = c => (c.t === "tune" ? (c.ask === "artist" ? "Who's the artist?" : "What's this song?")
@@ -1709,7 +1732,7 @@ const TV = {
   players() { return Object.values(this.H.players).sort((a, b) => a.at - b.at); },
   ownerOf(id) { return this.H.photos[id]?.pid || null; },
   curOwner() { const c = this.H.cur; return c?.t === "photo" ? this.ownerOf(c.id) : c?.t === "song" || c?.t === "prof" || EACH_KINDS.includes(c?.t) ? c.pid || null : null; },
-  isQuiz() { const t = this.H.cur?.t; return !!t && t !== "split" && (QUIZ_WRITE.includes(t) || (!PLAYER_KINDS.includes(t) && !WRITE_KINDS.includes(t))); },
+  isQuiz() { const t = this.H.cur?.t; return !!t && t !== "split" && t !== "low" && (QUIZ_WRITE.includes(t) || (!PLAYER_KINDS.includes(t) && !WRITE_KINDS.includes(t))); },
   isWrite() { return WRITE_KINDS.includes(this.H.cur?.t); },
   // Which prompts this player writes for: two in Quips, the one in the Last Lash.
   writesFor(pid) { const c = this.H.cur; return c?.t === "lash" || c?.t === "bluff" || c?.t === "said" ? [0] : c?.t === "ttl" ? [0, 1, 2] : c?.t === "quip" || c?.t === "meld" ? c.ps.map((m, i) => (m.by.includes(pid) ? i : -1)).filter(i => i >= 0) : []; },
@@ -1825,7 +1848,8 @@ const TV = {
       const g = p.g;
       if (H.ph === "q" && !H.pause && g && g.rk === H.rk && !H.guesses[pid]) {
         // Split or steal: the two players pick Split (0) or Steal (1); everyone else bets on one of the three endings.
-        if (H.cur.t === "split") { const n = H.cur.by.includes(pid) ? 2 : SPLIT_BETS.length; if (Number.isInteger(g.i) && g.i >= 0 && g.i < n) { H.guesses[pid] = { i: g.i, t: now }; changed = true; SFX.play("lock"); } }
+        if (H.cur.t === "low") { if (Number.isInteger(g.v) && g.v >= 1 && g.v <= H.cur.max) { H.guesses[pid] = { v: g.v, t: now }; changed = true; SFX.play("lock"); } }
+        else if (H.cur.t === "split") { const n = H.cur.by.includes(pid) ? 2 : SPLIT_BETS.length; if (Number.isInteger(g.i) && g.i >= 0 && g.i < n) { H.guesses[pid] = { i: g.i, t: now }; changed = true; SFX.play("lock"); } }
         else if (NUM_KINDS.includes(H.cur.t)) { if (Number.isFinite(g.v) && Math.abs(g.v) < 1e12) { H.guesses[pid] = { v: g.v, t: now }; changed = true; SFX.play("lock"); } }
         else if (!this.isQuiz()) {
           if (pid !== this.curOwner() && isPid(g.p) && g.p !== pid && H.players[g.p]) { H.guesses[pid] = { p: g.p, t: now }; changed = true; SFX.play("lock"); }
@@ -2026,7 +2050,7 @@ const TV = {
     if (ph === "end") return "victory";
     if (ph === "rev" || ph === "lb") return wild ? "afterdark" : "groove";
     if (ph === "qw" || ph === "dw" || (ph === "intro" && (WRITE_KINDS.includes(t) || t === "draw"))) return "write";
-    if (t === "imp" || t === "fakin" || t === "split") return "suspense";
+    if (t === "imp" || t === "fakin" || t === "split" || t === "low") return "suspense";
     if (H.R > 1 && r === H.R) return "final";
     return modeGroup(t) === "Quiz" ? "quiz" : "social";
   },
@@ -2454,6 +2478,7 @@ const TV = {
         pools.draw = Array.from({ length: n }, () => ({ t: "draw", order: shuffle(people.slice()), S: Math.min(4, people.length), step: 0, ci: 0,
           chains: people.map(() => ({ p: (wild.length && Math.random() < 0.6 ? wild.pop() : plain.pop()) || D.prompts[Math.floor(Math.random() * D.prompts.length)], items: [] })) }));
       }
+      if (modes.includes("low") && online >= 3) pools.low = Array.from({ length: H.len === "long" ? 2 : 1 }, () => ({ t: "low", go: 0, goes: LOW_PTS.length, max: LOW_MAX }));
       if (modes.includes("split") && online >= 2) {
         // Split or steal: everyone faces off once before anyone goes twice.
         const n = { quick: 2, normal: 3, long: 4 }[H.len] || 3, people = this.players().filter(p => p.online).map(p => p.pid), q = [];
@@ -2664,6 +2689,7 @@ const TV = {
     const H = this.H, rv = H.rv || {}, t = H.cur?.t, owner = this.curOwner();
     if (t === "imp" || t === "fakin") return rv.caught ? [rv.o] : Object.entries(rv.g || {}).filter(([pid, x]) => pid !== rv.o && x !== rv.o).map(([pid]) => pid);
     // Split or steal: whoever got robbed (or both, if both stole), and everyone who bet wrong.
+    if (t === "low") return Object.values(rv.by || {}).filter(l => l.length > 1).flat();
     if (t === "split") return [...(rv.out === 1 ? [rv.by[rv.ch[0] ? 1 : 0]] : rv.out === 2 ? rv.by : []), ...Object.entries(rv.g || {}).filter(([, i]) => i !== rv.out).map(([pid]) => pid)];
     if (t === "likely") return rv.top || [];
     if (t === "quip") { const [a, b] = rv.v || [0, 0]; return a === b ? [] : [rv.by[a < b ? 0 : 1]]; }
@@ -2693,6 +2719,7 @@ const TV = {
     if (H.ph === "intro" && EACH_KINDS.includes(H.cur?.t) && H.cur.ord?.length) return this.askNext(Math.min(H.cur.mi || 0, H.cur.ord.length - 1));
     if (H.ph === "intro" && H.cur?.t === "fakin") return this.fkStart();
     if (H.ph === "intro" && H.cur?.t === "draw") return this.drawStep(0);
+    if (H.ph === "intro" && H.cur?.t === "low") return this.lowGo(0);
     if (H.ph === "dw") { if (H.cur.step + 1 < H.cur.S) return this.drawStep(H.cur.step + 1); H.cur.ci = 0; return this.reveal(); }
     if (H.ph === "intro") return this.isImp() ? this.impStart() : this.isWrite() ? this.go("qw", QW_SECS[H.cur.t]) : this.go("q", H.cur?.t === "split" ? SPLIT_SECS : H.cur?.tw === "lightning" ? LIGHTNING_SECS : Q_SECS);
     if (H.ph === "qw") return this.startVote(0);
@@ -2707,6 +2734,7 @@ const TV = {
     if (H.ph === "rev") {
       if (H.cur?.t === "quip") { const n = this.nextMatch(H.cur.mi + 1); if (n >= 0) return this.startVote(n); }
       if (H.cur?.t === "draw" && H.cur.ci + 1 < H.cur.chains.length) { H.cur.ci++; return this.reveal(); }
+      if (H.cur?.t === "low" && H.cur.go + 1 < H.cur.goes) return this.lowGo(H.cur.go + 1);
       if (EACH_KINDS.includes(H.cur?.t) && H.cur.mi + 1 < (H.cur.ord || []).length) return this.askNext(H.cur.mi + 1);
       return this.endRound();
     }
@@ -2717,6 +2745,12 @@ const TV = {
     if (H.r >= H.R) return this.go("end");
     if (H.r % this.lbEvery() === 0) return this.go("lb", LB_SECS);
     return this.nextRound();
+  },
+  // Lowest number wins: each go is its own question, with its own picks.
+  lowGo(i) {
+    const H = this.H;
+    H.cur.go = i; H.rk = H.gid + "-" + H.r + "-l" + i; H.guesses = {}; H.rv = null;
+    this.go("q", H.cur.tw === "lightning" ? LIGHTNING_SECS : LOW_SECS);
   },
   drawStep(s) {
     const H = this.H;
@@ -2818,6 +2852,17 @@ const TV = {
       m.by.forEach((pid, k) => { if (ans[pid] && v[k] > (H.best?.v || 0)) H.best = { q: m.q, a: ans[pid], pid, v: v[k] }; });
       this.revEv = sweep ? "quip-sweep" : has[0] !== has[1] ? null : v[0] === v[1] ? "quip-tie" : "quip-win";
       return this.go("rev", REVEAL_SECS - 1);
+    }
+    if (H.cur.t === "low") {
+      // Numbers more than one player picked are knocked out; the lowest number left wins this go's points.
+      const by = {};
+      for (const [pid, x] of Object.entries(H.guesses)) { g[pid] = x.v; (by[x.v] ||= []).push(pid); }
+      const win = Object.keys(by).map(Number).filter(v => by[v].length === 1).sort((a, b) => a - b)[0] || 0, winner = win ? by[win][0] : null, pts = LOW_PTS[H.cur.go] * mult;
+      if (winner) { d[winner] = pts; this.stat(winner, H.guesses[winner].t - H.qStart); }
+      score();
+      H.rv = { g, d, m: mult, by, win, winner, go: H.cur.go, goes: H.cur.goes, max: H.cur.max, pts };
+      this.revEv = winner ? "low-win" : Object.keys(g).length ? "low-none" : null;
+      return this.go("rev", REVEAL_SECS);
     }
     if (H.cur.t === "draw") {
       // One chain at a time. Each guess is checked against what its drawer was drawing; a match scores both of them.
@@ -3150,6 +3195,7 @@ const TV = {
       lk: H.cur?.t === "likely" ? H.cur.lk : null,
       tw: H.cur?.tw && ["intro", "q", "rev"].includes(H.ph) ? H.cur.tw : null, qd: H.ph === "q" ? H.qDur / 1000 : null,
       dw: H.ph === "dw" ? { s: H.cur.step, S: H.cur.S, t: Object.fromEntries(H.cur.order.map(pid => [pid, this.drawTask(pid)])), done: H.cur.order.filter(pid => this.drawDone(pid)) } : null,
+      lw: H.cur?.t === "low" && ["intro", "q", "rev"].includes(H.ph) ? { go: H.cur.go, goes: H.cur.goes, max: H.cur.max, pts: LOW_PTS[H.cur.go] * (H.R > 1 && H.r === H.R ? 2 : 1) } : null,
       ss: H.cur?.t === "split" && ["intro", "q", "rev"].includes(H.ph) ? { by: H.cur.by, pot: H.cur.pot * (H.R > 1 && H.r === H.R ? 2 : 1) } : null,
       fk: H.cur?.t === "fakin" && ["fk-ans", "fk-talk", "q", "rev"].includes(H.ph) ? { ty: H.cur.ty, q: H.ph === "fk-ans" ? null : H.cur.q } : null,
       // Writing rounds: the prompts while writing, then the answers being voted on. `x` marks whose they are, hashed like `x` above.
@@ -3322,6 +3368,7 @@ const TV = {
     if (H.ph === "qv") return this.renderVote(stage);
     if (H.ph === "q" && H.cur?.t === "likely") return this.renderLikely(stage);
     if (H.ph === "q" && H.cur?.t === "split") return this.renderSplit(stage);
+    if (H.ph === "q" && H.cur?.t === "low") return this.renderLow(stage);
     if (H.ph === "q") {
       if (this.isQuiz()) return this.renderQuiz(stage);
       const final = H.R > 1 && H.r === H.R;
@@ -3402,6 +3449,7 @@ const TV = {
     if (this.H.cur?.t === "likely") return this.likelyRevealHtml();
     if (this.H.cur?.t === "split") return this.splitRevealHtml();
     if (this.H.cur?.t === "draw") return this.drawRevealHtml();
+    if (this.H.cur?.t === "low") return this.lowRevealHtml();
     if (this.isQuiz()) return this.quizRevealHtml();
     const H = this.H, rv = H.rv || { g: {}, d: {} };
     const P = H.players, owner = P[rv.o];
@@ -3763,6 +3811,28 @@ const TV = {
       <div class="qphoto bigav"><p class="eyebrow">Most likely to ${esc(rv.lk || H.cur.lk)}</p>${lead ? face(lead) : ""}${rows.length ? `<div class="stamp low">${lead ? esc(lead.name) + "!" : tops.length ? "It's a tie!" : "Split vote!"}</div>` : ""}</div>
       <div class="rside"><p class="eyebrow">${rows.length ? "Votes" : "Nobody voted"}${rv.m > 1 ? " · Double points" : ""}</p><ul class="rows">${rowHtml}</ul>
         <div class="deltas">${this.scorersHtml(rv, sided ? `${sided} ${sided === 1 ? "person" : "people"} sided with the room` : "", "Nobody scored this round")}${this.sipHtml()}</div></div></section>`;
+  },
+  // Lowest number wins while people pick: the numbers, what this go is worth, the clock, and who's in.
+  renderLow(stage) {
+    const H = this.H, c = H.cur, final = H.R > 1 && H.r === H.R, pts = LOW_PTS[c.go] * (final ? 2 : 1);
+    paint(stage, "lq|" + H.rk, `<section class="low"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Lowest number wins · Go ${c.go + 1} of ${c.goes}${final ? " · Double points" : ""}</p>
+      <h2 class="qtitle">Pick a number, 1 to ${c.max}</h2>
+      <p class="lede">In secret, on your phone. Numbers two people pick are knocked out. The lowest number left wins <b>${fmt(pts)}</b>.</p>
+      <ol class="lnums">${Array.from({ length: c.max }, (_, k) => `<li style="--i:${k}"><b class="num">${k + 1}</b></li>`).join("")}</ol>
+      <div class="qfoot">${this.clockHtml()}<div><p class="eyebrow" id="lockcount"></p><ul class="locks" id="locks"></ul></div></div></section>`);
+    this.renderLocks(null);
+  },
+  // Who picked what: each number with its pickers. Clashes get knocked out, then the lowest number left lights up.
+  lowRevealHtml() {
+    const H = this.H, rv = H.rv, P = H.players, t = 2.2, winner = P[rv.winner];
+    const tiles = Array.from({ length: rv.max }, (_, k) => {
+      const v = k + 1, who = (rv.by[v] || []).filter(id => P[id]), cls = who.length > 1 ? "clash" : v === rv.win ? "win" : who.length ? "solo" : "";
+      return `<li class="${cls}" style="--i:${k}"><b class="num">${v}</b><span class="lwho">${who.map((id, j) => `<span style="animation-delay:${(0.4 + k * 0.06 + j * 0.08).toFixed(2)}s">${face(P[id])}</span>`).join("")}</span></li>`;
+    }).join("");
+    const head = winner ? `${esc(winner.name)} wins with ${rv.win}!` : Object.keys(rv.g || {}).length ? "Everyone clashed! Nobody wins." : "Nobody picked a number.";
+    return `<section class="low rev" style="--t:${t}s;--t2:${t + 0.8}s"><p class="eyebrow">Lowest number wins · Go ${rv.go + 1} of ${rv.goes} · Worth ${fmt(rv.pts)}${rv.m > 1 ? " · Double points" : ""}</p>
+      <ol class="lnums">${tiles}</ol><h2 class="lowh">${head}</h2>
+      <div class="deltas">${this.scorersHtml(rv, "", "No points this go")}${this.sipHtml()}</div></section>`;
   },
   // Draw it while people draw or guess: what this step is, the clock, and who's done.
   renderDraw(stage) {
@@ -4191,6 +4261,11 @@ const PH = {
     if (a === "sk-undo") return SKETCH.undo();
     if (a === "sk-clear") return SKETCH.clear();
     if (a === "sk-send") return this.sendDrawing(false);
+    if (a === "low") {
+      const v = Number(el.dataset.v), H = this.host;
+      if (!H || H.ph !== "q" || H.kind !== "low" || this.g?.rk === H.rk || !Number.isInteger(v)) return;
+      this.g = { rk: H.rk, v }; vibrate(30); this.push(); return this.renderMain();
+    }
     if (a === "ss") {
       const i = Number(el.dataset.i), H = this.host;
       if (!H || H.ph !== "q" || H.kind !== "split" || this.g?.rk === H.rk || !Number.isInteger(i)) return;
@@ -4370,7 +4445,7 @@ const PH = {
     if (!me) return paint(main, "wait-in", `<div class="card center"><p class="ph-h">Joining…</p><p class="muted">Hang on while the TV adds you.</p></div>`);
     if (H.ph === "lobby") return this.rLobby(main);
     if (H.pause && H.ph !== "end") return this.rPaused(main);
-    if (H.ph === "intro") return paint(main, "intro|" + H.rk, `${H.tw && TWISTS[H.tw] ? `<div class="card center twph"><p class="eyebrow">Twist!</p><p class="ph-h">${esc(TWISTS[H.tw].label)}</p><p>${esc(TWISTS[H.tw].note)}</p></div>` : ""}<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">Eyes on the TV</p><p class="muted">${H.kind === "imp" ? "Imposter round. Your secret word is coming." : H.kind === "fakin" ? "Fakin' it. Your question is coming." : H.kind === "draw" ? "Draw it. Warm up your finger." : H.kind === "split" ? (Array.isArray(H.ss?.by) && H.ss.by.includes(this.pid) ? "Split or steal. You're up!" : "Split or steal. Get ready to bet.") : WRITE_KINDS.includes(H.kind) ? "Get your thumbs ready. You'll be writing." : "Get ready to guess."}</p></div>
+    if (H.ph === "intro") return paint(main, "intro|" + H.rk, `${H.tw && TWISTS[H.tw] ? `<div class="card center twph"><p class="eyebrow">Twist!</p><p class="ph-h">${esc(TWISTS[H.tw].label)}</p><p>${esc(TWISTS[H.tw].note)}</p></div>` : ""}<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">Eyes on the TV</p><p class="muted">${H.kind === "imp" ? "Imposter round. Your secret word is coming." : H.kind === "fakin" ? "Fakin' it. Your question is coming." : H.kind === "draw" ? "Draw it. Warm up your finger." : H.kind === "low" ? "Lowest number wins. Think like everyone else, then don't." : H.kind === "split" ? (Array.isArray(H.ss?.by) && H.ss.by.includes(this.pid) ? "Split or steal. You're up!" : "Split or steal. Get ready to bet.") : WRITE_KINDS.includes(H.kind) ? "Get your thumbs ready. You'll be writing." : "Get ready to guess."}</p></div>
       ${H.ih && MODE_CARD[H.kind]?.how ? `<div class="card"><p class="eyebrow">How to play ${esc(MODE_LABEL[H.kind] || "")}</p><ol class="steps">${MODE_CARD[H.kind].how.map(x => `<li>${esc(x)}</li>`).join("")}</ol><p class="muted"><b>Scoring</b> ${esc(MODE_CARD[H.kind].score || "")}</p></div>` : ""}`);
     if (IMP_PHASES.includes(H.ph)) return this.rImp(main);
     if (FK_PHASES.includes(H.ph)) return this.rFakin(main);
@@ -4636,6 +4711,7 @@ const PH = {
   },
   rQuestion(main) {
     if (this.host.kind === "split") return this.rSplit(main);
+    if (this.host.kind === "low") return this.rLow(main);
     const H = this.host, owner = H.x === fnv(this.pid + H.rk);
     const tbar = H.kind === "imp" || H.kind === "fakin" ? "" : `<div class="tbar" aria-hidden="true"><i id="tbar"></i></div>`;
     if (owner) return paint(main, "q-own|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">This one's yours</p><p class="muted">Keep a straight face. Every wrong guess earns you points.</p></div>`);
@@ -4709,6 +4785,20 @@ const PH = {
   },
   shareReady(key) { return !!this.shares?.[key]?.blob; },
   // Split or steal on the phone: the two players get Split and Steal; everyone else bets on how it ends.
+  // Lowest number wins on the phone: ten numbers to pick from, in secret.
+  rLow(main) {
+    const H = this.host, lw = H.lw || {}, max = Number(lw.max) || LOW_MAX, tbar = `<div class="tbar" aria-hidden="true"><i id="tbar"></i></div>`;
+    if (this.g?.rk === H.rk) return paint(main, "low-lock|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">You picked</p><p class="ph-big num">${esc(this.g.v)}</p><p class="muted">Keep it to yourself. If someone else picks it too, you're both out.</p></div>`);
+    paint(main, "low|" + H.rk, `${tbar}<div class="card"><p class="eyebrow">Lowest number wins · Go ${(lw.go || 0) + 1} of ${lw.goes || 3} · Worth ${fmt(lw.pts || 0)}</p><p class="ph-h">Pick a number</p>
+      <p class="muted">Lowest number nobody else picked wins. Pick the same as someone and you're both out.</p>
+      <div class="lowpad">${Array.from({ length: max }, (_, k) => `<button class="lowb" data-act="low" data-v="${k + 1}">${k + 1}</button>`).join("")}</div></div>`);
+  },
+  rLowReveal(main) {
+    const H = this.host, rv = H.rv || {}, me = this.pid, mine = rv.g?.[me], pts = rv.d?.[me] || 0, mates = mine ? (rv.by?.[mine] || []).length - 1 : 0, wName = esc(this.nameOf(rv.winner)?.[1] || "");
+    const head = pts ? "You win it!" : !mine ? "No pick" : mates ? "Knocked out" : "Not the lowest";
+    const sub = pts ? `Nobody else picked ${mine}. +${fmt(pts)} points` : mates ? `${mates === 1 ? "Someone else" : mates + " others"} picked ${mine} too.` : rv.winner ? `${wName} won with ${rv.win}.` : "Everyone clashed. Nobody wins.";
+    paint(main, "low-rev|" + H.rk, `<div class="card center result ${pts ? "good" : mine ? "bad" : ""}"><p class="eyebrow">Lowest number wins · Go ${(rv.go || 0) + 1} of ${rv.goes || 3}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+  },
   rSplit(main) {
     const H = this.host, ss = H.ss || {}, by = Array.isArray(ss.by) ? ss.by : [], mine = by.includes(this.pid), pot = Number(ss.pot) || SPLIT_POT;
     const tbar = `<div class="tbar" aria-hidden="true"><i id="tbar"></i></div>`, names = by.map(id => esc(this.nameOf(id)?.[1] || "?")), other = names[by.indexOf(this.pid) === 0 ? 1 : 0];
@@ -4909,6 +4999,7 @@ const PH = {
     if (this.host.kind === "likely") return this.rLikelyReveal(main);
     if (this.host.kind === "split") return this.rSplitReveal(main);
     if (this.host.kind === "draw") return this.rDrawReveal(main);
+    if (this.host.kind === "low") return this.rLowReveal(main);
     if (this.host.kind === "meld") return this.rMeldReveal(main);
     if (this.host.qz && this.host.rv) return this.rQuizReveal(main);
     const H = this.host, rv = H.rv || { g: {}, d: {} }, ownerP = this.nameOf(rv.o);

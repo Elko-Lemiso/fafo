@@ -254,7 +254,16 @@
   "draw-nailed-3": "js6qdl",
   "draw-lost-1": "1l8o16g",
   "draw-lost-2": "15o7a32",
-  "draw-lost-3": "yfu850"
+  "draw-lost-3": "yfu850",
+  "intro-low-1": "pnt8wm",
+  "intro-low-2": "qi5yi8",
+  "intro-low-3": "wg8rie",
+  "low-win-1": "1i4pngk",
+  "low-win-2": "18ditsd",
+  "low-win-3": "1agv3i9",
+  "low-none-1": "1hbctkw",
+  "low-none-2": "12e8gfx",
+  "low-none-3": "1o4wswo"
  },
  "voice": "Liam",
  "model": "eleven_multilingual_v2",

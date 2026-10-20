@@ -311,6 +311,15 @@
     { "id": "draw-nailed-3", "ev": "draw-nailed", "t": "Unbelievable! It survived the whole room!" },
     { "id": "draw-lost-1", "ev": "draw-lost", "t": "That went downhill fast!" },
     { "id": "draw-lost-2", "ev": "draw-lost", "t": "How did we get from that to that? Incredible!" },
-    { "id": "draw-lost-3", "ev": "draw-lost", "t": "Lost in translation! Who drew that?" }
+    { "id": "draw-lost-3", "ev": "draw-lost", "t": "Lost in translation! Who drew that?" },
+    { "id": "intro-low-1", "ev": "intro-low", "t": "Lowest number wins! Go low, but not too low. Everyone else is thinking the same thing!" },
+    { "id": "intro-low-2", "ev": "intro-low", "t": "Pick a number! Lowest one nobody else picked takes the points!" },
+    { "id": "intro-low-3", "ev": "intro-low", "t": "Mind games time! Outsmart the room!" },
+    { "id": "low-win-1", "ev": "low-win", "t": "Nobody saw that coming! Well played!" },
+    { "id": "low-win-2", "ev": "low-win", "t": "A big brain move! The points are yours!" },
+    { "id": "low-win-3", "ev": "low-win", "t": "Sneaky! The lowest number standing wins!" },
+    { "id": "low-none-1", "ev": "low-none", "t": "You all think alike! Nobody wins that one!" },
+    { "id": "low-none-2", "ev": "low-none", "t": "Total clash! Not a single number survived!" },
+    { "id": "low-none-3", "ev": "low-none", "t": "Great minds think alike, and lose together!" }
   ]
 }
