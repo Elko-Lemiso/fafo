@@ -153,21 +153,62 @@ button{font:inherit;color:inherit}
 .stamp{position:absolute;left:50%;top:50%;font-family:var(--display);font-size:max(26px,7.4vmin);color:var(--paper);background:var(--cobalt);padding:.15em .5em;border:4px solid var(--ink);
   border-radius:1vmin;white-space:nowrap;box-shadow:0 1vmin 0 var(--ink);animation:stamp .45s var(--t,2.2s) cubic-bezier(.2,1.4,.4,1) both;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .deltas{display:flex;flex-wrap:wrap;gap:1vmin;animation:rise .4s var(--t2,3s) both}
-.delta{display:flex;align-items:center;gap:.8vmin;background:var(--ink);color:var(--paper);border-radius:999px;padding:.5vmin 1.4vmin .5vmin .5vmin;font-weight:800;font-size:max(13px,2.2vmin)}
+.delta{display:flex;align-items:center;gap:.8vmin;background:var(--ink);color:var(--paper);border-radius:999px;padding:.5vmin 1.6vmin .5vmin .5vmin;font-weight:800;font-size:max(14px,2.6vmin)}
 .delta .avatar{font-size:.75em;border-width:2px;border-color:var(--paper)}
-.delta b{font-family:var(--display);font-weight:400;color:var(--sun)}
+.delta b{font-family:var(--display);font-weight:400;color:var(--sun);font-size:1.15em}
 .nobody{font-size:max(15px,2.8vmin);font-weight:800}
 
-.board{height:100%;display:flex;flex-direction:column;justify-content:center;gap:3vmin;max-width:1300px;margin:0 auto;width:100%}
-.lb{display:flex;flex-direction:column;gap:1.3vmin}
-.lb li{display:grid;grid-template-columns:5vmin auto minmax(0,1fr) auto;align-items:center;gap:1.6vmin;font-size:max(15px,2.9vmin);font-weight:800;animation:rise .4s both}
-.lb .rank{font-family:var(--display);text-align:right}
-.bar{height:4.6vmin;min-width:0;display:flex;align-items:center}
-.bar i{display:block;height:100%;width:var(--w);min-width:1.2vmin;background:var(--c);border:3px solid var(--ink);border-radius:1vmin;animation:grow .8s .2s cubic-bezier(.2,1,.3,1) both;transform-origin:left}
-.bar span{margin-left:1.2vmin;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.lb .score{font-family:var(--display);font-weight:400}
-.lb .up{font-family:var(--label);color:var(--mint);font-size:.8em;margin-left:.6vmin}
-
+/* the scores page */
+.board2{height:100%;display:grid;grid-template-columns:minmax(0,.72fr) minmax(0,1.7fr);grid-template-rows:auto minmax(0,1fr) auto;gap:2.4vmin 5vmin;align-items:center;max-width:1500px;margin:0 auto;width:100%}
+.lhd{grid-column:1/-1;display:flex;flex-direction:column;gap:1.2vmin}
+.lhead{font-family:var(--display);font-weight:400;font-size:max(28px,7vmin);line-height:.95;text-wrap:balance;animation:slam .5s cubic-bezier(.2,1.4,.4,1) both}
+.lnotes{display:flex;flex-wrap:wrap;gap:1.2vmin;animation:rise .4s 2.4s both}
+.lnote{display:flex;align-items:center;gap:.8vmin;background:var(--ink);color:var(--paper);border-radius:999px;padding:.5vmin 1.6vmin .5vmin 1.4vmin;font-family:var(--label);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:max(12px,2vmin)}
+.lnote .avatar{font-size:.9em;border-width:2px;border-color:var(--paper)}
+.lnote b{font-family:var(--body);font-weight:800;text-transform:none;letter-spacing:0}
+.lnote i{font-style:normal;font-family:var(--display);color:var(--sun);letter-spacing:0}
+.lcard{display:flex;flex-direction:column;align-items:center;gap:1.2vmin;background:var(--paper);border:4px solid var(--ink);border-radius:2.4vmin;box-shadow:0 1.2vmin 0 var(--ink);padding:2.4vmin 2vmin 2.6vmin;transform:rotate(-2deg);animation:pop .55s 1.9s cubic-bezier(.3,1.6,.5,1) both;text-align:center;min-width:0}
+.lcard .crown{width:max(48px,11vmin);height:auto;margin-bottom:-1.6vmin;position:relative;z-index:1;animation:drop .5s 2.3s cubic-bezier(.3,1.5,.5,1) both}
+.lcard .avatar{font-size:max(28px,8vmin);border-width:5px}
+.lcard .lname{font-family:var(--display);font-weight:400;font-size:max(20px,4.4vmin);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lcard .lbig{font-family:var(--display);font-weight:400;font-size:max(36px,10vmin);line-height:1}
+.lrows{--gap:1.1vmin;display:flex;flex-direction:column;gap:var(--gap);min-width:0}
+.lrow{position:relative;display:grid;grid-template-columns:auto auto minmax(0,1fr) auto 6vmin;align-items:center;gap:1.4vmin;background:var(--paper);border:3px solid var(--ink);border-radius:1.4vmin;padding:.8vmin 1.4vmin .8vmin .8vmin;font-size:max(14px,2.7vmin);font-weight:800;
+  z-index:calc(20 - var(--i));animation:fadein .3s calc(var(--i) * .05s) both,settle .7s 1.8s cubic-bezier(.3,1.25,.5,1) both}
+.lrow.r1{background:var(--sun)}
+.lrank{font-family:var(--display);font-weight:400;display:grid;place-items:center;width:1.9em;height:1.9em;border-radius:50%;border:2px solid var(--ink);background:var(--paper)}
+.lrow.r1 .lrank{background:var(--ink);color:var(--sun)}
+.lrow.r2 .lrank{background:#D9D4C7}
+.lrow.r3 .lrank{background:#DDA066}
+.lrow .avatar{font-size:.85em;border-width:2px}
+.lmain{display:flex;flex-direction:column;gap:.6vmin;min-width:0}
+.lname{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.1}
+.ltrack{height:max(8px,1.5vmin);border:2px solid var(--ink);border-radius:999px;background:rgba(29,20,15,.08);overflow:hidden}
+.ltrack i{display:block;height:100%;width:100%;background:var(--c);transform-origin:left;transform:scaleX(var(--b));animation:fill 1.1s .5s cubic-bezier(.2,1,.3,1) both}
+.lpts{display:flex;align-items:baseline;justify-content:flex-end;gap:1vmin;white-space:nowrap}
+.lpts b{font-family:var(--display);font-weight:400;font-size:1.25em}
+.lpts i{font-style:normal;font-family:var(--display);font-size:.72em;color:var(--mint);animation:pop .4s .9s cubic-bezier(.3,1.6,.5,1) both}
+.lpts i.neg{color:var(--tomato)}
+.lmove{font-family:var(--label);font-weight:700;font-size:.85em;text-align:center;animation:pop .4s 2.5s both}
+.lmove.up{color:var(--mint)}
+.lmove.down{color:var(--tomato)}
+.lrows.many .lrow{font-size:max(12px,2.1vmin);padding-block:.45vmin}
+.board2 .dare{grid-column:1/-1;justify-self:center}
+/* everyone's points along the top of the TV */
+.rail{flex:1;min-width:0;display:flex;justify-content:center;align-items:center;gap:.8vmin;overflow:hidden}
+.rchip{flex:none;display:flex;align-items:center;gap:.6vmin;background:var(--paper);border:2px solid var(--ink);border-radius:999px;padding:.3vmin 1.2vmin .3vmin .3vmin;animation:fadein .3s both}
+.rchip .avatar{font-size:max(10px,1.55vmin);border-width:2px}
+.rchip b{font-family:var(--display);font-weight:400;font-size:max(13px,2.4vmin);line-height:1}
+.rchip.lead{background:var(--ink);color:var(--sun)}
+.rchip.off{opacity:.45}
+.rchip i{font-style:normal;font-family:var(--display);font-size:max(11px,1.9vmin);background:var(--mint);color:var(--paper);border-radius:999px;padding:.1em .5em;animation:pop .45s cubic-bezier(.3,1.6,.5,1) both}
+.rchip i.neg{background:var(--tomato)}
+.rail.many .rchip b{font-size:max(11px,1.9vmin)}
+.step .crown{width:max(40px,9vmin);height:auto;margin-bottom:-1.2vmin;animation:drop .5s 1.3s cubic-bezier(.3,1.5,.5,1) both}
+.step .crown path{fill:var(--paper)}
+@keyframes settle{from{transform:translateY(calc(var(--d) * (100% + var(--gap))))}to{transform:none}}
+@keyframes fill{from{transform:scaleX(var(--a))}to{transform:scaleX(var(--b))}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
 .end{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3vmin;text-align:center}
 .end .qtitle{font-size:max(30px,8vmin)}
 .podium{display:grid;grid-template-columns:repeat(3,minmax(0,22vmin));align-items:end;gap:2vmin}
@@ -223,7 +264,7 @@ button{font:inherit;color:inherit}
 .result{padding:28px 18px}
 .result.good{background:var(--cobalt);color:var(--paper)}
 .result.bad{background:var(--tomato);color:var(--paper)}
-.result.good .eyebrow,.result.bad .eyebrow{color:var(--paper);opacity:.8}
+.result.good .eyebrow,.result.bad .eyebrow,.result.good .muted,.result.bad .muted{color:var(--paper);opacity:.85}
 .hostlist{display:flex;flex-direction:column;gap:10px}
 
 /* round picker + flag and map rounds */
@@ -509,6 +550,57 @@ button{touch-action:manipulation}
 .dare b{display:block;font-family:var(--display);font-weight:400;color:var(--sun);font-size:max(14px,2.6vmin)}
 .dare span{font-weight:700;font-size:max(14px,2.6vmin)}
 .ph-foot{gap:10px;flex-wrap:wrap}
+.mypts{margin-left:auto;white-space:nowrap;font-family:var(--label);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:13px;background:var(--ink);color:var(--paper);border-radius:999px;padding:4px 10px}
+.mypts b{font-family:var(--display);font-weight:400;font-size:15px;color:var(--sun);letter-spacing:0}
+.mypts.bump{animation:pop .45s cubic-bezier(.3,1.6,.5,1) both}
+.phboard{display:flex;flex-direction:column;gap:6px}
+.phboard li{display:grid;grid-template-columns:22px auto minmax(0,1fr) auto;align-items:center;gap:10px;background:var(--paper);border:2px solid var(--ink);border-radius:12px;padding:6px 12px 6px 8px;font-weight:800}
+.phboard li>span:first-child{font-family:var(--display);text-align:center}
+.phboard li .avatar{font-size:12px;border-width:2px}
+.phboard li .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.phboard li b{font-family:var(--display);font-weight:400}
+.phboard li.me{background:var(--cobalt);color:var(--paper)}
+/* Split or steal */
+.split{height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2.6vmin;max-width:1500px;margin:0 auto;width:100%;text-align:center}
+.split .lede{max-width:62ch;font-size:max(15px,2.6vmin);margin:0}
+.ssrow{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:4vmin;width:100%}
+.ssp{display:flex;flex-direction:column;align-items:center;gap:1.2vmin;min-width:0}
+.ssp .avatar{font-size:max(30px,8vmin);border-width:5px;animation:pop .5s cubic-bezier(.3,1.6,.5,1) both}
+.ssp b{font-family:var(--display);font-weight:400;font-size:max(20px,4.6vmin);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sst{font-family:var(--label);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:max(12px,2vmin);padding:.3em .9em;border:2px dashed var(--ink-soft);border-radius:999px;color:var(--ink-soft)}
+.ssp.in .sst{border-style:solid;border-color:var(--ink);background:var(--ink);color:var(--sun);animation:pop .35s cubic-bezier(.3,1.6,.5,1) both}
+.pot{background:var(--ink);color:var(--sun);border:3px solid var(--ink);border-radius:2vmin;padding:2vmin 4.4vmin;display:flex;flex-direction:column;align-items:center;gap:.4vmin;transform:rotate(-2deg);box-shadow:0 1vmin 0 rgba(29,20,15,.3);animation:pop .5s .2s cubic-bezier(.3,1.6,.5,1) both}
+.pot .eyebrow{color:var(--paper)}
+.pot b{font-family:var(--display);font-weight:400;font-size:max(48px,14vmin);line-height:1}
+.pot>span:last-child{font-family:var(--display);font-size:max(16px,3vmin);color:var(--paper)}
+.ssvs{display:flex;align-items:center;justify-content:center;gap:2vmin;font-size:max(18px,4.2vmin);animation:rise .4s .4s both}
+.ssvs .avatar{font-size:max(20px,4vmin)}
+.ssvs b{font-family:var(--display);font-weight:400}
+.ssvs span{font-family:var(--label);font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-soft);font-size:.7em}
+.sspot{font-weight:800;font-size:max(16px,3.2vmin);animation:rise .4s .6s both}
+.sspot b{font-family:var(--display);font-weight:400;font-size:1.5em}
+.sscard{display:flex;flex-direction:column;align-items:center;gap:1.2vmin;min-width:0}
+.sscard .avatar{font-size:max(26px,6.4vmin);border-width:4px}
+.sscard .nm{font-family:var(--display);font-weight:400;font-size:max(18px,4vmin);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.flip{position:relative;width:max(150px,28vmin);height:max(90px,15vmin);perspective:700px}
+.flip>span{position:absolute;top:0;right:0;bottom:0;left:0;display:grid;place-items:center;border:4px solid var(--ink);border-radius:1.6vmin;font-family:var(--display);font-size:max(26px,7vmin);box-shadow:0 1vmin 0 var(--ink)}
+.flip .back{background:var(--ink);color:var(--sun);animation:flipout .25s var(--d,1s) ease-in both}
+.flip .front{color:var(--paper);transform:rotateY(90deg);animation:flipin .3s var(--d2,1.25s) cubic-bezier(.3,1.5,.5,1) both}
+.flip .front.split{background:var(--mint)}
+.flip .front.steal{background:var(--tomato)}
+.flip .front i{position:absolute;bottom:.8vmin;font-style:normal;font-family:var(--label);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:max(11px,1.6vmin)}
+.sscard .gain{font-family:var(--display);font-weight:400;font-size:max(24px,6.4vmin);line-height:1;animation:pop .45s var(--t2,4.2s) cubic-bezier(.3,1.6,.5,1) both}
+.ssh{font-family:var(--display);font-weight:400;font-size:max(26px,6.6vmin);line-height:1;max-width:13ch;text-wrap:balance;animation:slam .5s var(--t,3.4s) cubic-bezier(.2,1.4,.4,1) both}
+.split.out1 .ssh{color:var(--tomato)}
+.split.out2 .ssh{color:var(--ink-soft)}
+.opts.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.4vmin;width:100%;text-align:left}
+.ssbtns{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ssb{font-family:var(--display);font-size:30px;padding:30px 10px;border:3px solid var(--ink);border-radius:18px;box-shadow:0 6px 0 var(--ink);color:var(--paper);cursor:pointer}
+.ssb.split{background:var(--mint)}
+.ssb.steal{background:var(--tomato)}
+.ssb:active{transform:translateY(5px);box-shadow:0 1px 0 var(--ink)}
+@keyframes flipout{from{transform:rotateY(0)}to{transform:rotateY(90deg)}}
+@keyframes flipin{from{transform:rotateY(90deg)}to{transform:rotateY(0)}}
 /* the host's captions */
 .caption{pointer-events:none;position:fixed;left:50%;bottom:calc(2.4vmin + 58px);transform:translateX(-50%);z-index:25;width:max-content;max-width:min(86vw,1100px);display:flex;align-items:center;gap:1.4vmin;
   background:var(--ink);color:var(--paper);border-radius:999px;padding:1vmin 2.6vmin 1vmin 1vmin;font-weight:800;font-size:max(15px,2.9vmin);line-height:1.2;box-shadow:0 .8vmin 0 rgba(29,20,15,.3);animation:cap .3s cubic-bezier(.3,1.4,.5,1) both}
@@ -553,12 +645,12 @@ const JOIN_HOST = JOIN_BASE.replace(/^https?:\/\//, "").replace(/\/$/, "");
 
 const APP = "wiw";
 const PER_PLAYER = 5, MAX_PLAYERS = 12;
-const Q_SECS = 20, INTRO_SECS = 3, REVEAL_SECS = 9, LB_SECS = 7;
+const Q_SECS = 20, INTRO_SECS = 3, REVEAL_SECS = 9, LB_SECS = 10;
 const COLORS = ["#D93A26","#2342C6","#11704F","#7339D6","#C42F78","#0B7584","#B5530B","#7E5226","#1A72B0","#55701A","#952A65","#3E4C60"];
 const CODE_CHARS = "ABCDEFGHJKMNPQRSTUVWXYZ";
 // Kinds of round. Photo games play every photo; flag and map rounds come in sets of ROUNDS (fewer when mixed).
 const ROUNDS = 10, SONGS_PER_PLAYER = 3;
-const MODES = ["photo", "song", "prof", "said", "ttl", "hot", "quip", "bluff", "meld", "tune", "face", "flag", "map", "cap", "big", "trivia", "buzz", "num", "year", "hilo", "odd", "emoji", "imp", "fakin", "likely", "wyr", "nhie"];
+const MODES = ["photo", "song", "prof", "said", "ttl", "hot", "quip", "bluff", "meld", "tune", "face", "flag", "map", "cap", "big", "trivia", "buzz", "num", "year", "hilo", "odd", "emoji", "imp", "fakin", "split", "likely", "wyr", "nhie"];
 // Owner rounds show something a player brought, and everyone guesses which player. The rest are quiz rounds with 4 answers.
 const OWNER_KINDS = ["photo", "song", "prof"];
 // Rounds where you answer by picking a player rather than one of 4 answers.
@@ -566,7 +658,7 @@ const PLAYER_KINDS = ["photo", "song", "prof", "imp", "fakin", "likely"];
 // Modes that need at least 3 players to make sense.
 const CROWD_KINDS = ["prof", "said", "quip", "bluff", "imp", "fakin", "likely", "wyr", "nhie"];
 // Modes that work with 2 players.
-const PAIR_KINDS = ["ttl", "meld", "hot"];
+const PAIR_KINDS = ["ttl", "meld", "hot", "split"];
 // What each mode is, for the pickers: an icon, a one-line pitch, what kind of game it is, how a round goes, and how it scores.
 const QUIZ_SCORE = "500 to 1,000 for a right answer. The faster you are, the more you get.";
 const MODE_CARD = {
@@ -584,6 +676,7 @@ const MODE_CARD = {
   bluff: { i: "🃏", tag: "Write · Bluff", blurb: "Write a fake answer to a real fact. Then find the truth among the fakes.", how: ["A true fact with a blank appears", "Write a fake answer that sounds true", "Pick the real one among everyone's fakes"], score: "500 for finding the truth, and 250 for every player your fake fools." },
   imp: { i: "🕵️", tag: "Talk · Vote", blurb: "Everyone has the same secret word except one. Find the imposter.", how: ["Check your secret word on your phone", "Take turns saying a one-word clue out loud", "Talk it over, then vote"], score: "500 for spotting the imposter. 1,000 to the imposter if they get away." },
   fakin: { i: "🎭", tag: "Bluff · Vote", blurb: "Everyone gets the same question except one player. Spot the faker.", how: ["Answer your question on your phone", "The TV shows the real question and every answer", "Talk it over and vote for the faker"], score: "500 for spotting the faker. 1,000 to the faker if they get away." },
+  split: { i: "💰", tag: "Nerve · Bet", blurb: "Two players, one pot of points. Split it, or steal the lot?", how: ["Two of you face off over a pot of points", "Talk it out, then pick Split or Steal in secret", "Everyone else bets on how it ends"], score: "Both split: half each. One steals: they take it all. Both steal: nobody gets a thing. A right bet wins 300." },
   tune: { i: "🎧", tag: "Music", blurb: "A clip plays on the TV. Name the song or the artist.", how: ["Choose the music in Settings", "The TV plays a clip", "Pick the song or artist from four"], score: QUIZ_SCORE },
   face: { i: "🌟", tag: "Quiz", blurb: "A famous face slowly sharpens from a blur. Who is it?", how: ["A blurred photo appears", "It sharpens over the round", "Pick who it is from four"], score: QUIZ_SCORE },
   flag: { i: "🏳️", tag: "Quiz", blurb: "Name the country from its flag. Some look very alike.", how: ["A flag appears on the TV", "Pick the country from four", "The reveal shows it on a map"], score: QUIZ_SCORE },
@@ -618,17 +711,17 @@ const modeNeeds = m => [CROWD_KINDS.includes(m) ? 3 : PAIR_KINDS.includes(m) || 
 // One-tap sets of rounds for a kind of night. Picking one replaces the current rounds.
 const PRESETS = [
   ["know", "Get to know you", ["prof", "said", "ttl", "hot", "likely", "nhie"]],
-  ["chaos", "Party chaos", ["quip", "bluff", "fakin", "imp", "likely", "wyr"]],
+  ["chaos", "Party chaos", ["quip", "bluff", "fakin", "imp", "split", "likely", "wyr"]],
   ["quiz", "Quiz night", ["trivia", "buzz", "flag", "cap", "year", "hilo", "odd"]],
   ["music", "Music and movies", ["song", "tune", "face", "emoji"]],
-  ["two", "Just the two of us", ["meld", "hot", "ttl", "hilo", "trivia"]],
+  ["two", "Just the two of us", ["meld", "hot", "ttl", "split", "hilo", "trivia"]],
   ["classic", "Classic fafo", ["photo", "song", "prof"]],
 ].map(([id, label, list]) => ({ id, label, modes: MODES.filter(m => list.includes(m)) }));
 // How the round picker groups the modes in the TV's settings. Anything not listed here shows under "More".
 const MODE_GROUPS = [
   ["About you", ["photo", "song", "prof", "said", "ttl", "hot", "meld", "likely", "wyr", "nhie"]],
   ["Write and bluff", ["quip", "bluff", "capt"]],
-  ["Secret roles", ["imp", "fakin"]],
+  ["Secret roles", ["imp", "fakin", "split"]],
   ["Quiz", ["tune", "face", "flag", "map", "cap", "big", "trivia", "buzz", "num", "year", "hilo", "odd", "emoji"]],
 ];
 // Rounds with no right answer: Would you rather (score for siding with the room) and Never have I ever (just for fun).
@@ -659,8 +752,11 @@ const IMP_PHASES = ["imp-word", "imp-clue", "imp-talk"];
 // Fakin' it: everyone answers a question on their phone, except one player who got a different one. Then the room
 // sees the real question and all the answers, talks it over (no clock), and votes for the faker.
 const FK_PHASES = ["fk-ans", "fk-talk"], FK_SECS = 45, SECRET_PHASES = [...IMP_PHASES, ...FK_PHASES];
-const MODE_LABEL = { photo: "Whose photo", song: "Whose song", prof: "Whose answer", said: "Who said it", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather", nhie: "Never have I ever", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps", cap: "Capitals", big: "Which is bigger", trivia: "Trivia", emoji: "Emoji puzzles", imp: "Imposter", fakin: "Fakin' it", likely: "Most likely to" };
-const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", prof: "Whose answer?", said: "Who said it?", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather?", nhie: "Never have I ever", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country", cap: "Capital cities", big: "Which is bigger?", trivia: "Trivia", emoji: "Emoji puzzle", imp: "Imposter", fakin: "Fakin' it", likely: "Most likely to…" };
+// Split or steal: two players face off over a pot of points. Each picks Split or Steal in secret on their phone while
+// everyone else bets on how it ends. Both split: half each. One steals: they take it all. Both steal: nobody gets a thing.
+const SPLIT_POT = 2000, SPLIT_SECS = 45, SPLIT_BET = 300, SPLIT_BETS = ["Both split", "Someone steals", "Both steal"];
+const MODE_LABEL = { photo: "Whose photo", song: "Whose song", prof: "Whose answer", said: "Who said it", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather", nhie: "Never have I ever", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps", cap: "Capitals", big: "Which is bigger", trivia: "Trivia", emoji: "Emoji puzzles", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", likely: "Most likely to" };
+const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", prof: "Whose answer?", said: "Who said it?", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather?", nhie: "Never have I ever", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country", cap: "Capital cities", big: "Which is bigger?", trivia: "Trivia", emoji: "Emoji puzzle", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", likely: "Most likely to…" };
 const KIND_ASK = { photo: "Whose photo is this?", song: "Whose song is this?", prof: "Whose answer is this?", said: "Who wrote this?", face: "Who is this?", flag: "Which country's flag is this?", map: "Which country has this shape?", big: "Which country is bigger?", imp: "Who's the imposter?", fakin: "Who had the other question?" };
 const KIND_ASK_PHONE = { photo: "Whose photo is on the TV?", song: "Whose song is playing?", prof: "Whose answer is on the TV?", said: "Who wrote this?", face: "Who's on the TV?", flag: "Which country's flag is on the TV?", map: "Which country is the shape on the TV?", big: "Which country is bigger?", imp: "Who's the imposter?", fakin: "Who had the other question?" };
 const askOf = c => (c.t === "tune" ? (c.ask === "artist" ? "Who's the artist?" : "What's this song?")
@@ -738,6 +834,17 @@ const store = {
   del(k) { try { localStorage.removeItem(k); } catch {} },
 };
 function paint(el, sig, html) { if (!el || el.dataset.sig === sig) return false; el.dataset.sig = sig; el.innerHTML = html; return true; }
+// Numbers that count from their old value to the new one (data-from, data-to), starting data-delay ms after they appear.
+function countUp(root) {
+  for (const el of root.querySelectorAll("[data-to]")) {
+    const a = Number(el.dataset.from) || 0, b = Number(el.dataset.to) || 0, t0 = performance.now() + (Number(el.dataset.delay) || 0), dur = 1100;
+    el.textContent = fmt(a);
+    if (a === b) continue;
+    const step = now => { const k = Math.max(0, Math.min(1, (now - t0) / dur)); el.textContent = fmt(Math.round(a + (b - a) * (1 - Math.pow(1 - k, 3)))); if (k < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }
+}
+const CROWN = `<svg class="crown" viewBox="0 0 64 44" aria-hidden="true"><path d="M4 14l14 12L32 4l14 22 14-12-6 28H10z" fill="#FFC53D" stroke="#1D140F" stroke-width="4" stroke-linejoin="round"/><circle cx="4" cy="13" r="4" fill="#1D140F"/><circle cx="32" cy="4" r="4" fill="#1D140F"/><circle cx="60" cy="13" r="4" fill="#1D140F"/></svg>`;
 async function wake() { try { await navigator.wakeLock?.request("screen"); } catch {} }
 // Browsers refuse to vibrate (and log an error) until someone has tapped the page.
 function vibrate(ms) { try { if (navigator.userActivation?.hasBeenActive === false) return; navigator.vibrate?.(ms); } catch {} }
@@ -1271,7 +1378,7 @@ const TV = {
     this.H = s && Date.now() - (s.savedAt || 0) < 4 * 3600e3 ? this.revive(s) : this.fresh();
     for (const p of Object.values(this.H.players)) setAV(p.pid, p.av);
     app.innerHTML = `<div class="tv">
-      <header class="tv-top"><div class="logo">fafo</div><div class="tv-status" id="tv-status"></div></header>
+      <header class="tv-top"><div class="logo">fafo</div><ol class="rail" id="rail" aria-label="Scores"></ol><div class="tv-status" id="tv-status"></div></header>
       <main class="stage" id="stage"></main>
       <footer class="hostbar" id="hostbar"></footer>
       <div class="pause-ov" id="pause-ov" hidden></div>
@@ -1349,7 +1456,7 @@ const TV = {
   players() { return Object.values(this.H.players).sort((a, b) => a.at - b.at); },
   ownerOf(id) { return this.H.photos[id]?.pid || null; },
   curOwner() { const c = this.H.cur; return c?.t === "photo" ? this.ownerOf(c.id) : c?.t === "song" || c?.t === "prof" || EACH_KINDS.includes(c?.t) ? c.pid || null : null; },
-  isQuiz() { const t = this.H.cur?.t; return !!t && (QUIZ_WRITE.includes(t) || (!PLAYER_KINDS.includes(t) && !WRITE_KINDS.includes(t))); },
+  isQuiz() { const t = this.H.cur?.t; return !!t && t !== "split" && (QUIZ_WRITE.includes(t) || (!PLAYER_KINDS.includes(t) && !WRITE_KINDS.includes(t))); },
   isWrite() { return WRITE_KINDS.includes(this.H.cur?.t); },
   // Which prompts this player writes for: two in Quips, the one in the Last Lash.
   writesFor(pid) { const c = this.H.cur; return c?.t === "lash" || c?.t === "bluff" || c?.t === "said" ? [0] : c?.t === "ttl" ? [0, 1, 2] : c?.t === "quip" || c?.t === "meld" ? c.ps.map((m, i) => (m.by.includes(pid) ? i : -1)).filter(i => i >= 0) : []; },
@@ -1454,7 +1561,9 @@ const TV = {
 
       const g = p.g;
       if (H.ph === "q" && !H.pause && g && g.rk === H.rk && !H.guesses[pid]) {
-        if (NUM_KINDS.includes(H.cur.t)) { if (Number.isFinite(g.v) && Math.abs(g.v) < 1e12) { H.guesses[pid] = { v: g.v, t: now }; changed = true; SFX.play("lock"); } }
+        // Split or steal: the two players pick Split (0) or Steal (1); everyone else bets on one of the three endings.
+        if (H.cur.t === "split") { const n = H.cur.by.includes(pid) ? 2 : SPLIT_BETS.length; if (Number.isInteger(g.i) && g.i >= 0 && g.i < n) { H.guesses[pid] = { i: g.i, t: now }; changed = true; SFX.play("lock"); } }
+        else if (NUM_KINDS.includes(H.cur.t)) { if (Number.isFinite(g.v) && Math.abs(g.v) < 1e12) { H.guesses[pid] = { v: g.v, t: now }; changed = true; SFX.play("lock"); } }
         else if (!this.isQuiz()) {
           if (pid !== this.curOwner() && isPid(g.p) && g.p !== pid && H.players[g.p]) { H.guesses[pid] = { p: g.p, t: now }; changed = true; SFX.play("lock"); }
         } else if (pid !== this.curOwner() && Number.isInteger(g.i) && g.i >= 0 && g.i < H.cur.o.length) { H.guesses[pid] = { i: g.i, t: now }; changed = true; SFX.play("lock"); }
@@ -1644,7 +1753,7 @@ const TV = {
     if (ph === "end") return "victory";
     if (ph === "rev" || ph === "lb") return wild ? "afterdark" : "groove";
     if (ph === "qw" || (ph === "intro" && WRITE_KINDS.includes(t))) return "write";
-    if (t === "imp" || t === "fakin") return "suspense";
+    if (t === "imp" || t === "fakin" || t === "split") return "suspense";
     if (H.R > 1 && r === H.R) return "final";
     return modeGroup(t) === "Quiz" ? "quiz" : "social";
   },
@@ -2056,6 +2165,16 @@ const TV = {
         const qs = shuffle([...hot.map(x => ({ ...x, sp: true })), ...shuffle(this.unseen(Q.questions, x => x.q, "hot", n)).slice(0, n - hot.length)]);
         pools.hot = qs.map((x, i) => { const p = people[i % people.length]; return { t: "hot", pid: p.pid, k: x.q, q: x.q.replace(/\{name\}/g, p.name), me: x.me, o: x.o, a: -1, sp: !!x.sp }; });
       }
+      if (modes.includes("split") && online >= 2) {
+        // Split or steal: everyone faces off once before anyone goes twice.
+        const n = { quick: 2, normal: 3, long: 4 }[H.len] || 3, people = this.players().filter(p => p.online).map(p => p.pid), q = [];
+        while (q.length < n * 2 + 2) q.push(...shuffle(people.slice()));
+        pools.split = [];
+        for (let i = 0; pools.split.length < n && i + 1 < q.length; i += 2) {
+          if (q[i] === q[i + 1]) { const j = q.findIndex((x, k) => k > i + 1 && x !== q[i]); if (j < 0) break; [q[i + 1], q[j]] = [q[j], q[i + 1]]; }
+          pools.split.push({ t: "split", by: [q[i], q[i + 1]], pot: SPLIT_POT });
+        }
+      }
       // Two truths and a lie: one round is everyone writing, then each player's three statements in turn.
       if (modes.includes("ttl") && online >= 2) pools.ttl = Array.from({ length: H.len === "long" ? 2 : 1 }, () => ({ t: "ttl", ans: {} }));
       if (modes.includes("bluff") && online >= 3) {
@@ -2136,6 +2255,7 @@ const TV = {
       if (this.H !== H || H.ph !== "lobby") return;
       H.order = order; H.R = order.length; H.r = 0; H.rv = null;
       for (const p of Object.values(H.players)) { p.score = 0; p.prev = 0; p.st = { right: 0, fast: 0, fooled: 0 }; }
+      H.lbSnap = {}; H.lbFrom = {};
       this.starting = false;
       this.nextRound();
     } catch (e) {
@@ -2164,7 +2284,7 @@ const TV = {
     this.sound(ph);
     this.lastTick = 0;
     if (ph === "rev" && H.rv) H.rv.sip = H.drinks ? this.sippers() : [];
-    if (ph === "lb") H.dare = this.pickDare();
+    if (ph === "lb") { H.dare = this.pickDare(); H.lbFrom = H.lbSnap || {}; H.lbSnap = Object.fromEntries(this.players().map(p => [p.pid, p.score])); }
     const fx = { intro: "whoosh", rev: "reveal", lb: "board", end: "fanfare", "imp-clue": "blip" }[ph];
     if (fx) SFX.play(fx);
     this.speak(ph);
@@ -2197,6 +2317,8 @@ const TV = {
   sippers() {
     const H = this.H, rv = H.rv || {}, t = H.cur?.t, owner = this.curOwner();
     if (t === "imp" || t === "fakin") return rv.caught ? [rv.o] : Object.entries(rv.g || {}).filter(([pid, x]) => pid !== rv.o && x !== rv.o).map(([pid]) => pid);
+    // Split or steal: whoever got robbed (or both, if both stole), and everyone who bet wrong.
+    if (t === "split") return [...(rv.out === 1 ? [rv.by[rv.ch[0] ? 1 : 0]] : rv.out === 2 ? rv.by : []), ...Object.entries(rv.g || {}).filter(([, i]) => i !== rv.out).map(([pid]) => pid)];
     if (t === "likely") return rv.top || [];
     if (t === "quip") { const [a, b] = rv.v || [0, 0]; return a === b ? [] : [rv.by[a < b ? 0 : 1]]; }
     if (t === "lash") return (rv.a || []).filter((x, k) => !rv.v[k]).map(x => x[0]);
@@ -2224,7 +2346,7 @@ const TV = {
     // A TV that reloaded partway through the guessing in Who said it or Two truths picks up at the answer it was on.
     if (H.ph === "intro" && EACH_KINDS.includes(H.cur?.t) && H.cur.ord?.length) return this.askNext(Math.min(H.cur.mi || 0, H.cur.ord.length - 1));
     if (H.ph === "intro" && H.cur?.t === "fakin") return this.fkStart();
-    if (H.ph === "intro") return this.isImp() ? this.impStart() : this.isWrite() ? this.go("qw", QW_SECS[H.cur.t]) : this.go("q", Q_SECS);
+    if (H.ph === "intro") return this.isImp() ? this.impStart() : this.isWrite() ? this.go("qw", QW_SECS[H.cur.t]) : this.go("q", H.cur?.t === "split" ? SPLIT_SECS : Q_SECS);
     if (H.ph === "qw") return this.startVote(0);
     if (H.ph === "qv") return this.reveal();
     if (H.ph === "imp-word") { H.turn = 0; return this.go("imp-clue"); }
@@ -2317,6 +2439,8 @@ const TV = {
     if (funny) out.push([funny, "Funniest", `${funny.st.votes} ${funny.st.votes === 1 ? "vote" : "votes"} for their answers`]);
     const meld = best(p => p.st.meld || 0);
     if (meld) out.push([meld, "Mind reader", `${meld.st.meld} ${meld.st.meld === 1 ? "mind meld" : "mind melds"}`]);
+    const snake = best(p => p.st.stole || 0);
+    if (snake) out.push([snake, "Snake", `stole ${fmt(snake.st.stole)} points`]);
     const bluff = best(p => p.st.fooled);
     if (bluff) out.push([bluff, "Best poker face", `fooled ${bluff.st.fooled} ${bluff.st.fooled === 1 ? "guess" : "guesses"}`]);
     return out;
@@ -2339,6 +2463,25 @@ const TV = {
       H.rv = { q: m.q, a: m.by.map(pid => ans[pid] || ""), by: m.by, g, d, m: mult, v, sweep, mi: H.cur.mi, n: H.cur.ps.length };
       this.revEv = sweep ? "quip-sweep" : has[0] !== has[1] ? null : v[0] === v[1] ? "quip-tie" : "quip-win";
       return this.go("rev", REVEAL_SECS - 1);
+    }
+    if (H.cur.t === "split") {
+      // Both split: half each. One steals: they take the lot. Both steal: nobody. No pick counts as Split. A right bet wins 300.
+      const by = H.cur.by, ch = by.map(pid => (H.guesses[pid]?.i === 1 ? 1 : 0)), pot = H.cur.pot * mult, out = ch[0] + ch[1];
+      if (out === 0) by.forEach(pid => { d[pid] = pot / 2; });
+      if (out === 1) {
+        const thief = by[ch[0] ? 0 : 1], p = H.players[thief];
+        d[thief] = pot;
+        if (p) { p.st ||= { right: 0, fast: 0, fooled: 0 }; p.st.stole = (p.st.stole || 0) + pot; }
+      }
+      for (const [pid, x] of Object.entries(H.guesses)) {
+        if (by.includes(pid)) continue;
+        g[pid] = x.i;
+        if (x.i === out) { d[pid] = (d[pid] || 0) + SPLIT_BET * mult; this.stat(pid, x.t - H.qStart); }
+      }
+      score();
+      H.rv = { by, ch, picked: by.map(pid => !!H.guesses[pid]), out, pot, g, d, m: mult };
+      this.revEv = ["split-share", "split-steal", "split-greedy"][out];
+      return this.go("rev", REVEAL_SECS + 3);
     }
     if (H.cur.t === "buzz") {
       // The first right answer takes 1,000. A wrong buzz costs 250, so nobody just taps anything.
@@ -2629,6 +2772,7 @@ const TV = {
       qz: this.isQuiz() && (H.ph === "q" || H.ph === "rev") ? { t: H.cur.t, o: H.cur.o || null, k: H.cur.ask || null, q: askOf(H.cur), e: H.cur.t === "emoji" ? H.cur.e : null, u: H.cur.u || null, y: H.cur.y ? 1 : 0,
         ...(H.cur.t === "hot" ? { me: H.cur.me, s: H.cur.pid } : {}), ...(H.cur.t === "hilo" && H.ph === "rev" ? { hv: [H.cur.B.n, this.hiloVal(H.cur, H.cur.B.v)] } : {}) } : null,
       lk: H.cur?.t === "likely" ? H.cur.lk : null,
+      ss: H.cur?.t === "split" && ["intro", "q", "rev"].includes(H.ph) ? { by: H.cur.by, pot: H.cur.pot * (H.R > 1 && H.r === H.R ? 2 : 1) } : null,
       fk: H.cur?.t === "fakin" && ["fk-ans", "fk-talk", "q", "rev"].includes(H.ph) ? { ty: H.cur.ty, q: H.ph === "fk-ans" ? null : H.cur.q } : null,
       // Writing rounds: the prompts while writing, then the answers being voted on. `x` marks whose they are, hashed like `x` above.
       qp: H.ph === "qw" && this.isWrite() ? (H.cur.t === "ttl" ? { ttl: 1 } : H.cur.t === "meld" ? { ps: H.cur.ps.map(m => [m.q, m.by]), meld: 1 } : ["lash", "bluff", "said"].includes(H.cur.t) ? { lash: H.cur.q, bluff: H.cur.t === "bluff" ? 1 : 0, said: H.cur.t === "said" ? 1 : 0 } : { ps: H.cur.ps.map(m => [m.q, m.by]) }) : null,
@@ -2705,7 +2849,19 @@ const TV = {
   },
 
   // ---------- TV rendering ----------
-  render() { const tv = $(".tv"); if (tv) tv.dataset.ph = this.H.ph; this.renderStatus(); this.renderHostbar(); this.renderStage(); this.renderClock(); this.renderPause(); this.mood(); },
+  render() { const tv = $(".tv"); if (tv) tv.dataset.ph = this.H.ph; this.renderStatus(); this.renderHostbar(); this.renderStage(); this.renderRail(); this.renderClock(); this.renderPause(); this.mood(); },
+  // Everyone's points along the top of the TV all game. During a reveal they wait until the answer is out, then tick up.
+  renderRail() {
+    const H = this.H, el = $("#rail");
+    if (!el) return;
+    if (["lobby", "lb", "end"].includes(H.ph) || !H.R) return paint(el, "", "");
+    const live = H.ph !== "rev" || Date.now() >= (this.railAt || 0);
+    const ps = this.players().map(p => ({ p, s: live ? p.score : p.prev ?? p.score, up: live && H.ph === "rev" ? p.score - (p.prev ?? p.score) : 0 })).sort((a, b) => b.s - a.s);
+    const top = ps[0]?.s || 0;
+    el.classList.toggle("many", ps.length > 8);
+    paint(el, [H.rk, live, ps.map(x => [x.p.pid, x.s, x.p.online, x.p.av].join(":")).join()].join("|"), ps.map(({ p, s, up }) =>
+      `<li class="rchip ${top > 0 && s === top ? "lead" : ""} ${p.online ? "" : "off"}" title="${esc(p.name)}">${face(p)}<b class="num">${fmt(s)}</b>${up > 0 ? `<i class="num">+${fmt(up)}</i>` : up < 0 ? `<i class="num neg">${fmt(up)}</i>` : ""}</li>`).join(""));
+  },
   renderPause() {
     const H = this.H, p = H.pause, el = $("#pause-ov");
     $(".tv")?.classList.toggle("paused", !!p);
@@ -2724,7 +2880,7 @@ const TV = {
     if (roomState === "none") extra = `<span class="pill dark">Server unreachable</span>`;
     else if (roomState === "ok" && !this.connected) extra = `<span class="pill dark">Reconnecting to the server</span>`;
     if (this.clipFailed) extra += `<span class="pill dark">${this.clipFailed === "skip" ? "This song didn't load. Skipping it" : "This song didn't load. Press Next to skip"}</span>`;
-    paint($("#tv-status"), `${H.code}|${n}|${roomState}|${this.connected}|${this.clipFailed}`, `${extra}<span class="pill">Room ${esc(H.code)}</span><span class="pill num">${n} ${n === 1 ? "player" : "players"}</span>`);
+    paint($("#tv-status"), `${H.code}|${n}|${roomState}|${this.connected}|${this.clipFailed}|${H.ph === "lobby"}`, `${extra}<span class="pill">Room ${esc(H.code)}</span>${H.ph === "lobby" ? `<span class="pill num">${n} ${n === 1 ? "player" : "players"}</span>` : ""}`);
   },
   renderHostbar() {
     const H = this.H, c = this.confirm?.a;
@@ -2777,6 +2933,7 @@ const TV = {
       const big = only ? (final ? "Final photo" : "Photo " + H.r) : final ? "Final round" : KIND_BIG[kind] || "Round " + H.r;
       return paint(stage, "intro|" + H.rk, `<section class="intro"><p class="eyebrow">Phones out. ${unitOf(H)} ${H.r} of ${H.R}${only ? "" : " · " + (MODE_LABEL[kind] || "") + this.musicTag(H.cur)}</p>
         <h2 class="big">${big}</h2>${final ? `<p class="dbl">Double points</p>` : ""}
+        ${kind === "split" ? (([a, b]) => `<p class="ssvs">${a ? face(a) : ""}<b>${esc(a?.name || "?")}</b><span>vs</span><b>${esc(b?.name || "?")}</b>${b ? face(b) : ""}</p><p class="sspot">for <b class="num">${fmt(H.cur.pot * (final ? 2 : 1))}</b> points</p>`)(H.cur.by.map(id => H.players[id])) : ""}
         ${H.introHow === kind && MODE_CARD[kind]?.how ? `<ol class="introhow">${MODE_CARD[kind].how.map((x, i) => `<li style="animation-delay:${(0.5 + i * 0.35).toFixed(2)}s"><b>${i + 1}</b><span>${esc(x)}</span></li>`).join("")}</ol>` : ""}</section>`);
     }
     if (IMP_PHASES.includes(H.ph) || (H.ph === "q" && this.isImp())) return this.renderImp(stage);
@@ -2784,6 +2941,7 @@ const TV = {
     if (H.ph === "qw") return this.renderWrite(stage);
     if (H.ph === "qv") return this.renderVote(stage);
     if (H.ph === "q" && H.cur?.t === "likely") return this.renderLikely(stage);
+    if (H.ph === "q" && H.cur?.t === "split") return this.renderSplit(stage);
     if (H.ph === "q") {
       if (this.isQuiz()) return this.renderQuiz(stage);
       const final = H.R > 1 && H.r === H.R;
@@ -2800,9 +2958,17 @@ const TV = {
       this.renderLocks(this.curOwner());
       return;
     }
-    if (H.ph === "rev") return paint(stage, "rev|" + H.rk + "|" + (DATA.shapes ? 1 : 0), this.revealHtml());
-    if (H.ph === "lb") return paint(stage, "lb|" + H.rk, this.boardHtml(`Scores after ${unitOf(H).toLowerCase()} ${H.r}`));
-    if (H.ph === "end") return paint(stage, "end|" + H.gid + "|" + H.r, this.endHtml());
+    if (H.ph === "rev") {
+      // The scores along the top change when this reveal shows who scored (its --t2), not before.
+      if (paint(stage, "rev|" + H.rk + "|" + (DATA.shapes ? 1 : 0), this.revealHtml()) && this.revRk !== H.rk) {
+        const t2 = parseFloat(stage.firstElementChild?.style.getPropertyValue("--t2")) || 2.6;
+        this.revRk = H.rk; this.railAt = Date.now() + t2 * 1000;
+        clearTimeout(this.railT); this.railT = setTimeout(() => this.renderRail(), t2 * 1000 + 30);
+      }
+      return;
+    }
+    if (H.ph === "lb") { if (paint(stage, "lb|" + H.rk, this.boardHtml())) countUp(stage); return; }
+    if (H.ph === "end") { if (paint(stage, "end|" + H.gid + "|" + H.r, this.endHtml())) countUp(stage); return; }
   },
   renderRoster() {
     const H = this.H, el = $("#roster");
@@ -2854,6 +3020,7 @@ const TV = {
     if (this.H.cur?.t === "lash") return this.lashRevealHtml();
     if (this.H.cur?.t === "bluff") return this.bluffRevealHtml();
     if (this.H.cur?.t === "likely") return this.likelyRevealHtml();
+    if (this.H.cur?.t === "split") return this.splitRevealHtml();
     if (this.isQuiz()) return this.quizRevealHtml();
     const H = this.H, rv = H.rv || { g: {}, d: {} };
     const P = H.players, owner = P[rv.o];
@@ -2877,26 +3044,43 @@ const TV = {
         <div class="deltas">${deltas || `<span class="delta">No points this ${unitOf(H).toLowerCase()}</span>`}${this.sipHtml()}</div>
       </div></section>`;
   },
-  boardHtml(title) {
-    const ps = this.players().slice().sort((a, b) => b.score - a.score);
-    const top = Math.max(1, ...ps.map(p => p.score));
+  // The scores page: who's on top and by how much. Rows start where they stood at the last scores, the points count
+  // up, then everyone slides into their new place, so overtakes happen in front of the room.
+  boardHtml() {
+    const H = this.H, from = H.lbFrom || {}, ps = this.players().slice().sort((a, b) => b.score - a.score);
+    if (!ps.length) return `<section class="board2"><h2 class="lhead">No scores yet</h2></section>`;
+    const was = ps.slice().sort((a, b) => (from[b.pid] || 0) - (from[a.pid] || 0) || ps.indexOf(a) - ps.indexOf(b));
+    const rank = (list, p, v) => 1 + list.filter(q => v(q) > v(p)).length, before = p => from[p.pid] || 0;
+    const top = Math.max(1, ...ps.map(p => p.score)), lead = ps[0], second = ps[1], fresh = !Object.values(from).some(v => v);
+    const tied = ps.filter(p => p.score === lead.score).length > 1, gap = second ? lead.score - second.score : 0;
+    const head = lead.score <= 0 ? "Still anyone's game" : tied ? "Tied at the top!" : !fresh && was[0].pid !== lead.pid && before(was[0]) > 0 ? `${esc(lead.name)} takes the lead!`
+      : second && gap <= Math.max(300, lead.score * 0.08) ? "Neck and neck!" : second && gap >= Math.max(2500, second.score) ? `${esc(lead.name)} is running away with it`
+      : fresh ? `${esc(lead.name)} leads` : `${esc(lead.name)} stays on top`;
+    const big = ps.map(p => [p, p.score - before(p)]).sort((a, b) => b[1] - a[1])[0];
+    const climb = fresh ? null : ps.map(p => [p, rank(was, p, before) - rank(ps, p, q => q.score)]).sort((a, b) => b[1] - a[1])[0];
+    const notes = [big && big[1] > 0 && `<span class="lnote">Biggest haul ${face(big[0])}<b>${esc(big[0].name)}</b><i class="num">+${fmt(big[1])}</i></span>`,
+      climb && climb[1] > 0 && `<span class="lnote">Climber ${face(climb[0])}<b>${esc(climb[0].name)}</b><i>▲ ${climb[1]}</i></span>`].filter(Boolean).join("");
     const rows = ps.map((p, i) => {
-      const rank = 1 + ps.filter(q => q.score > p.score).length;
-      const up = p.score - (p.prev ?? p.score);
-      return `<li style="animation-delay:${(i * 0.06).toFixed(2)}s"><span class="rank num">${rank}</span>${face(p)}
-        <span class="bar" style="--c:${color(p.color)};--w:${Math.max(2, p.score / top * 100).toFixed(1)}%"><i></i><span>${esc(p.name)}</span></span>
-        <span><span class="score num">${fmt(p.score)}</span>${up > 0 ? `<span class="up num">+${fmt(up)}</span>` : ""}</span></li>`;
+      const r = rank(ps, p, q => q.score), d = was.indexOf(p) - i, up = p.score - before(p), move = fresh ? 0 : rank(was, p, before) - r;
+      const ratio = v => Math.max(0, Math.min(1, v / top)).toFixed(3);
+      return `<li class="lrow ${r <= 3 ? "r" + r : ""}" style="--d:${d};--i:${i};--c:${color(p.color)};--a:${ratio(before(p))};--b:${ratio(p.score)}">
+        <span class="lrank num">${r}</span>${face(p)}
+        <span class="lmain"><span class="lname">${esc(p.name)}</span><span class="ltrack"><i></i></span></span>
+        <span class="lpts"><b class="num" data-from="${before(p)}" data-to="${p.score}" data-delay="500">${fmt(before(p))}</b>${up ? `<i class="num ${up < 0 ? "neg" : ""}">${up > 0 ? "+" : ""}${fmt(up)}</i>` : ""}</span>
+        <span class="lmove ${move > 0 ? "up" : move < 0 ? "down" : ""}">${move > 0 ? "▲" + move : move < 0 ? "▼" + -move : ""}</span></li>`;
     }).join("");
-    const H = this.H, dp = H.ph === "lb" && H.dare && H.players[H.dare.pid];
+    const dp = H.ph === "lb" && H.dare && H.players[H.dare.pid];
     const dare = dp ? `<div class="dare">${face(dp)}<div><b>A dare for ${esc(dp.name)}</b><span>${esc(H.dare.t)} Or pass, no shame.</span></div></div>` : "";
-    return `<section class="board"><h2 class="qtitle">${esc(title)}</h2><ol class="lb">${rows}</ol>${dare}</section>`;
+    return `<section class="board2"><header class="lhd"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Scores</p><h2 class="lhead">${head}</h2>${notes ? `<div class="lnotes">${notes}</div>` : ""}</header>
+      <div class="lcard">${CROWN}${face(lead)}<b class="lname">${esc(lead.name)}</b><b class="lbig num" data-from="${before(lead)}" data-to="${lead.score}" data-delay="500">${fmt(before(lead))}</b><span class="eyebrow">${second && !tied ? `${fmt(gap)} ahead` : "points"}</span></div>
+      <ol class="lrows ${ps.length > 8 ? "many" : ""}">${rows}</ol>${dare}</section>`;
   },
   endHtml() {
     const ps = this.players().slice().sort((a, b) => b.score - a.score);
     if (!ps.length) return `<section class="end"><h2 class="qtitle">Game over</h2></section>`;
     const best = ps[0].score, winners = ps.filter(p => p.score === best);
     const title = winners.length > 1 ? "It's a tie!" : `${esc(winners[0].name)} wins!`;
-    const slot = (p, cls, place) => p ? `<div class="step ${cls}">${face(p)}<span class="nm">${esc(p.name)}</span><div class="block">${place}<small class="num">${fmt(p.score)}</small></div></div>` : `<div class="step ${cls}"></div>`;
+    const slot = (p, cls, place) => p ? `<div class="step ${cls}">${cls === "p1" ? CROWN : ""}${face(p)}<span class="nm">${esc(p.name)}</span><div class="block">${place}<small class="num" data-from="0" data-to="${p.score}" data-delay="${cls === "p1" ? 900 : 500}">0</small></div></div>` : `<div class="step ${cls}"></div>`;
     const rest = ps.slice(3).map((p, i) => `<li>${ordinal(i + 4)} ${esc(p.name)} · <span class="num">${fmt(p.score)}</span></li>`).join("");
     return `<section class="end"><p class="eyebrow">Final scores</p><h2 class="qtitle">${title}</h2>
       <div class="podium">${slot(ps[1], "p2", "2nd")}${slot(ps[0], "p1", "1st")}${slot(ps[2], "p3", "3rd")}</div>
@@ -3196,6 +3380,30 @@ const TV = {
       <div class="qphoto bigav"><p class="eyebrow">Most likely to ${esc(rv.lk || H.cur.lk)}</p>${lead ? face(lead) : ""}${rows.length ? `<div class="stamp low">${lead ? esc(lead.name) + "!" : tops.length ? "It's a tie!" : "Split vote!"}</div>` : ""}</div>
       <div class="rside"><p class="eyebrow">${rows.length ? "Votes" : "Nobody voted"}${rv.m > 1 ? " · Double points" : ""}</p><ul class="rows">${rowHtml}</ul>
         <div class="deltas">${this.scorersHtml(rv, sided ? `${sided} ${sided === 1 ? "person" : "people"} sided with the room` : "", "Nobody scored this round")}${this.sipHtml()}</div></div></section>`;
+  },
+  // Split or steal: the two players either side of the pot, whether each has picked yet, and the bets coming in.
+  renderSplit(stage) {
+    const H = this.H, cur = H.cur, P = H.players, final = H.R > 1 && H.r === H.R, pot = cur.pot * (final ? 2 : 1);
+    const side = pid => { const p = P[pid], in_ = !!H.guesses[pid]; return `<div class="ssp ${in_ ? "in" : ""}">${p ? face(p) : ""}<b>${esc(p?.name || "?")}</b><span class="sst">${in_ ? "Picked" : "Thinking…"}</span></div>`; };
+    paint(stage, ["ss", H.rk, cur.by.map(pid => (H.guesses[pid] ? 1 : 0)).join("")].join("|"), `<section class="split"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Split or steal${final ? " · Double points" : ""}</p>
+      <div class="ssrow">${side(cur.by[0])}<div class="pot"><span class="eyebrow">The pot</span><b class="num">${fmt(pot)}</b><span>points</span></div>${side(cur.by[1])}</div>
+      <p class="lede">Talk it out, then pick Split or Steal in secret. Both split: <b>${fmt(pot / 2)} each</b>. One steals: <b>they take it all</b>. Both steal: <b>nobody gets a thing</b>. Everyone else, bet on how it ends.</p>
+      <div class="qfoot">${this.clockHtml()}<div><p class="eyebrow" id="lockcount"></p><ul class="locks" id="locks"></ul></div></div></section>`);
+    this.renderLocks(cur.by);
+  },
+  // The two cards turn over one after the other, then the verdict, then the bets.
+  splitRevealHtml() {
+    const H = this.H, rv = H.rv, P = H.players, votes = this.votesBy(rv.g), t = 3.4, thief = rv.out === 1 ? P[rv.by[rv.ch[0] ? 0 : 1]] : null;
+    const card = k => {
+      const pid = rv.by[k], p = P[pid], c = rv.ch[k];
+      return `<div class="sscard" style="--d:${(1 + k * 1.1).toFixed(2)}s;--d2:${(1.25 + k * 1.1).toFixed(2)}s">${p ? face(p) : ""}<b class="nm">${esc(p?.name || "?")}</b>
+        <div class="flip"><span class="back">?</span><span class="front ${c ? "steal" : "split"}">${c ? "Steal" : "Split"}${rv.picked[k] ? "" : "<i>no pick</i>"}</span></div>
+        <b class="gain num">${rv.d[pid] ? "+" + fmt(rv.d[pid]) : "0"}</b></div>`;
+    };
+    const head = rv.out === 0 ? `Shared! ${fmt(rv.pot / 2)} each` : rv.out === 1 ? `${esc(thief?.name || "Someone")} steals the lot!` : "Both stole. Nobody wins.";
+    const bets = Object.keys(rv.g || {}).length ? `<p class="eyebrow">The bets · right ones win ${fmt(SPLIT_BET * rv.m)}</p><ol class="opts three">${SPLIT_BETS.map((label, i) => `<li class="opt ${i === rv.out ? "win" : "lose"}" style="--oc:${OPT_COLORS[i]}"><b>${LETTERS[i]}</b><span>${label}</span>${this.votersHtml(votes[i] || [], i)}</li>`).join("")}</ol>` : "";
+    return `<section class="split rev out${rv.out}" style="--t:${t}s;--t2:${t + 0.8}s"><p class="eyebrow">Split or steal · The pot: ${fmt(rv.pot)}${rv.m > 1 ? " · Double points" : ""}</p>
+      <div class="ssrow">${card(0)}<h2 class="ssh">${head}</h2>${card(1)}</div>${bets}<div class="deltas">${this.sipHtml()}</div></section>`;
   },
   renderImp(stage) {
     const H = this.H, cur = H.cur, P = H.players, final = H.R > 1 && H.r === H.R;
@@ -3554,6 +3762,11 @@ const PH = {
       if (!H?.imp || H.ph !== "imp-clue" || H.imp.sp !== this.pid) return;
       this.dn = H.rk + ":" + H.imp.turn; vibrate(20); this.push(); return this.renderMain(true);
     }
+    if (a === "ss") {
+      const i = Number(el.dataset.i), H = this.host;
+      if (!H || H.ph !== "q" || H.kind !== "split" || this.g?.rk === H.rk || !Number.isInteger(i)) return;
+      this.g = { rk: H.rk, i }; vibrate(40); this.push(); return this.renderMain();
+    }
     if (a === "answer") {
       const i = Number(el.dataset.i), H = this.host;
       if (!H || H.ph !== "q" || !H.qz || this.g?.rk === H.rk || !Number.isInteger(i)) return;
@@ -3696,9 +3909,13 @@ const PH = {
   renderTop() {
     const me = this.me(), leaving = Date.now() < this.confirmLeave;
     const status = roomState === "ok" && !this.connected ? `<span class="pill dark" style="font-size:12px">Reconnecting</span>` : "";
-    paint($("#ph-top"), `${this.code}|${this.joined}|${me?.[1]}|${me?.[2]}|${leaving}|${this.connected}|${this.av}`, `
+    // In a game, your points sit at the top of the phone the whole time, with your place.
+    const H = this.host, inGame = me && H && H.ph !== "lobby" && H.R, pts = me?.[3] || 0, place = inGame ? 1 + this.pl().filter(p => p[3] > pts).length : 0;
+    const bump = inGame && this.lastPts != null && pts > this.lastPts;
+    if (inGame) this.lastPts = pts;
+    paint($("#ph-top"), `${this.code}|${this.joined}|${me?.[1]}|${me?.[2]}|${leaving}|${this.connected}|${this.av}|${inGame ? pts + ":" + place : ""}`, `
       <span class="logo">fafo</span>${status}
-      <span class="room">${this.code ? "Room " + esc(this.code) : ""}</span>
+      ${inGame ? `<span class="mypts ${bump ? "bump" : ""}"><b class="num">${fmt(pts)}</b> pts${this.pl().some(p => p[3]) ? " · " + ordinal(place) : ""}</span>` : `<span class="room">${this.code ? "Room " + esc(this.code) : ""}</span>`}
       ${this.joined ? `<button class="btn ghost" data-act="leave">${leaving ? "Tap to leave" : "Leave"}</button>` : ""}
       ${this.joined && me ? `<span class="me" title="${esc(me[1])}">${faceA(me)}</span>` : ""}`);
   },
@@ -3721,7 +3938,7 @@ const PH = {
     if (!me) return paint(main, "wait-in", `<div class="card center"><p class="ph-h">Joining…</p><p class="muted">Hang on while the TV adds you.</p></div>`);
     if (H.ph === "lobby") return this.rLobby(main);
     if (H.pause && H.ph !== "end") return this.rPaused(main);
-    if (H.ph === "intro") return paint(main, "intro|" + H.rk, `<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">Eyes on the TV</p><p class="muted">${H.kind === "imp" ? "Imposter round. Your secret word is coming." : H.kind === "fakin" ? "Fakin' it. Your question is coming." : WRITE_KINDS.includes(H.kind) ? "Get your thumbs ready. You'll be writing." : "Get ready to guess."}</p></div>
+    if (H.ph === "intro") return paint(main, "intro|" + H.rk, `<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">Eyes on the TV</p><p class="muted">${H.kind === "imp" ? "Imposter round. Your secret word is coming." : H.kind === "fakin" ? "Fakin' it. Your question is coming." : H.kind === "split" ? (Array.isArray(H.ss?.by) && H.ss.by.includes(this.pid) ? "Split or steal. You're up!" : "Split or steal. Get ready to bet.") : WRITE_KINDS.includes(H.kind) ? "Get your thumbs ready. You'll be writing." : "Get ready to guess."}</p></div>
       ${H.ih && MODE_CARD[H.kind]?.how ? `<div class="card"><p class="eyebrow">How to play ${esc(MODE_LABEL[H.kind] || "")}</p><ol class="steps">${MODE_CARD[H.kind].how.map(x => `<li>${esc(x)}</li>`).join("")}</ol><p class="muted"><b>Scoring</b> ${esc(MODE_CARD[H.kind].score || "")}</p></div>` : ""}`);
     if (IMP_PHASES.includes(H.ph)) return this.rImp(main);
     if (FK_PHASES.includes(H.ph)) return this.rFakin(main);
@@ -3984,6 +4201,7 @@ const PH = {
       + (this.photos.length < PER_PLAYER && !this.busy ? `<button class="addtile" data-act="add">+ Add photos</button>` : ""));
   },
   rQuestion(main) {
+    if (this.host.kind === "split") return this.rSplit(main);
     const H = this.host, owner = H.x === fnv(this.pid + H.rk);
     const tbar = H.kind === "imp" || H.kind === "fakin" ? "" : `<div class="tbar" aria-hidden="true"><i id="tbar"></i></div>`;
     if (owner) return paint(main, "q-own|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">This one's yours</p><p class="muted">Keep a straight face. Every wrong guess earns you points.</p></div>`);
@@ -3997,6 +4215,40 @@ const PH = {
       ${sa ? `<p class="muted">${esc(sa[0])}</p><p class="ph-h" style="font-size:24px">“${esc(sa[1])}”</p>` : ""}
       <p class="${sa ? "eyebrow" : "ph-h"}">${esc(H.kind === "likely" ? `Who's most likely to ${H.lk || "…"}?` : KIND_ASK_PHONE[H.kind] || KIND_ASK_PHONE.photo)}</p>
       <div class="choices">${opts.map(p => `<button class="choice" data-act="guess" data-pid="${p[0]}">${faceA(p)}<span>${esc(p[1])}</span></button>`).join("")}</div></div>`);
+  },
+  // Split or steal on the phone: the two players get Split and Steal; everyone else bets on how it ends.
+  rSplit(main) {
+    const H = this.host, ss = H.ss || {}, by = Array.isArray(ss.by) ? ss.by : [], mine = by.includes(this.pid), pot = Number(ss.pot) || SPLIT_POT;
+    const tbar = `<div class="tbar" aria-hidden="true"><i id="tbar"></i></div>`, names = by.map(id => esc(this.nameOf(id)?.[1] || "?")), other = names[by.indexOf(this.pid) === 0 ? 1 : 0];
+    const bet = SPLIT_BET * (H.R > 1 && H.r === H.R ? 2 : 1);
+    if (this.g?.rk === H.rk) {
+      const k = this.g.i;
+      if (mine) return paint(main, "ss-lock|" + H.rk, `${tbar}<div class="card center result ${k ? "bad" : "good"}"><p class="eyebrow">You picked</p><p class="ph-big">${k ? "Steal" : "Split"}</p><p class="muted">Poker face. ${other} can't see this.</p></div>`);
+      return paint(main, "ssb-lock|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">Your bet</p><span class="opt-pill" style="--oc:${OPT_COLORS[k]}"><b>${LETTERS[k]}</b>${esc(SPLIT_BETS[k] || "")}</span><p class="muted">Waiting for ${names.join(" and ")}.</p></div>`);
+    }
+    if (mine) return paint(main, "ss|" + H.rk, `${tbar}<div class="card"><p class="eyebrow">Split or steal · ${fmt(pot)} points</p><p class="ph-h">You and ${other}</p>
+      <p class="muted">Talk it out, then pick in secret. Both split: ${fmt(pot / 2)} each. One steals: they take it all. Both steal: nobody gets a thing.</p>
+      <div class="ssbtns"><button class="ssb split" data-act="ss" data-i="0">Split</button><button class="ssb steal" data-act="ss" data-i="1">Steal</button></div>
+      <p class="muted" style="text-align:center">Cover your screen.</p></div>`);
+    paint(main, "ssb|" + H.rk, `${tbar}<div class="card"><p class="eyebrow">Split or steal · Place your bet</p><p class="ph-h">${names.join(" vs ")}</p><p class="muted">How does it end? A right bet wins ${fmt(bet)}.</p>
+      <div class="answers">${SPLIT_BETS.map((t, k) => `<button class="answer" style="--oc:${OPT_COLORS[k]}" data-act="ss" data-i="${k}"><b>${LETTERS[k]}</b><span>${t}</span></button>`).join("")}</div></div>`);
+  },
+  rSplitReveal(main) {
+    const H = this.host, rv = H.rv || {}, me = this.pid, by = rv.by || [], k = by.indexOf(me), pts = rv.d?.[me] || 0, ch = rv.ch || [0, 0];
+    const thief = rv.out === 1 ? esc(this.nameOf(by[ch[0] ? 0 : 1])?.[1] || "Someone") : "";
+    let cls = "", head, sub;
+    if (k >= 0) {
+      const mine = ch[k], theirs = ch[1 - k];
+      cls = pts ? "good" : "bad";
+      head = rv.out === 0 ? "Shared!" : rv.out === 2 ? "Both stole" : mine ? "You stole it!" : "Robbed!";
+      sub = pts ? `+${fmt(pts)} points` : rv.out === 2 ? "Nobody gets a thing." : `${esc(this.nameOf(by[1 - k])?.[1] || "They")} picked ${theirs ? "Steal" : "Split"}.`;
+    } else {
+      const mine = rv.g?.[me];
+      cls = pts ? "good" : Number.isInteger(mine) ? "bad" : "";
+      head = pts ? "Right bet!" : Number.isInteger(mine) ? "Wrong bet" : "No bet";
+      sub = (pts ? `+${fmt(pts)} points. ` : "") + (rv.out === 0 ? "They both split." : rv.out === 1 ? `${thief} stole it.` : "They both stole.");
+    }
+    paint(main, "ss-rev|" + H.rk, `<div class="card center result ${cls}"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Split or steal</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
   },
   rQuiz(main) {
     const H = this.host, qz = H.qz, opts = Array.isArray(qz.o) ? qz.o.slice(0, 4).map(String) : [];
@@ -4163,6 +4415,7 @@ const PH = {
     if (this.host.kind === "fakin") return this.rFakinReveal(main);
     if (this.host.kind === "quip" || this.host.kind === "lash" || this.host.kind === "bluff") return this.rQuipReveal(main);
     if (this.host.kind === "likely") return this.rLikelyReveal(main);
+    if (this.host.kind === "split") return this.rSplitReveal(main);
     if (this.host.kind === "meld") return this.rMeldReveal(main);
     if (this.host.qz && this.host.rv) return this.rQuizReveal(main);
     const H = this.host, rv = H.rv || { g: {}, d: {} }, ownerP = this.nameOf(rv.o);
@@ -4187,14 +4440,16 @@ const PH = {
         ${me ? `<p style="font-weight:800;font-size:20px" class="num">${fmt(me[3])} points</p>` : ""}
         ${!end && H.dare?.pid === this.pid ? `<p class="eyebrow" style="margin-top:8px">A dare for you</p><p style="font-weight:800">${esc(cleanText(H.dare.t, 120))} Or pass, no shame.</p>` : ""}
         ${end ? (H.aw || []).filter(a => a[0] === this.pid).map(a => `<p class="eyebrow">Award: ${esc(a[1])}</p><p class="muted">${esc(a[2])}</p>`).join("") : ""}
+        ${me && rank > 1 ? `<p class="muted">${fmt(ps[rank - 2][3] - me[3])} behind ${esc(ps[rank - 2][1])}</p>` : me && ps[1] && rank === 1 ? `<p class="muted">${fmt(me[3] - ps[1][3])} ahead of ${esc(ps[1][1])}</p>` : ""}
       </div>
+      <ol class="phboard">${ps.map((p, i) => `<li class="${p[0] === this.pid ? "me" : ""}"><span class="num">${1 + ps.filter(q => q[3] > p[3]).length}</span>${faceA(p)}<span class="nm">${esc(p[1])}</span><b class="num">${fmt(p[3])}</b></li>`).join("")}</ol>
       ${end ? (vip ? `<button class="btn primary wide" data-act="again" ${this.cmd ? "disabled" : ""}>${this.cmd ? "Starting…" : "Play again"}</button>${(H.modes || []).includes("photo") ? `<p class="muted" style="text-align:center">Everyone picks new photos for the next game.</p>` : ""}`
         : `<p class="muted" style="text-align:center">Waiting for ${esc(this.nameOf(H.vip)?.[1] || "the host")} to start another game.</p>`) : ""}`);
   },
   renderClock() {
     const bar = $("#tbar"), H = this.host;
     if (!bar || !H || !["q", "qw", "qv", "fk-ans"].includes(H.ph) || (H.ph === "q" && (H.kind === "imp" || H.kind === "fakin")) || H.pause) return;
-    const total = H.ph === "qw" ? QW_SECS[H.kind] || Q_SECS : H.ph === "qv" ? QV_SECS[H.kind] || Q_SECS : H.ph === "fk-ans" ? FK_SECS : Q_SECS;
+    const total = H.ph === "qw" ? QW_SECS[H.kind] || Q_SECS : H.ph === "qv" ? QV_SECS[H.kind] || Q_SECS : H.ph === "fk-ans" ? FK_SECS : H.kind === "split" ? SPLIT_SECS : Q_SECS;
     const left = Math.max(0, (this.deadline - Date.now()) / 1000);
     bar.style.width = Math.min(100, left / total * 100).toFixed(1) + "%";
   },

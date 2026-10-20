@@ -290,6 +290,18 @@
     { "id": "again-4", "ev": "again", "t": "Yeah! Let's go again! Love it!" },
 
     { "id": "check-1", "ev": "check", "t": "Sound check! Can everyone hear me?" },
-    { "id": "check-2", "ev": "check", "t": "Testing, testing! Is this thing on?" }
+    { "id": "check-2", "ev": "check", "t": "Testing, testing! Is this thing on?" },
+    { "id": "intro-split-1", "ev": "intro-split", "t": "Split or steal! One pot of points, two players. Can you trust each other?" },
+    { "id": "intro-split-2", "ev": "intro-split", "t": "Time for Split or steal! Look them in the eye. Do you believe them?" },
+    { "id": "intro-split-3", "ev": "intro-split", "t": "Split or steal! Everyone else, place your bets!" },
+    { "id": "split-share-1", "ev": "split-share", "t": "They split it! Friendship wins, for now!" },
+    { "id": "split-share-2", "ev": "split-share", "t": "Both split! Look at that, honest people!" },
+    { "id": "split-share-3", "ev": "split-share", "t": "Shared! I'm almost disappointed!" },
+    { "id": "split-steal-1", "ev": "split-steal", "t": "Stolen! Oh, that's cold!" },
+    { "id": "split-steal-2", "ev": "split-steal", "t": "They took the lot! Absolute snake behaviour!" },
+    { "id": "split-steal-3", "ev": "split-steal", "t": "Betrayal! Never trust that smile again!" },
+    { "id": "split-greedy-1", "ev": "split-greedy", "t": "Both of you stole? Nobody gets anything! Beautiful!" },
+    { "id": "split-greedy-2", "ev": "split-greedy", "t": "Greedy, greedy! Zero points each!" },
+    { "id": "split-greedy-3", "ev": "split-greedy", "t": "Two thieves, no money! Fuck around and find out!" }
   ]
 }

@@ -69,6 +69,10 @@ tapped quickly. The same rounds and settings are under **Rounds & settings** on 
   have you been to?", "Can you swim?") except one player, who gets a different one. Everyone answers by pointing at a
   player, typing a number or tapping yes or no. Then the TV shows the real question and every answer; talk it over
   (no clock) and vote for the faker. Spotting them scores 500; a faker who gets away scores 1,000. Needs 3 players.
+- **Split or steal:** two players face off over a pot of 2,000 points. They talk it out, then each picks Split or
+  Steal in secret on their phone while everyone else bets on how it ends. Both split: 1,000 each. One steals: they
+  take all 2,000. Both steal: nobody gets a thing. A right bet wins 300. Everyone faces off once before anyone goes
+  twice. Works with 2 players.
 
 **Difficulty** sets how believable the wrong answers are. On Normal and Hard, famous faces are up against people
 who could pass for them (same job, same part of the world, same era, plus hand-picked look-alike groups in
@@ -87,6 +91,12 @@ Scoring: a right answer is 500 to 1,000 points, faster scores more. When someone
 wrong, you get 250 points. The last round counts double. Each reveal shows who picked which answer; set
 **Votes** to Anonymous in Rounds & settings to show only how many picked each one. The game ends with a podium and
 a few awards.
+
+**Points are always on show.** Everyone's score runs along the top of the TV all game; during a reveal it waits until
+the answer is out, then each player's points tick up. Every phone shows its own points and place at the top. Every
+few rounds the scores page calls the race ("Amani takes the lead!", "Neck and neck!"): rows start where they stood
+last time, the points count up, then everyone slides into their new place, with the leader crowned, the biggest haul
+and the biggest climber called out. The phones show the full standings and how far you are from the next place.
 
 **Spicy (18+):** set Spicy to Cheeky for dating, exes and group-chat prompts in Quips and Most likely to, or
 Savage for friendly roasts. The scoreboard then dares whoever is last (they can always pass). Any phone can tap
