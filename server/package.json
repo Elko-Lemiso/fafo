@@ -5,7 +5,8 @@
   "description": "fafo: a party game for one TV and a room full of phones.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "node --test test/sketch.test.js test/draw-reveal.test.js"
   },
   "engines": {
     "node": ">=18"

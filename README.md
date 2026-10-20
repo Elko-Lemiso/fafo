@@ -70,9 +70,10 @@ tapped quickly. The same rounds and settings are under **Rounds & settings** on 
   player, typing a number or tapping yes or no. Then the TV shows the real question and every answer; talk it over
   (no clock) and vote for the faker. Spotting them scores 500; a faker who gets away scores 1,000. Needs 3 players.
 - **Draw it:** a drawing chain. Everyone gets a secret prompt ("a goat at a wedding") and draws it on their phone
-  with a finger: colours, three brush sizes, undo. The next player sees only the drawing and types what it is, the
-  next draws that guess, and so on, up to four steps. Then the TV walks through each chain card by card to show how
-  far it drifted. A guess that nails what was being drawn scores 1,000 for the drawer and the guesser; a close one
+  on a canvas that fills the available space: pen, eraser, lines, rectangles, ellipses, colours, brush sizes, undo and redo.
+  The next player sees only the drawing and types what it is, the next draws that guess, and so on, up to four steps.
+  The host reveals the original prompt and each drawing or guess one at a time, with no automatic reveal countdown.
+  A guess that nails what was being drawn scores 1,000 for the drawer and the guesser; a close one
   (a key word in common) 400. Drawings upload like photos and live in the server's memory. Prompts are in
   `server/data/draw.json`, with a `wild` list for No holds barred. Needs 3 players.
 - **Lowest number wins:** everyone secretly picks a number from 1 to 10 on their phone. Numbers more than one player

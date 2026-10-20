@@ -657,21 +657,42 @@ button{touch-action:manipulation}
 .lowb:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
 @keyframes knock{to{background:#E7D9B0;color:var(--ink-soft);transform:scale(.92)}}
 /* Draw it */
-.dwcard{gap:10px}
-.dprompt{font-size:24px}
-.sketch{display:block;width:100%;height:auto;aspect-ratio:4/3;background:#fff;border:3px solid var(--ink);border-radius:12px;touch-action:none;cursor:crosshair}
-.tools{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
-.tools .sw{width:34px;height:34px;border-radius:50%;border:3px solid var(--ink);background:var(--sw);cursor:pointer;padding:0}
-.tools .sw.on{box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--ink)}
-.tools .tsep{flex:1}
-.tools .sz{width:38px;height:38px;border-radius:10px;border:2px solid var(--ink);background:#fff;display:grid;place-items:center;cursor:pointer;padding:0}
+.drawing-active .phone{max-width:1100px;padding-block:8px 16px;gap:8px}
+.drawing-active .ph-main{gap:8px}
+.dwcard{gap:8px;padding:8px;border:0;border-radius:0;box-shadow:none;background:transparent}
+.dprompt{font-size:clamp(18px,3vw,26px);line-height:1.2}
+.draw-heading{display:flex;flex-direction:column;gap:4px}
+.draw-heading .eyebrow{font-size:12px}
+.sketch-stage{height:clamp(240px,calc(100vh - 350px),900px);height:clamp(240px,calc(100dvh - 350px),900px);display:flex;background:#E7D9B0;border:3px solid var(--ink);border-radius:12px;overflow:hidden}
+.sketch{display:block;width:100%;height:100%;object-fit:contain;touch-action:none;cursor:crosshair;user-select:none;-webkit-user-select:none}
+.sketch[aria-disabled=true]{pointer-events:none;opacity:.7}
+.draw-tools{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.draw-tools button{min-height:44px;border:2px solid var(--ink);border-radius:10px;background:var(--paper);font-size:13px;font-weight:800;padding:4px 2px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap}
+.draw-tools svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2;flex:none}
+.draw-tools button.on{background:var(--ink);color:var(--paper)}
+.tools{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.tools .sw{width:44px;height:44px;border:0;background:transparent;cursor:pointer;padding:7px;position:relative}
+.tools .sw::before{content:"";display:block;width:100%;height:100%;border:2px solid var(--ink);border-radius:50%;background:var(--sw)}
+.tools .sw.on::after{content:"";position:absolute;inset:2px;border:2px solid var(--ink);border-radius:50%}
+.tools .tsep{flex:1;min-width:2px}
+.tools .sz{width:44px;height:44px;border-radius:10px;border:2px solid var(--ink);background:var(--paper);display:grid;place-items:center;cursor:pointer;padding:0}
 .tools .sz i{display:block;border-radius:50%;background:var(--ink)}
 .tools .sz.on{background:var(--sun)}
-.dwbtns{display:grid;grid-template-columns:auto auto 1fr;gap:8px}
-.sketch-img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:contain;background:#fff;border:3px solid var(--ink);border-radius:12px}
-.drawrev{height:100%;display:flex;flex-direction:column;justify-content:center;gap:2.6vmin;max-width:1700px;margin:0 auto;width:100%;position:relative}
+.dwbtns{display:grid;grid-template-columns:auto auto auto 1fr;gap:6px}
+.dwbtns .btn{min-height:44px;padding:8px;font-size:14px}
+.draw-hint{font-size:13px;line-height:1.3}
+.draw-confirm{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--paper);padding:8px;border:2px solid var(--ink);border-radius:10px}
+.draw-confirm .btn{min-height:44px}
+.draw-confirm[hidden]{display:none}
+@media(max-width:600px){.drawing-active{margin-inline:-10px}.drawing-active .ph-top{padding-inline:8px}.dwcard{padding:0}.tools{gap:0}.tools .sw{flex:1;max-width:48px}.tools .tsep{flex-basis:100%;height:4px}.tools .sz{flex:1;max-width:none}.sketch-stage{height:clamp(240px,calc(100vh - 370px),900px);height:clamp(240px,calc(100dvh - 370px),900px)}}
+@media(orientation:landscape) and (max-height:600px){.dwcard{display:grid;grid-template-columns:minmax(0,1fr) 232px;align-items:start}.draw-heading{grid-column:1;grid-row:1}.sketch-stage{grid-column:1;grid-row:2/6;height:calc(100vh - 170px);height:calc(100dvh - 170px);min-height:160px}.draw-tools{grid-column:2;grid-row:2;grid-template-columns:repeat(3,minmax(0,1fr))}.tools{grid-column:2;grid-row:3;display:grid;grid-template-columns:repeat(5,minmax(44px,1fr));gap:2px}.tools .sw,.tools .sz{width:44px;height:44px}.tools .tsep{display:none}.dwbtns{grid-column:2;grid-row:1;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;align-self:end}.dwbtns .btn{font-size:12px;padding:4px;min-height:44px}.dwbtns .primary{grid-column:auto}.draw-confirm{grid-column:1/-1}.draw-hint{display:none}}
+.sketch-img{display:block;width:100%;height:auto;max-height:55vh;max-height:55dvh;object-fit:contain;background:#fff;border:3px solid var(--ink);border-radius:12px}
+.drawrev{height:100%;display:flex;flex-direction:column;justify-content:center;gap:2.2vmin;max-width:1700px;margin:0 auto;width:100%;position:relative}
 .dchain{display:flex;gap:2.2vmin;align-items:stretch;justify-content:center}
-.dcard{position:relative;flex:1;max-width:36vmin;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:1.2vmin;background:var(--paper);border:3px solid var(--ink);border-radius:1.6vmin;box-shadow:0 .8vmin 0 var(--ink);padding:1.4vmin;animation:deal .5s var(--d,0s) cubic-bezier(.2,1.2,.4,1) both}
+.dcard{position:relative;flex:1;max-width:36vmin;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:1.2vmin;background:var(--paper);border:3px solid var(--ink);border-radius:1.6vmin;box-shadow:0 .8vmin 0 var(--ink);padding:1.4vmin}
+.dcard.current{flex:1.6;max-width:52vmin;outline:4px solid var(--cobalt);outline-offset:4px;animation:deal .4s cubic-bezier(.2,1.2,.4,1) both}
+.drawrev .dprogress{text-align:center;font-weight:800;font-size:max(14px,2.4vmin)}
+.drawrev .dverdict{position:static;align-self:center;transform:rotate(-3deg);font-size:max(22px,4vmin)}
 .dcard:nth-child(even){transform:rotate(1.5deg)}
 .dcard:nth-child(odd){transform:rotate(-1.5deg)}
 .dcard+.dcard::before{content:"";position:absolute;left:-2.1vmin;top:50%;width:1.8vmin;height:1.8vmin;border-top:4px solid var(--ink);border-right:4px solid var(--ink);transform:translate(-30%,-50%) rotate(45deg)}
@@ -701,11 +722,18 @@ button{touch-action:manipulation}
 .rx b{font-size:max(34px,7vmin);line-height:1;font-weight:400}
 .rx.word b{font-family:var(--display);font-size:max(18px,3.6vmin);background:var(--ink);color:var(--sun);border-radius:999px;padding:.3vmin 1.4vmin}
 @keyframes floatup{0%{bottom:-12vmin;opacity:0}12%{opacity:1}75%{opacity:1}100%{bottom:62vh;opacity:0}}
-.rxbar{width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
-.rxbar button{font:inherit;min-height:48px;border:2px solid var(--ink);border-radius:14px;background:var(--paper);box-shadow:0 3px 0 var(--ink);cursor:pointer;display:grid;place-items:center;padding:4px}
-.rxbar button span{font-size:26px;line-height:1}
-.rxbar button b{font-family:var(--display);font-weight:400;font-size:14px}
-.rxbar button.hit{animation:pop .3s cubic-bezier(.3,1.6,.5,1) both}
+.rx-trigger{min-height:56px;flex:1;min-width:160px}
+.rx-feedback{width:100%;text-align:center;font-weight:700;min-height:1.5em}
+.rx-picker{position:fixed;inset:auto 0 0;margin:0 auto;width:min(100%,520px);max-height:85dvh;overflow:auto;background:var(--paper);color:var(--ink);border:3px solid var(--ink);border-radius:24px 24px 0 0;padding:20px 16px max(24px,env(safe-area-inset-bottom));box-sizing:border-box;box-shadow:0 -8px 36px #0003}
+.rx-picker::backdrop{background:#1d140f88}
+.rx-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.rx-heading h2{font-family:var(--display);font-size:24px;margin:0}
+.rx-heading .btn{min-width:72px;min-height:48px}
+.rxbar{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.rxbar button{font:inherit;min-height:76px;border:2px solid var(--ink);border-radius:14px;background:var(--paper);box-shadow:0 3px 0 var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;padding:12px;touch-action:manipulation}
+.rxbar button span{font-size:32px;line-height:1}
+.rxbar button b{font-family:var(--display);font-weight:400;font-size:16px}
+.rxbar button:focus-visible,.rx-trigger:focus-visible{outline:4px solid var(--cobalt);outline-offset:3px}
 .rxbar button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
 .twph{background:var(--tomato);color:var(--paper)}
 .twph .eyebrow{color:var(--sun)}
@@ -894,6 +922,14 @@ const DRAW_SECS = 60, GUESS_SECS = 30, DRAW_W = 640, DRAW_H = 480;
 const DRAW_STOP = new Set(["the", "and", "with", "for", "from", "into", "onto", "that", "this", "its", "his", "her", "their", "out", "off", "over", "under", "some", "who", "while"]);
 const drawWords = t => String(t || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(/[^\p{L}\p{N}]+/u).filter(w => w.length >= 3 && !DRAW_STOP.has(w)).map(w => (w.length > 3 ? w.replace(/s$/, "") : w));
 const drawMatch = (want, got) => { if (!want || !got) return 0; if (meldSame(want, got)) return 2; const a = new Set(drawWords(want)); return drawWords(got).some(w => a.has(w)) ? 1 : 0; };
+// Saved and broadcast with the reveal: a reload or a late phone joins the same card.
+function drawRevealProgress(rv) {
+  const total = rv?.items?.length || 0;
+  const shown = Number.isInteger(rv?.shown) ? Math.max(0, Math.min(total, rv.shown)) : total;
+  const complete = shown === total;
+  const next = !complete ? (shown % 2 ? "Reveal next guess" : "Reveal next drawing") : (rv.ci + 1 < rv.n ? "Next chain" : "Finish drawing round");
+  return { shown, total, complete, next };
+}
 const MODE_LABEL = { photo: "Whose photo", song: "Whose song", prof: "Whose answer", said: "Who said it", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather", nhie: "Never have I ever", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps", cap: "Capitals", big: "Which is bigger", trivia: "Trivia", emoji: "Emoji puzzles", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", low: "Lowest number wins", shot: "Shot in the dark", draw: "Draw it", likely: "Most likely to" };
 const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", prof: "Whose answer?", said: "Who said it?", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather?", nhie: "Never have I ever", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country", cap: "Capital cities", big: "Which is bigger?", trivia: "Trivia", emoji: "Emoji puzzle", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", low: "Lowest number wins", shot: "Shot in the dark", draw: "Draw it", likely: "Most likely to…" };
 const KIND_ASK = { photo: "Whose photo is this?", song: "Whose song is this?", prof: "Whose answer is this?", said: "Who wrote this?", face: "Who is this?", flag: "Which country's flag is this?", map: "Which country has this shape?", big: "Which country is bigger?", imp: "Who's the imposter?", fakin: "Who had the other question?" };
@@ -1275,38 +1311,88 @@ const MUSIC = {
 // Strokes are kept, so Undo redraws without the last one and a screen that re-draws keeps the picture.
 const SKETCH_COLORS = ["#1D140F", "#D93A26", "#2342C6", "#11704F", "#FFC53D", "#B5530B", "#FFFFFF"];
 const SKETCH = {
-  cv: null, rk: null, strokes: [], cur: null, color: "#1D140F", size: 12,
-  // A new step starts a blank page; the same step again (the screen re-drew) keeps what's there.
+  cv: null, rk: null, strokes: [], future: [], cur: null, pointer: null, color: "#1D140F", size: 12, tool: "pen", height: DRAW_H,
+  // Keep the original coordinate space when the viewport changes, so rotation never stretches a drawing.
   mount(cv, rk) {
     if (!cv) return;
-    if (this.rk !== rk) { this.rk = rk; this.strokes = []; this.cur = null; }
+    if (this.rk !== rk) {
+      this.rk = rk; this.strokes = []; this.future = []; this.cur = null; this.pointer = null;
+      const r = cv.getBoundingClientRect();
+      this.height = Math.round(Math.max(240, Math.min(1280, r.height / (r.width || DRAW_W) * DRAW_W)));
+    }
+    this.cur = null; this.pointer = null;
     this.cv = cv;
-    const pos = e => { const r = cv.getBoundingClientRect(); return [((e.clientX - r.left) / r.width) * DRAW_W, ((e.clientY - r.top) / r.height) * DRAW_H]; };
+    cv.width = DRAW_W; cv.height = this.height;
+    const pos = e => {
+      const r = cv.getBoundingClientRect(), scale = Math.min(r.width / DRAW_W, r.height / this.height);
+      return [(e.clientX - r.left - (r.width - DRAW_W * scale) / 2) / scale, (e.clientY - r.top - (r.height - this.height * scale) / 2) / scale];
+    };
+    const extend = e => {
+      const p = pos(e);
+      if (this.cur.t === "pen" || this.cur.t === "eraser") this.cur.p.push(p); else this.cur.p[1] = p;
+    };
     cv.onpointerdown = e => {
+      if (this.pointer !== null || e.isPrimary === false || e.button !== 0 || cv.getAttribute("aria-disabled") === "true") return;
+      const p = pos(e);
+      if (p[0] < 0 || p[0] > DRAW_W || p[1] < 0 || p[1] > this.height) return;
       e.preventDefault();
       try { cv.setPointerCapture(e.pointerId); } catch {}
-      this.cur = { c: this.color, w: this.size, p: [pos(e)] }; this.strokes.push(this.cur); this.dot(this.cur);
+      this.pointer = e.pointerId;
+      this.cur = { t: this.tool, c: this.tool === "eraser" ? "#FFFFFF" : this.color, w: this.size, p: [p] };
+      this.redraw();
     };
     cv.onpointermove = e => {
-      if (!this.cur) return;
+      if (!this.cur || e.pointerId !== this.pointer) return;
       e.preventDefault();
-      for (const x of e.getCoalescedEvents?.() || [e]) { const a = this.cur.p[this.cur.p.length - 1], b = pos(x); this.cur.p.push(b); this.seg(this.cur, a, b); }
+      const samples = e.getCoalescedEvents?.();
+      const freehand = this.cur.t === "pen" || this.cur.t === "eraser";
+      for (const x of samples?.length ? samples : [e]) {
+        const a = this.cur.p[this.cur.p.length - 1]; extend(x);
+        if (freehand) this.seg(this.cur, a, this.cur.p[this.cur.p.length - 1]);
+      }
+      if (!freehand) this.redraw();
     };
-    cv.onpointerup = cv.onpointercancel = () => { this.cur = null; };
-    this.redraw();
+    cv.onpointerup = e => {
+      if (!this.cur || e.pointerId !== this.pointer) return;
+      extend(e); this.finish();
+      try { cv.releasePointerCapture(e.pointerId); } catch {}
+    };
+    cv.onpointercancel = cv.onlostpointercapture = e => {
+      if (e.pointerId !== this.pointer) return;
+      this.cur = null; this.pointer = null; this.redraw(); this.controls();
+    };
+    this.redraw(); this.controls();
   },
   ctx() { const c = this.cv?.getContext("2d"); if (c) { c.lineCap = c.lineJoin = "round"; } return c; },
   dot(s) { const c = this.ctx(); if (!c) return; c.fillStyle = s.c; c.beginPath(); c.arc(s.p[0][0], s.p[0][1], s.w / 2, 0, Math.PI * 2); c.fill(); },
   seg(s, a, b) { const c = this.ctx(); if (!c) return; c.strokeStyle = s.c; c.lineWidth = s.w; c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.stroke(); },
+  paint(s) {
+    if (s.t === "clear") { const c = this.ctx(); c.fillStyle = "#FFFFFF"; c.fillRect(0, 0, DRAW_W, this.height); return; }
+    if (!s.t || s.t === "pen" || s.t === "eraser") { this.dot(s); for (let i = 1; i < s.p.length; i++) this.seg(s, s.p[i - 1], s.p[i]); return; }
+    const c = this.ctx(), a = s.p[0], b = s.p[1] || a;
+    c.strokeStyle = s.c; c.lineWidth = s.w; c.beginPath();
+    if (s.t === "line") { c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); }
+    else if (s.t === "rect") c.rect(Math.min(a[0], b[0]), Math.min(a[1], b[1]), Math.abs(b[0] - a[0]), Math.abs(b[1] - a[1]));
+    else if (s.t === "ellipse") c.ellipse((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, Math.abs(b[0] - a[0]) / 2, Math.abs(b[1] - a[1]) / 2, 0, 0, Math.PI * 2);
+    c.stroke();
+  },
   redraw() {
     const c = this.ctx();
     if (!c) return;
-    c.fillStyle = "#FFFFFF"; c.fillRect(0, 0, DRAW_W, DRAW_H);
-    for (const s of this.strokes) { this.dot(s); for (let i = 1; i < s.p.length; i++) this.seg(s, s.p[i - 1], s.p[i]); }
+    c.fillStyle = "#FFFFFF"; c.fillRect(0, 0, DRAW_W, this.height);
+    for (const s of this.strokes) this.paint(s);
+    if (this.cur) this.paint(this.cur);
   },
-  undo() { this.strokes.pop(); this.redraw(); },
-  clear() { this.strokes = []; this.redraw(); },
-  jpeg() { return this.cv ? this.cv.toDataURL("image/jpeg", 0.85).split(",")[1] || "" : ""; },
+  finish() { if (this.cur) { this.strokes.push(this.cur); this.future = []; } this.cur = null; this.pointer = null; this.redraw(); this.controls(); },
+  controls() {
+    const locked = this.cv?.getAttribute("aria-disabled") === "true";
+    for (const a of ["undo", "redo", "clear"]) { const b = document.querySelector(`[data-act="sk-${a}"]`); if (b) b.disabled = locked || !(a === "redo" ? this.future.length : this.strokes.length); }
+  },
+  undo() { this.cur = null; this.pointer = null; if (this.strokes.length) this.future.push(this.strokes.pop()); this.redraw(); this.controls(); },
+  redo() { this.cur = null; this.pointer = null; if (this.future.length) this.strokes.push(this.future.pop()); this.redraw(); this.controls(); },
+  clear() { this.cur = null; this.pointer = null; this.strokes.push({ t: "clear" }); this.future = []; this.redraw(); this.controls(); },
+  hasInk() { const lastClear = this.strokes.map(s => s.t).lastIndexOf("clear"); return this.strokes.slice(lastClear + 1).some(s => s.t !== "eraser"); },
+  jpeg() { this.finish(); return this.cv ? this.cv.toDataURL("image/jpeg", 0.85).split(",")[1] || "" : ""; },
 };
 
 // Downscale a picked photo to a TV-sized JPEG before it goes over the Wi-Fi.
@@ -1605,7 +1691,9 @@ const SHARE = {
       if (it.k === "g") return text(`${names[it.pid] || "Someone"} guessed`, `“${it.v}”`, "#FFFBF0", "#1D140F");
       if (!pics[k]) return;
       this.card(x, 70, y, pw, ph + 60, "#FFFFFF", 22);
-      x.drawImage(pics[k], 90, y + 20, pw - 40, ph - 30);
+      const pic = pics[k], scale = Math.min((pw - 40) / pic.naturalWidth, (ph - 30) / pic.naturalHeight);
+      const w = pic.naturalWidth * scale, h = pic.naturalHeight * scale;
+      x.drawImage(pic, 90 + (pw - 40 - w) / 2, y + 20 + (ph - 30 - h) / 2, w, h);
       x.font = "700 28px 'Barlow Condensed'"; x.fillStyle = "#1D140F"; x.fillText(`DRAWN BY ${(names[it.pid] || "SOMEONE").toUpperCase()}`, 100, y + ph + 30);
       y += ph + 90;
     });
@@ -1737,6 +1825,7 @@ const TV = {
     for (const id of Object.keys(H.photos)) if (!H.photos[id]?.src) delete H.photos[id];
     for (const p of Object.values(H.players)) { p.online = false; p.seen = now; p.sending = 0; p.photos = (p.photos || []).filter(id => H.photos[id]); }
     if (H.ph === "q" || H.ph === "intro" || H.ph === "qw" || H.ph === "qv" || SECRET_PHASES.includes(H.ph)) { H.ph = "intro"; H.guesses = {}; H.phaseEnds = now + INTRO_SECS * 1000; }
+    else if (H.ph === "rev" && H.cur?.t === "draw") { H.phaseEnds = 0; H.phDur = 0; }
     else if (H.ph === "rev" || H.ph === "lb") H.phaseEnds = now + 2000;
     return H;
   },
@@ -1976,6 +2065,7 @@ const TV = {
     else if (a === "pause") this.pause();
     else if (a === "resume") this.resume();
     else if (a === "next" && this.isImp() && this.H.ph === "rev") { this.unpause(); this.advance(); }
+    else if (this.H.ph === "rev" && this.H.cur?.t === "draw" && a === `draw-next:${this.H.rk}:${drawRevealProgress(this.H.rv).shown}`) { this.unpause(); this.advance(); }
     else if (typeof a === "string" && a.startsWith("modes:")) this.setModes(a.slice(6).split(","));
     else if (typeof a === "string" && a.startsWith("mode:")) this.toggleMode(a.slice(5));
     else if (typeof a === "string" && a.startsWith("set:")) { const i = a.indexOf(":", 4); if (i > 4) this.setting(a.slice(4, i), a.slice(i + 1)); }
@@ -2784,8 +2874,26 @@ const TV = {
     if (H.ph === "fk-talk") { H.rk = H.gid + "-" + H.r + "-v"; H.guesses = {}; return this.go("q"); }
     if (H.ph === "q") return this.reveal();
     if (H.ph === "rev") {
+      if (H.cur?.t === "draw") {
+        // A double tap (or the same phone command arriving twice) must not skip a card.
+        const now = Date.now();
+        if (now - (this.drawNextAt || 0) < 450) return;
+        this.drawNextAt = now;
+        const progress = drawRevealProgress(H.rv);
+        if (!progress.complete) {
+          H.rv.shown = progress.shown + 1;
+          SFX.play("reveal");
+          if (drawRevealProgress(H.rv).complete) {
+            this.revEv = H.rv.end === 2 ? "draw-nailed" : H.rv.end === 0 ? "draw-lost" : null;
+            this.speak("rev");
+          }
+          this.save(); this.render(); this.push(true);
+          return;
+        }
+        if (H.cur.ci + 1 < H.cur.chains.length) { H.cur.ci++; return this.reveal(); }
+        return this.endRound();
+      }
       if (H.cur?.t === "quip") { const n = this.nextMatch(H.cur.mi + 1); if (n >= 0) return this.startVote(n); }
-      if (H.cur?.t === "draw" && H.cur.ci + 1 < H.cur.chains.length) { H.cur.ci++; return this.reveal(); }
       if (H.cur?.t === "low" && H.cur.go + 1 < H.cur.goes) return this.lowGo(H.cur.go + 1);
       if (H.cur?.t === "shot" && H.rv && !H.rv.end) return this.shotVolley(H.cur.v + 1);
       if (EACH_KINDS.includes(H.cur?.t) && H.cur.mi + 1 < (H.cur.ord || []).length) return this.askNext(H.cur.mi + 1);
@@ -2955,9 +3063,9 @@ const TV = {
       score();
       const last = [...items].reverse().find(x => x?.k === "g" && x.v);
       H.rk = H.gid + "-" + H.r + "-c" + c.ci;
-      H.rv = { ci: c.ci, n: c.chains.length, by: c.order[c.ci], p: ch.p, items, marks, end: last ? drawMatch(ch.p, last.v) : -1, g: {}, d, m: mult };
-      this.revEv = H.rv.end === 2 ? "draw-nailed" : H.rv.end === 0 ? "draw-lost" : null;
-      return this.go("rev", 4 + (c.S + 1) * 1.6);
+      H.rv = { ci: c.ci, n: c.chains.length, by: c.order[c.ci], p: ch.p, items, shown: 0, marks, end: last ? drawMatch(ch.p, last.v) : -1, g: {}, d, m: mult };
+      this.revEv = null;
+      return this.go("rev");
     }
     if (H.cur.t === "split") {
       // Both split: half each. One steals: they take the lot. Both steal: nobody. No pick counts as Split. A right bet wins 300.
@@ -3259,7 +3367,7 @@ const TV = {
     const H = this.H, now = Date.now();
     const pres = {
       app: APP, role: "h", code: H.code, gid: H.gid, ph: H.ph, r: H.r, R: H.R, rk: H.rk || null,
-      pl: this.players().map(p => [p.pid, p.name, p.color, p.score, p.online ? 1 : 0, p.photos, p.songs || [], p.av || ""]),
+      pl: this.players().map(p => [p.pid, p.name, p.color, H.ph === "rev" && H.cur?.t === "draw" && !drawRevealProgress(H.rv).complete ? p.prev ?? p.score : p.score, p.online ? 1 : 0, p.photos, p.songs || [], p.av || ""]),
       kind: H.cur?.t || null, th: themeOf(H).label, ih: H.ph === "intro" && H.introHow && H.introHow === H.cur?.t ? 1 : 0,
       imp: this.isImp() && ["intro", ...IMP_PHASES, "q", "rev"].includes(H.ph) ? { cat: H.cur.cat, sp: H.ph === "imp-clue" ? H.cur.order[H.turn] : null, turn: H.turn || 0, n: H.cur.order.length, none: H.impVar === "none" ? 1 : 0 } : null,
       aw: H.ph === "end" ? this.awards().map(([p, title, detail]) => [p.pid, title, detail]) : null,
@@ -3360,7 +3468,7 @@ const TV = {
     const H = this.H, el = $("#rail");
     if (!el) return;
     if (["lobby", "lb", "end"].includes(H.ph) || !H.R) return paint(el, "", "");
-    const live = H.ph !== "rev" || Date.now() >= (this.railAt || 0);
+    const live = H.ph !== "rev" || (H.cur?.t === "draw" ? drawRevealProgress(H.rv).complete : Date.now() >= (this.railAt || 0));
     const ps = this.players().map(p => ({ p, s: live ? p.score : p.prev ?? p.score, up: live && H.ph === "rev" ? p.score - (p.prev ?? p.score) : 0 })).sort((a, b) => b.s - a.s);
     const top = ps[0]?.s || 0;
     el.classList.toggle("many", ps.length > 8);
@@ -3389,6 +3497,7 @@ const TV = {
   },
   renderHostbar() {
     const H = this.H, c = this.confirm?.a;
+    const drawReveal = H.ph === "rev" && H.cur?.t === "draw", next = drawReveal ? drawRevealProgress(H.rv).next : "Next";
     const lbl = (a, t) => (c === a ? "Tap again to confirm" : t);
     let html = "";
     if (H.ph === "lobby") {
@@ -3400,10 +3509,10 @@ const TV = {
     } else if (H.ph === "end") {
       html = `<button class="btn primary" data-act="again">Play again</button><button class="btn sm" data-act="new-room">${lbl("new-room", "New room")}</button>`;
     } else {
-      html = `${this.needSound ? `<button class="btn primary" data-act="sound">Turn on sound</button>` : ""}<button class="btn sm" data-act="pause">Pause</button><button class="btn sm" data-act="next">Next</button><button class="btn sm" data-act="end-game">${lbl("end-game", "End game")}</button>`;
+      html = `${this.needSound ? `<button class="btn primary" data-act="sound">Turn on sound</button>` : ""}<button class="btn sm" data-act="pause">Pause</button><button class="btn ${drawReveal ? "primary" : "sm"}" data-act="next">${next}</button><button class="btn sm" data-act="end-game">${lbl("end-game", "End game")}</button>`;
     }
     html += `<button class="btn sm" data-act="full">Full screen</button>${H.ph === "lobby" ? "" : `<button class="btn sm" data-act="exit">${lbl("exit", "Exit TV mode")}</button>`}`;
-    const did = paint($("#hostbar"), `${H.ph}|${this.canStart()}|${c}|${this.starting}|${this.err}|${H.modes.join()}|${this.needSound}|${SFX.ready()}|${H.snd}`, html);
+    const did = paint($("#hostbar"), `${H.ph}|${next}|${this.canStart()}|${c}|${this.starting}|${this.err}|${H.modes.join()}|${this.needSound}|${SFX.ready()}|${H.snd}`, html);
     // With a TV remote, start on the button that turns the sound on, so a single press of OK does it.
     if (did && (!SFX.ready() || this.needSound) && (!document.activeElement || document.activeElement === document.body)) $("#hostbar [data-act=sound-check], #hostbar [data-act=sound]")?.focus({ preventScroll: true });
   },
@@ -3468,6 +3577,11 @@ const TV = {
       return;
     }
     if (H.ph === "rev") {
+      if (H.cur?.t === "draw") {
+        const progress = drawRevealProgress(H.rv);
+        paint(stage, `draw-rev|${H.rk}|${progress.shown}`, this.drawRevealHtml() + (progress.complete ? this.twistNote() : ""));
+        return;
+      }
       // The scores along the top change when this reveal shows who scored (its --t2), not before.
       if (paint(stage, "rev|" + H.rk + "|" + (DATA.shapes ? 1 : 0), this.revealHtml() + this.twistNote()) && this.revRk !== H.rk) {
         const t2 = parseFloat(stage.firstElementChild?.style.getPropertyValue("--t2")) || 2.6;
@@ -3964,18 +4078,19 @@ const TV = {
   },
   // One chain, card by card: the prompt, then each drawing and guess as it was passed along.
   drawRevealHtml() {
-    const H = this.H, rv = H.rv, P = H.players, gap = 1.6, starter = P[rv.by];
+    const H = this.H, rv = H.rv, P = H.players, starter = P[rv.by], { shown, total, complete } = drawRevealProgress(rv);
     const who = x => (x && P[x.pid] ? `<span class="dwho">${face(P[x.pid])}${esc(P[x.pid].name)}</span>` : "");
-    const cards = [`<li class="dcard text start" style="--d:.3s"><span class="eyebrow">${esc(starter?.name || "The")}'s prompt</span><b>${esc(rv.p)}</b></li>`, ...rv.items.map((x, s) => {
-      const st = `--d:${(0.3 + (s + 1) * gap).toFixed(1)}s`;
-      if (!x?.v) return `<li class="dcard ${s % 2 ? "text" : "pic"} none" style="${st}"><b>${s % 2 ? "No guess" : "No drawing"}</b></li>`;
-      if (x.k === "d") return `<li class="dcard pic" style="${st}"><img src="${photoSrc(x.v)}" alt="A drawing">${who(x)}</li>`;
-      return `<li class="dcard text ${rv.marks[s] === 2 ? "hit" : rv.marks[s] ? "close" : ""}" style="${st}">${who(x)}<b>“${esc(x.v)}”</b>${rv.marks[s] ? `<i>${rv.marks[s] === 2 ? "Nailed it" : "Close"}</i>` : ""}</li>`;
+    const cards = [`<li class="dcard text start ${shown === 0 ? "current" : ""}"><span class="eyebrow">${esc(starter?.name || "The")}'s original prompt</span><b>${esc(rv.p)}</b></li>`, ...rv.items.slice(0, shown).map((x, s) => {
+      const current = s === shown - 1 ? " current" : "";
+      if (!x?.v) return `<li class="dcard ${s % 2 ? "text" : "pic"} none${current}"><b>${s % 2 ? "No guess" : "No drawing"}</b></li>`;
+      if (x.k === "d") return `<li class="dcard pic${current}"><img src="${photoSrc(x.v)}" alt="Drawing by ${esc(P[x.pid]?.name || "a player")}">${who(x)}</li>`;
+      return `<li class="dcard text ${rv.marks[s] === 2 ? "hit" : rv.marks[s] ? "close" : ""}${current}">${who(x)}<b>“${esc(x.v)}”</b>${rv.marks[s] ? `<i>${rv.marks[s] === 2 ? "Nailed it" : "Close"}</i>` : ""}</li>`;
     })];
-    const t = 0.3 + (rv.items.length + 1) * gap, verdict = rv.end === 2 ? "Nailed it!" : rv.end === 1 ? "Close enough" : rv.end === 0 ? "Lost in translation" : "";
-    return `<section class="drawrev" style="--t:${t.toFixed(1)}s;--t2:${(t + 0.6).toFixed(1)}s"><p class="eyebrow">Draw it · Chain ${rv.ci + 1} of ${rv.n}${rv.m > 1 ? " · Double points" : ""}</p>
-      <ol class="dchain">${cards.join("")}</ol>${verdict ? `<div class="stamp dverdict">${verdict}</div>` : ""}
-      <div class="deltas">${this.scorersHtml(rv, "", "No matches in this chain")}${this.sipHtml()}</div></section>`;
+    const verdict = rv.end === 2 ? "Nailed it!" : rv.end === 1 ? "Close enough" : rv.end === 0 ? "Lost in translation" : "";
+    return `<section class="drawrev" style="--t:.1s;--t2:.2s"><p class="eyebrow">Draw it · Chain ${rv.ci + 1} of ${rv.n}${rv.m > 1 ? " · Double points" : ""}</p>
+      <p class="dprogress" role="status">${complete ? "The full chain" : shown === 0 ? "The original prompt" : shown % 2 ? "The drawing" : "The guess"} · ${shown + 1} of ${total + 1} reveals</p>
+      <ol class="dchain">${cards.join("")}</ol>${complete && verdict ? `<div class="stamp dverdict">${verdict}</div>` : ""}
+      ${complete ? `<div class="deltas">${this.scorersHtml(rv, "", "No matches in this chain")}${this.sipHtml()}</div>` : `<p class="dprogress">The host reveals the next part when everyone's ready.</p>`}</section>`;
   },
   // Split or steal: the two players either side of the pot, whether each has picked yet, and the bets coming in.
   renderSplit(stage) {
@@ -4353,15 +4468,29 @@ const PH = {
       if (this.host?.vip !== this.pid || this.host.ph !== "rev") return;
       this.cmd = this.send("next"); vibrate(20); return this.renderMain(true);
     }
+    if (a === "draw-next") {
+      const H = this.host;
+      if (H?.vip !== this.pid || H.ph !== "rev" || H.kind !== "draw") return;
+      this.send(`draw-next:${H.rk}:${drawRevealProgress(H.rv).shown}`); vibrate(20); return;
+    }
     if (a === "clue-done") {
       const H = this.host;
       if (!H?.imp || H.ph !== "imp-clue" || H.imp.sp !== this.pid) return;
       this.dn = H.rk + ":" + H.imp.turn; vibrate(20); this.push(); return this.renderMain(true);
     }
+    if (a === "rx-open" || a === "rx-close") {
+      this.rxOpen = a === "rx-open"; this.renderFoot();
+      if (!this.rxOpen) $("#rx-trigger")?.focus();
+      return;
+    }
     if (a === "react") {
       const now = Date.now();
-      if (now - (this.rxAt || 0) < 400) return;
-      this.rxAt = now; this.send("react:" + Number(el.dataset.i)); el.classList.remove("hit"); void el.offsetWidth; el.classList.add("hit");
+      const i = Number(el.dataset.i);
+      if (!this.rxOpen || !Number.isInteger(i) || !REACTS[i] || now - (this.rxAt || 0) < 400) return;
+      this.rxAt = now; this.send("react:" + i); this.rxOpen = false;
+      this.rxFeedback = REACTS[i][1] + " sent"; this.renderFoot(); $("#rx-trigger")?.focus();
+      clearTimeout(this.rxFeedbackTimer);
+      this.rxFeedbackTimer = setTimeout(() => { this.rxFeedback = ""; this.renderFoot(); }, 2200);
       return vibrate(10);
     }
     if (a === "share-night" || a === "share-chain") {
@@ -4370,13 +4499,26 @@ const PH = {
       vibrate(15);
       return SHARE.send(b, a === "share-night" ? "fafo-game-night.png" : "fafo-draw-it.png", a === "share-night" ? "Our fafo game night" : "How far did it drift? fafo");
     }
-    if (a === "sk-color" || a === "sk-size") {
+    if (a === "sk-color" || a === "sk-size" || a === "sk-tool") {
+      if (this.drawing?.busy) return;
+      if (a === "sk-tool") {
+        if (!["pen", "eraser", "line", "rect", "ellipse"].includes(el.dataset.tool)) return;
+        SKETCH.tool = el.dataset.tool;
+        for (const b of document.querySelectorAll(".draw-tools button")) { b.classList.toggle("on", b === el); b.setAttribute("aria-pressed", String(b === el)); }
+        return vibrate(8);
+      }
       if (a === "sk-color") SKETCH.color = el.dataset.c; else SKETCH.size = Number(el.dataset.z) || 12;
-      for (const b of document.querySelectorAll(a === "sk-color" ? ".tools .sw" : ".tools .sz")) b.classList.toggle("on", b === el);
+      for (const b of document.querySelectorAll(a === "sk-color" ? ".tools .sw" : ".tools .sz")) { b.classList.toggle("on", b === el); b.setAttribute("aria-pressed", String(b === el)); }
       return vibrate(8);
     }
     if (a === "sk-undo") return SKETCH.undo();
-    if (a === "sk-clear") return SKETCH.clear();
+    if (a === "sk-redo") return SKETCH.redo();
+    if (a === "sk-clear") { const box = $("#draw-confirm"); if (box) { box.hidden = false; box.querySelector("button")?.focus(); } return; }
+    if (a === "sk-clear-cancel" || a === "sk-clear-confirm") {
+      if (a === "sk-clear-confirm") SKETCH.clear();
+      const box = $("#draw-confirm"); if (box) box.hidden = true;
+      $("[data-act=sk-clear]")?.focus(); return;
+    }
     if (a === "sk-send") return this.sendDrawing(false);
     if (a === "shot" || a === "shot-reset" || a === "shot-lock") {
       const H = this.host;
@@ -4451,8 +4593,18 @@ const PH = {
     const pause = live && H.vip === this.pid, far = live && H.sp && ["intro", "q", "qw", "qv"].includes(H.ph) && this.tooFarAt !== H.rk;
     // Reactions whenever this phone has nothing to do: reveals, scores, the title cards, and after locking in.
     const idle = H && this.joined && this.me() && !H.pause && (["intro", "rev", "lb", "end"].includes(H.ph) || (["q", "qv", "fk-ans"].includes(H.ph) && this.g?.rk === H.rk) || (H.ph === "dw" && this.dr?.rk === H.rk) || H.ph === "imp-clue" || (H.ph === "q" && H.x === fnv(this.pid + H.rk)));
-    paint($("#ph-foot"), [pause, far, !!idle].join(), (idle ? `<div class="rxbar">${REACTS.map(([e, w], i) => `<button data-act="react" data-i="${i}" aria-label="${esc(w)}">${e ? `<span>${e}</span>` : `<b>${esc(w)}</b>`}</button>`).join("")}</div>` : "")
+    if (!idle) { this.rxOpen = false; this.rxFeedback = ""; }
+    const changed = paint($("#ph-foot"), [pause, far, !!idle, !!this.rxOpen, this.rxFeedback || ""].join(), (idle ? `<button id="rx-trigger" class="btn rx-trigger" data-act="rx-open" aria-haspopup="dialog" aria-expanded="${!!this.rxOpen}">React</button>
+      <p class="rx-feedback" role="status">${esc(this.rxFeedback || "")}</p>
+      <dialog id="rx-picker" class="rx-picker" aria-labelledby="rx-title"><header class="rx-heading"><h2 id="rx-title">Send a reaction</h2><button class="btn sm" data-act="rx-close" autofocus>Close</button></header>
+      <div class="rxbar">${REACTS.map(([e, w], i) => `<button data-act="react" data-i="${i}" aria-label="${esc(w)}">${e ? `<span aria-hidden="true">${e}</span>` : ""}<b>${esc(w)}</b></button>`).join("")}</div></dialog>` : "")
       + (far ? `<button class="btn sm" data-act="toofar">Too far</button>` : "") + (pause ? `<button class="btn sm" data-act="pause">Pause game</button>` : ""));
+    if (changed && this.rxOpen) {
+      const picker = $("#rx-picker");
+      picker.oncancel = e => { e.preventDefault(); this.rxOpen = false; this.renderFoot(); $("#rx-trigger")?.focus(); };
+      picker.onclick = e => { if (e.target !== picker) return; const r = picker.getBoundingClientRect(); if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) { this.rxOpen = false; this.renderFoot(); $("#rx-trigger")?.focus(); } };
+      picker.showModal();
+    }
   },
   // Quips: this phone's prompts with a box for each. Sent answers are final.
   rWrite(main) {
@@ -4554,6 +4706,7 @@ const PH = {
   },
   renderMain(force) {
     const main = $("#ph-main");
+    app.classList.toggle("drawing-active", this.joined && this.host?.ph === "dw" && !this.host?.pause && this.host?.dw?.t?.[this.pid]?.[1] === "draw" && this.dr?.rk !== this.host.rk && !(this.host.dw.done || []).includes(this.pid));
     if (!main) return;
     if (force) main.dataset.sig = "";
     if (roomState === "none") return paint(main, "none", `<div class="card"><p class="ph-h">Can't reach the TV</p>
@@ -4868,18 +5021,22 @@ const PH = {
       return;
     }
     const busy = this.drawing?.rk === H.rk && this.drawing.busy;
-    const did = paint(main, ["dw-d", H.rk, busy, this.drawErr || ""].join("|"), `${tbar}<div class="card dwcard"><p class="eyebrow">${step} · Draw this</p><p class="ph-h dprompt">${esc(t[2])}</p>
-      <canvas id="sketch" class="sketch" width="${DRAW_W}" height="${DRAW_H}"></canvas>
-      <div class="tools">${SKETCH_COLORS.map(c => `<button class="sw ${SKETCH.color === c ? "on" : ""}" style="--sw:${c}" data-act="sk-color" data-c="${c}" aria-label="Colour"></button>`).join("")}<span class="tsep"></span>${[5, 12, 28].map(z => `<button class="sz ${SKETCH.size === z ? "on" : ""}" data-act="sk-size" data-z="${z}" aria-label="Brush size"><i style="width:${Math.round(z * 0.7)}px;height:${Math.round(z * 0.7)}px"></i></button>`).join("")}</div>
-      <div class="dwbtns"><button class="btn sm" data-act="sk-undo">Undo</button><button class="btn sm" data-act="sk-clear">Clear</button><button class="btn primary" data-act="sk-send" ${busy ? "disabled" : ""}>${busy ? "Sending…" : "Done"}</button></div>
-      ${this.drawErr ? `<p class="warn">${esc(this.drawErr)}</p>` : ""}<p class="muted">No words or letters. It goes to the next person, who has to guess it.</p></div>`);
+    const toolIcons = { pen: '<path d="m4 16 12-12 4 4-12 12-5 1zM13 7l4 4"/>', eraser: '<path d="m3 14 10-10 8 8-8 8H9zM8 9l8 8M13 20h8"/>', line: '<path d="m4 20 16-16"/>', rect: '<rect x="3" y="5" width="18" height="14" rx="1"/>', ellipse: '<ellipse cx="12" cy="12" rx="9" ry="7"/>' };
+    const did = paint(main, ["dw-d", H.rk, busy, this.drawErr || ""].join("|"), `${tbar}<div class="card dwcard"><div class="draw-heading"><p class="eyebrow">${step} · Draw this</p><p class="ph-h dprompt">${esc(t[2])}</p></div>
+      <div class="sketch-stage"><canvas id="sketch" class="sketch" width="${DRAW_W}" height="${DRAW_H}" aria-label="Draw your prompt here. Drag to draw or create a shape." aria-disabled="${!!busy}"></canvas></div>
+      <div class="draw-tools" role="group" aria-label="Drawing tools">${[["pen", "Pen"], ["eraser", "Eraser"], ["line", "Line"], ["rect", "Rectangle"], ["ellipse", "Ellipse"]].map(([tool, label]) => `<button data-act="sk-tool" data-tool="${tool}" class="${SKETCH.tool === tool ? "on" : ""}" aria-pressed="${SKETCH.tool === tool}" ${busy ? "disabled" : ""}><svg viewBox="0 0 24 24" aria-hidden="true">${toolIcons[tool]}</svg>${label}</button>`).join("")}</div>
+      <div class="tools" role="group" aria-label="Colour and thickness">${SKETCH_COLORS.map((c, i) => `<button class="sw ${SKETCH.color === c ? "on" : ""}" style="--sw:${c}" data-act="sk-color" data-c="${c}" aria-label="${["Black", "Red", "Blue", "Green", "Yellow", "Brown", "White"][i]}" aria-pressed="${SKETCH.color === c}" ${busy ? "disabled" : ""}></button>`).join("")}<span class="tsep"></span>${[5, 12, 28].map((z, i) => `<button class="sz ${SKETCH.size === z ? "on" : ""}" data-act="sk-size" data-z="${z}" aria-label="${["Thin", "Medium", "Thick"][i]} stroke" aria-pressed="${SKETCH.size === z}" ${busy ? "disabled" : ""}><i style="width:${Math.round(z * 0.7)}px;height:${Math.round(z * 0.7)}px"></i></button>`).join("")}</div>
+      <div class="dwbtns"><button class="btn sm" data-act="sk-undo">Undo</button><button class="btn sm" data-act="sk-redo">Redo</button><button class="btn sm" data-act="sk-clear">Clear</button><button class="btn primary" data-act="sk-send" ${busy ? "disabled" : ""}>${busy ? "Sending…" : "Done"}</button></div>
+      <div class="draw-confirm" id="draw-confirm" hidden><span>Clear the drawing?</span><button class="btn sm" data-act="sk-clear-cancel">Keep drawing</button><button class="btn sm" data-act="sk-clear-confirm">Clear it</button></div>
+      ${this.drawErr ? `<p class="warn" role="alert">${esc(this.drawErr)}</p>` : ""}<p class="muted draw-hint">Drag to draw a shape. No words or letters — the next person guesses.</p></div>`);
     if (did || !SKETCH.cv?.isConnected) SKETCH.mount($("#sketch"), H.rk);
   },
   // Sends this step's drawing: uploaded like a photo, then its id goes to the TV. Also called just before time runs out.
   async sendDrawing(auto) {
     const H = this.host;
     if (!H || H.ph !== "dw" || this.dr?.rk === H.rk || (this.drawing?.rk === H.rk && this.drawing.busy)) return;
-    if (SKETCH.rk !== H.rk || !SKETCH.strokes.length) { if (!auto) { this.drawErr = "Draw something first."; this.renderMain(); } return; }
+    SKETCH.finish();
+    if (SKETCH.rk !== H.rk || !SKETCH.hasInk()) { if (!auto) { this.drawErr = "Draw something first."; this.renderMain(); } return; }
     const rk = H.rk, b64 = SKETCH.jpeg(), id = "f" + rid(9);
     this.drawing = { rk, busy: true }; this.drawErr = ""; this.renderMain();
     for (let tries = 0; tries < 3 && this.dr?.rk !== rk; tries++) {
@@ -4895,11 +5052,13 @@ const PH = {
     this.dr = { rk: H.rk, v }; vibrate(25); this.push(); this.renderMain();
   },
   rDrawReveal(main) {
-    const H = this.host, rv = H.rv || {}, me = this.pid, pts = rv.d?.[me] || 0, mine = rv.by === me || (rv.items || []).some(x => x?.pid === me), key = "chain|" + H.rk;
-    this.prepShare(key, () => SHARE.chain(rv, Object.fromEntries(this.pl().map(p => [p[0], cleanName(p[1])]))));
-    paint(main, ["dr-rev", H.rk, this.shareReady(key)].join("|"), `<div class="card center result ${pts ? "good" : ""}"><p class="eyebrow">Draw it · Chain ${(rv.ci || 0) + 1} of ${rv.n || 1}</p><p class="ph-big">${pts ? "Nailed it!" : "Eyes on the TV"}</p>
-      <p style="font-weight:800;font-size:19px">${pts ? `+${fmt(pts)} points` : mine ? "Your work is up there." : "Watch how far it drifted."}</p>${this.sipNote()}</div>
-      <button class="btn wide" data-act="share-chain" data-k="${esc(key)}">${this.shareReady(key) ? "Share this chain" : "Making the picture…"}</button>`);
+    const H = this.host, rv = H.rv || {}, me = this.pid, { shown, total, complete, next } = drawRevealProgress(rv), pts = complete ? rv.d?.[me] || 0 : 0, key = "chain|" + H.rk;
+    const mine = rv.by === me || (rv.items || []).slice(0, shown).some(x => x?.pid === me), vip = H.vip === me;
+    if (complete) this.prepShare(key, () => SHARE.chain(rv, Object.fromEntries(this.pl().map(p => [p[0], cleanName(p[1])]))));
+    paint(main, ["dr-rev", H.rk, shown, vip, this.shareReady(key)].join("|"), `<div class="card center result ${pts ? "good" : ""}"><p class="eyebrow">Draw it · Chain ${(rv.ci || 0) + 1} of ${rv.n || 1}</p><p class="ph-big">${pts ? "A match!" : "Eyes on the TV"}</p>
+      <p style="font-weight:800;font-size:19px">${pts ? `+${fmt(pts)} points` : mine ? "Your work is up there." : "Watch how far it drifted."}</p><p class="muted">${complete ? "The full chain is revealed." : `Reveal ${shown + 1} of ${total + 1}. ${vip ? "Take your time, then reveal the next part." : "The host reveals each part."}`}</p>${complete ? this.sipNote() : ""}</div>
+      ${vip ? `<button class="btn primary wide" data-act="draw-next">${next}</button>` : ""}
+      ${complete ? `<button class="btn wide" data-act="share-chain" data-k="${esc(key)}" ${this.shareReady(key) ? "" : "disabled"}>${this.shareReady(key) ? "Share this chain" : "Making the picture…"}</button>` : ""}`);
   },
   // Share pictures are made as soon as their screen shows, so a tap opens the share sheet at once (phones only allow
   // sharing straight after a tap). Only the latest few are kept.
