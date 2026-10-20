@@ -75,6 +75,14 @@ tapped quickly. The same rounds and settings are under **Rounds & settings** on 
   far it drifted. A guess that nails what was being drawn scores 1,000 for the drawer and the guesser; a close one
   (a key word in common) 400. Drawings upload like photos and live in the server's memory. Prompts are in
   `server/data/draw.json`, with a `wild` list for No holds barred. Needs 3 players.
+- **Herd mind:** a question with lots of answers ("A pizza topping"). Everyone types what they think most people
+  will type; the biggest group of matching answers (two or more, no tie) scores 500 each. Matching ignores capitals,
+  plurals, "the" and a typo. Anyone left alone while everyone else matched is the black sheep. Uses the Mind meld
+  prompts. Needs 3 players.
+- **Showdown:** rock, paper, scissors against the whole room at once. Three throws a round; each player you beat
+  scores 100, then 200, then 300. Works with 2 players.
+- **Who's older?:** two famous faces a few years apart (more on Easy, fewer on Hard), usually the same kind of
+  famous. Pick the one born first; the reveal shows both birth years.
 - **Lowest number wins:** everyone secretly picks a number from 1 to 10 on their phone. Numbers more than one player
   picked are knocked out, and the lowest number left wins. Three goes a round, worth 300, 600 and 1,000. The reveal
   shows who picked what, crosses out the clashes and lights up the winner. Needs 3 players.
@@ -104,6 +112,13 @@ Scoring: a right answer is 500 to 1,000 points, faster scores more. When someone
 wrong, you get 250 points. The last round counts double. Each reveal shows who picked which answer; set
 **Votes** to Anonymous in Rounds & settings to show only how many picked each one. The game ends with a podium and
 a few awards.
+
+**Picking games on a phone:** whoever starts the game picks from their phone. New rooms start with the Party
+starter night, which needs no photos or songs. The picker has **Surprise me** (about five games that work for the
+players in the room, no prep), ready-made game nights, and every game as a compact row with a ? for how to play.
+Settings are big buttons for how long, how spicy, drinks and twists, with the rest under More settings.
+**How long** is a total, not per game: Quick is about 10 minutes, Normal about 20, Long about 35, shared between
+whatever games are picked, so picking more games mixes more in rather than making the night longer.
 
 **Twists** (Rounds & settings, on by default): about one round in four gets a twist, announced on its title card
 and on the phones: Double points, Underdog round (whoever's last scores triple), Lightning round (8 seconds),

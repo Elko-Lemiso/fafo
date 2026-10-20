@@ -328,6 +328,41 @@ button{touch-action:manipulation}
 .preset.on span{color:var(--paper)}
 .mlist{display:flex;flex-direction:column;gap:8px}
 .sheet-open,.sheet-open body{overflow:hidden}
+/* the phone picker: compact rows */
+.glist{display:flex;flex-direction:column;gap:8px}
+.grow{position:relative;border:3px solid var(--ink);border-radius:14px;background:var(--paper);box-shadow:0 3px 0 var(--ink);overflow:hidden}
+.grow-main{font:inherit;color:inherit;width:100%;display:flex;align-items:center;gap:10px;text-align:left;padding:8px 50px 8px 8px;background:transparent;border:0;cursor:pointer;min-height:62px}
+.grow .gicon{width:42px;height:42px;border-radius:11px;font-size:22px}
+.grow .gtext b{font-size:16px;line-height:1.1}
+.gline{font-size:13px;font-weight:600;color:var(--ink-soft);line-height:1.25;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.gline .need{font-style:normal;font-family:var(--label);font-weight:700;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--tomato);margin-right:6px}
+.gline .need.prep{color:var(--cobalt)}
+.grow.on .gline .need{color:var(--sun)}
+.grow .tick{flex:none;width:26px;height:26px;border-radius:50%;border:3px solid var(--ink);background:#fff;display:grid;place-items:center}
+.grow.on{background:var(--cobalt);color:var(--paper)}
+.grow.on .gline{color:var(--paper)}
+.grow.on .tick{background:var(--sun)}
+.grow.on .tick::after{content:"";width:6px;height:12px;border:solid var(--ink);border-width:0 3px 3px 0;transform:translateY(-2px) rotate(45deg)}
+.ginfo{position:absolute;top:13px;right:8px;width:34px;height:34px;border-radius:50%;border:2px solid currentColor;background:transparent;color:inherit;font-family:var(--display);font-size:16px;cursor:pointer}
+.grow .gdetail{padding:0 14px 14px 60px}
+.surprise{display:flex;align-items:center;gap:12px}
+.surprise span{font-size:13px;font-weight:700;color:var(--ink-soft);line-height:1.3}
+/* phone settings: segmented buttons */
+.segs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:3px solid var(--ink);border-radius:14px;overflow:hidden;background:#fff}
+.segs.four{grid-template-columns:repeat(2,minmax(0,1fr))}
+.segs button{font:inherit;border:0;border-left:2px solid var(--ink);background:transparent;color:var(--ink);padding:10px 6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:52px;justify-content:center}
+.segs button:first-child{border-left:0}
+.segs.four button:nth-child(3){border-left:0}
+.segs.four button:nth-child(n+3){border-top:2px solid var(--ink)}
+.segs button b{font-family:var(--display);font-weight:400;font-size:15px;line-height:1.1;text-align:center}
+.segs button span{font-size:11.5px;font-weight:700;color:var(--ink-soft)}
+.segs button.on{background:var(--ink);color:var(--sun)}
+.segs button.on span{color:var(--paper)}
+.segpair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.segpair .segs{grid-template-columns:1fr 1fr}
+.moreset{border-top:2px dashed var(--ink-soft);padding-top:10px;display:flex;flex-direction:column;gap:12px}
+.moreset summary{font-weight:800;color:var(--cobalt);cursor:pointer;padding:6px 0}
+.moreset[open]>.field{margin-top:8px}
 /* game cards: the phone picker (.gcard) and the TV's (.tcard) */
 .nights{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 calc(-1 * max(16px,env(safe-area-inset-left)));padding:2px max(16px,env(safe-area-inset-left)) 8px}
 .nights::-webkit-scrollbar,.filters::-webkit-scrollbar{display:none}
@@ -603,6 +638,39 @@ button{touch-action:manipulation}
 .ssb:active{transform:translateY(5px);box-shadow:0 1px 0 var(--ink)}
 @keyframes flipout{from{transform:rotateY(0)}to{transform:rotateY(90deg)}}
 @keyframes flipin{from{transform:rotateY(90deg)}to{transform:rotateY(0)}}
+/* Herd mind, Showdown, Who's older */
+.hgrps{display:flex;flex-wrap:wrap;gap:1.4vmin;justify-content:center}
+.hgrp{position:relative;display:flex;flex-direction:column;align-items:center;gap:1vmin;background:var(--paper);border:3px solid var(--ink);border-radius:1.6vmin;box-shadow:0 .7vmin 0 var(--ink);padding:1.4vmin 2.2vmin;min-width:18vmin;max-width:42vmin;animation:pop .4s calc(.3s + var(--i) * .25s) cubic-bezier(.3,1.6,.5,1) both}
+.hgrp b{font-family:var(--display);font-weight:400;font-size:max(18px,3.6vmin);line-height:1.05;text-align:center;overflow-wrap:anywhere}
+.hgrp .hwho{display:flex;flex-wrap:wrap;gap:.4vmin;justify-content:center}
+.hgrp .avatar{font-size:max(11px,1.9vmin);border-width:2px}
+.hgrp>i{position:absolute;top:-1.6vmin;right:-1.6vmin;font-style:normal;font-family:var(--display);background:var(--ink);color:var(--sun);border-radius:999px;padding:.2vmin 1.1vmin;font-size:max(13px,2.2vmin)}
+.hgrp.herd{animation:pop .4s calc(.3s + var(--i) * .25s) both,win .5s var(--t,2.4s) both}
+.hgrp.lone{opacity:.8}
+.hgrp em{font-style:normal;font-family:var(--label);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:max(11px,1.6vmin);color:var(--paper);background:var(--ink);border-radius:999px;padding:.1vmin 1vmin}
+.rpsrow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3vmin}
+.rpsrow li{display:flex;flex-direction:column;align-items:center;gap:1vmin;background:var(--paper);border:3px solid var(--ink);border-radius:2vmin;box-shadow:0 .8vmin 0 var(--ink);padding:2vmin}
+.rpsi{font-size:max(44px,11vmin);line-height:1;font-family:var(--display)}
+.rpsrow li>b{font-family:var(--display);font-weight:400;font-size:max(18px,3.6vmin)}
+.rwho{display:flex;flex-wrap:wrap;gap:.5vmin;justify-content:center;min-height:4vmin}
+.rwho>span{display:inline-flex;animation:drop .35s cubic-bezier(.3,1.5,.5,1) both}
+.rwho .avatar{font-size:max(11px,2vmin);border-width:2px}
+.rpsq.rev .rpsrow li.win{animation:win .5s var(--t,1.6s) both}
+.rpsq.rev .rpsrow li.lose{animation:dim .4s var(--t,1.6s) both}
+.rpsbtns{display:grid;gap:10px}
+.rpsb{display:flex;align-items:center;gap:14px;min-height:72px;padding:10px 16px;border:3px solid var(--ink);border-radius:16px;background:var(--paper);box-shadow:0 5px 0 var(--ink);cursor:pointer;font:inherit}
+.rpsb span{font-size:40px;line-height:1}
+.rpsb b{font-family:var(--display);font-weight:400;font-size:24px}
+.rpsb:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.olders{display:flex;align-items:center;justify-content:center;gap:3vmin}
+.ocard{position:relative;display:flex;flex-direction:column;background:var(--paper);border:3px solid var(--ink);border-radius:1.6vmin;box-shadow:0 1vmin 0 var(--ink);overflow:hidden;width:min(40vmin,42%);animation:pop .45s cubic-bezier(.3,1.6,.5,1) both}
+.ocard img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 20%;background:var(--photo-bg)}
+.ocard figcaption{display:flex;align-items:center;gap:1.2vmin;padding:1.2vmin 1.4vmin;font-weight:800;font-size:max(15px,2.8vmin);flex-wrap:wrap}
+.ocard figcaption>b{display:grid;place-items:center;width:1.8em;height:1.8em;border-radius:.4em;background:var(--oc);color:var(--paper);font-family:var(--display);font-weight:400;border:2px solid var(--ink)}
+.ocard figcaption i{font-style:normal;font-family:var(--display);font-weight:400;margin-left:auto;animation:fadein .3s var(--t,2s) both}
+.ocard .voters{position:absolute;top:1vmin;right:1vmin}
+.ocard.win{animation:pop .45s both,win .5s var(--t,2s) both}
+.ocard.lose{animation:pop .45s both,dim .4s var(--t,2s) both}
 /* Shot in the dark */
 .shot{height:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:5vmin;align-items:center;max-width:1500px;margin:0 auto;width:100%}
 .sgrid{display:grid;gap:1.2vmin;width:min(100%,66vmin);aspect-ratio:1;justify-self:center}
@@ -759,15 +827,15 @@ const COLORS = ["#D93A26","#2342C6","#11704F","#7339D6","#C42F78","#0B7584","#B5
 const CODE_CHARS = "ABCDEFGHJKMNPQRSTUVWXYZ";
 // Kinds of round. Photo games play every photo; flag and map rounds come in sets of ROUNDS (fewer when mixed).
 const ROUNDS = 10, SONGS_PER_PLAYER = 3;
-const MODES = ["photo", "song", "prof", "said", "ttl", "hot", "quip", "bluff", "draw", "meld", "tune", "face", "flag", "map", "cap", "big", "trivia", "buzz", "num", "year", "hilo", "odd", "emoji", "imp", "fakin", "split", "low", "shot", "likely", "wyr", "nhie"];
+const MODES = ["photo", "song", "prof", "said", "ttl", "hot", "quip", "bluff", "draw", "meld", "tune", "face", "flag", "map", "cap", "big", "trivia", "buzz", "num", "year", "hilo", "odd", "emoji", "imp", "fakin", "split", "low", "shot", "herd", "rps", "older", "likely", "wyr", "nhie"];
 // Owner rounds show something a player brought, and everyone guesses which player. The rest are quiz rounds with 4 answers.
 const OWNER_KINDS = ["photo", "song", "prof"];
 // Rounds where you answer by picking a player rather than one of 4 answers.
 const PLAYER_KINDS = ["photo", "song", "prof", "imp", "fakin", "likely"];
 // Modes that need at least 3 players to make sense.
-const CROWD_KINDS = ["prof", "said", "quip", "bluff", "draw", "imp", "fakin", "low", "likely", "wyr", "nhie"];
+const CROWD_KINDS = ["prof", "said", "quip", "bluff", "draw", "imp", "fakin", "low", "herd", "likely", "wyr", "nhie"];
 // Modes that work with 2 players.
-const PAIR_KINDS = ["ttl", "meld", "hot", "split", "shot"];
+const PAIR_KINDS = ["ttl", "meld", "hot", "split", "shot", "rps"];
 // What each mode is, for the pickers: an icon, a one-line pitch, what kind of game it is, how a round goes, and how it scores.
 const QUIZ_SCORE = "500 to 1,000 for a right answer. The faster you are, the more you get.";
 const MODE_CARD = {
@@ -786,6 +854,9 @@ const MODE_CARD = {
   bluff: { i: "🃏", tag: "Write · Bluff", blurb: "Write a fake answer to a real fact. Then find the truth among the fakes.", how: ["A true fact with a blank appears", "Write a fake answer that sounds true", "Pick the real one among everyone's fakes"], score: "500 for finding the truth, and 250 for every player your fake fools." },
   imp: { i: "🕵️", tag: "Talk · Vote", blurb: "Everyone has the same secret word except one. Find the imposter.", how: ["Check your secret word on your phone", "Take turns saying a one-word clue out loud", "Talk it over, then vote"], score: "500 for spotting the imposter. 1,000 to the imposter if they get away." },
   fakin: { i: "🎭", tag: "Bluff · Vote", blurb: "Everyone gets the same question except one player. Spot the faker.", how: ["Answer your question on your phone", "The TV shows the real question and every answer", "Talk it over and vote for the faker"], score: "500 for spotting the faker. 1,000 to the faker if they get away." },
+  herd: { i: "🐑", tag: "Write · Think alike", blurb: "Answer like everyone else. The biggest group of matching answers scores.", how: ["A question with lots of answers, like a pizza topping", "Type what you think most people will type", "Everyone in the biggest group scores. The odd one out is the black sheep"], score: "500 each for the biggest group of matching answers (two or more). A tie for biggest? Nobody scores." },
+  rps: { i: "✊", tag: "Mind games", blurb: "Rock, paper, scissors against the whole room at once. Beat as many as you can.", how: ["Pick rock, paper or scissors in secret", "Everyone plays everyone at once", "Three throws, each worth more"], score: "For every player you beat: 100, then 200, then 300 on the last throw." },
+  older: { i: "🎂", tag: "Quiz", blurb: "Two famous faces. Who's older? Closer than you think.", how: ["Two famous people appear", "Pick the one born first", "The reveal shows both birth years"], score: QUIZ_SCORE },
   low: { i: "🎯", tag: "Mind games", blurb: "Everyone secretly picks a number from 1 to 10. The lowest number nobody else picked wins.", how: ["Pick a number from 1 to 10 in secret", "Numbers two people picked are knocked out", "The lowest number left wins. Three goes, the stakes go up"], score: "The winner takes 300, then 600, then 1,000. Nobody left standing? Nobody scores." },
   shot: { i: "💥", tag: "Mind games", blurb: "Hide in a square, shoot a square. Everyone at once. Last one standing wins.", how: ["Pick a square to hide in and one to shoot", "All the shots land at once. Hit means you're out", "Out? You come back as a ghost and keep shooting"], score: "200 for every player you hit. 1,000 for the last one standing, or 500 each if several survive five volleys." },
   split: { i: "💰", tag: "Nerve · Bet", blurb: "Two players, one pot of points. Split it, or steal the lot?", how: ["Two of you face off over a pot of points", "Talk it out, then pick Split or Steal in secret", "Everyone else bets on how it ends"], score: "Both split: half each. One steals: they take it all. Both steal: nobody gets a thing. A right bet wins 300." },
@@ -822,6 +893,7 @@ const modeGroup = m => (MODE_GROUPS.find(([, l]) => l.includes(m)) || ["More"])[
 const modeNeeds = m => [CROWD_KINDS.includes(m) ? 3 : PAIR_KINDS.includes(m) || OWNER_KINDS.includes(m) ? 2 : 1, { photo: "Bring photos", song: "Pick songs", prof: "Quick answers first" }[m] || ""];
 // One-tap sets of rounds for a kind of night. Picking one replaces the current rounds.
 const PRESETS = [
+  ["party", "Party starter", ["trivia", "likely", "split", "low", "shot"]],
   ["know", "Get to know you", ["prof", "said", "ttl", "hot", "likely", "nhie"]],
   ["chaos", "Party chaos", ["quip", "draw", "fakin", "imp", "split", "low", "likely", "wyr"]],
   ["quiz", "Quiz night", ["trivia", "buzz", "flag", "cap", "year", "hilo", "odd"]],
@@ -834,8 +906,8 @@ const MODE_GROUPS = [
   ["About you", ["photo", "song", "prof", "said", "ttl", "hot", "meld", "likely", "wyr", "nhie"]],
   ["Write and bluff", ["quip", "bluff", "draw", "capt"]],
   ["Secret roles", ["imp", "fakin"]],
-  ["Mind games", ["split", "low", "shot"]],
-  ["Quiz", ["tune", "face", "flag", "map", "cap", "big", "trivia", "buzz", "num", "year", "hilo", "odd", "emoji"]],
+  ["Mind games", ["split", "low", "shot", "herd", "rps"]],
+  ["Quiz", ["tune", "face", "older", "flag", "map", "cap", "big", "trivia", "buzz", "num", "year", "hilo", "odd", "emoji"]],
 ];
 // Rounds with no right answer: Would you rather (score for siding with the room) and Never have I ever (just for fun).
 const POLL_KINDS = ["wyr", "nhie"];
@@ -871,6 +943,11 @@ const SPLIT_POT = 2000, SPLIT_SECS = 45, SPLIT_BET = 300, SPLIT_BETS = ["Both sp
 // Lowest number wins: everyone secretly picks a number from 1 to LOW_MAX. Numbers more than one player picked are knocked
 // out, and the lowest number left wins. Three goes a round, each worth more than the last.
 const LOW_MAX = 10, LOW_SECS = 15, LOW_PTS = [300, 600, 1000];
+// Herd mind: everyone types an answer; the biggest group of matching answers (two or more, no tie) scores.
+const HERD_SECS = 25, HERD_PTS = 500;
+// Showdown: rock, paper, scissors against everyone at once. Each throw scores per player beaten, more each throw.
+const RPS = [["✊", "Rock"], ["✋", "Paper"], ["✌️", "Scissors"]], RPS_SECS = 12, RPS_PTS = [100, 200, 300];
+const rpsBeats = (a, b) => (a - b + 3) % 3 === 1; // paper beats rock, scissors beats paper, rock beats scissors
 // Shot in the dark: a grid on the TV. Each volley, everyone still in secretly picks a square to hide in and one to shoot;
 // all the shots land at once and anyone hiding in a shot square is out. The out come back as ghosts who can still shoot.
 // It ends with one player left, or after five volleys.
@@ -879,11 +956,11 @@ const SHOT_SECS = 20, SHOT_VOLLEYS = 5, SHOT_HIT = 200, SHOT_LAST = 1000, SHOT_S
 const REACTS = [["😂", "LOL"], ["🔥", "FIRE"], ["😱", "OMG"], ["👏", "CLAP"], ["💀", "DEAD"], ["🍻", "CHEERS"], ["", "BOO!"], ["", "TOO EASY"]];
 // Twists (Rounds & settings, on by default): now and then a round gets a twist, announced on its title card. Never the
 // first round or the final, never two in a row. Each only goes on rounds it makes sense for.
-const RIGHT_KINDS = ["trivia", "buzz", "flag", "map", "cap", "big", "emoji", "face", "odd", "hilo", "tune", "photo", "song", "prof"];
+const RIGHT_KINDS = ["trivia", "buzz", "flag", "map", "cap", "big", "emoji", "face", "odd", "hilo", "tune", "photo", "song", "prof", "older"];
 const TWISTS = {
   double: { label: "Double points", note: "Every point this round counts twice.", ok: t => !["nhie"].includes(t) },
   underdog: { label: "Underdog round", note: "Whoever's last right now scores triple.", ok: t => !["nhie"].includes(t) },
-  lightning: { label: "Lightning round", note: "Only 8 seconds to answer!", ok: t => ["trivia", "buzz", "flag", "map", "cap", "big", "emoji", "face", "odd", "hilo", "photo", "prof", "likely", "hot", "wyr"].includes(t) },
+  lightning: { label: "Lightning round", note: "Only 8 seconds to answer!", ok: t => ["trivia", "buzz", "flag", "map", "cap", "big", "emoji", "face", "odd", "hilo", "photo", "prof", "likely", "hot", "wyr", "older"].includes(t) },
   robbery: { label: "Robbery", note: "The fastest right answer steals 300 from the leader.", ok: t => RIGHT_KINDS.includes(t) },
   sudden: { label: "No guessing", note: "A wrong answer loses 250.", ok: t => RIGHT_KINDS.includes(t) },
 };
@@ -895,14 +972,14 @@ const DRAW_SECS = 60, GUESS_SECS = 30, DRAW_W = 640, DRAW_H = 480;
 const DRAW_STOP = new Set(["the", "and", "with", "for", "from", "into", "onto", "that", "this", "its", "his", "her", "their", "out", "off", "over", "under", "some", "who", "while"]);
 const drawWords = t => String(t || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(/[^\p{L}\p{N}]+/u).filter(w => w.length >= 3 && !DRAW_STOP.has(w)).map(w => (w.length > 3 ? w.replace(/s$/, "") : w));
 const drawMatch = (want, got) => { if (!want || !got) return 0; if (meldSame(want, got)) return 2; const a = new Set(drawWords(want)); return drawWords(got).some(w => a.has(w)) ? 1 : 0; };
-const MODE_LABEL = { photo: "Whose photo", song: "Whose song", prof: "Whose answer", said: "Who said it", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather", nhie: "Never have I ever", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps", cap: "Capitals", big: "Which is bigger", trivia: "Trivia", emoji: "Emoji puzzles", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", low: "Lowest number wins", shot: "Shot in the dark", draw: "Draw it", likely: "Most likely to" };
-const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", prof: "Whose answer?", said: "Who said it?", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather?", nhie: "Never have I ever", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country", cap: "Capital cities", big: "Which is bigger?", trivia: "Trivia", emoji: "Emoji puzzle", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", low: "Lowest number wins", shot: "Shot in the dark", draw: "Draw it", likely: "Most likely to…" };
+const MODE_LABEL = { photo: "Whose photo", song: "Whose song", prof: "Whose answer", said: "Who said it", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather", nhie: "Never have I ever", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps", cap: "Capitals", big: "Which is bigger", trivia: "Trivia", emoji: "Emoji puzzles", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", low: "Lowest number wins", shot: "Shot in the dark", herd: "Herd mind", rps: "Showdown", older: "Who's older", draw: "Draw it", likely: "Most likely to" };
+const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", prof: "Whose answer?", said: "Who said it?", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather?", nhie: "Never have I ever", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country", cap: "Capital cities", big: "Which is bigger?", trivia: "Trivia", emoji: "Emoji puzzle", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", low: "Lowest number wins", shot: "Shot in the dark", herd: "Herd mind", rps: "Showdown", older: "Who's older?", draw: "Draw it", likely: "Most likely to…" };
 const KIND_ASK = { photo: "Whose photo is this?", song: "Whose song is this?", prof: "Whose answer is this?", said: "Who wrote this?", face: "Who is this?", flag: "Which country's flag is this?", map: "Which country has this shape?", big: "Which country is bigger?", imp: "Who's the imposter?", fakin: "Who had the other question?" };
-const KIND_ASK_PHONE = { photo: "Whose photo is on the TV?", song: "Whose song is playing?", prof: "Whose answer is on the TV?", said: "Who wrote this?", face: "Who's on the TV?", flag: "Which country's flag is on the TV?", map: "Which country is the shape on the TV?", big: "Which country is bigger?", imp: "Who's the imposter?", fakin: "Who had the other question?" };
+const KIND_ASK_PHONE = { older: "Who's older?", photo: "Whose photo is on the TV?", song: "Whose song is playing?", prof: "Whose answer is on the TV?", said: "Who wrote this?", face: "Who's on the TV?", flag: "Which country's flag is on the TV?", map: "Which country is the shape on the TV?", big: "Which country is bigger?", imp: "Who's the imposter?", fakin: "Who had the other question?" };
 const askOf = c => (c.t === "tune" ? (c.ask === "artist" ? "Who's the artist?" : "What's this song?")
   : c.t === "cap" ? `What's the capital of ${c.cn}?` : c.t === "trivia" || c.t === "buzz" || c.t === "ttl" || c.t === "hot" ? c.q
   : c.t === "odd" ? "Which is the odd one out?" : NUM_KINDS.includes(c.t) || c.t === "hilo" ? c.q : c.t === "wyr" ? (c.q || "Would you rather…") : c.t === "nhie" ? `Never have I ever ${c.q}…`
-  : c.t === "emoji" ? `Which ${{ song: "song", tv: "TV show" }[c.ty] || "film"} is this?` : c.t === "likely" ? `Who's most likely to ${c.lk}?` : KIND_ASK[c.t]);
+  : c.t === "older" ? "Who's older?" : c.t === "emoji" ? `Which ${{ song: "song", tv: "TV show" }[c.ty] || "film"} is this?` : c.t === "likely" ? `Who's most likely to ${c.lk}?` : KIND_ASK[c.t]);
 // Music for "Name that tune" and the Music theme, grouped for the TV's dropdown. Each entry is [Deezer search, label].
 const TUNE_GROUPS = [
   ["Party", [["top worldwide", "Today's hits"], ["karaoke classics", "Karaoke classics"], ["greatest hits of all time", "All-time greats"]]],
@@ -931,6 +1008,9 @@ const themeOf = H => THEMES.find(t => t.id === H?.theme) || THEMES[0];
 const regionOf = q => (/afro|amapiano|bongo|gengetone|kenya|naija|highlife|african|rumba|congo/i.test(q) ? "Africa" : /latin|reggaeton|salsa|bachata|cumbia|reggae|dancehall/i.test(q) ? "Americas" : /k-?pop|j-?pop|bollywood|c-?pop/i.test(q) ? "Asia" : "all");
 // Quiz rounds of each kind per game. Photos and picked songs always all get played.
 const LENGTHS = [["quick", "Quick", 4], ["normal", "Normal", 6], ["long", "Long", 10]];
+// A night is a number of rounds (about 45 seconds each) shared between the games picked, so picking more games mixes
+// more in rather than making the night longer.
+const LEN_BUDGET = { quick: 12, normal: 20, long: 32 }, LEN_MINS = { quick: "about 10 min", normal: "about 20 min", long: "about 35 min" };
 const FACE_CATS = [["all", "Everyone"], ["music", "Music"], ["screen", "Film & TV"], ["sport", "Sport"], ["leaders", "Leaders"], ["science", "Science & business"], ["arts", "Arts & books"], ["africa", "Africa"]];
 const OPT_COLORS = ["#D93A26", "#2342C6", "#11704F", "#7339D6"], LETTERS = "ABCD";
 const photosOnly = H => !Array.isArray(H?.modes) || (H.modes.length === 1 && H.modes[0] === "photo");
@@ -1749,7 +1829,7 @@ const TV = {
   },
   fresh() {
     const code = Array.from(crypto.getRandomValues(new Uint8Array(4)), x => CODE_CHARS[x % CODE_CHARS.length]).join("");
-    return { code, gid: rid(6), ph: "lobby", r: 0, R: 0, rk: "", cur: null, order: [], players: {}, photos: {}, guesses: {}, phaseEnds: 0, qStart: 0, qDur: Q_SECS * 1000, rv: null, vip: null, modes: ["photo"], songs: {}, tune: { q: "top worldwide", label: "Today's hits" }, faceCat: "all", theme: "mix", len: "normal", impVar: "similar", snd: "all", host: "voice", anon: false, spicy: "off", drinks: false, diff: "normal", twists: true, pause: null, turn: 0, savedAt: 0 };
+    return { code, gid: rid(6), ph: "lobby", r: 0, R: 0, rk: "", cur: null, order: [], players: {}, photos: {}, guesses: {}, phaseEnds: 0, qStart: 0, qDur: Q_SECS * 1000, rv: null, vip: null, modes: ["trivia", "likely", "split", "low", "shot"], songs: {}, tune: { q: "top worldwide", label: "Today's hits" }, faceCat: "all", theme: "mix", len: "normal", impVar: "similar", snd: "all", host: "voice", anon: false, spicy: "off", drinks: false, diff: "normal", twists: true, pause: null, turn: 0, savedAt: 0 };
   },
   revive(s) {
     const H = Object.assign(this.fresh(), s);
@@ -1834,7 +1914,7 @@ const TV = {
   players() { return Object.values(this.H.players).sort((a, b) => a.at - b.at); },
   ownerOf(id) { return this.H.photos[id]?.pid || null; },
   curOwner() { const c = this.H.cur; return c?.t === "photo" ? this.ownerOf(c.id) : c?.t === "song" || c?.t === "prof" || EACH_KINDS.includes(c?.t) ? c.pid || null : null; },
-  isQuiz() { const t = this.H.cur?.t; return !!t && t !== "split" && t !== "low" && t !== "shot" && (QUIZ_WRITE.includes(t) || (!PLAYER_KINDS.includes(t) && !WRITE_KINDS.includes(t))); },
+  isQuiz() { const t = this.H.cur?.t; return !!t && !["split", "low", "shot", "herd", "rps"].includes(t) && (QUIZ_WRITE.includes(t) || (!PLAYER_KINDS.includes(t) && !WRITE_KINDS.includes(t))); },
   isWrite() { return WRITE_KINDS.includes(this.H.cur?.t); },
   // Which prompts this player writes for: two in Quips, the one in the Last Lash.
   writesFor(pid) { const c = this.H.cur; return c?.t === "lash" || c?.t === "bluff" || c?.t === "said" ? [0] : c?.t === "ttl" ? [0, 1, 2] : c?.t === "quip" || c?.t === "meld" ? c.ps.map((m, i) => (m.by.includes(pid) ? i : -1)).filter(i => i >= 0) : []; },
@@ -1951,7 +2031,9 @@ const TV = {
       const g = p.g;
       if (H.ph === "q" && !H.pause && g && g.rk === H.rk && !H.guesses[pid]) {
         // Split or steal: the two players pick Split (0) or Steal (1); everyone else bets on one of the three endings.
-        if (H.cur.t === "shot") {
+        if (H.cur.t === "herd") { const a = cleanText(g.a, 40); if (a) { H.guesses[pid] = { a, t: now }; changed = true; SFX.play("lock"); } }
+        else if (H.cur.t === "rps") { if ([0, 1, 2].includes(g.i)) { H.guesses[pid] = { i: g.i, t: now }; changed = true; SFX.play("lock"); } }
+        else if (H.cur.t === "shot") {
           // Players still in hide and shoot; everyone else (ghosts, latecomers) only shoots. You can't shoot your own square.
           const n = H.cur.size * H.cur.size, ok = v => Number.isInteger(v) && v >= 0 && v < n, alive = H.cur.alive.includes(pid);
           if (ok(g.s) && (alive ? ok(g.h) && g.h !== g.s : true)) { H.guesses[pid] = { h: alive ? g.h : null, s: g.s, t: now }; changed = true; SFX.play("lock"); }
@@ -2071,7 +2153,8 @@ const TV = {
   prefetch() {
     const H = this.H;
     if (H.modes.includes("face")) getFaces().catch(() => {});
-    for (const [m, f] of [["draw", "draw"], ["emoji", "emoji"], ["likely", "likely"], ["prof", "profile"], ["quip", "quips"], ["said", "said"], ["meld", "meld"], ["hot", "hot"], ["fakin", "fakin"], ["year", "hilo"], ["hilo", "hilo"]]) if (H.modes.includes(m)) getData(f).catch(() => {});
+    if (H.modes.includes("older")) getFaces().catch(() => {});
+    for (const [m, f] of [["herd", "meld"], ["draw", "draw"], ["emoji", "emoji"], ["likely", "likely"], ["prof", "profile"], ["quip", "quips"], ["said", "said"], ["meld", "meld"], ["hot", "hot"], ["fakin", "fakin"], ["year", "hilo"], ["hilo", "hilo"]]) if (H.modes.includes(m)) getData(f).catch(() => {});
     if (H.spicy !== "off") getData("quips").catch(() => {});
     if (H.theme === "africa") getData("kenya").catch(() => {});
     if (H.modes.includes("cap") || H.modes.includes("big")) getCountries().catch(() => {});
@@ -2158,7 +2241,7 @@ const TV = {
     if (ph === "end") return "victory";
     if (ph === "rev" || ph === "lb") return wild ? "afterdark" : "groove";
     if (ph === "qw" || ph === "dw" || (ph === "intro" && (WRITE_KINDS.includes(t) || t === "draw"))) return "write";
-    if (t === "imp" || t === "fakin" || t === "split" || t === "low" || t === "shot") return "suspense";
+    if (t === "imp" || t === "fakin" || t === "split" || t === "low" || t === "shot" || t === "rps") return "suspense";
     if (H.R > 1 && r === H.R) return "final";
     return modeGroup(t) === "Quiz" ? "quiz" : "social";
   },
@@ -2346,7 +2429,10 @@ const TV = {
       const online = this.players().filter(p => p.online).length;
       const per = (LENGTHS.find(([k]) => k === H.len) || LENGTHS[1])[2];
       const quizKinds = modes.filter(m => !OWNER_KINDS.includes(m)).length;
-      const each = quizKinds === 1 && !modes.some(m => OWNER_KINDS.includes(m)) ? Math.round(per * 1.6) : per;
+      const budget = LEN_BUDGET[H.len] || 20, share = budget / Math.max(1, modes.length);
+      const each = quizKinds === 1 && !modes.some(m => OWNER_KINDS.includes(m)) ? Math.round(per * 1.6) : Math.max(2, Math.min(per, Math.round(share)));
+      // Games played in a few long rounds (Imposter, Split or steal…) get fewer of them when lots of games are picked.
+      const cap = n => Math.max(1, Math.min(n, Math.ceil(share / 2)));
       const theme = themeOf(H), region = this.region();
       // Every photo and every picked song gets played.
       if (modes.includes("photo") && online >= 2) pools.photo = spread(this.players().flatMap(p => p.photos.filter(id => H.photos[id])), id => this.ownerOf(id)).map(id => ({ t: "photo", id }));
@@ -2395,7 +2481,7 @@ const TV = {
         pools.face = faces;
       }
       if (modes.includes("imp") && online >= 3) {
-        const data = await getImposter(), n = IMP_ROUNDS[H.len] || 3;
+        const data = await getImposter(), n = cap(IMP_ROUNDS[H.len] || 3);
         let pairs = data.pairs.filter(p => theme.id === "mix" || (p.th || []).includes(theme.id));
         if (pairs.length < n * 2) pairs = data.pairs;
         const wildPairs = H.spicy === "wild" ? shuffle(this.unseen(data.wild || [], p => p.w + "|" + p.x, "imp", n)).slice(0, Math.ceil(n * 0.6)).map(p => ({ ...p, sp: true })) : [];
@@ -2411,7 +2497,7 @@ const TV = {
       }
       if (modes.includes("fakin") && online >= 3) {
         // Either question of a pair can be the real one. Each round a different player fakes it.
-        const D = await getData("fakin"), F = D.rounds, n = IMP_ROUNDS[H.len] || 3, fakers = shuffle(this.players().filter(p => p.online).map(p => p.pid));
+        const D = await getData("fakin"), F = D.rounds, n = cap(IMP_ROUNDS[H.len] || 3), fakers = shuffle(this.players().filter(p => p.online).map(p => p.pid));
         const wild = H.spicy === "wild" ? shuffle(this.unseen(D.wild || [], x => x.q, "fakin", n)).slice(0, Math.ceil(n * 0.67)).map(x => ({ ...x, sp: true })) : [];
         pools.fakin = shuffle([...wild, ...shuffle(this.unseen(F, x => x.q, "fakin", n)).slice(0, n - wild.length)]).map((x, i) => {
           const flip = Math.random() < 0.5;
@@ -2558,7 +2644,7 @@ const TV = {
       }
       if (modes.includes("meld") && online >= 2) {
         // Mind meld: random pairs (one three if the count is odd), each pair with its own prompt. New pairs every round.
-        const MD = await getData("meld"), M = MD.prompts, n = { quick: 2, normal: 3, long: 4 }[H.len] || 3, people = this.players().filter(p => p.online).map(p => p.pid);
+        const MD = await getData("meld"), M = MD.prompts, n = cap({ quick: 2, normal: 3, long: 4 }[H.len] || 3), people = this.players().filter(p => p.online).map(p => p.pid);
         // No holds barred: most pairs get a filthy prompt.
         const W = H.spicy === "wild" ? shuffle(this.unseen(MD.wild || [], x => x, "meld", n * Math.ceil(people.length / 2))) : [];
         const prompts = shuffle(this.unseen(M, x => x, "meld", n * Math.ceil(people.length / 2)));
@@ -2586,6 +2672,28 @@ const TV = {
         pools.draw = Array.from({ length: n }, () => ({ t: "draw", order: shuffle(people.slice()), S: Math.min(4, people.length), step: 0, ci: 0,
           chains: people.map(() => ({ p: (wild.length && Math.random() < 0.6 ? wild.pop() : plain.pop()) || D.prompts[Math.floor(Math.random() * D.prompts.length)], items: [] })) }));
       }
+      if (modes.includes("herd") && online >= 3) {
+        // Herd mind: Mind meld's prompts (lots of answers, a few obvious ones). On No holds barred, mostly the filthy ones.
+        const MD = await getData("meld"), wild = H.spicy === "wild" ? shuffle(this.unseen(MD.wild || [], x => x, "herd", each)).slice(0, Math.ceil(each * 0.6)) : [];
+        pools.herd = shuffle([...wild.map(q => ({ q, sp: true })), ...shuffle(this.unseen(MD.prompts, x => x, "herd", each)).slice(0, each - wild.length).map(q => ({ q }))]).map(x => ({ t: "herd", q: x.q, sp: !!x.sp }));
+      }
+      if (modes.includes("rps") && online >= 2) pools.rps = Array.from({ length: cap(2) }, () => ({ t: "rps", go: 0, goes: RPS_PTS.length }));
+      if (modes.includes("older")) {
+        // Who's older: two famous people a few years apart (more on Easy, fewer on Hard), the same kind of famous when possible.
+        const all = (await getFaces()).people.filter(p => p.b > 1800), [lo, hi] = { easy: [8, 40], normal: [3, 15], hard: [1, 5] }[H.diff] || [3, 15];
+        const out = [], used = new Set();
+        for (const p of shuffle(this.unseen(all, p => p.n, "older", each * 2))) {
+          if (out.length >= each) break;
+          if (used.has(p.n)) continue;
+          const near = all.filter(x => !used.has(x.n) && x.n !== p.n && Math.abs(x.b - p.b) >= lo && Math.abs(x.b - p.b) <= hi);
+          const q = shuffle(near.filter(x => x.c === p.c))[0] || shuffle(near)[0];
+          if (!q) continue;
+          used.add(p.n); used.add(q.n);
+          const pair = shuffle([p, q]);
+          out.push({ t: "older", P: pair.map(x => ({ n: x.n, img: x.img, b: x.b, d: x.d })), o: pair.map(x => x.n), a: pair[0].b < pair[1].b ? 0 : 1 });
+        }
+        pools.older = out;
+      }
       if (modes.includes("shot") && online >= 2) {
         const people = this.players().filter(p => p.online).map(p => p.pid);
         pools.shot = Array.from({ length: H.len === "long" ? 2 : 1 }, () => ({ t: "shot", size: people.length > 5 ? 4 : 3, alive: people.slice(), ghosts: [], v: 0, n: SHOT_VOLLEYS, hide: {} }));
@@ -2593,7 +2701,7 @@ const TV = {
       if (modes.includes("low") && online >= 3) pools.low = Array.from({ length: H.len === "long" ? 2 : 1 }, () => ({ t: "low", go: 0, goes: LOW_PTS.length, max: LOW_MAX }));
       if (modes.includes("split") && online >= 2) {
         // Split or steal: everyone faces off once before anyone goes twice.
-        const n = { quick: 2, normal: 3, long: 4 }[H.len] || 3, people = this.players().filter(p => p.online).map(p => p.pid), q = [];
+        const n = cap({ quick: 2, normal: 3, long: 4 }[H.len] || 3), people = this.players().filter(p => p.online).map(p => p.pid), q = [];
         while (q.length < n * 2 + 2) q.push(...shuffle(people.slice()));
         pools.split = [];
         for (let i = 0; pools.split.length < n && i + 1 < q.length; i += 2) {
@@ -2604,7 +2712,7 @@ const TV = {
       // Two truths and a lie: one round is everyone writing, then each player's three statements in turn.
       if (modes.includes("ttl") && online >= 2) pools.ttl = Array.from({ length: H.len === "long" ? 2 : 1 }, () => ({ t: "ttl", ans: {} }));
       if (modes.includes("bluff") && online >= 3) {
-        const F = (await getData("bluff")).facts, n = { quick: 2, normal: 3, long: 4 }[H.len] || 3, nK = kenya ? Math.ceil(n / 2) : 0;
+        const F = (await getData("bluff")).facts, n = cap({ quick: 2, normal: 3, long: 4 }[H.len] || 3), nK = kenya ? Math.ceil(n / 2) : 0;
         const local = kenya ? shuffle(this.unseen(kenya.bluff, x => x.q, "bluff", nK)).slice(0, nK) : [];
         pools.bluff = shuffle([...local, ...shuffle(this.unseen(F, x => x.q, "bluff", n)).slice(0, n - local.length)]).map(x => ({ t: "bluff", q: x.q, truth: x.a, ans: {} }));
       }
@@ -2685,6 +2793,8 @@ const TV = {
       this.remember("fakin", order.filter(r => r.t === "fakin").map(r => r.k));
       this.remember("meld", order.filter(r => r.t === "meld").flatMap(r => r.ps.map(m => m.q)));
       this.remember("draw", order.filter(r => r.t === "draw").flatMap(r => r.chains.map(c => c.p)));
+      this.remember("herd", order.filter(r => r.t === "herd").map(r => r.q));
+      this.remember("older", order.filter(r => r.t === "older").flatMap(r => r.o));
       if (this.H !== H || H.ph !== "lobby") return;
       H.order = order; H.R = order.length; H.r = 0; H.rv = null;
       for (const p of Object.values(H.players)) { p.score = 0; p.prev = 0; p.st = { right: 0, fast: 0, fooled: 0 }; }
@@ -2803,6 +2913,8 @@ const TV = {
     // Split or steal: whoever got robbed (or both, if both stole), and everyone who bet wrong.
     if (t === "low") return Object.values(rv.by || {}).filter(l => l.length > 1).flat();
     if (t === "shot") return rv.out || [];
+    if (t === "herd") return rv.herd === 0 ? Object.keys(rv.g || {}).filter(pid => !rv.groups[0].by.includes(pid)) : rv.sheep ? [rv.sheep] : [];
+    if (t === "rps") return Object.keys(rv.g || {}).filter(pid => !rv.wins?.[pid]);
     if (t === "split") return [...(rv.out === 1 ? [rv.by[rv.ch[0] ? 1 : 0]] : rv.out === 2 ? rv.by : []), ...Object.entries(rv.g || {}).filter(([, i]) => i !== rv.out).map(([pid]) => pid)];
     if (t === "likely") return rv.top || [];
     if (t === "quip") { const [a, b] = rv.v || [0, 0]; return a === b ? [] : [rv.by[a < b ? 0 : 1]]; }
@@ -2834,6 +2946,8 @@ const TV = {
     if (H.ph === "intro" && H.cur?.t === "draw") return this.drawStep(0);
     if (H.ph === "intro" && H.cur?.t === "low") return this.lowGo(0);
     if (H.ph === "intro" && H.cur?.t === "shot") return this.shotVolley(0);
+    if (H.ph === "intro" && H.cur?.t === "rps") return this.rpsThrow(0);
+    if (H.ph === "intro" && H.cur?.t === "herd") return this.go("q", H.cur.tw === "lightning" ? LIGHTNING_SECS : HERD_SECS);
     if (H.ph === "dw") { if (H.cur.step + 1 < H.cur.S) return this.drawStep(H.cur.step + 1); H.cur.ci = 0; return this.reveal(); }
     if (H.ph === "intro") return this.isImp() ? this.impStart() : this.isWrite() ? this.go("qw", QW_SECS[H.cur.t]) : this.go("q", H.cur?.t === "split" ? SPLIT_SECS : H.cur?.tw === "lightning" ? LIGHTNING_SECS : Q_SECS);
     if (H.ph === "qw") return this.startVote(0);
@@ -2850,6 +2964,7 @@ const TV = {
       if (H.cur?.t === "draw" && H.cur.ci + 1 < H.cur.chains.length) { H.cur.ci++; return this.reveal(); }
       if (H.cur?.t === "low" && H.cur.go + 1 < H.cur.goes) return this.lowGo(H.cur.go + 1);
       if (H.cur?.t === "shot" && H.rv && !H.rv.end) return this.shotVolley(H.cur.v + 1);
+      if (H.cur?.t === "rps" && H.cur.go + 1 < H.cur.goes) return this.rpsThrow(H.cur.go + 1);
       if (EACH_KINDS.includes(H.cur?.t) && H.cur.mi + 1 < (H.cur.ord || []).length) return this.askNext(H.cur.mi + 1);
       return this.endRound();
     }
@@ -2860,6 +2975,11 @@ const TV = {
     if (H.r >= H.R) return this.go("end");
     if (H.r % this.lbEvery() === 0) return this.go("lb", LB_SECS);
     return this.nextRound();
+  },
+  rpsThrow(i) {
+    const H = this.H;
+    H.cur.go = i; H.rk = H.gid + "-" + H.r + "-p" + i; H.guesses = {}; H.rv = null;
+    this.go("q", RPS_SECS);
   },
   shotVolley(i) {
     const H = this.H;
@@ -2973,6 +3093,35 @@ const TV = {
       H.rv = { q: m.q, a: m.by.map(pid => ans[pid] || ""), by: m.by, g, d, m: mult, v, sweep, mi: H.cur.mi, n: H.cur.ps.length };
       m.by.forEach((pid, k) => { if (ans[pid] && v[k] > (H.best?.v || 0)) H.best = { q: m.q, a: ans[pid], pid, v: v[k] }; });
       this.revEv = sweep ? "quip-sweep" : has[0] !== has[1] ? null : v[0] === v[1] ? "quip-tie" : "quip-win";
+      return this.go("rev", REVEAL_SECS - 1);
+    }
+    if (H.cur.t === "herd") {
+      // Matching answers group together (case, plurals, "the" and a typo aside). The biggest group, if it's two or more
+      // and not tied, is the herd and scores. A player left alone while everyone else matched someone is the black sheep.
+      const groups = [];
+      for (const [pid, x] of Object.entries(H.guesses)) {
+        g[pid] = x.a;
+        const grp = groups.find(gr => meldSame(gr.a, x.a));
+        if (grp) grp.by.push(pid); else groups.push({ a: x.a, by: [pid] });
+      }
+      groups.sort((a, b) => b.by.length - a.by.length);
+      const top = groups[0]?.by.length || 0, herd = top >= 2 && groups.filter(gr => gr.by.length === top).length === 1 ? 0 : -1;
+      if (herd === 0) for (const pid of groups[0].by) { d[pid] = HERD_PTS * mult; this.stat(pid, H.guesses[pid].t - H.qStart); }
+      const alone = groups.filter(gr => gr.by.length === 1), sheep = alone.length === 1 && groups.length > 1 ? alone[0].by[0] : null;
+      score();
+      H.rv = { q: H.cur.q, groups, herd, sheep, g, d, m: mult };
+      this.revEv = herd === 0 ? "herd-win" : Object.keys(g).length ? "herd-split" : null;
+      return this.go("rev", Math.max(REVEAL_SECS, 5 + groups.length * 0.8));
+    }
+    if (H.cur.t === "rps") {
+      // Everyone plays everyone. Each player you beat scores this throw's points.
+      const picks = Object.entries(H.guesses).map(([pid, x]) => [pid, x.i]), pts = RPS_PTS[H.cur.go] * mult, wins = {};
+      for (const [pid, i] of picks) { g[pid] = i; wins[pid] = picks.filter(([o, j]) => o !== pid && rpsBeats(i, j)).length; if (wins[pid]) d[pid] = wins[pid] * pts; }
+      const n = [0, 1, 2].map(k => picks.filter(([, i]) => i === k).length), shown = n.filter(Boolean).length;
+      const best = shown === 2 ? [0, 1, 2].find(k => n[k] && n[(k + 2) % 3]) : -1; // with two signs out, the one that beats the other
+      score();
+      H.rv = { g, d, m: mult, n, best, wins, go: H.cur.go, goes: H.cur.goes, pts };
+      this.revEv = shown === 2 ? "rps-win" : picks.length > 1 ? "rps-draw" : null;
       return this.go("rev", REVEAL_SECS - 1);
     }
     if (H.cur.t === "shot") {
@@ -3338,6 +3487,8 @@ const TV = {
       lk: H.cur?.t === "likely" ? H.cur.lk : null,
       tw: H.cur?.tw && ["intro", "q", "rev"].includes(H.ph) ? H.cur.tw : null, qd: H.ph === "q" ? H.qDur / 1000 : null,
       dw: H.ph === "dw" ? { s: H.cur.step, S: H.cur.S, t: Object.fromEntries(H.cur.order.map(pid => [pid, this.drawTask(pid)])), done: H.cur.order.filter(pid => this.drawDone(pid)) } : null,
+      hd: H.cur?.t === "herd" && ["intro", "q", "rev"].includes(H.ph) ? { q: H.cur.q } : null,
+      ps: H.cur?.t === "rps" && ["intro", "q", "rev"].includes(H.ph) ? { go: H.cur.go, goes: H.cur.goes, pts: RPS_PTS[H.cur.go] * (H.R > 1 && H.r === H.R ? 2 : 1) } : null,
       sd: H.cur?.t === "shot" && ["intro", "q", "rev"].includes(H.ph) ? { v: H.cur.v, n: H.cur.n, size: H.cur.size, alive: H.cur.alive, ghosts: H.cur.ghosts } : null,
       lw: H.cur?.t === "low" && ["intro", "q", "rev"].includes(H.ph) ? { go: H.cur.go, goes: H.cur.goes, max: H.cur.max, pts: LOW_PTS[H.cur.go] * (H.R > 1 && H.r === H.R ? 2 : 1) } : null,
       ss: H.cur?.t === "split" && ["intro", "q", "rev"].includes(H.ph) ? { by: H.cur.by, pot: H.cur.pot * (H.R > 1 && H.r === H.R ? 2 : 1) } : null,
@@ -3517,6 +3668,8 @@ const TV = {
     if (H.ph === "q" && H.cur?.t === "split") return this.renderSplit(stage);
     if (H.ph === "q" && H.cur?.t === "low") return this.renderLow(stage);
     if (H.ph === "q" && H.cur?.t === "shot") return this.renderShot(stage);
+    if (H.ph === "q" && H.cur?.t === "herd") return this.renderHerd(stage);
+    if (H.ph === "q" && H.cur?.t === "rps") return this.renderRps(stage);
     if (H.ph === "q") {
       if (this.isQuiz()) return this.renderQuiz(stage);
       const final = H.R > 1 && H.r === H.R;
@@ -3599,6 +3752,8 @@ const TV = {
     if (this.H.cur?.t === "draw") return this.drawRevealHtml();
     if (this.H.cur?.t === "low") return this.lowRevealHtml();
     if (this.H.cur?.t === "shot") return this.shotRevealHtml();
+    if (this.H.cur?.t === "herd") return this.herdRevealHtml();
+    if (this.H.cur?.t === "rps") return this.rpsRevealHtml();
     if (this.isQuiz()) return this.quizRevealHtml();
     const H = this.H, rv = H.rv || { g: {}, d: {} };
     const P = H.players, owner = P[rv.o];
@@ -3753,6 +3908,12 @@ const TV = {
     if (cur?.t === "song") return this.songMedia(cur.title, cur.artist, (reveal && cur.ap) || cur.art, cur.art);
     return `<figure class="print"><img src="${this.H.photos[cur?.id]?.src || ""}" alt="Mystery photo ${this.H.r}"><figcaption>No. ${this.H.r}</figcaption></figure>`;
   },
+  // Who's older: the two photos side by side, each with its letter. The reveal adds birth years and who picked which.
+  olderPair(cur, rv) {
+    const votes = rv ? this.votesBy(rv.g) : {};
+    return `<div class="olders">${cur.P.map((x, k) => `<figure class="ocard ${rv ? (k === rv.a ? "win" : "lose") : ""}" style="--oc:${OPT_COLORS[k]}"><img src="${esc(x.img)}" alt="">
+      <figcaption><b>${LETTERS[k]}</b><span>${esc(x.n)}</span>${rv ? `<i class="num">Born ${x.b}</i>` : ""}</figcaption>${rv ? this.votersHtml(votes[k] || [], k) : ""}</figure>`).join(`<span class="hvs">or</span>`)}</div>`;
+  },
   hiloVal(cur, v) { return cur.y ? String(v) : fmt(v) + (cur.u ? " " + cur.u : ""); },
   // Higher or lower: the known card, then the mystery one. The reveal shows its number.
   hiloPair(cur, reveal) {
@@ -3786,6 +3947,11 @@ const TV = {
     if (cur.t === "hilo") {
       paint(stage, "q|" + H.rk, `<section class="tgrid"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Higher or lower · ${esc(cur.cat)}${final ? " · Double points" : ""}</p>
         ${this.hiloPair(cur, false)}<h2 class="tqt">${esc(cur.o[0])} or ${esc(cur.o[1].toLowerCase())}?</h2><ol class="opts two">${this.optsHtml(cur)}</ol>${foot}</section>`);
+      return this.renderLocks(null);
+    }
+    if (cur.t === "older") {
+      paint(stage, "q|" + H.rk, `<section class="tgrid"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Who's older?${final ? " · Double points" : ""}</p>
+        ${this.olderPair(cur, null)}${foot}</section>`);
       return this.renderLocks(null);
     }
     if (cur.t === "hot") {
@@ -3826,6 +3992,8 @@ const TV = {
     const right = Object.values(rv.g).filter(i => i === rv.a).length;
     const deltas = this.scorersHtml(rv, right ? `${right} ${right === 1 ? "person" : "people"} got it right` : "", "Nobody got it right");
     if (NUM_KINDS.includes(cur.t)) return this.numRevealHtml();
+    if (cur.t === "older") return `<section class="tgrid" style="--t:${t.toFixed(2)}s;--t2:${(t + 0.8).toFixed(2)}s"><p class="eyebrow">Who's older?${rv.m > 1 ? " · Double points" : ""}</p>
+      ${this.olderPair(cur, rv)}<div class="deltas">${deltas || `<span class="delta">Nobody scored this round</span>`}${this.sipHtml()}</div></section>`;
     if (cur.t === "hilo") return `<section class="tgrid" style="--t:${t.toFixed(2)}s;--t2:${(t + 0.8).toFixed(2)}s"><p class="eyebrow">Higher or lower · ${esc(cur.cat)}${rv.m > 1 ? " · Double points" : ""}</p>
       ${this.hiloPair(cur, true)}<ol class="opts two">${this.optsHtml(cur, rv)}</ol><div class="deltas">${deltas || `<span class="delta">Nobody scored this round</span>`}${this.sipHtml()}</div></section>`;
     if (cur.t === "hot") {
@@ -3960,6 +4128,40 @@ const TV = {
       <div class="qphoto bigav"><p class="eyebrow">Most likely to ${esc(rv.lk || H.cur.lk)}</p>${lead ? face(lead) : ""}${rows.length ? `<div class="stamp low">${lead ? esc(lead.name) + "!" : tops.length ? "It's a tie!" : "Split vote!"}</div>` : ""}</div>
       <div class="rside"><p class="eyebrow">${rows.length ? "Votes" : "Nobody voted"}${rv.m > 1 ? " · Double points" : ""}</p><ul class="rows">${rowHtml}</ul>
         <div class="deltas">${this.scorersHtml(rv, sided ? `${sided} ${sided === 1 ? "person" : "people"} sided with the room` : "", "Nobody scored this round")}${this.sipHtml()}</div></div></section>`;
+  },
+  renderHerd(stage) {
+    const H = this.H, final = H.R > 1 && H.r === H.R;
+    paint(stage, "hq|" + H.rk, `<section class="imp"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Herd mind${final ? " · Double points" : ""}</p>
+      <h2 class="qtitle">${esc(H.cur.q)}</h2>
+      <p class="lede">Type what you think <b>most people</b> will type. Everyone in the biggest group scores ${fmt(HERD_PTS * (final ? 2 : 1))}.</p>
+      <div class="qfoot">${this.clockHtml()}<div><p class="eyebrow" id="lockcount"></p><ul class="locks" id="locks"></ul></div></div></section>`);
+    this.renderLocks(null);
+  },
+  // The answers, grouped. The biggest group gets the herd stamp; anyone alone while everyone else matched is the black sheep.
+  herdRevealHtml() {
+    const H = this.H, rv = H.rv, P = H.players, t = 1.6 + Math.min(6, rv.groups.length) * 0.3;
+    const cards = rv.groups.map((gr, k) => `<li class="hgrp ${k === rv.herd ? "herd" : gr.by.length === 1 ? "lone" : ""}" style="--i:${k}"><b>${esc(gr.a)}</b>
+      <span class="hwho">${gr.by.filter(id => P[id]).map(id => face(P[id])).join("")}</span>${gr.by.length > 1 ? `<i class="num">${gr.by.length}</i>` : ""}${gr.by[0] === rv.sheep ? `<em>Black sheep</em>` : ""}</li>`).join("");
+    const head = rv.herd === 0 ? `The herd says: ${esc(rv.groups[0].a)}!` : rv.groups.length ? "The herd is split!" : "Nobody answered.";
+    return `<section class="tgrid herdrev" style="--t:${t.toFixed(1)}s;--t2:${(t + 0.7).toFixed(1)}s"><p class="eyebrow">Herd mind${rv.m > 1 ? " · Double points" : ""}</p><h2 class="tqt">${esc(rv.q)}</h2>
+      <ol class="hgrps">${cards}</ol><h2 class="lowh">${head}</h2><div class="deltas">${this.scorersHtml(rv, "", "No points this time")}${this.sipHtml()}</div></section>`;
+  },
+  renderRps(stage) {
+    const H = this.H, c = H.cur, final = H.R > 1 && H.r === H.R, pts = RPS_PTS[c.go] * (final ? 2 : 1);
+    paint(stage, "rq|" + H.rk, `<section class="imp rpsq"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Showdown · Throw ${c.go + 1} of ${c.goes}${final ? " · Double points" : ""}</p>
+      <h2 class="qtitle">Rock, paper or scissors?</h2><p class="lede">Pick on your phone. You play everyone at once: ${fmt(pts)} for every player you beat.</p>
+      <ol class="rpsrow">${RPS.map(([e, w]) => `<li><span class="rpsi">${EMOJI_OK ? e : w[0]}</span><b>${w}</b></li>`).join("")}</ol>
+      <div class="qfoot">${this.clockHtml()}<div><p class="eyebrow" id="lockcount"></p><ul class="locks" id="locks"></ul></div></div></section>`);
+    this.renderLocks(null);
+  },
+  rpsRevealHtml() {
+    const H = this.H, rv = H.rv, P = H.players, t = 1.6, by = [[], [], []];
+    for (const [pid, i] of Object.entries(rv.g || {})) if (P[pid]) by[i].push(pid);
+    const head = rv.best >= 0 ? `${RPS[rv.best][1]} wins!` : Object.keys(rv.g || {}).length > 1 ? (rv.n.filter(Boolean).length === 3 ? "All three! Everyone beats someone." : "Stalemate! Everyone picked the same.") : "Not enough throws.";
+    return `<section class="imp rpsq rev" style="--t:${t}s;--t2:${t + 0.8}s"><p class="eyebrow">Showdown · Throw ${rv.go + 1} of ${rv.goes} · ${fmt(rv.pts)} a win${rv.m > 1 ? " · Double points" : ""}</p>
+      <ol class="rpsrow">${RPS.map(([e, w], k) => `<li class="${k === rv.best ? "win" : rv.best >= 0 && rv.n[k] ? "lose" : ""}"><span class="rpsi">${EMOJI_OK ? e : w[0]}</span><b>${w}</b>
+        <span class="rwho">${by[k].map((id, j) => `<span style="animation-delay:${(0.3 + j * 0.08).toFixed(2)}s">${face(P[id])}</span>`).join("")}</span></li>`).join("")}</ol>
+      <h2 class="lowh">${head}</h2><div class="deltas">${this.scorersHtml(rv, "", "Nobody beat anyone")}${this.sipHtml()}</div></section>`;
   },
   // Shot in the dark while people pick: the empty grid, who's still in, the ghosts, the clock.
   renderShot(stage) {
@@ -4444,6 +4646,11 @@ const PH = {
     if (a === "sk-undo") return SKETCH.undo();
     if (a === "sk-clear") return SKETCH.clear();
     if (a === "sk-send") return this.sendDrawing(false);
+    if (a === "rps") {
+      const i = Number(el.dataset.i), H = this.host;
+      if (!H || H.ph !== "q" || H.kind !== "rps" || this.g?.rk === H.rk || ![0, 1, 2].includes(i)) return;
+      this.g = { rk: H.rk, i }; vibrate(30); this.push(); return this.renderMain();
+    }
     if (a === "shot" || a === "shot-reset" || a === "shot-lock") {
       const H = this.host;
       if (!H || H.ph !== "q" || H.kind !== "shot" || this.g?.rk === H.rk) return;
@@ -4470,6 +4677,9 @@ const PH = {
     }
     if (a === "mode" || a === "pick") return this.pick(el.dataset.m);
     if (a === "preset") { const p = PRESETS.find(x => x.id === el.dataset.p); if (p) { this.pickMsg = ""; this.setModes(p.modes); } return; }
+    if (a === "surprise") { vibrate(15); return this.surprise(); }
+    if (a === "seg") return this.setting(el.dataset.k, el.dataset.v);
+    if (a === "more-set") { this.moreOpen = !el.parentElement.open; return; }
     if (a === "sheet") return this.openSheet(el.dataset.tab || "rounds");
     if (a === "how") { this.howOpen = this.howOpen === el.dataset.m ? null : el.dataset.m; return this.renderSheet(); }
     if (a === "pfilter") { this.pickFilter = el.dataset.f; this.howOpen = null; this.scrollToTop = true; return this.renderSheet(); }
@@ -4637,7 +4847,7 @@ const PH = {
     if (!me) return paint(main, "wait-in", `<div class="card center"><p class="ph-h">Joining…</p><p class="muted">Hang on while the TV adds you.</p></div>`);
     if (H.ph === "lobby") return this.rLobby(main);
     if (H.pause && H.ph !== "end") return this.rPaused(main);
-    if (H.ph === "intro") return paint(main, "intro|" + H.rk, `${H.tw && TWISTS[H.tw] ? `<div class="card center twph"><p class="eyebrow">Twist!</p><p class="ph-h">${esc(TWISTS[H.tw].label)}</p><p>${esc(TWISTS[H.tw].note)}</p></div>` : ""}<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">Eyes on the TV</p><p class="muted">${H.kind === "imp" ? "Imposter round. Your secret word is coming." : H.kind === "fakin" ? "Fakin' it. Your question is coming." : H.kind === "draw" ? "Draw it. Warm up your finger." : H.kind === "low" ? "Lowest number wins. Think like everyone else, then don't." : H.kind === "shot" ? "Shot in the dark. Hide well, shoot better." : H.kind === "split" ? (Array.isArray(H.ss?.by) && H.ss.by.includes(this.pid) ? "Split or steal. You're up!" : "Split or steal. Get ready to bet.") : WRITE_KINDS.includes(H.kind) ? "Get your thumbs ready. You'll be writing." : "Get ready to guess."}</p></div>
+    if (H.ph === "intro") return paint(main, "intro|" + H.rk, `${H.tw && TWISTS[H.tw] ? `<div class="card center twph"><p class="eyebrow">Twist!</p><p class="ph-h">${esc(TWISTS[H.tw].label)}</p><p>${esc(TWISTS[H.tw].note)}</p></div>` : ""}<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">Eyes on the TV</p><p class="muted">${H.kind === "imp" ? "Imposter round. Your secret word is coming." : H.kind === "fakin" ? "Fakin' it. Your question is coming." : H.kind === "draw" ? "Draw it. Warm up your finger." : H.kind === "low" ? "Lowest number wins. Think like everyone else, then don't." : H.kind === "shot" ? "Shot in the dark. Hide well, shoot better." : H.kind === "herd" ? "Herd mind. Think like everyone else." : H.kind === "rps" ? "Showdown. Rock, paper, scissors against everyone." : H.kind === "split" ? (Array.isArray(H.ss?.by) && H.ss.by.includes(this.pid) ? "Split or steal. You're up!" : "Split or steal. Get ready to bet.") : WRITE_KINDS.includes(H.kind) ? "Get your thumbs ready. You'll be writing." : "Get ready to guess."}</p></div>
       ${H.ih && MODE_CARD[H.kind]?.how ? `<div class="card"><p class="eyebrow">How to play ${esc(MODE_LABEL[H.kind] || "")}</p><ol class="steps">${MODE_CARD[H.kind].how.map(x => `<li>${esc(x)}</li>`).join("")}</ol><p class="muted"><b>Scoring</b> ${esc(MODE_CARD[H.kind].score || "")}</p></div>` : ""}`);
     if (IMP_PHASES.includes(H.ph)) return this.rImp(main);
     if (FK_PHASES.includes(H.ph)) return this.rFakin(main);
@@ -4763,7 +4973,7 @@ const PH = {
     const bits = c ? [theme && theme.id !== "mix" && "Theme: " + theme.label, (LENGTHS.find(([k]) => k === c.len) || LENGTHS[1])[1] + " game", c.diff !== "normal" && (DIFFS.find(([k]) => k === c.diff) || [])[1],
       c.spicy === "wild" ? "No holds barred" : c.spicy !== "off" && (SPICE.find(([k]) => k === c.spicy) || [])[1], c.drinks && "Drinks on"].filter(Boolean)
       : [H.th && H.th !== "Anything goes" && "Theme: " + H.th].filter(Boolean);
-    paint(el, [vip, H.can, starting, ps.map(p => p[0] + p[1] + p[4] + p[7]).join(), vipName, modes.join(), bits.join(), this.av, H.spicy].join("|"), `
+    paint(el, [vip, H.can, starting, ps.map(p => p[0] + p[1] + p[4] + p[7]).join(), vipName, modes.join(), bits.join(), this.av, H.spicy, c?.len].join("|"), `
       <div class="ctrl-top"><p class="eyebrow">${vip ? "You're the host · " : ""}Tonight</p>
         ${vip ? `<button class="btn sm" data-act="sheet" data-tab="rounds">Change</button>` : ""}</div>
       ${vip ? `<button class="tonight-list" data-act="sheet" data-tab="rounds" aria-label="Change tonight's rounds">${modes.map(m => `<span>${esc(MODE_LABEL[m])}</span>`).join("")}</button>`
@@ -4772,7 +4982,8 @@ const PH = {
       ${H.spicy === 2 ? `<p class="warn">No holds barred tonight: sex, hookups, drinking and filthy questions. Adults only. Tap Too far on your phone to skip anything, no questions asked.</p>`
         : H.spicy ? `<p class="warn">18+ tonight: some prompts are spicy. Tap Too far on your phone to skip one, no questions asked.</p>` : ""}
       ${vip ? `<button class="btn primary wide" data-act="start" ${H.can && !starting ? "" : "disabled"}>${starting ? "Starting…" : "Start game"}</button>
-        <p class="muted">${H.can ? (brings ? `Start when everyone's ${brings} are in.` : "Start when everyone's in.") : ownerOnly(H) ? "You can start once 2 players have added photos or songs." : "Waiting for players."}</p>`
+        <p class="muted">${modes.length} ${modes.length === 1 ? "game" : "games"} · ${LEN_MINS[c?.len] || LEN_MINS.normal}. ${H.can ? (brings ? `Start when everyone's ${brings} are in.` : "Start when everyone's in.") : ownerOnly(H) ? "You can start once 2 players have added photos or songs." : "Waiting for players."}</p>
+        ${!H.can && ownerOnly(H) ? `<button class="btn sm" data-act="preset" data-p="party">Play the Party starter instead (no photos needed)</button>` : ""}`
       : `<p class="ph-h" style="font-size:20px">Waiting for ${esc(vipName || "the host")} to start</p>`}
       <div class="chips">${ps.map(p => `<span class="chip">${faceA(p)}${esc(p[1])}</span>`).join("")}</div>`);
   },
@@ -4794,47 +5005,59 @@ const PH = {
     if (did) body.scrollTop = this.scrollToTop ? 0 : top;
     this.scrollToTop = false;
   },
-  // One game in the host's picker: tap the card to add or remove it, or open How to play for the steps and the scoring.
+  // One game in the host's picker: a compact row. Tap it to add or remove the game; the ? opens how to play.
   gameCard(m, on, here) {
     const c = MODE_CARD[m] || {}, [n, bring] = modeNeeds(m), short = here > 0 && n > here, open = this.howOpen === m;
-    const meta = [[`${n}+ ${n === 1 ? "player" : "players"}${short ? `, ${here} here` : ""}`, short ? "short" : ""], bring && [bring, ""], c.tag && [c.tag, ""]].filter(Boolean);
-    return `<div class="gcard ${on ? "on" : ""}" style="--gc:${GROUP_COLOR[modeGroup(m)] || "#3E4C60"}">
-      <button class="gmain" data-act="pick" data-m="${m}" aria-pressed="${on}"><span class="gicon" aria-hidden="true">${modeIcon(m)}</span>
-        <span class="gtext"><b>${esc(MODE_LABEL[m])}</b><span class="gblurb">${esc(c.blurb || "")}</span>
-          <span class="gmeta">${meta.map(([t, cls]) => `<i class="${cls}">${esc(t)}</i>`).join("")}</span></span><span class="tick" aria-hidden="true"></span></button>
-      ${c.how ? `<button class="ghow" data-act="how" data-m="${m}" aria-expanded="${open}">${open ? "Hide how to play" : "How to play"}</button>` : ""}
-      ${open && c.how ? `<div class="gdetail"><ol>${c.how.map(x => `<li>${esc(x)}</li>`).join("")}</ol><p><b>Scoring</b> ${esc(c.score || "")}</p></div>` : ""}</div>`;
+    return `<div class="grow ${on ? "on" : ""} ${short ? "short" : ""}" style="--gc:${GROUP_COLOR[modeGroup(m)] || "#3E4C60"}">
+      <button class="grow-main" data-act="pick" data-m="${m}" aria-pressed="${on}"><span class="gicon" aria-hidden="true">${modeIcon(m)}</span>
+        <span class="gtext"><b>${esc(MODE_LABEL[m])}</b><span class="gline">${short ? `<i class="need">Needs ${n} players</i>` : bring ? `<i class="need prep">${esc(bring)}</i>` : ""}${esc(c.blurb || "")}</span></span>
+        <span class="tick" aria-hidden="true"></span></button>
+      ${c.how ? `<button class="ginfo" data-act="how" data-m="${m}" aria-expanded="${open}" aria-label="How to play ${esc(MODE_LABEL[m])}">?</button>` : ""}
+      ${open && c.how ? `<div class="gdetail"><p>${esc(c.blurb || "")}</p><ol>${c.how.map(x => `<li>${esc(x)}</li>`).join("")}</ol><p><b>Scoring</b> ${esc(c.score || "")}</p>${bring ? `<p><b>Before the game</b> ${esc(bring)}</p>` : ""}</div>` : ""}</div>`;
   },
   roundsHtml(modes, here) {
     const grouped = MODE_GROUPS.flatMap(([, l]) => l);
     const groups = [...MODE_GROUPS.map(([g, l]) => [g, l.filter(m => MODES.includes(m))]), ["More", MODES.filter(m => !grouped.includes(m))]].filter(([, l]) => l.length);
     const f = this.pickFilter && (this.pickFilter === "picked" || groups.some(([g]) => g === this.pickFilter)) ? this.pickFilter : "all";
-    const filters = [["all", "All games"], ...groups.map(([g]) => [g, g]), ["picked", `Picked · ${modes.length}`]];
+    const filters = [["all", "All games"], ["picked", `Picked · ${modes.length}`], ...groups.map(([g]) => [g, g])];
     const shown = f === "all" ? groups : f === "picked" ? [["Picked for tonight", MODES.filter(m => modes.includes(m))]] : groups.filter(([g]) => g === f);
-    return `<section class="sh-sec"><p class="eyebrow">Game nights</p><div class="nights">${PRESETS.map(p => `<button class="preset ${p.modes.join() === modes.join() ? "on" : ""}" data-act="preset" data-p="${p.id}">
+    return `<section class="sh-sec"><div class="surprise"><button class="btn blue" data-act="surprise">Surprise me</button><span>Five games that work for ${here > 1 ? here + " players" : "the room"}, no prep needed</span></div>
+      <p class="eyebrow">Game nights</p><div class="nights">${PRESETS.map(p => `<button class="preset ${p.modes.join() === modes.join() ? "on" : ""}" data-act="preset" data-p="${p.id}">
         ${EMOJI_OK ? `<span class="picons" aria-hidden="true">${p.modes.slice(0, 5).map(m => MODE_CARD[m]?.i || "").join("")}</span>` : ""}<b>${esc(p.label)}</b><span>${esc(p.modes.map(m => MODE_LABEL[m]).join(" · "))}</span></button>`).join("")}</div></section>
       <div class="filters" role="tablist" aria-label="Show">${filters.map(([k, l]) => `<button role="tab" aria-selected="${k === f}" class="${k === f ? "on" : ""}" data-act="pfilter" data-f="${esc(k)}">${esc(l)}</button>`).join("")}</div>
       ${this.pickMsg ? `<p class="warn">${esc(this.pickMsg)}</p>` : ""}
-      ${shown.map(([g, l]) => `<section class="sh-sec"><p class="eyebrow">${esc(g)} <span class="num">· ${l.filter(m => modes.includes(m)).length} of ${l.length} on</span></p><div class="mlist">${l.map(m => this.gameCard(m, modes.includes(m), here)).join("")}</div></section>`).join("")}`;
+      ${shown.map(([g, l]) => `<section class="sh-sec"><p class="eyebrow">${esc(g)} <span class="num">· ${l.filter(m => modes.includes(m)).length} of ${l.length} on</span></p><div class="glist">${l.map(m => this.gameCard(m, modes.includes(m), here)).join("")}</div></section>`).join("")}`;
+  },
+  // Surprise me: about five games that work for the players here, need no photos or songs, and come from different
+  // kinds of game, so the night has some of everything.
+  surprise() {
+    const here = Math.max(1, this.pl().filter(p => p[4]).length), ok = MODES.filter(m => !OWNER_KINDS.includes(m) && modeNeeds(m)[0] <= here && m !== "lash");
+    const byGroup = {};
+    for (const m of shuffle(ok.slice())) (byGroup[modeGroup(m)] ||= []).push(m);
+    const pick = [], gs = shuffle(Object.keys(byGroup));
+    for (let i = 0; pick.length < Math.min(5, ok.length) && i < 20; i++) { const l = byGroup[gs[i % gs.length]]; if (l?.length) pick.push(l.pop()); }
+    if (pick.length) { this.pickMsg = ""; this.setModes(MODES.filter(m => pick.includes(m))); }
   },
   // The lobby settings, changed from the host's phone instead of the TV (or its remote).
   settingsHtml(c, modes) {
     if (!c) return `<p class="muted">Waiting for the TV…</p>`;
     const opt = (v, l, on) => `<option value="${esc(v)}" ${on ? "selected" : ""}>${esc(l)}</option>`;
     const sel = (k, label, opts) => `<div class="field"><label for="set-${k}">${label}</label><select id="set-${k}" data-set="${k}">${opts}</select></div>`;
+    const seg = (k, list, cur, cls = "") => `<div class="segs ${cls}" role="radiogroup">${list.map(([v, l, sub]) => `<button role="radio" aria-checked="${String(cur) === String(v)}" class="${String(cur) === String(v) ? "on" : ""}" data-act="seg" data-k="${k}" data-v="${esc(v)}"><b>${esc(l)}</b>${sub ? `<span>${esc(sub)}</span>` : ""}</button>`).join("")}</div>`;
     const custom = !TUNE_MIXES.some(([q]) => q === c.tune);
     return `<section class="sh-sec"><p class="muted">Changes show on the TV straight away.</p>
+      <p class="eyebrow">How long</p>${seg("len", LENGTHS.map(([k, l]) => [k, l, LEN_MINS[k]]), c.len)}
+      <p class="eyebrow">Spicy (18+)</p>${seg("spicy", [["off", "Off"], ["cheeky", "Cheeky"], ["savage", "Savage"], ["wild", "No holds barred"]], c.spicy, "four")}
+      <div class="segpair"><div><p class="eyebrow">Drinks</p>${seg("drinks", [["off", "Off"], ["on", "Sips on"]], c.drinks ? "on" : "off")}</div>
+        <div><p class="eyebrow">Twists</p>${seg("tw", [["on", "On"], ["off", "Off"]], c.tw === 0 ? "off" : "on")}</div></div>
+      <details class="moreset" ${this.moreOpen ? "open" : ""}><summary data-act="more-set">More settings</summary>
       ${sel("th", "Theme", THEMES.map(t => opt(t.id, t.label, c.th === t.id)).join(""))}
-      ${sel("len", "Length", LENGTHS.map(([k, l]) => opt(k, l, c.len === k)).join(""))}
       ${sel("diff", "Difficulty", DIFFS.map(([k, l]) => opt(k, l, c.diff === k)).join(""))}
-      ${sel("spicy", "Spicy", SPICE.map(([k, l]) => opt(k, l, c.spicy === k)).join(""))}
-      ${sel("drinks", "Drinks", opt("off", "Off", !c.drinks) + opt("on", "Sips on (any drink)", !!c.drinks))}
-      ${sel("tw", "Twists", opt("on", "On (surprise rounds)", c.tw !== 0) + opt("off", "Off", c.tw === 0))}
       ${c.mix ? sel("tune", "Music", (custom ? opt(c.tune, c.tl, true) : "") + TUNE_GROUPS.map(([g, list]) => `<optgroup label="${esc(g)}">${list.map(([q, l]) => opt(q, l, c.tune === q)).join("")}</optgroup>`).join("")) : ""}
       ${modes.includes("imp") ? sel("imp", "Imposter gets", opt("similar", "A similar word", c.imp === "similar") + opt("none", "No word", c.imp === "none")) : ""}
       ${sel("snd", "Sound", opt("all", "Music and effects", c.snd === "all") + opt("fx", "Effects only", c.snd === "fx") + opt("off", "Off", c.snd === "off"))}
       ${sel("host", "Host", opt("voice", "Voice and captions", c.host === "voice") + opt("captions", "Captions only", c.host === "captions") + opt("off", "Off", c.host === "off"))}
-      ${sel("anon", "Votes", opt("show", "Show who voted", !c.anon) + opt("anon", "Anonymous", !!c.anon))}</section>`;
+      ${sel("anon", "Votes", opt("show", "Show who voted", !c.anon) + opt("anon", "Anonymous", !!c.anon))}</details></section>`;
   },
   setting(k, v) {
     if (this.host?.vip !== this.pid || this.host.ph !== "lobby") return;
@@ -4905,6 +5128,8 @@ const PH = {
     if (this.host.kind === "split") return this.rSplit(main);
     if (this.host.kind === "low") return this.rLow(main);
     if (this.host.kind === "shot") return this.rShot(main);
+    if (this.host.kind === "herd") return this.rHerd(main);
+    if (this.host.kind === "rps") return this.rRps(main);
     const H = this.host, owner = H.x === fnv(this.pid + H.rk);
     const tbar = H.kind === "imp" || H.kind === "fakin" ? "" : `<div class="tbar" aria-hidden="true"><i id="tbar"></i></div>`;
     if (owner) return paint(main, "q-own|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">This one's yours</p><p class="muted">Keep a straight face. Every wrong guess earns you points.</p></div>`);
@@ -4978,6 +5203,42 @@ const PH = {
   },
   shareReady(key) { return !!this.shares?.[key]?.blob; },
   // Split or steal on the phone: the two players get Split and Steal; everyone else bets on how it ends.
+  // Herd mind on the phone: a box for your answer. What most people will type, not what you'd say.
+  rHerd(main) {
+    const H = this.host, q = H.hd?.q || "", tbar = `<div class="tbar" aria-hidden="true"><i id="tbar"></i></div>`;
+    if (this.g?.rk === H.rk) return paint(main, "hd-lock|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">You said</p><p class="ph-big">${esc(this.g.a)}</p><p class="muted">Waiting for the herd.</p></div>`);
+    const typed = $("#herd-in")?.value;
+    const did = paint(main, "hd|" + H.rk, `${tbar}<form class="card herd-form" novalidate><p class="eyebrow">Herd mind · Think like everyone else</p><p class="ph-h">${esc(q)}</p>
+      <p class="muted">Type what you think most people will type. The biggest group of matching answers scores.</p>
+      <div class="field"><label for="herd-in">Your answer</label><input id="herd-in" maxlength="40" autocomplete="off" autocorrect="off" enterkeyhint="send"></div>
+      <button class="btn primary wide" type="submit">Send</button></form>`);
+    if (did && typed) $("#herd-in").value = typed;
+  },
+  sendHerd() {
+    const H = this.host, a = cleanText($("#herd-in")?.value, 40);
+    if (!H || H.ph !== "q" || H.kind !== "herd" || !a || this.g?.rk === H.rk) return;
+    this.g = { rk: H.rk, a }; vibrate(25); this.push(); this.renderMain();
+  },
+  rHerdReveal(main) {
+    const H = this.host, rv = H.rv || {}, me = this.pid, pts = rv.d?.[me] || 0, herd = rv.herd === 0 ? rv.groups[0] : null, mine = (rv.groups || []).find(gr => gr.by.includes(me));
+    const head = pts ? "You're in the herd!" : rv.sheep === me ? "Black sheep!" : !mine ? "No answer" : herd ? "Not with the herd" : "The herd is split";
+    const sub = pts ? `+${fmt(pts)} points` : herd ? `The herd said “${esc(herd.a)}”.` : "No group was biggest, so nobody scores.";
+    paint(main, "hd-rev|" + H.rk, `<div class="card center result ${pts ? "good" : mine ? "bad" : ""}"><p class="eyebrow">Herd mind</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+  },
+  // Showdown on the phone: three big buttons.
+  rRps(main) {
+    const H = this.host, ps = H.ps || {}, tbar = `<div class="tbar" aria-hidden="true"><i id="tbar"></i></div>`, head = `<p class="eyebrow">Showdown · Throw ${(ps.go || 0) + 1} of ${ps.goes || 3} · ${fmt(ps.pts || 0)} a win</p>`;
+    if (this.g?.rk === H.rk) return paint(main, "ps-lock|" + H.rk, `${tbar}<div class="card center result">${head}<p class="emoji-q">${RPS[this.g.i][0]}</p><p class="ph-big">${RPS[this.g.i][1]}</p><p class="muted">Waiting for everyone else.</p></div>`);
+    paint(main, "ps|" + H.rk, `${tbar}<div class="card">${head}<p class="ph-h">Rock, paper or scissors?</p><p class="muted">You play everyone at once. Score for every player you beat.</p>
+      <div class="rpsbtns">${RPS.map(([e, w], k) => `<button class="rpsb" data-act="rps" data-i="${k}"><span>${e}</span><b>${w}</b></button>`).join("")}</div></div>`);
+  },
+  rRpsReveal(main) {
+    const H = this.host, rv = H.rv || {}, me = this.pid, mine = rv.g?.[me], pts = rv.d?.[me] || 0, w = rv.wins?.[me] || 0;
+    const lost = Number.isInteger(mine) ? Object.entries(rv.g || {}).filter(([o, j]) => o !== me && rpsBeats(j, mine)).length : 0;
+    const head = !Number.isInteger(mine) ? "No throw" : w && !lost ? "Clean sweep!" : w ? `You beat ${w}` : lost ? "Beaten!" : "Stalemate";
+    const sub = (pts ? `+${fmt(pts)} points. ` : "") + (Number.isInteger(mine) ? `You threw ${RPS[mine][1].toLowerCase()}${lost ? `, ${lost} beat you` : ""}.` : "");
+    paint(main, "ps-rev|" + H.rk, `<div class="card center result ${pts ? "good" : lost ? "bad" : ""}"><p class="eyebrow">Showdown · Throw ${(rv.go || 0) + 1} of ${rv.goes || 3}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+  },
   // Shot in the dark on the phone: tap where you hide, then where you shoot, then lock in. Ghosts only shoot.
   rShot(main) {
     const H = this.host, sd = H.sd || {}, size = Number(sd.size) || 3, alive = (sd.alive || []).includes(this.pid), tbar = `<div class="tbar" aria-hidden="true"><i id="tbar"></i></div>`;
@@ -5215,6 +5476,8 @@ const PH = {
     if (this.host.kind === "draw") return this.rDrawReveal(main);
     if (this.host.kind === "low") return this.rLowReveal(main);
     if (this.host.kind === "shot") return this.rShotReveal(main);
+    if (this.host.kind === "herd") return this.rHerdReveal(main);
+    if (this.host.kind === "rps") return this.rRpsReveal(main);
     if (this.host.kind === "meld") return this.rMeldReveal(main);
     if (this.host.qz && this.host.rv) return this.rQuizReveal(main);
     const H = this.host, rv = H.rv || { g: {}, d: {} }, ownerP = this.nameOf(rv.o);
@@ -5294,6 +5557,7 @@ app.addEventListener("submit", e => {
   if (mode === "phone" && e.target.classList.contains("num-form")) return PH.sendNum();
   if (mode === "phone" && e.target.classList.contains("fk-num-form")) return PH.sendFkNum();
   if (mode === "phone" && e.target.classList.contains("dw-form")) return PH.sendGuess();
+  if (mode === "phone" && e.target.classList.contains("herd-form")) return PH.sendHerd();
   if (mode === "phone") PH.act("join");
 });
 $("#selfie-in").addEventListener("change", e => { const f = e.target.files?.[0]; if (f && mode === "phone") PH.setSelfie(f); });

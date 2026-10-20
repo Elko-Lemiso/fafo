@@ -331,6 +331,23 @@
     { "id": "shot-miss-2", "ev": "shot-miss", "t": "Not a single hit! Keep shooting!" },
     { "id": "shot-last-1", "ev": "shot-last", "t": "Last one standing! What a survivor!" },
     { "id": "shot-last-2", "ev": "shot-last", "t": "And then there was one! Champion of the dark!" },
-    { "id": "shot-last-3", "ev": "shot-last", "t": "Untouchable! The last one left alive!" }
+    { "id": "shot-last-3", "ev": "shot-last", "t": "Untouchable! The last one left alive!" },
+    { "id": "intro-herd-1", "ev": "intro-herd", "t": "Herd mind! Don't be clever. Be normal!" },
+    { "id": "intro-herd-2", "ev": "intro-herd", "t": "Think like everyone else! Moo if you have to!" },
+    { "id": "intro-herd-3", "ev": "intro-herd", "t": "Herd mind! Follow the crowd!" },
+    { "id": "herd-win-1", "ev": "herd-win", "t": "The herd has spoken!" },
+    { "id": "herd-win-2", "ev": "herd-win", "t": "Great minds think alike! Points for the herd!" },
+    { "id": "herd-win-3", "ev": "herd-win", "t": "Moo! The herd wins!" },
+    { "id": "herd-split-1", "ev": "herd-split", "t": "No herd this time! You're all too original!" },
+    { "id": "herd-split-2", "ev": "herd-split", "t": "Split down the middle! Nobody scores!" },
+    { "id": "intro-rps-1", "ev": "intro-rps", "t": "Showdown! Rock, paper, scissors against everyone!" },
+    { "id": "intro-rps-2", "ev": "intro-rps", "t": "Fists ready! It's a showdown!" },
+    { "id": "rps-win-1", "ev": "rps-win", "t": "Ha! Read you like a book!" },
+    { "id": "rps-win-2", "ev": "rps-win", "t": "Brutal! Big win in the showdown!" },
+    { "id": "rps-draw-1", "ev": "rps-draw", "t": "Total chaos! Everyone beats somebody!" },
+    { "id": "rps-draw-2", "ev": "rps-draw", "t": "Stalemate! Again!" },
+    { "id": "intro-older-1", "ev": "intro-older", "t": "Who's older? It's closer than you think!" },
+    { "id": "intro-older-2", "ev": "intro-older", "t": "Birthday quiz! Who was born first?" },
+    { "id": "intro-older-3", "ev": "intro-older", "t": "Who's older? No googling!" }
   ]
 }
