@@ -74,6 +74,7 @@ tapped quickly. The same rounds and settings are under **Rounds & settings** on 
   An unfinished drawing recovers after refreshing the same phone; each new drawing starts with Pen selected.
   The next player sees only the drawing and types what it is, the next draws that guess, and so on, up to four steps.
   The host reveals the original prompt and each drawing or guess one at a time, with no automatic reveal countdown.
+  Phones show the current revealed item, its author and chain progress, with reactions directly below.
   A guess that nails what was being drawn scores 1,000 for the drawer and the guesser; a close one
   (a key word in common) 400. Drawings upload like photos and live in the server's memory. Prompts are in
   `server/data/draw.json`, with a `wild` list for No holds barred. Needs 3 players.

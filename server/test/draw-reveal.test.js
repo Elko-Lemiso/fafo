@@ -40,6 +40,15 @@ function fixture() {
   return { tv, context, step: () => { now += 500; tv.advance(); } };
 }
 
+function phoneFixture(tv, context, pid = "a") {
+  const main = {}, phone = Object.assign(Object.create(context.PH), {
+    pid, host: { kind: "draw", ph: "rev", rk: tv.H.rk, vip: "a", rv: tv.H.rv },
+    pl: () => Object.values(tv.H.players).map(p => [p.pid, p.name]),
+    shareReady: () => false, prepShare() { this.prepared = true; }, sipNote: () => "SIP_NOTE",
+  });
+  return { phone, render() { phone.rDrawReveal(main); return main.innerHTML; } };
+}
+
 test("a drawing reveal starts at its original prompt and has no automatic deadline", () => {
   const { tv } = fixture();
   tv.reveal();
@@ -119,21 +128,96 @@ test("TV markup includes only revealed cards and withholds the final verdict and
 test("phones follow reveal progress; only the VIP advances and sharing waits for the complete chain", () => {
   const { tv, context, step } = fixture();
   tv.reveal();
-  const main = {}, phone = Object.assign(Object.create(context.PH), {
-    pid: "a", host: { kind: "draw", ph: "rev", rk: tv.H.rk, vip: "a", rv: tv.H.rv },
-    shareReady: () => false, prepShare() { this.prepared = true; }, sipNote: () => "",
-  });
-  phone.rDrawReveal(main);
-  assert.match(main.innerHTML, /Reveal next drawing/);
-  assert.doesNotMatch(main.innerHTML, /Share this chain|Making the picture|1000 points/);
+  const { phone, render } = phoneFixture(tv, context);
+  assert.match(render(), /Reveal next drawing/);
+  assert.doesNotMatch(render(), /Share this chain|Making the picture|1000 points|SIP_NOTE/);
   assert.equal(phone.prepared, undefined);
-  phone.pid = "b"; phone.rDrawReveal(main);
-  assert.doesNotMatch(main.innerHTML, /data-act="draw-next"/);
-  step(); step(); step(); step();
-  phone.rDrawReveal(main);
+  phone.pid = "b";
+  assert.doesNotMatch(render(), /data-act="draw-next"/);
+  for (let i = 1; i < 4; i++) {
+    step();
+    assert.doesNotMatch(render(), /data-act="share-chain"|1000 points|SIP_NOTE/);
+    assert.equal(phone.prepared, undefined);
+  }
+  step();
+  const completed = render();
   assert.equal(phone.prepared, true);
-  assert.match(main.innerHTML, /1000 points/);
-  assert.match(main.innerHTML, /data-act="share-chain"/);
+  assert.match(completed, /1000 points/);
+  assert.match(completed, /SIP_NOTE/);
+  assert.match(completed, /data-act="share-chain"[^>]*disabled/);
+  phone.shareReady = () => true;
+  assert.match(render(), /data-act="share-chain"[^>]*>Share this chain/);
+  assert.doesNotMatch(render(), /data-act="share-chain"[^>]*disabled/);
+});
+
+test("phone previews follow the shared reveal step, name its author, and never expose future entries", () => {
+  const { tv, context, step } = fixture();
+  tv.H.cur.chains[0].items[1].v = "first hidden guess";
+  tv.reveal();
+  const { render } = phoneFixture(tv, context, "c");
+  let markup = render();
+  assert.match(markup, /The original prompt/);
+  assert.match(markup, /a corn cob harmonica/);
+  assert.match(markup, /Started by <b>A<\/b>/);
+  assert.match(markup, /aria-valuetext="Reveal 1 of 5"/);
+  assert.doesNotMatch(markup, /first-drawing|second-drawing|first hidden guess|a koala/);
+  step(); markup = render();
+  assert.match(markup, /src="\/photos\/first-drawing" alt="Drawing by A"/);
+  assert.match(markup, /Drawn by <b>A<\/b>/);
+  assert.match(markup, /aria-valuetext="Reveal 2 of 5"/);
+  assert.doesNotMatch(markup, /second-drawing|first hidden guess|a koala/);
+  step(); markup = render();
+  assert.match(markup, /“first hidden guess”/);
+  assert.match(markup, /Guessed by <b>B<\/b>/);
+  assert.match(markup, /aria-valuetext="Reveal 3 of 5"/);
+  assert.doesNotMatch(markup, /first-drawing|second-drawing|a koala/);
+  step(); markup = render();
+  assert.match(markup, /src="\/photos\/second-drawing" alt="Drawing by C"/);
+  assert.match(markup, /Drawn by <b>C<\/b> · you/);
+  assert.match(markup, /aria-valuetext="Reveal 4 of 5"/);
+  assert.doesNotMatch(markup, /first-drawing|first hidden guess|a koala/);
+  step(); markup = render();
+  assert.match(markup, /“a koala at the gym”/);
+  assert.match(markup, /Guessed by <b>A<\/b>/);
+  assert.match(markup, /aria-valuetext="Reveal 5 of 5"/);
+});
+
+test("missing drawings and guesses have distinct placeholders without attributing nonexistent work", () => {
+  const { tv, context, step } = fixture();
+  tv.H.cur.chains[0].items[0] = null;
+  tv.H.cur.chains[0].items[1] = null;
+  tv.reveal();
+  const { render } = phoneFixture(tv, context);
+  step();
+  let markup = render();
+  assert.match(markup, /A blank canvas/);
+  assert.match(markup, /No drawing was sent\./);
+  assert.doesNotMatch(markup, /class="pr-credit"|class="pr-picture"|second-drawing|a koala/);
+  step(); markup = render();
+  assert.match(markup, /Lost for words/);
+  assert.match(markup, /No guess was sent\./);
+  assert.doesNotMatch(markup, /class="pr-credit"|class="pr-picture"|second-drawing|a koala/);
+});
+
+test("phone prompt, guess, author and drawing alt text escape player-controlled markup", () => {
+  const { tv, context, step } = fixture();
+  tv.H.players.a.name = '\"><script>alert(1)</script>';
+  tv.H.players.b.name = "<b>Owl & Fox</b>";
+  tv.H.cur.chains[0].p = "<script>prompt</script>";
+  tv.H.cur.chains[0].items[1].v = "<svg onload=alert(2)>";
+  tv.reveal();
+  const { render } = phoneFixture(tv, context);
+  let markup = render();
+  assert.match(markup, /&lt;script&gt;prompt&lt;\/script&gt;/);
+  assert.match(markup, /&quot;&gt;&lt;script&gt;alert\(1\)&lt;\/script&gt;/);
+  assert.doesNotMatch(markup, /<script>|<svg onload/);
+  step(); markup = render();
+  assert.match(markup, /alt="Drawing by &quot;&gt;&lt;script&gt;alert\(1\)&lt;\/script&gt;"/);
+  assert.doesNotMatch(markup, /<script>/);
+  step(); markup = render();
+  assert.match(markup, /&lt;svg onload=alert\(2\)&gt;/);
+  assert.match(markup, /Guessed by <b>&lt;b&gt;Owl &amp; Fox&lt;\/b&gt;<\/b>/);
+  assert.doesNotMatch(markup, /<script>|<svg onload|<b>Owl & Fox<\/b>/);
 });
 
 test("shared chains preserve portrait, landscape, and legacy drawing proportions without cropping", async () => {

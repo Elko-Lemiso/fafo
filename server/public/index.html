@@ -687,6 +687,33 @@ button{touch-action:manipulation}
 @media(max-width:600px){.drawing-active{margin-left:min(0px,calc(env(safe-area-inset-left,0px) - 10px));margin-right:min(0px,calc(env(safe-area-inset-right,0px) - 10px))}.drawing-active .ph-top{padding-inline:8px}.dwcard{padding:0}.tools{gap:0}.tools .sw{flex:1;max-width:48px}.tools .tsep{flex-basis:100%;height:4px}.tools .sz{flex:1;max-width:none}.sketch-stage{height:clamp(240px,calc(100vh - 370px),900px);height:clamp(240px,calc(100dvh - 370px),900px)}}
 @media(orientation:landscape) and (max-height:600px){.dwcard{display:grid;grid-template-columns:minmax(0,1fr) 232px;align-items:start}.draw-heading{grid-column:1;grid-row:1}.sketch-stage{grid-column:1;grid-row:2/6;height:calc(100vh - 170px);height:calc(100dvh - 170px);min-height:160px}.draw-tools{grid-column:2;grid-row:2;grid-template-columns:repeat(3,minmax(0,1fr))}.tools{grid-column:2;grid-row:3;display:grid;grid-template-columns:repeat(5,minmax(44px,1fr));gap:2px}.tools .sw,.tools .sz{width:44px;height:44px}.tools .tsep{display:none}.dwbtns{grid-column:2;grid-row:1;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;align-self:end}.dwbtns .btn{font-size:12px;padding:4px;min-height:44px}.dwbtns .primary{grid-column:auto}.draw-confirm{grid-column:1/-1}.draw-hint{display:none}}
 .sketch-img{display:block;width:100%;height:auto;max-height:55vh;max-height:55dvh;object-fit:contain;background:#fff;border:3px solid var(--ink);border-radius:12px}
+/* The phone follows the revealed artifact, with the next action and reactions within thumb reach. */
+.ph-draw-reveal{display:flex;flex-direction:column;gap:14px}
+.pr-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.pr-heading h2{font-family:var(--display);font-size:25px;line-height:1.1}
+.pr-chain{font-family:var(--label);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.pr-progress{display:flex;gap:5px;height:5px}
+.pr-progress i{flex:1;border-radius:4px;background:#1d140f25}
+.pr-progress i.seen{background:var(--ink)}
+.pr-progress i.current{background:var(--tomato)}
+.pr-card{position:relative;display:flex;flex-direction:column;gap:14px;min-height:188px;padding:18px;background:var(--paper);border:2px solid var(--ink);border-radius:18px;box-shadow:4px 4px 0 var(--ink)}
+.pr-card-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.pr-stage{font-family:var(--label);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.pr-number{font-family:var(--display);font-size:12px;padding:5px 8px;line-height:1;background:var(--ink);color:var(--paper);border-radius:6px;transform:rotate(4deg)}
+.pr-prompt{flex:1;display:flex;align-items:center;font-family:var(--display);font-size:clamp(22px,6.2vw,29px);line-height:1.22;overflow-wrap:anywhere}
+.pr-credit{font-size:13px;color:var(--ink-soft);line-height:1.25}
+.pr-credit b{color:var(--ink)}
+.pr-picture{width:100%;height:clamp(140px,25dvh,240px);object-fit:contain;background:#fff;border-radius:9px}
+.pr-empty{flex:1;display:grid;place-content:center;gap:6px;text-align:center;min-height:80px;color:var(--ink-soft)}
+.pr-empty b{font-family:var(--display);font-size:20px;color:var(--ink)}
+.pr-next{width:100%;min-height:56px;display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left;padding:12px 16px;font-size:14px;border-width:2px;box-shadow:0 3px 0 var(--ink)}
+.pr-next svg{flex:none;width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2.5}
+.pr-wait{font-size:14px;color:var(--ink-soft);display:flex;align-items:center;gap:8px;line-height:1.3}
+.pr-wait::before{content:"";width:7px;height:7px;flex:none;border-radius:50%;background:var(--tomato)}
+.pr-score{display:flex;justify-content:space-between;gap:10px;align-items:center;font-weight:700;font-size:15px}
+.pr-score strong{font-family:var(--display);font-size:17px;color:var(--mint)}
+.pr-share{width:100%;min-height:44px;font-size:13px;padding:8px 12px;border-width:2px;box-shadow:none}
+@media(max-height:700px){.ph-draw-reveal{gap:10px}.pr-card{min-height:160px;padding:14px;gap:10px}.pr-picture{height:150px}}
 .drawrev{height:100%;display:flex;flex-direction:column;justify-content:center;gap:2.2vmin;max-width:1700px;margin:0 auto;width:100%;position:relative}
 .dchain{display:flex;gap:2.2vmin;align-items:stretch;justify-content:center}
 .dcard{position:relative;flex:1;max-width:36vmin;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:1.2vmin;background:var(--paper);border:3px solid var(--ink);border-radius:1.6vmin;box-shadow:0 .8vmin 0 var(--ink);padding:1.4vmin}
@@ -724,20 +751,34 @@ button{touch-action:manipulation}
 @keyframes floatup{0%{bottom:-12vmin;opacity:0}12%{opacity:1}75%{opacity:1}100%{bottom:62vh;opacity:0}}
 .rx.custom{max-width:56vw;align-items:flex-start}
 .rx.custom b{min-width:0;font-size:clamp(18px,3.6vmin,32px);line-height:1.2;overflow-wrap:anywhere;padding:.35em .65em;border-radius:18px}
-.rx-compose{width:100%;min-width:0;display:flex;flex-direction:column;gap:8px;padding-top:8px;border-top:2px solid #1d140f22}
-.rx-label{display:flex;align-items:center;justify-content:space-between;font-weight:700;gap:12px}
-.rx-label span{font-size:13px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
-.rx-form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
-.rx-form input{width:100%;min-width:0;min-height:52px;font:inherit;font-size:18px;padding:10px 12px;border:2px solid var(--ink);border-radius:12px;background:var(--paper);color:var(--ink);scroll-margin-block:24px}
-.rx-form .btn{min-height:52px;padding:8px 14px;font-size:14px}
-.rx-feedback{font-size:14px;font-weight:700;min-height:1.3em;overflow-wrap:anywhere}
-.rxbar{width:100%;min-width:0;display:flex;gap:10px;overflow-x:auto;padding:4px 4px 8px;scroll-snap-type:x proximity;overscroll-behavior-x:contain}
-.rxbar button{flex:0 0 78px;min-height:64px;font:inherit;border:2px solid var(--ink);border-radius:12px;background:var(--paper);box-shadow:0 3px 0 var(--ink);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px;touch-action:manipulation;scroll-snap-align:start}
-.rxbar button span{font-size:26px;line-height:1}
-.rxbar button b{font-family:var(--display);font-weight:400;font-size:12px}
-.rxbar button:focus-visible,.rx-form input:focus-visible{outline:3px solid var(--cobalt);outline-offset:1px}
-.rxbar button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.rx-compose{width:100%;min-width:0;display:flex;flex-direction:column;gap:10px;padding:14px;background:#fffbf0c9;border:1px solid #1d140f30;border-radius:20px}
+.rx-label{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:18px}
+.rx-label label{font-family:var(--display);font-size:13px}
+.rx-label span{font-size:12px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+#rx-count{display:none}
+.rx-compose:focus-within #rx-count{display:inline}
+.rx-compose:focus-within .rx-swipe{display:none}
+.rx-form{display:grid;grid-template-columns:minmax(0,1fr) 44px;gap:4px;padding:4px;border:1.5px solid var(--ink);border-radius:14px;background:#fff}
+.rx-form:focus-within{outline:2px solid var(--cobalt);outline-offset:2px}
+.rx-form input{width:100%;min-width:0;min-height:44px;font:inherit;font-size:17px;padding:8px;border:0;border-radius:10px;background:transparent;color:var(--ink);scroll-margin-block:24px}
+.rx-form input:focus-visible{outline:none}
+.rx-form .btn{min-width:44px;min-height:44px;display:grid;place-items:center;padding:8px;font-size:14px;border:0;border-radius:10px;box-shadow:none;background:var(--ink);color:var(--paper)}
+.rx-form .btn:disabled{opacity:1;background:#E8E1D2;color:#95866B}
+.rx-form .btn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.25}
+.rx-feedback{font-size:13px;font-weight:700;color:var(--mint);line-height:1.3;overflow-wrap:anywhere}
+.rx-feedback:empty{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.rx-quick{position:relative;min-width:0}
+.rx-quick::after{content:"";position:absolute;inset:0 0 0 auto;width:22px;pointer-events:none;background:linear-gradient(90deg,transparent,#FFF7E0)}
+.rxbar{width:100%;min-width:0;display:flex;gap:6px;overflow-x:auto;padding:3px 24px 3px 2px;scroll-snap-type:x proximity;overscroll-behavior-x:contain;scrollbar-width:none}
+.rxbar::-webkit-scrollbar{display:none}
+.rxbar button{flex:0 0 64px;min-height:64px;font:inherit;border:1px solid #1d140f16;border-radius:13px;background:#fff8;box-shadow:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:6px;touch-action:manipulation;scroll-snap-align:start}
+.rxbar button span{font-size:28px;line-height:1}
+.rxbar button b{font-family:var(--label);font-weight:700;font-size:11px;letter-spacing:.05em}
+.rxbar button:focus-visible{outline:3px solid var(--cobalt);outline-offset:1px}
+.rxbar button:active{transform:scale(.94);background:var(--sun)}
 .ph-foot>.btn{min-height:44px}
+.ph-foot>.ph-pause{display:flex;align-items:center;gap:6px;margin-left:auto;border:0;box-shadow:none;background:transparent;font-family:var(--body);font-size:13px;font-weight:700;color:var(--ink-soft);padding:8px 6px}
+.ph-pause svg{width:13px;height:13px;fill:currentColor}
 .twph{background:var(--tomato);color:var(--paper)}
 .twph .eyebrow{color:var(--sun)}
 /* the host's captions */
@@ -4679,11 +4720,11 @@ const PH = {
     // Reactions whenever this phone has nothing to do: reveals, scores, the title cards, and after locking in.
     const idle = this.canReact();
     if (!idle) { this.rxFeedback = ""; clearTimeout(this.rxFeedbackTimer); }
-    const changed = paint($("#ph-foot"), [pause, far, idle].join(), (idle ? `<section class="rx-compose" aria-label="Reactions"><div class="rx-label"><label for="rx-input">Your reaction</label><span id="rx-count" aria-hidden="true">0/${REACTION_MAX_CHARS}</span></div>
-      <form id="rx-form" class="rx-form"><input id="rx-input" placeholder="Say it your way…" value="${esc(this.rxDraft || "")}" maxlength="${REACTION_MAX_CHARS * 2}" autocomplete="off" enterkeyhint="send" aria-label="Your reaction, up to ${REACTION_MAX_CHARS} characters"><button id="rx-send" class="btn primary" type="submit" disabled>Send</button></form>
-      <div class="rxbar" role="group" aria-label="Quick reactions, swipe for more">${REACTS.map(([e, w], i) => `<button type="button" data-act="react" data-i="${i}" aria-label="${esc(w)}">${e ? `<span aria-hidden="true">${e}</span>` : ""}<b>${esc(w)}</b></button>`).join("")}</div>
+    const changed = paint($("#ph-foot"), [pause, far, idle].join(), (idle ? `<section class="rx-compose" aria-label="Reactions"><div class="rx-label"><label for="rx-input">Your reaction</label><span class="rx-swipe" aria-hidden="true">Quick picks · swipe →</span><span id="rx-count" aria-hidden="true">0/${REACTION_MAX_CHARS}</span></div>
+      <form id="rx-form" class="rx-form"><input id="rx-input" placeholder="Say it your way…" value="${esc(this.rxDraft || "")}" maxlength="${REACTION_MAX_CHARS * 2}" autocomplete="off" enterkeyhint="send" aria-label="Your reaction, up to ${REACTION_MAX_CHARS} characters"><button id="rx-send" class="btn" type="submit" aria-label="Send reaction" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V4m-7 7 7-7 7 7"/></svg></button></form>
+      <div class="rx-quick"><div class="rxbar" role="group" aria-label="Quick reactions, swipe for more">${REACTS.map(([e, w], i) => `<button type="button" data-act="react" data-i="${i}" aria-label="${esc(w)}">${e ? `<span aria-hidden="true">${e}</span>` : ""}<b>${esc(w)}</b></button>`).join("")}</div></div>
       <p id="rx-feedback" class="rx-feedback" role="status">${esc(this.rxFeedback || "")}</p></section>` : "")
-      + (far ? `<button class="btn sm" data-act="toofar">Too far</button>` : "") + (pause ? `<button class="btn sm" data-act="pause">Pause game</button>` : ""));
+      + (far ? `<button class="btn sm" data-act="toofar">Too far</button>` : "") + (pause ? `<button class="btn ph-pause" data-act="pause"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="3" height="12" rx="1"/><rect x="10" y="2" width="3" height="12" rx="1"/></svg>Pause game</button>` : ""));
     if (changed && idle) {
       const input = $("#rx-input");
       input.oninput = e => this.updateReactionInput(e.isComposing);
@@ -5138,12 +5179,24 @@ const PH = {
   },
   rDrawReveal(main) {
     const H = this.host, rv = H.rv || {}, me = this.pid, { shown, total, complete, next } = drawRevealProgress(rv), pts = complete ? rv.d?.[me] || 0 : 0, key = "chain|" + H.rk;
-    const mine = rv.by === me || (rv.items || []).slice(0, shown).some(x => x?.pid === me), vip = H.vip === me;
+    const vip = H.vip === me, item = shown ? rv.items?.[shown - 1] : null;
+    const drawing = shown > 0 && (item?.k || (shown % 2 ? "d" : "g")) === "d";
+    const stage = shown === 0 ? "The original prompt" : drawing ? "The drawing" : "The guess";
+    const author = this.nameOf(shown ? item?.pid : rv.by)?.[1] || "A player";
+    const artifact = shown === 0 ? `<p class="pr-prompt">${esc(rv.p || "No prompt")}</p>`
+      : !item?.v ? `<div class="pr-empty"><b>${drawing ? "A blank canvas" : "Lost for words"}</b><span>${drawing ? "No drawing was sent." : "No guess was sent."}</span></div>`
+      : drawing ? `<img class="pr-picture" src="${photoSrc(item.v)}" alt="Drawing by ${esc(author)}">`
+      : `<p class="pr-prompt">“${esc(item.v)}”</p>`;
+    const credit = shown === 0 ? "Started by" : drawing ? "Drawn by" : "Guessed by";
     if (complete) this.prepShare(key, () => SHARE.chain(rv, Object.fromEntries(this.pl().map(p => [p[0], cleanName(p[1])]))));
-    paint(main, ["dr-rev", H.rk, shown, vip, this.shareReady(key)].join("|"), `<div class="card center result ${pts ? "good" : ""}"><p class="eyebrow">Draw it · Chain ${(rv.ci || 0) + 1} of ${rv.n || 1}</p><p class="ph-big">${pts ? "A match!" : "Eyes on the TV"}</p>
-      <p style="font-weight:800;font-size:19px">${pts ? `+${fmt(pts)} points` : mine ? "Your work is up there." : "Watch how far it drifted."}</p><p class="muted">${complete ? "The full chain is revealed." : `Reveal ${shown + 1} of ${total + 1}. ${vip ? "Take your time, then reveal the next part." : "The host reveals each part."}`}</p>${complete ? this.sipNote() : ""}</div>
-      ${vip ? `<button class="btn primary wide" data-act="draw-next">${next}</button>` : ""}
-      ${complete ? `<button class="btn wide" data-act="share-chain" data-k="${esc(key)}" ${this.shareReady(key) ? "" : "disabled"}>${this.shareReady(key) ? "Share this chain" : "Making the picture…"}</button>` : ""}`);
+    paint(main, ["dr-rev", H.rk, shown, vip, this.shareReady(key)].join("|"), `<section class="ph-draw-reveal" aria-label="Drawing reveal">
+      <header class="pr-heading"><h2>Draw it</h2><span class="pr-chain">Chain ${(rv.ci || 0) + 1} / ${rv.n || 1}</span></header>
+      <div class="pr-progress" role="progressbar" aria-label="Drawing reveal" aria-valuemin="1" aria-valuemax="${total + 1}" aria-valuenow="${shown + 1}" aria-valuetext="Reveal ${shown + 1} of ${total + 1}">${Array.from({ length: total + 1 }, (_, i) => `<i class="${i < shown ? "seen" : i === shown ? "current" : ""}"></i>`).join("")}</div>
+      <article class="pr-card"><div class="pr-card-top"><span class="pr-stage">${stage}</span><span class="pr-number">${shown + 1} / ${total + 1}</span></div>${artifact}
+      ${!shown || item?.v ? `<p class="pr-credit">${credit} <b>${esc(author)}</b>${(shown ? item?.pid : rv.by) === me ? " · you" : ""}</p>` : ""}</article>
+      ${complete ? `<div class="pr-score"><span>Chain complete.</span>${pts ? `<strong>+${fmt(pts)} points</strong>` : ""}</div>${this.sipNote()}` : ""}
+      ${vip ? `<button class="btn primary pr-next" data-act="draw-next"><span>${next}</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-7-7 7 7-7 7"/></svg></button>` : `<p class="pr-wait">${complete ? "Waiting for the host to continue." : "The host reveals the next part."}</p>`}
+      ${complete ? `<button class="btn pr-share" data-act="share-chain" data-k="${esc(key)}" ${this.shareReady(key) ? "" : "disabled"}>${this.shareReady(key) ? "Share this chain" : "Making the picture…"}</button>` : ""}</section>`);
   },
   // Share pictures are made as soon as their screen shows, so a tap opens the share sheet at once (phones only allow
   // sharing straight after a tap). Only the latest few are kept.
