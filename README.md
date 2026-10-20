@@ -7,8 +7,11 @@ Play it at **https://fafo.up.railway.app**: open **https://fafo.up.railway.app/t
 
 ## Rounds
 
-The TV lobby shows the join code, who's in, and tonight's rounds. Press **Rounds & settings** on the TV to pick any
-mix (whoever starts the game can also pick from their phone):
+The TV lobby shows the join code, who's in, and tonight's rounds. Whoever joined first is the host: their phone
+opens with a **Tonight** card, and **Change** opens a full-screen picker with **quick picks** (Get to know you, Party
+chaos, Quiz night, Music and movies, Just the two of us, Classic fafo), then every mode with a line about what it is
+and how many players it needs, plus a Settings tab. Picks show on the phone straight away and reach the TV even when
+tapped quickly. The same rounds and settings are under **Rounds & settings** on the TV:
 
 - **Whose photo:** everyone adds up to 5 photos from their phone (baby pictures work great). Each one
   pops up on the TV and everyone guesses whose it is. Every photo gets played.

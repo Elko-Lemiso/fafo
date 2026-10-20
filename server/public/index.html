@@ -262,6 +262,44 @@ button{font:inherit;color:inherit}
 .opt-pill{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border:3px solid var(--ink);border-radius:12px;background:var(--oc);color:#FFFBF0;font-weight:800;font-size:22px}
 .opt-pill b{font-family:var(--display);font-weight:400}
 .mode-pick{display:flex;flex-wrap:wrap;gap:8px}
+button{touch-action:manipulation}
+/* the host's round picker on the phone */
+.ctrl-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.tonight-list{width:100%;display:flex;flex-wrap:wrap;gap:6px;padding:0;border:0;background:transparent;text-align:left;cursor:pointer;font:inherit;color:inherit}
+.tonight-list span{font-weight:800;font-size:14px;border:2px solid var(--ink);border-radius:999px;padding:4px 10px;background:#fff}
+.linkb{font:inherit;font-weight:800;color:var(--cobalt);background:none;border:0;padding:0;text-decoration:underline;cursor:pointer}
+.sheet{position:fixed;top:0;right:0;bottom:0;left:0;z-index:30;display:flex;flex-direction:column;background-color:var(--sun);background-image:radial-gradient(circle,var(--sun-deep) 1.1px,transparent 1.7px);background-size:16px 16px;animation:rise .2s both}
+.sheet[hidden]{display:none}
+.sheet-top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:max(10px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 10px max(16px,env(safe-area-inset-left));background:var(--paper);border-bottom:3px solid var(--ink)}
+.seg{display:flex;border:3px solid var(--ink);border-radius:999px;overflow:hidden;background:#fff}
+.seg button{font:inherit;font-family:var(--label);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:14px;padding:8px 14px;border:0;background:transparent;color:var(--ink);cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--sun)}
+.sheet-body{flex:1;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:14px max(16px,env(safe-area-inset-right)) calc(28px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));display:flex;flex-direction:column;gap:18px}
+.sheet-body>*{width:100%;max-width:560px;margin:0 auto}
+.sh-sec{display:flex;flex-direction:column;gap:10px}
+.sh-sec .num{color:var(--ink-soft)}
+.presets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.preset{font:inherit;text-align:left;display:flex;flex-direction:column;gap:4px;padding:12px;border:3px solid var(--ink);border-radius:14px;background:var(--paper);box-shadow:0 4px 0 var(--ink);cursor:pointer;color:var(--ink);min-width:0}
+.preset:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+.preset b{font-family:var(--display);font-weight:400;font-size:16px;line-height:1.1}
+.preset span{font-size:12.5px;font-weight:600;color:var(--ink-soft);line-height:1.3}
+.preset.on{background:var(--ink);color:var(--sun)}
+.preset.on span{color:var(--paper)}
+.mlist{display:flex;flex-direction:column;gap:8px}
+.mpick{font:inherit;width:100%;display:flex;align-items:center;gap:12px;text-align:left;padding:11px 14px;min-height:64px;border:3px solid var(--ink);border-radius:14px;background:var(--paper);color:var(--ink);cursor:pointer;transition:background-color .12s}
+.mpick:active{transform:scale(.985)}
+.mp-t{display:flex;flex-direction:column;gap:2px;min-width:0}
+.mpick b{font-weight:800;font-size:17px;line-height:1.15}
+.mpick .d{font-size:14px;font-weight:600;color:var(--ink-soft);line-height:1.3}
+.mpick .need{font-family:var(--label);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:12px;color:var(--ink-soft)}
+.mpick .need.short{color:var(--tomato)}
+.mpick .tick{flex:none;margin-left:auto;width:30px;height:30px;border-radius:50%;border:3px solid var(--ink);background:#fff;display:grid;place-items:center}
+.mpick.on{background:var(--cobalt);color:var(--paper)}
+.mpick.on .d,.mpick.on .need{color:var(--paper);opacity:.85}
+.mpick.on .need.short{color:var(--sun);opacity:1}
+.mpick.on .tick{background:var(--sun)}
+.mpick.on .tick::after{content:"";width:8px;height:14px;border:solid var(--ink);border-width:0 3px 3px 0;transform:translateY(-2px) rotate(45deg)}
+.sheet-open,.sheet-open body{overflow:hidden}
 .mode-pick .mode{font-size:13px}
 @keyframes dim{to{opacity:.45}}
 /* music, faces and round options */
@@ -377,7 +415,7 @@ button{font:inherit;color:inherit}
 .ph-foot{display:flex;justify-content:center}
 .ph-foot:empty{display:none}
 .on-tv .tv button:focus,.on-tv .tv select:focus,.on-tv .tv input:focus{outline:6px solid var(--cobalt);outline-offset:5px}
-.ph-set .field select{font:inherit;font-size:18px;font-weight:700;padding:10px 12px;border:3px solid var(--ink);border-radius:12px;background:#fff;color:var(--ink);width:100%}
+.sheet .field select{font:inherit;font-size:18px;font-weight:700;padding:10px 12px;border:3px solid var(--ink);border-radius:12px;background:#fff;color:var(--ink);width:100%}
 .rows .voters,.opt .voters{max-width:22vmin}
 /* selfies and quick profiles */
 .avatar{position:relative;overflow:hidden}
@@ -499,6 +537,28 @@ const PLAYER_KINDS = ["photo", "song", "prof", "imp", "fakin", "likely"];
 const CROWD_KINDS = ["prof", "said", "quip", "bluff", "imp", "fakin", "likely", "wyr", "nhie"];
 // Modes that work with 2 players.
 const PAIR_KINDS = ["ttl", "meld", "hot"];
+// One line per mode for the round pickers, so nobody has to guess what "Fakin' it" is.
+const MODE_INFO = {
+  photo: "Guess whose photo is on the TV", song: "Guess who picked the song that's playing", prof: "Tap quick answers, then guess whose is whose",
+  said: "Answer about yourself, then guess who wrote what", ttl: "Write two truths and a lie, spot everyone's lie", hot: "One of you answers, the rest guess what they said",
+  meld: "Pairs try to type the same answer", likely: "Vote for who's most likely to…", wyr: "Pick a side and score with the room", nhie: "Tap I have or Never, then see who has",
+  quip: "Write the funniest answer, the room votes", bluff: "Write a fake answer, then find the real one", imp: "Everyone has a secret word except the imposter",
+  fakin: "One of you got a different question", tune: "Name the song from a clip", face: "A famous face sharpens from a blur", flag: "Name the country from its flag",
+  map: "Name the country from its shape", cap: "Pick the capital city", big: "Two countries: which is bigger?", trivia: "General knowledge, four answers",
+  buzz: "First right answer wins, a wrong one costs", num: "Guess the number, closest wins", year: "Guess the year, closest wins",
+  hilo: "Is the hidden number higher or lower?", odd: "Find the one that doesn't belong", emoji: "Films, songs and shows told in emoji",
+};
+// What a mode needs before it can play: enough players, or something brought from the phones.
+const modeNeeds = m => [CROWD_KINDS.includes(m) ? 3 : PAIR_KINDS.includes(m) ? 2 : 1, { photo: "Bring photos", song: "Pick songs", prof: "Quick answers first" }[m] || ""];
+// One-tap sets of rounds for a kind of night. Picking one replaces the current rounds.
+const PRESETS = [
+  ["know", "Get to know you", ["prof", "said", "ttl", "hot", "likely", "nhie"]],
+  ["chaos", "Party chaos", ["quip", "bluff", "fakin", "imp", "likely", "wyr"]],
+  ["quiz", "Quiz night", ["trivia", "buzz", "flag", "cap", "year", "hilo", "odd"]],
+  ["music", "Music and movies", ["song", "tune", "face", "emoji"]],
+  ["two", "Just the two of us", ["meld", "hot", "ttl", "hilo", "trivia"]],
+  ["classic", "Classic fafo", ["photo", "song", "prof"]],
+].map(([id, label, list]) => ({ id, label, modes: MODES.filter(m => list.includes(m)) }));
 // How the round picker groups the modes in the TV's settings. Anything not listed here shows under "More".
 const MODE_GROUPS = [
   ["About you", ["photo", "song", "prof", "said", "ttl", "hot", "meld", "likely", "wyr", "nhie"]],
@@ -1128,7 +1188,7 @@ const TV = {
       let pl = H.players[pid];
       if (!pl) {
         if (Object.keys(H.players).length >= MAX_PLAYERS) continue;
-        pl = H.players[pid] = { pid, name, color: this.nextColor(), score: 0, photos: [], songs: [], cmdK: p.cmd?.k ?? null, at: now, online: true };
+        pl = H.players[pid] = { pid, name, color: this.nextColor(), score: 0, photos: [], songs: [], at: now, online: true };
         changed = true;
         SFX.play("join");
         if (H.ph === "lobby" && now - (this.joinSaid || 0) > 8000) { this.joinSaid = now; this.say(Object.keys(H.players).length === 1 ? "welcome" : "join"); }
@@ -1202,11 +1262,15 @@ const TV = {
         }
       }
       if (H.ph === "qv" && !H.pause && g && g.rk === H.rk && !H.guesses[pid] && this.canVote(pid, g.i)) { H.guesses[pid] = { i: g.i, t: now }; changed = true; SFX.play("lock"); }
-      const c = p.cmd;
-      if (c && typeof c.k === "string" && c.k !== pl.cmdK) {
-        pl.cmdK = c.k;
+      // Commands: a phone keeps its last few in `cq`, so quick taps aren't lost (older pages send one at a time in `cmd`).
+      // Each runs once. Commands a phone already had when the TV first saw it are history, not news.
+      const cmds = [...(Array.isArray(p.cq) ? p.cq.slice(-12) : []), p.cmd].filter(c => c && typeof c.k === "string" && c.k.length <= 12 && typeof c.a === "string" && c.a.length <= 400);
+      if (!Array.isArray(pl.cmdSeen)) pl.cmdSeen = cmds.map(c => c.k);
+      for (const c of cmds) {
+        if (pl.cmdSeen.includes(c.k)) continue;
+        pl.cmdSeen = [...pl.cmdSeen, c.k].slice(-40);
         // Anyone can say a spicy prompt went too far; everything else comes from whoever starts the game.
-        if (typeof c.a === "string" && c.a.startsWith("toofar:")) this.tooFar(c.a.slice(7));
+        if (c.a.startsWith("toofar:")) this.tooFar(c.a.slice(7));
         else if (pid === H.vip) this.command(c.a);
       }
     }
@@ -1215,10 +1279,9 @@ const TV = {
       pl.online = false; changed = true;
       if (!H.pause && this.waitFor(pl.pid)) lost = pl.pid;
     }
-    if (!H.vip || !H.players[H.vip] || !H.players[H.vip].online) {
-      const next = this.players().find(p => p.online)?.pid || H.vip;
-      if (next !== H.vip) { H.vip = next; changed = true; }
-    }
+    // Whoever joined first and is here runs the game, so a host whose phone reloads gets it back when it reconnects.
+    const first = this.players().find(p => p.online)?.pid;
+    if (first && first !== H.vip) { H.vip = first; changed = true; }
     if (lost) this.pause(lost);
     else if (changed) { this.save(); this.render(); }
     if (clueDone) return this.advance();
@@ -1258,6 +1321,7 @@ const TV = {
     else if (a === "pause") this.pause();
     else if (a === "resume") this.resume();
     else if (a === "next" && this.isImp() && this.H.ph === "rev") { this.unpause(); this.advance(); }
+    else if (typeof a === "string" && a.startsWith("modes:")) this.setModes(a.slice(6).split(","));
     else if (typeof a === "string" && a.startsWith("mode:")) this.toggleMode(a.slice(5));
     else if (typeof a === "string" && a.startsWith("set:")) { const i = a.indexOf(":", 4); if (i > 4) this.setting(a.slice(4, i), a.slice(i + 1)); }
   },
@@ -1267,6 +1331,13 @@ const TV = {
       anon: () => this.setAnon(v), spicy: () => this.setSpicy(v), drinks: () => this.setDrinks(v), imp: () => this.setImpVar(v),
       tune: () => { const m = TUNE_MIXES.find(([q]) => q === v); if (m) this.setTune(m[0], m[1]); } }[k];
     if (set) { set(); this.push(true); }
+  },
+  // The host's phone sends the whole set it wants, so taps that arrive together or out of order still end up right.
+  setModes(list) {
+    const H = this.H, want = MODES.filter(m => list.includes(m));
+    if (!want.length || H.ph !== "lobby" || this.starting || want.join() === H.modes.join()) return;
+    H.modes = want; this.err = "";
+    this.renderModes(); this.prefetch(); this.save(); this.render(); this.push(true);
   },
   toggleMode(m) {
     const H = this.H;
@@ -2368,6 +2439,7 @@ const TV = {
     else if (a === "full") { if (document.fullscreenElement) document.exitFullscreen?.().catch(() => {}); else document.documentElement.requestFullscreen?.().catch(() => {}); }
     else if (a === "add-photo") { this.addFor = el.dataset.pid; fileIn.value = ""; fileIn.click(); }
     else if (a === "mode") this.toggleMode(el.dataset.m);
+    else if (a === "preset") { const p = PRESETS.find(x => x.id === el.dataset.p); if (p) this.setModes(p.modes); }
     else if (a === "tune-mix") this.setTune(el.dataset.q, el.dataset.l);
     else if (a === "face-cat") this.setFaceCat(el.dataset.c);
     else if (a === "sound") { this.needSound = false; this.audio?.play().catch(e => { if (e?.name === "NotAllowedError") { this.needSound = true; this.renderHostbar(); } }); }
@@ -2622,6 +2694,7 @@ const TV = {
     const grouped = MODE_GROUPS.flatMap(([, l]) => l), more = MODES.filter(m => !grouped.includes(m)), c = this.confirm?.a;
     const groups = [...MODE_GROUPS.map(([g, l]) => [g, l.filter(m => MODES.includes(m))]), ["More", more]].filter(([, l]) => l.length);
     paint(el, [H.modes.join(), H.theme, H.len, H.tune.q, this.mixNote, H.impVar, H.snd, H.anon, H.host, VOICE.recorded(), H.spicy, H.drinks, H.diff, c].join("|"), `<p class="eyebrow">Rounds tonight</p>
+      <div class="mgroup"><span class="sub-l">Quick picks</span><div class="mode-row">${PRESETS.map(p => `<button class="chipb ${p.modes.join() === H.modes.join() ? "on" : ""}" data-act="preset" data-p="${p.id}">${esc(p.label)}</button>`).join("")}</div></div>
       ${groups.map(([g, l]) => `<div class="mgroup"><span class="sub-l">${esc(g)}</span><div class="mode-row">${l.map(chip).join("")}</div></div>`).join("")}
       <p class="eyebrow">Settings</p>
       <div class="sub">
@@ -3012,7 +3085,8 @@ const PH = {
     if (s.pf && typeof s.pf === "object") for (const [k, v] of Object.entries(s.pf).slice(-12)) if (/^[a-z0-9-]{1,20}$/.test(k) && Number.isInteger(v)) this.pf[k] = v;
     this.pfQs = Array.isArray(s.pfQs) ? s.pfQs.filter(k => typeof k === "string").slice(0, 6) : [];
     this.pfGid = typeof s.pfGid === "string" ? s.pfGid : null;
-    app.innerHTML = `<div class="phone"><header class="ph-top" id="ph-top"></header><main class="ph-main" id="ph-main"></main><footer class="ph-foot" id="ph-foot"></footer></div>`;
+    app.innerHTML = `<div class="phone"><header class="ph-top" id="ph-top"></header><main class="ph-main" id="ph-main"></main><footer class="ph-foot" id="ph-foot"></footer></div>
+      <div class="sheet" id="ph-sheet" hidden role="dialog" aria-modal="true" aria-label="Rounds and settings"><header class="sheet-top" id="sheet-top"></header><div class="sheet-body" id="sheet-body"></div></div>`;
     this.save();
     this.render();
     if (roomState === "ok") this.onRoom();
@@ -3120,7 +3194,7 @@ const PH = {
       ph: this.photos.filter(p => p.up).map(p => p.id).slice(0, PER_PLAYER),
       s: this.photos.filter(p => !p.up).length,
       sg: this.songs.map(x => [x.id, x.t, x.a, x.art, x.ap || ""]),
-      g: this.g ?? null, cmd: this.cmd ?? null,
+      g: this.g ?? null, cmd: this.cmd ?? null, cq: this.cq || [],
       wk: this.secret?.rk || null, fk: this.fkq?.rk || null, sw: this.sw || null, dn: this.dn || null, rd: this.rd || null,
       av: this.avUp ? this.av : null, pf: this.pf, qa: this.qa || null,
     }).catch(e => console.warn("presence", e));
@@ -3174,6 +3248,13 @@ const PH = {
     this.save(); this.push(); this.renderMain();
   },
 
+  // Commands for the TV go in a short queue in this phone's presence, so two quick taps both arrive. The TV runs each once.
+  send(a) {
+    const c = { k: rid(6), a };
+    this.cq = [...(this.cq || []), c].slice(-12);
+    this.push();
+    return c;
+  },
   act(a, el) {
     if (a === "join") {
       const name = cleanName($("#nm-in")?.value), code = ($("#code-in")?.value || this.code || "").toUpperCase().trim();
@@ -3218,7 +3299,7 @@ const PH = {
     }
     if (a === "next-round") {
       if (this.host?.vip !== this.pid || this.host.ph !== "rev") return;
-      this.cmd = { k: rid(6), a: "next" }; vibrate(20); this.push(); return this.renderMain(true);
+      this.cmd = this.send("next"); vibrate(20); return this.renderMain(true);
     }
     if (a === "clue-done") {
       const H = this.host;
@@ -3230,7 +3311,11 @@ const PH = {
       if (!H || H.ph !== "q" || !H.qz || this.g?.rk === H.rk || !Number.isInteger(i)) return;
       this.g = { rk: H.rk, i }; vibrate(30); this.push(); return this.renderMain();
     }
-    if (a === "mode") { this.cmd = { k: rid(6), a: "mode:" + el.dataset.m }; this.push(); vibrate(15); return; }
+    if (a === "mode" || a === "pick") return this.pick(el.dataset.m);
+    if (a === "preset") { const p = PRESETS.find(x => x.id === el.dataset.p); if (p) { this.pickMsg = ""; this.setModes(p.modes); } return; }
+    if (a === "sheet") return this.openSheet(el.dataset.tab || "rounds");
+    if (a === "sheet-tab") { this.sheet = el.dataset.tab === "settings" ? "settings" : "rounds"; this.renderSheet(); const b = $("#sheet-body"); if (b) b.scrollTop = 0; return; }
+    if (a === "sheet-done") return this.openSheet(null);
     if (a === "qvote") {
       const i = Number(el.dataset.i), H = this.host;
       if (!H || H.ph !== "qv" || this.g?.rk === H.rk || !Number.isInteger(i)) return;
@@ -3239,7 +3324,7 @@ const PH = {
     if (a === "toofar") {
       const H = this.host;
       if (!H?.sp || !H.rk) return;
-      this.cmd = { k: rid(6), a: "toofar:" + H.rk }; this.tooFarAt = H.rk; vibrate(20); this.push(); return this.renderFoot();
+      this.send("toofar:" + H.rk); this.tooFarAt = H.rk; vibrate(20); return this.renderFoot();
     }
     if (a === "selfie") { $("#selfie-in").value = ""; return $("#selfie-in").click(); }
     if (a === "selfie-rm") return this.removeSelfie();
@@ -3250,23 +3335,23 @@ const PH = {
       const keys = Object.keys(this.pf); while (keys.length > 12) delete this.pf[keys.shift()];
       vibrate(12); this.save(); this.push(); return this.renderProf();
     }
-    if (a === "pause" || a === "resume") { if (this.host?.vip !== this.pid) return; this.cmd = { k: rid(6), a }; this.push(); vibrate(15); return; }
+    if (a === "pause" || a === "resume") { if (this.host?.vip !== this.pid) return; this.send(a); vibrate(15); return; }
     if (a === "start" || a === "again") {
-      const cmd = this.cmd = { k: rid(6), a }; this.push(); vibrate(20);
+      const cmd = this.cmd = this.send(a); vibrate(20);
       setTimeout(() => { if (this.cmd === cmd) { this.cmd = null; this.push(); this.renderMain(true); } }, 5000);
       return this.renderMain();
     }
     if (a === "leave") {
       if (Date.now() > this.confirmLeave) { this.confirmLeave = Date.now() + 3000; this.renderTop(); setTimeout(() => this.renderTop(), 3100); return; }
       room?.drop(this.photos.filter(p => p.up).map(p => p.id));
-      this.joined = false; this.photos = []; this.songs = []; this.search = null; this.g = null; this.cmd = null; this.code = hashCode; this.confirmLeave = 0;
+      this.joined = false; this.photos = []; this.songs = []; this.search = null; this.g = null; this.cmd = null; this.cq = []; this.want = null; this.wantCfg = {}; this.sheet = null; this.code = hashCode; this.confirmLeave = 0;
       this.save(); this.push(); return this.render();
     }
     if (a === "switch") { store.del("wiw.mode"); location.href = "/"; }
   },
 
   // ---------- phone rendering ----------
-  render() { this.renderTop(); this.renderMain(); this.renderFoot(); },
+  render() { this.renderTop(); this.renderMain(); this.renderFoot(); this.renderSheet(); },
   // Whoever starts the game can pause it from their phone too.
   renderFoot() {
     const H = this.host, live = this.joined && H && !["lobby", "end", "lb"].includes(H.ph) && !H.pause;
@@ -3412,11 +3497,49 @@ const PH = {
       <button class="btn primary wide" data-act="join" type="submit">Join game</button>
     </form>`);
   },
-  modes() { return Array.isArray(this.host?.modes) ? this.host.modes.filter(m => MODES.includes(m)) : ["photo"]; },
+  // The rounds tonight. On the host's phone a change shows straight away: its own pick wins until the TV agrees, or for 5 seconds.
+  modes() {
+    const tv = Array.isArray(this.host?.modes) ? this.host.modes.filter(m => MODES.includes(m)) : ["photo"], w = this.want;
+    if (w && w.modes.join() === tv.join()) this.want = null;
+    else if (w && Date.now() - w.at < 5000) return w.modes;
+    return tv;
+  },
+  setModes(list) {
+    const H = this.host, modes = MODES.filter(m => list.includes(m));
+    if (!modes.length || H?.vip !== this.pid || H.ph !== "lobby") return;
+    this.want = { modes, at: Date.now() };
+    this.send("modes:" + modes.join(","));
+    vibrate(10);
+    clearTimeout(this.wantT); this.wantT = setTimeout(() => this.render(), 5200);
+    this.render();
+  },
+  pick(m) {
+    const modes = this.modes(), on = modes.includes(m);
+    if (!MODES.includes(m)) return;
+    if (on && modes.length === 1) { this.pickMsg = "Keep at least one round on."; return this.renderSheet(); }
+    this.pickMsg = "";
+    this.setModes(on ? modes.filter(x => x !== m) : [...modes, m]);
+  },
+  // The lobby settings, with the host's own changes shown straight away in the same way.
+  cfg() {
+    const c = this.host?.cfg;
+    if (!c) return null;
+    const out = { ...c }, now = Date.now();
+    for (const [k, w] of Object.entries(this.wantCfg || {})) { if (now - w.at > 5000 || String(c[k]) === String(w.v)) delete this.wantCfg[k]; else out[k] = w.v; }
+    return out;
+  },
+  openSheet(tab) {
+    this.sheet = tab && this.host?.vip === this.pid && this.host.ph === "lobby" ? tab : null;
+    this.pickMsg = "";
+    this.renderSheet();
+    const b = $("#sheet-body"); if (b && this.sheet) b.scrollTop = 0;
+  },
   rLobby(main) {
     const H = this.host, vip = H.vip === this.pid, modes = this.modes(), photos = modes.includes("photo"), songs = modes.includes("song");
     // The layout only changes with the game or the round types, so typing a song search isn't interrupted.
-    paint(main, ["lobby", H.gid, modes.join(), vip].join("|"), `<section class="card" id="selfie"></section>
+    // Only the cards that come and go change the layout, so picking rounds doesn't rebuild the page (or wipe a song search).
+    // The host's job here is picking rounds and starting, so their Tonight card comes first; everyone else starts with their selfie.
+    paint(main, ["lobby", H.gid, modes.includes("prof"), photos, songs, vip].join("|"), `${vip ? `<section class="card" id="ctrl"></section>` : ""}<section class="card" id="selfie"></section>
       ${modes.includes("prof") ? `<section class="card"><p class="eyebrow">Whose answer</p><p class="ph-h">Quick questions</p>
         <p class="muted">One tap each. Later the TV shows an answer and everyone guesses whose it is.</p><div id="prof"></div></section>` : ""}
       ${photos ? `<section class="card">
@@ -3433,11 +3556,10 @@ const PH = {
         <form id="song-form" class="songsearch" novalidate><input id="song-q" placeholder="Search a song or artist" autocomplete="off" enterkeyhint="search"><button class="btn sm" type="submit">Search</button></form>
         <div id="song-results" class="songlist"></div>
       </section>` : ""}
-      ${!photos && !songs ? `<section class="card"><p class="eyebrow">You're in</p><p class="ph-h">Get ready</p>
+      ${!photos && !songs && !vip ? `<section class="card"><p class="eyebrow">You're in</p><p class="ph-h">Get ready</p>
         <p class="muted">The TV asks the questions. Pick your answer here. The fastest right answer scores most.</p></section>` : ""}
-      <section class="card" id="ctrl"></section>
-      ${vip ? `<section class="card ph-set" id="ph-set"></section>` : ""}`);
-    this.renderCtrl(); this.renderPhotos(); this.renderSongs(); this.renderSelfie(); this.renderProf(); this.renderSettings();
+      ${vip ? "" : `<section class="card" id="ctrl"></section>`}`);
+    this.renderCtrl(); this.renderPhotos(); this.renderSongs(); this.renderSelfie(); this.renderProf();
   },
   renderSelfie() {
     const el = $("#selfie"), me = this.me();
@@ -3462,17 +3584,23 @@ const PH = {
         + `<p class="muted">${done === qs.length ? "All done. Change any answer until the game starts." : `${done} of ${qs.length} answered.`}</p>`);
     }).catch(() => paint(el, "err", `<p class="muted">Couldn't load the questions. Check the connection.</p>`));
   },
+  // The lobby's card about tonight: the rounds, the settings that matter, and Start. Only the host can change things.
   renderCtrl() {
     const el = $("#ctrl");
     if (!el || !this.host) return;
-    const H = this.host, vip = H.vip === this.pid, vipName = this.nameOf(H.vip)?.[1], ps = this.pl(), modes = this.modes();
+    const H = this.host, vip = H.vip === this.pid, vipName = this.nameOf(H.vip)?.[1], ps = this.pl(), modes = this.modes(), c = this.cfg();
     const brings = [modes.includes("photo") && "photos", modes.includes("song") && "songs"].filter(Boolean).join(" and ");
     const starting = this.cmd?.a === "start";
-    const picker = vip
-      ? `<div class="mode-pick">${MODES.map(m => `<button class="mode ${modes.includes(m) ? "on" : ""}" data-act="mode" data-m="${m}" aria-pressed="${modes.includes(m)}">${MODE_LABEL[m]}</button>`).join("")}</div>`
-      : `<p class="muted">Tonight: ${modes.map(m => MODE_LABEL[m]).join(", ")}${H.th && H.th !== "Anything goes" ? ` · Theme: ${esc(H.th)}` : ""}</p>`;
-    paint(el, [vip, H.can, starting, ps.map(p => p[0] + p[1] + p[7]).join(), vipName, modes.join(), H.th, this.av, H.spicy].join("|"), `
-      <p class="eyebrow">Rounds tonight</p>${picker}
+    const theme = c ? THEMES.find(t => t.id === c.th) : null;
+    const bits = c ? [theme && theme.id !== "mix" && "Theme: " + theme.label, (LENGTHS.find(([k]) => k === c.len) || LENGTHS[1])[1] + " game", c.diff !== "normal" && (DIFFS.find(([k]) => k === c.diff) || [])[1],
+      c.spicy === "wild" ? "No holds barred" : c.spicy !== "off" && (SPICE.find(([k]) => k === c.spicy) || [])[1], c.drinks && "Drinks on"].filter(Boolean)
+      : [H.th && H.th !== "Anything goes" && "Theme: " + H.th].filter(Boolean);
+    paint(el, [vip, H.can, starting, ps.map(p => p[0] + p[1] + p[4] + p[7]).join(), vipName, modes.join(), bits.join(), this.av, H.spicy].join("|"), `
+      <div class="ctrl-top"><p class="eyebrow">${vip ? "You're the host · " : ""}Tonight</p>
+        ${vip ? `<button class="btn sm" data-act="sheet" data-tab="rounds">Change</button>` : ""}</div>
+      ${vip ? `<button class="tonight-list" data-act="sheet" data-tab="rounds" aria-label="Change tonight's rounds">${modes.map(m => `<span>${esc(MODE_LABEL[m])}</span>`).join("")}</button>`
+        : `<div class="tonight-list">${modes.map(m => `<span>${esc(MODE_LABEL[m])}</span>`).join("")}</div>`}
+      ${bits.length ? `<p class="muted">${esc(bits.join(" · "))}${vip ? ` · <button class="linkb" data-act="sheet" data-tab="settings">Settings</button>` : ""}</p>` : vip ? `<p class="muted"><button class="linkb" data-act="sheet" data-tab="settings">Settings</button></p>` : ""}
       ${H.spicy === 2 ? `<p class="warn">No holds barred tonight: sex, hookups, drinking and filthy questions. Adults only. Tap Too far on your phone to skip anything, no questions asked.</p>`
         : H.spicy ? `<p class="warn">18+ tonight: some prompts are spicy. Tap Too far on your phone to skip one, no questions asked.</p>` : ""}
       ${vip ? `<button class="btn primary wide" data-act="start" ${H.can && !starting ? "" : "disabled"}>${starting ? "Starting…" : "Start game"}</button>
@@ -3480,28 +3608,61 @@ const PH = {
       : `<p class="ph-h" style="font-size:20px">Waiting for ${esc(vipName || "the host")} to start</p>`}
       <div class="chips">${ps.map(p => `<span class="chip">${faceA(p)}${esc(p[1])}</span>`).join("")}</div>`);
   },
-  // The host changes the lobby settings here, so nobody needs to touch the TV (or its remote) after it's on.
-  renderSettings() {
-    const el = $("#ph-set"), H = this.host, c = H?.cfg;
-    if (!el || !c || H.vip !== this.pid) return;
+  // The host's full-screen sheet: tonight's rounds (quick picks, then every mode with what it is and what it needs) and the settings.
+  renderSheet() {
+    const el = $("#ph-sheet"), H = this.host;
+    if (!el) return;
+    if (this.sheet && (H?.ph !== "lobby" || H.vip !== this.pid || !this.joined)) this.sheet = null;
+    if (!this.sheet) { if (!el.hidden) { el.hidden = true; document.documentElement.classList.remove("sheet-open"); } return; }
+    if (el.hidden) { el.hidden = false; document.documentElement.classList.add("sheet-open"); }
+    const tab = this.sheet, modes = this.modes(), c = this.cfg(), here = this.pl().filter(p => p[4]).length, body = $("#sheet-body");
+    paint($("#sheet-top"), tab + "|" + modes.length, `<div class="seg" role="tablist">
+        <button role="tab" aria-selected="${tab === "rounds"}" class="${tab === "rounds" ? "on" : ""}" data-act="sheet-tab" data-tab="rounds">Rounds <span class="num">${modes.length}</span></button>
+        <button role="tab" aria-selected="${tab === "settings"}" class="${tab === "settings" ? "on" : ""}" data-act="sheet-tab" data-tab="settings">Settings</button></div>
+      <button class="btn primary sm" data-act="sheet-done">Done</button>`);
+    const top = body.scrollTop;
+    const did = tab === "rounds" ? paint(body, JSON.stringify(["r", modes, here, this.pickMsg || ""]), this.roundsHtml(modes, here))
+      : paint(body, JSON.stringify(["s", c, modes.includes("imp")]), this.settingsHtml(c, modes));
+    if (did) body.scrollTop = top;
+  },
+  roundsHtml(modes, here) {
+    const row = m => {
+      const on = modes.includes(m), [n, bring] = modeNeeds(m), short = n > here;
+      const need = [n > 1 ? `${n}+ players${short ? `, ${here} here` : ""}` : "", bring].filter(Boolean).join(" · ");
+      return `<button class="mpick ${on ? "on" : ""}" data-act="pick" data-m="${m}" aria-pressed="${on}"><span class="mp-t"><b>${esc(MODE_LABEL[m])}</b>
+        <span class="d">${esc(MODE_INFO[m] || "")}</span>${need ? `<span class="need ${short ? "short" : ""}">${esc(need)}</span>` : ""}</span><span class="tick" aria-hidden="true"></span></button>`;
+    };
+    const grouped = MODE_GROUPS.flatMap(([, l]) => l);
+    const groups = [...MODE_GROUPS.map(([g, l]) => [g, l.filter(m => MODES.includes(m))]), ["More", MODES.filter(m => !grouped.includes(m))]].filter(([, l]) => l.length);
+    return `<section class="sh-sec"><p class="eyebrow">Quick picks</p><div class="presets">${PRESETS.map(p => `<button class="preset ${p.modes.join() === modes.join() ? "on" : ""}" data-act="preset" data-p="${p.id}">
+        <b>${esc(p.label)}</b><span>${esc(p.modes.map(m => MODE_LABEL[m]).join(" · "))}</span></button>`).join("")}</div></section>
+      ${this.pickMsg ? `<p class="warn">${esc(this.pickMsg)}</p>` : ""}
+      ${groups.map(([g, l]) => `<section class="sh-sec"><p class="eyebrow">${esc(g)} <span class="num">· ${l.filter(m => modes.includes(m)).length} of ${l.length}</span></p><div class="mlist">${l.map(row).join("")}</div></section>`).join("")}`;
+  },
+  // The lobby settings, changed from the host's phone instead of the TV (or its remote).
+  settingsHtml(c, modes) {
+    if (!c) return `<p class="muted">Waiting for the TV…</p>`;
     const opt = (v, l, on) => `<option value="${esc(v)}" ${on ? "selected" : ""}>${esc(l)}</option>`;
     const sel = (k, label, opts) => `<div class="field"><label for="set-${k}">${label}</label><select id="set-${k}" data-set="${k}">${opts}</select></div>`;
     const custom = !TUNE_MIXES.some(([q]) => q === c.tune);
-    paint(el, JSON.stringify([c, this.modes().includes("imp")]), `<p class="eyebrow">Settings</p><p class="muted">You're the host, so you can change these here instead of on the TV.</p>
+    return `<section class="sh-sec"><p class="muted">Changes show on the TV straight away.</p>
       ${sel("th", "Theme", THEMES.map(t => opt(t.id, t.label, c.th === t.id)).join(""))}
       ${sel("len", "Length", LENGTHS.map(([k, l]) => opt(k, l, c.len === k)).join(""))}
       ${sel("diff", "Difficulty", DIFFS.map(([k, l]) => opt(k, l, c.diff === k)).join(""))}
+      ${sel("spicy", "Spicy", SPICE.map(([k, l]) => opt(k, l, c.spicy === k)).join(""))}
+      ${sel("drinks", "Drinks", opt("off", "Off", !c.drinks) + opt("on", "Sips on (any drink)", !!c.drinks))}
       ${c.mix ? sel("tune", "Music", (custom ? opt(c.tune, c.tl, true) : "") + TUNE_GROUPS.map(([g, list]) => `<optgroup label="${esc(g)}">${list.map(([q, l]) => opt(q, l, c.tune === q)).join("")}</optgroup>`).join("")) : ""}
-      ${this.modes().includes("imp") ? sel("imp", "Imposter gets", opt("similar", "A similar word", c.imp === "similar") + opt("none", "No word", c.imp === "none")) : ""}
+      ${modes.includes("imp") ? sel("imp", "Imposter gets", opt("similar", "A similar word", c.imp === "similar") + opt("none", "No word", c.imp === "none")) : ""}
       ${sel("snd", "Sound", opt("all", "Music and effects", c.snd === "all") + opt("fx", "Effects only", c.snd === "fx") + opt("off", "Off", c.snd === "off"))}
       ${sel("host", "Host", opt("voice", "Voice and captions", c.host === "voice") + opt("captions", "Captions only", c.host === "captions") + opt("off", "Off", c.host === "off"))}
-      ${sel("anon", "Votes", opt("show", "Show who voted", !c.anon) + opt("anon", "Anonymous", !!c.anon))}
-      ${sel("spicy", "Spicy", SPICE.map(([k, l]) => opt(k, l, c.spicy === k)).join(""))}
-      ${sel("drinks", "Drinks", opt("off", "Off", !c.drinks) + opt("on", "Sips on (any drink)", !!c.drinks))}`);
+      ${sel("anon", "Votes", opt("show", "Show who voted", !c.anon) + opt("anon", "Anonymous", !!c.anon))}</section>`;
   },
   setting(k, v) {
     if (this.host?.vip !== this.pid || this.host.ph !== "lobby") return;
-    this.cmd = { k: rid(6), a: `set:${k}:${v}` }; this.push(); vibrate(10);
+    (this.wantCfg ||= {})[k] = { v: k === "anon" ? (v === "anon" ? 1 : 0) : k === "drinks" ? (v === "on" ? 1 : 0) : v, at: Date.now() };
+    this.send(`set:${k}:${v}`); vibrate(10);
+    clearTimeout(this.cfgT); this.cfgT = setTimeout(() => this.render(), 5200);
+    this.renderCtrl();
   },
   renderSongs() {
     const mine = $("#mysongs"), res = $("#song-results");
