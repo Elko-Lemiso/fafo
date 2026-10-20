@@ -3,3 +3,5 @@ node_modules/
 *.log
 # Leftover local test build
 game.html
+# Takes downloaded by tools/make-music.js, before the loops are cut
+.music-raw/

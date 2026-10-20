@@ -102,9 +102,41 @@ lobby, and Too far still skips anything. Each mode's data file has its own `wild
 **Selfies:** each phone can take a selfie, which replaces the player's letter everywhere on the TV and the
 phones. Selfies live in the server's memory only, like photos, and each phone re-sends its own after a restart.
 
-**Sound:** the TV plays effects and a background loop, all made in the browser, and goes quiet under song
-clips. Browsers keep a page silent until someone clicks it, so press **Turn on sound** (or **Sound check**)
-in the lobby. Rounds & settings picks Music and effects, Effects only, or Off.
+**Sound:** the TV plays a soundtrack and effects. Browsers keep a page silent until someone clicks it, so press
+**Turn on sound** (or **Sound check**) in the lobby. Rounds & settings picks Music and effects, Effects only, or Off.
+
+**Soundtrack:** nine instrumental tracks made with ElevenLabs Music, in an Afro house and amapiano sound, each cut
+into a seamless loop. The TV picks the track from what's happening and blends between them like a DJ:
+
+| Track | When |
+| --- | --- |
+| `lobby` | The lobby. With nobody in, it sounds like the party next door, and opens up as people join |
+| `social` | Guessing and voting on each other: Who said it, Most likely, Hot seat, the votes on written answers |
+| `quiz` | Quiz questions against the clock |
+| `write` | Typing answers on the phones |
+| `suspense` | Imposter and Fakin' it, from the secret word to the vote |
+| `final` | The last round |
+| `groove` | Reveals and scores. It drops straight in on a downbeat |
+| `victory` | The podium |
+| `afterdark` | No holds barred: replaces the lobby and the reveal groove |
+
+Each track carries on where it left off last time, so a night of questions doesn't hear the same opening bars over
+and over. On top of that: the host's voice ducks the music, a pause muffles it, song clips silence it, the last five seconds
+on the clock get a riser, and when time runs out the track winds down like a record being stopped before the reveal.
+Without the files the TV falls back to a synth loop made in the browser. The prompts, tempos and loop lengths are in
+`server/data/music.json`. To make the tracks again (it needs ffmpeg):
+
+```
+cd server
+node tools/make-music.js --dry                        # what it would make
+node tools/make-music.js --env ~/path/to/.env         # new or changed tracks, key from ELEVENLABS_API_KEY
+node tools/make-music.js --again groove --env …       # a fresh take of one track
+node tools/make-music.js --reloop                     # cut the loops again from the downloaded takes, no key needed
+```
+
+Each take is kept in `.music-raw/` (not committed). The tool finds two moments a whole number of 4-bar phrases apart
+that sound the same, lines their beats up to the sample, blends the bit after the second into the start so the end
+runs straight into the beginning, and brings every track to the same loudness.
 
 **Host:** a host introduces rounds, reacts to reveals and roasts the scoreboard, with a caption on the TV
 for every line. The lines are in `server/data/voice.json`. Record them once with ElevenLabs on your own

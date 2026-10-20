@@ -1,0 +1,104 @@
+{
+ "tracks": {
+  "lobby": {
+   "h": "1dsaq4n",
+   "loop": 47.2129,
+   "beat": 0.4918,
+   "bpm": 122,
+   "from": 72.78,
+   "match": 0.075,
+   "corr": 0.38,
+   "lufs": -16,
+   "kb": 739
+  },
+  "groove": {
+   "h": "grs1xo",
+   "loop": 42.4771,
+   "beat": 0.53096,
+   "bpm": 113,
+   "from": 61.32,
+   "match": 0.053,
+   "corr": 0.396,
+   "lufs": -16,
+   "kb": 665
+  },
+  "quiz": {
+   "h": "dhtzjz",
+   "loop": 31.99964,
+   "beat": 0.49999,
+   "bpm": 120,
+   "from": 35.25,
+   "match": 0.258,
+   "corr": 0.367,
+   "lufs": -16,
+   "kb": 501
+  },
+  "social": {
+   "h": "11rf1u",
+   "loop": 46.60327,
+   "beat": 0.58254,
+   "bpm": 103,
+   "from": 3.48,
+   "match": 0.041,
+   "corr": 0.369,
+   "lufs": -17,
+   "kb": 729
+  },
+  "final": {
+   "h": "olp06l",
+   "loop": 30.00109,
+   "beat": 0.46877,
+   "bpm": 128,
+   "from": 34.1,
+   "match": 0.122,
+   "corr": 0.365,
+   "lufs": -16,
+   "kb": 470
+  },
+  "afterdark": {
+   "h": "114bkgn",
+   "loop": 68.58814,
+   "beat": 0.53584,
+   "bpm": 112,
+   "from": 66.42,
+   "match": 0.136,
+   "corr": 0.382,
+   "lufs": -16,
+   "kb": 1073
+  },
+  "write": {
+   "h": "1kaq185",
+   "loop": 43.64435,
+   "beat": 0.68194,
+   "bpm": 88,
+   "from": 37.15,
+   "match": 0.096,
+   "corr": 0.359,
+   "lufs": -16,
+   "kb": 683
+  },
+  "suspense": {
+   "h": "sm2tes",
+   "loop": 40.00073,
+   "beat": 0.62501,
+   "bpm": 96,
+   "from": 6.87,
+   "match": 0.137,
+   "corr": 0.434,
+   "lufs": -16,
+   "kb": 626
+  },
+  "victory": {
+   "h": "16bdlaa",
+   "loop": 54.34,
+   "beat": 0.56604,
+   "bpm": 106,
+   "from": 3.11,
+   "match": 0.199,
+   "corr": 0.366,
+   "lufs": -16,
+   "kb": 850
+  }
+ },
+ "model": "music_v2_5"
+}

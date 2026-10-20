@@ -1,0 +1,60 @@
+{
+ "about": "The soundtrack. tools/make-music.js makes each track with ElevenLabs Music, cuts a seamless loop out of it and writes public/music/<id>.mp3. The TV picks the track from what's happening in the game (see MUSIC and TV.music in public/index.html). Changing a prompt makes that track again on the next run.",
+ "model": "music_v2_5",
+ "tracks": [
+  {
+   "id": "lobby",
+   "use": "The lobby while people join. Starts muffled and opens up as the room fills.",
+   "bpm": 122, "loop": 72, "ms": 150000,
+   "prompt": "Feel-good Afro house groove for a house party lobby while friends arrive. 122 BPM, A minor. Rolling deep bassline, tight four-on-the-floor kick, shakers and congas, crisp open hi-hats, warm Rhodes chords, a catchy marimba hook, airy synth pads. Warm, inviting, confident, a Nairobi rooftop at sunset. Instrumental only, no vocals. One steady groove from the first bar to the last: no intro, no breakdown, no build-up, no ending."
+  },
+  {
+   "id": "groove",
+   "use": "Reveals, scores and the gaps between rounds.",
+   "bpm": 113, "loop": 64, "ms": 130000,
+   "prompt": "Bouncy amapiano party groove for the moment the answers are revealed. 113 BPM, A minor. Deep log drum bass, shuffling shakers, crisp finger snaps, jazzy piano stabs, a cheeky saxophone riff, warm sub bass. Playful, celebratory, swaggering, friends laughing and pointing at each other. Instrumental only, no vocals. One steady groove from the first bar to the last: no intro, no breakdown, no ending."
+  },
+  {
+   "id": "quiz",
+   "use": "Quiz questions against the clock.",
+   "bpm": 120, "loop": 48, "ms": 78000,
+   "prompt": "Tense game-show countdown bed for a quiz question with a timer running. 120 BPM, A minor. Pulsing staccato synth bass on eighth notes, ticking clock-like percussion, tight Afro-tech percussion, a muted kick, a suspenseful string ostinato, small rising synth stabs. Focused, urgent, fun, the clock is running. Leave space, no lead melody. Instrumental only, no vocals. Steady and consistent from the first bar to the last: no intro, no drop, no ending."
+  },
+  {
+   "id": "social",
+   "use": "Guessing and voting on each other: who said it, most likely, hot seat, the votes on written answers.",
+   "bpm": 104, "loop": 55, "ms": 85000,
+   "prompt": "Cheeky, mischievous groove for a party game where friends vote on each other and guess who said what. 104 BPM, D minor. Bouncy pizzicato strings, playful marimba, finger snaps, a rubbery 808 bassline, light Afrobeats percussion, sly muted trumpet licks. Gossip, teasing, side-eye, I knew it was you. Instrumental only, no vocals. One steady groove from the first bar to the last: no intro, no breakdown, no ending."
+  },
+  {
+   "id": "write",
+   "use": "Typing answers on the phones.",
+   "bpm": 88, "loop": 65, "ms": 92000,
+   "prompt": "Laid-back lo-fi Afro-soul beat for friends typing funny answers on their phones. 88 BPM, C major. Dusty swung drums, warm Rhodes chords, a soft round bassline, a gentle kalimba melody, light vinyl crackle, soft shaker. Relaxed, warm, a little sly, easy to think over. Instrumental only, no vocals. One steady groove from the first bar to the last: no intro, no breakdown, no ending."
+  },
+  {
+   "id": "suspense",
+   "use": "Imposter and Fakin' it: secret words, clues, the arguing and the vote.",
+   "bpm": 96, "loop": 60, "ms": 88000,
+   "prompt": "Sneaky spy-funk whodunit theme for a party game where one friend is secretly lying. 96 BPM, E minor. Walking upright bass, muted wah guitar, brushed snare and rimshots, vibraphone, low tense strings, a sly flute motif. Suspicious, playful, detective noir, everyone is a suspect. Instrumental only, no vocals. One steady groove from the first bar to the last: no intro, no breakdown, no ending."
+  },
+  {
+   "id": "final",
+   "use": "The last round.",
+   "bpm": 128, "loop": 45, "ms": 76000,
+   "prompt": "High-stakes final round music for a party game show, everything on the line. 128 BPM, A minor. Huge punchy drums, driving Afro-tech percussion, bold brass stabs, a pulsing distorted bassline, rising synth arpeggios, stadium energy. Urgent, epic, hype, but still fun. Instrumental only, no vocals. One steady high-energy groove from the first bar to the last: no intro, no breakdown, no ending."
+  },
+  {
+   "id": "victory",
+   "use": "The podium at the end.",
+   "bpm": 106, "loop": 54, "ms": 90000,
+   "prompt": "Triumphant celebratory Afrobeats anthem for crowning the winner of a party game. 106 BPM, C major. Bright horn section, big drums, joyful highlife guitar riffs, rolling percussion, a bouncing bassline, claps. Victory lap, confetti, everyone dancing. Instrumental only, no vocals. One steady groove from the first bar to the last: no intro, no breakdown, no ending."
+  },
+  {
+   "id": "afterdark",
+   "use": "No holds barred: replaces the lobby and the reveal groove.",
+   "bpm": 112, "loop": 72, "ms": 150000,
+   "prompt": "Sultry late-night deep amapiano for an adults-only party after midnight. 112 BPM, F minor. Deep warm log drums, slow sensual saxophone phrases, dark Rhodes chords, breathy pads, crisp shakers, a smoky after-hours club atmosphere. Seductive, mischievous, dangerous fun. Instrumental only, no vocals. One steady groove from the first bar to the last: no intro, no breakdown, no ending."
+  }
+ ]
+}

@@ -787,11 +787,11 @@ const VOICE = {
   talking(on) { if (this.isTalking === on) return; this.isTalking = on; $("#caption")?.classList.toggle("talking", on); this.onTalk?.(on); },
 };
 
-// ---------- sound: effects and a background loop, made in the browser so there are no audio files to load ----------
+// ---------- sound: effects made in the browser, and a synth loop that stands in when the soundtrack (MUSIC) can't play ----------
 // Browsers start audio switched off until someone clicks the page; unlock() is called on the TV's first click or key.
 const hz = m => 440 * 2 ** ((m - 69) / 12);
 const SFX = {
-  ctx: null, fx: null, mus: null, mood: "off", level: 0, want: { fx: true, music: true }, timer: 0, step: 0, next: 0, onState: null,
+  ctx: null, fx: null, mus: null, rise: null, mood: "off", level: 0, want: { fx: true, music: true }, timer: 0, step: 0, next: 0, onState: null,
   init() {
     if (this.ctx) return this.ctx;
     const C = window.AudioContext || window.webkitAudioContext;
@@ -818,7 +818,7 @@ const SFX = {
     const c = this.ctx;
     this.buf ||= (() => { const b = c.createBuffer(1, c.sampleRate, c.sampleRate), d = b.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; return b; })();
     const s = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain(), v = o.vol ?? 0.08;
-    s.buffer = this.buf; f.type = o.ft || "highpass"; f.frequency.setValueAtTime(o.f || 7000, at);
+    s.buffer = this.buf; s.loop = dur > 0.45; f.type = o.ft || "highpass"; f.frequency.setValueAtTime(o.f || 7000, at);
     if (o.fTo) f.frequency.exponentialRampToValueAtTime(o.fTo, at + dur);
     g.gain.setValueAtTime(0.0001, at); g.gain.exponentialRampToValueAtTime(v, at + (o.att || 0.003)); g.gain.exponentialRampToValueAtTime(0.0001, at + dur);
     s.connect(f); f.connect(g); g.connect(o.bus || this.fx); s.start(at, Math.random() * 0.5); s.stop(at + dur + 0.02);
@@ -844,6 +844,20 @@ const SFX = {
       case "go": n(88, 0.35, { type: "square", vol: 0.07 }); break;
       case "check": arp([72, 76, 79], 0.09, 0.2, { type: "triangle", vol: 0.14 }); [72, 76, 79, 84].forEach(m => n(m, 0.9, { type: "triangle", vol: 0.08, at: 0.3 })); break;
     }
+  },
+  // A rising whoosh over the last seconds on the clock. Cut short if the round moves on first.
+  riser(secs) {
+    if (!this.want.fx || !this.ready()) return;
+    this.cutRiser();
+    const c = this.ctx, t = c.currentTime + 0.02, g = this.rise = c.createGain();
+    g.connect(this.fx);
+    this.hiss(t, secs, { ft: "bandpass", f: 300, fTo: 6500, vol: 0.09, att: secs * 0.95, bus: g });
+    this.note(hz(57), t, secs, { to: hz(81), vol: 0.035, att: secs * 0.9, bus: g });
+  },
+  cutRiser() {
+    const g = this.rise;
+    if (!g) return;
+    this.rise = null; g.gain.setTargetAtTime(0, this.ctx.currentTime, 0.04); setTimeout(() => g.disconnect(), 500);
   },
   // The background loop: "groove" in the lobby and between rounds, "think" (no drums or chords) during questions, "off" under song clips.
   setMood(mood, duck = 1) {
@@ -880,6 +894,133 @@ const SFX = {
     if (i === 4 || i === 12) this.hiss(at, 0.12, { ft: "bandpass", f: 1800, vol: 0.1, bus: m });
     if ([0, 3, 6, 8, 11, 14].includes(i)) this.note(hz(root + (i === 6 || i === 14 ? 12 : 0)), at, 0.18, { type: "triangle", vol: 0.2, bus: m });
     if (i === 2 || i === 10) for (const k of chord) this.note(hz(k), at, i === 2 ? 0.4 : 0.22, { vol: 0.03, att: 0.01, bus: m });
+  },
+};
+
+// ---------- the soundtrack: tracks made with ElevenLabs Music (tools/make-music.js), each one a seamless loop ----------
+// TV.mood() says which track fits the moment, how loud it plays and how open it sounds; MUSIC crossfades to it.
+// A track plays as back-to-back passes of its loop, each started on the audio clock, so the joins are exact.
+// Without the files (no internet, or a copy without them) the synth loop in SFX plays instead.
+const MUSIC_LEVEL = { lobby: 0.85, intro: 0.75, q: 0.62, qv: 0.62, qw: 0.5, rev: 0.75, lb: 0.85, end: 0.9, "imp-word": 0.55, "imp-clue": 0.32, "imp-talk": 0.36, "fk-ans": 0.5, "fk-talk": 0.36 };
+const MUSIC_GAIN = 0.47; // the whole soundtrack, so it sits under the host's voice
+// Tracks carry on where they left off last time, so a night of questions doesn't hear the same opening bars over and
+// over. These two start from the top: they each come once.
+const FROM_TOP = ["final", "victory"];
+// Holds an automated value where it is right now, so a new ramp starts from there.
+const holdParam = (p, t) => { if (p.cancelAndHoldAtTime) p.cancelAndHoldAtTime(t); else { const x = p.value; p.cancelScheduledValues(t); p.setValueAtTime(x, t); } };
+// Some browsers keep the MP3 encoder's lead-in (about 25 ms of near silence) and tail on a decoded track. Then it comes
+// out longer than the loop, and starts silent; the passes have to allow for the lead-in to line up.
+const leadIn = (b, L) => {
+  if (b.duration - L < 0.02) return 0;
+  const x = b.getChannelData(0), y = b.numberOfChannels > 1 ? b.getChannelData(1) : x, n = Math.min(x.length, Math.round(b.sampleRate * 0.06));
+  let i = 0;
+  while (i < n && Math.abs(x[i]) < 0.002 && Math.abs(y[i]) < 0.002) i++;
+  return i / b.sampleRate > 0.012 ? 1105 / 44100 : 0;
+};
+const MUSIC = {
+  meta: {}, state: "loading", raw: {}, bufs: new Map(), busy: {}, bad: {}, voices: [], pos: {}, want: null, keep: [], lvl: 0, lpf: 20000, hold: 0, onChange: null,
+  load() {
+    return (this.loading ||= fetch("/music/index.json").then(r => (r.ok ? r.json() : {})).catch(() => ({})).then(d => {
+      this.meta = (d && d.tracks) || {}; this.state = Object.keys(this.meta).length ? "ok" : "none"; this.onChange?.();
+    }));
+  },
+  has(id) { return this.state === "ok" && !!this.meta[id] && !this.bad[id]; },
+  setup() {
+    const c = SFX.ctx;
+    if (!c) return false;
+    if (!this.bus) {
+      // Each track has its own fade and filter; then a filter and level for the whole soundtrack. It skips the
+      // effects' compressor: the tracks are mastered already, and it would pump every time an effect played.
+      this.lp = c.createBiquadFilter(); this.lp.type = "lowpass"; this.lp.frequency.value = 20000; this.lp.Q.value = 0.5;
+      this.bus = c.createGain(); this.bus.gain.value = 0;
+      this.lp.connect(this.bus); this.bus.connect(c.destination);
+      setInterval(() => this.voices.forEach(v => this.feed(v)), 1500);
+    }
+    return true;
+  },
+  fetch(id) {
+    return (this.raw[id] ||= fetch(`/music/${id}.mp3?v=${this.meta[id].h}`).then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.arrayBuffer(); })
+      .catch(e => { delete this.raw[id]; throw e; }));
+  },
+  // A decoded track takes a lot of memory, so only a few are kept: the one playing and the ones likely next.
+  buffer(id) {
+    if (this.bufs.has(id)) return Promise.resolve(this.bufs.get(id));
+    return (this.busy[id] ||= this.fetch(id).then(ab => new Promise((ok, no) => SFX.ctx.decodeAudioData(ab.slice(0), ok, no))).then(b => {
+      delete this.busy[id]; this.bufs.set(id, b); this.trim(); return b;
+    }, e => {
+      // A network blip can be tried again later; a file that won't decode can't.
+      delete this.busy[id]; if (!(e instanceof TypeError)) { this.bad[id] = true; this.onChange?.(); }
+      throw e;
+    }));
+  },
+  trim() {
+    const need = new Set([...this.voices.map(v => v.id), this.want && this.want.id, ...this.keep]);
+    for (const id of [...this.bufs.keys()]) if (this.bufs.size > 4 && !need.has(id)) this.bufs.delete(id);
+  },
+  // Gets the tracks likely to be wanted next ready, so a switch doesn't wait on the network or the decoder.
+  warm(ids) {
+    this.keep = ids.filter(id => this.has(id));
+    if (!this.setup()) return;
+    for (const id of this.keep) if (!this.bufs.has(id)) this.buffer(id).catch(() => {});
+    // Once something is playing, fetch the rest (not decode: that waits until it's needed).
+    if (!this.fetchedAll && this.voices.length) { this.fetchedAll = true; for (const id of Object.keys(this.meta)) this.fetch(id).catch(() => {}); }
+  },
+  // What should play: { id, lvl, lp, drop } or null for silence. Called often; only what changed does anything.
+  set(w) {
+    this.want = w;
+    if (!this.setup()) return;
+    const c = SFX.ctx, now = c.currentTime, lvl = w ? w.lvl : 0, lp = w ? w.lp : 20000;
+    if (lvl !== this.lvl) { this.bus.gain.setTargetAtTime(lvl, now, lvl < this.lvl ? 0.08 : 0.3); this.lvl = lvl; }
+    if (lp !== this.lpf) { this.lp.frequency.setTargetAtTime(lp, now, 0.35); this.lpf = lp; }
+    const top = this.voices.find(v => !v.out);
+    if (!w) { if (top) this.out(top, 0.9, "fade"); return; }
+    if (top && top.id === w.id) return;
+    if (!this.bufs.has(w.id)) { this.buffer(w.id).then(() => { if (this.want && this.want.id === w.id) this.set(this.want); }, () => {}); return; }
+    // A drop (a reveal, the winner) cuts straight in; anything else is a DJ-style blend: the old track's filter closes
+    // as it fades, and the new one comes up underneath. Loops start on a downbeat, so it comes in a whole number of bars in.
+    const m = this.meta[w.id], bar = 4 * (m.beat || 0.5), when = Math.max(now + 0.04, this.hold);
+    if (top) this.out(top, w.drop ? 0.25 : 1.6, w.drop ? "fade" : "sweep");
+    let from = !FROM_TOP.includes(w.id) && this.pos[w.id] != null ? bar * Math.round(this.pos[w.id] / bar) : 0;
+    if (from >= m.loop - 0.05) from = 0;
+    this.start(w.id, from, when, w.drop ? 0.04 : top ? 1.2 : 2.5);
+  },
+  start(id, from, when, fade) {
+    const c = SFX.ctx, b = this.bufs.get(id), f = c.createBiquadFilter(), g = c.createGain();
+    f.type = "lowpass"; f.frequency.value = 20000; f.connect(g); g.connect(this.lp);
+    g.gain.setValueAtTime(0.0001, when); g.gain.linearRampToValueAtTime(1, when + fade);
+    const v = { id, b, f, g, L: this.meta[id].loop, d: leadIn(b, this.meta[id].loop), t0: when - from, k: 1, srcs: [], out: false };
+    this.voices.push(v);
+    this.src(v, when, from + v.d);
+    this.feed(v);
+  },
+  src(v, at, offset) {
+    const s = SFX.ctx.createBufferSource();
+    s.buffer = v.b; s.connect(v.f); s.start(at, offset); v.srcs.push(s);
+    s.onended = () => { v.srcs = v.srcs.filter(x => x !== s); s.disconnect(); };
+  },
+  // Keeps the next pass queued a whole pass ahead, so a busy or throttled page can't leave a gap.
+  feed(v) {
+    const now = SFX.ctx.currentTime;
+    while (!v.out && v.t0 + v.k * v.L < now + v.L + 4) {
+      const at = v.t0 + v.k * v.L - v.d, late = Math.max(0, now - at);
+      this.src(v, at + late, late); v.k++;
+    }
+  },
+  out(v, secs, how) {
+    const now = SFX.ctx.currentTime;
+    v.out = true;
+    this.pos[v.id] = (((now - v.t0) % v.L) + v.L) % v.L;
+    holdParam(v.g.gain, now); v.g.gain.linearRampToValueAtTime(0.0001, now + secs);
+    if (how === "sweep") { holdParam(v.f.frequency, now); v.f.frequency.exponentialRampToValueAtTime(220, now + secs); }
+    if (how === "tape") for (const s of v.srcs) { holdParam(s.playbackRate, now); s.playbackRate.linearRampToValueAtTime(0.25, now + secs); }
+    for (const s of v.srcs) { try { s.stop(now + secs + 0.05); } catch (e) { /* already stopped */ } }
+    setTimeout(() => { v.g.disconnect(); this.voices = this.voices.filter(x => x !== v); this.trim(); }, (secs + 0.3) * 1000);
+  },
+  // Time's up: the track winds down like a record being stopped, and whatever plays next waits for it.
+  tape() {
+    const v = this.voices.find(x => !x.out);
+    if (!v) return;
+    this.out(v, 0.6, "tape"); this.hold = SFX.ctx.currentTime + 0.45;
   },
 };
 
@@ -1139,6 +1280,7 @@ const TV = {
     this.audio = new Audio(); this.audio.preload = "auto";
     this.audio.addEventListener("error", () => this.clipError());
     SFX.init(); SFX.onState = () => { this.renderHostbar(); this.mood(); };
+    MUSIC.onChange = () => this.mood(); MUSIC.load();
     VOICE.load().then(() => this.renderModes());
     // While the host talks, the music and any song clip dip so the line can be heard.
     VOICE.onTalk = on => {
@@ -1491,8 +1633,38 @@ const TV = {
     this.nextRound();
   },
   applySound() { SFX.want = { fx: this.H.snd !== "off", music: this.H.snd === "all" }; this.mood(); },
-  // What the background loop does right now: quiet while people think, silent under song clips.
+  // The soundtrack follows the game. Each moment has its track: the lobby, quiz questions against the clock, guessing
+  // and voting on each other, typing answers, the secret-role games, the last round, reveals and scores, the winner,
+  // and a late-night track for No holds barred. On top of that the host's voice ducks it, a pause muffles it, song
+  // clips silence it, the last seconds on the clock get a riser, time running out stops it like a record, and in an
+  // empty lobby it sounds like the party next door, opening up as people arrive.
+  trackFor(ph, t, r) {
+    const H = this.H, wild = H.spicy === "wild" && MUSIC.has("afterdark");
+    if (ph === "lobby") return wild ? "afterdark" : "lobby";
+    if (ph === "end") return "victory";
+    if (ph === "rev" || ph === "lb") return wild ? "afterdark" : "groove";
+    if (ph === "qw" || (ph === "intro" && WRITE_KINDS.includes(t))) return "write";
+    if (t === "imp" || t === "fakin") return "suspense";
+    if (H.R > 1 && r === H.R) return "final";
+    return modeGroup(t) === "Quiz" ? "quiz" : "social";
+  },
   mood() {
+    const H = this.H, cur = H.cur, ph = H.ph, clip = cur && (cur.t === "song" || cur.t === "tune");
+    if (MUSIC.state === "loading") return SFX.setMood("off");
+    const id = this.trackFor(ph, cur?.t, H.r);
+    if (!MUSIC.has(id)) { MUSIC.set(null); return this.synthMood(); }
+    SFX.setMood("off");
+    if (!SFX.want.music || (clip && ["intro", "q", "rev"].includes(ph))) return MUSIC.set(null);
+    let lvl = MUSIC_LEVEL[ph] ?? 0.6, lp = 20000;
+    if (ph === "lobby") lp = [600, 1200, 2600, 6000][this.players().filter(p => p.online).length] || 20000;
+    if (H.pause) { lvl = 0.3; lp = H.pause.cd ? 2400 : 450; }
+    if (this.duck) lvl *= 0.35;
+    MUSIC.set({ id, lvl: lvl * MUSIC_GAIN, lp, drop: ph === "rev" || ph === "end" });
+    const next = H.order[H.r];
+    MUSIC.warm(ph === "lobby" ? [id] : [id, this.trackFor("rev"), next ? this.trackFor("intro", next.t, H.r + 1) : "victory"]);
+  },
+  // The stand-in when there's no soundtrack: quiet while people think, silent under song clips.
+  synthMood() {
     const H = this.H, cur = H.cur, music = cur && (cur.t === "song" || cur.t === "tune");
     let m = "groove";
     if (H.pause) m = "think";
@@ -1520,7 +1692,7 @@ const TV = {
     if (H.pause) H.pause.cd = 0; // paused again during the countdown
     else H.pause = { at: Date.now(), pid: isPid(pid) ? pid : null, cd: 0 };
     if (this.audio && !this.audio.paused) { this.clipHeld = true; this.audio.pause(); }
-    SFX.play("pause");
+    SFX.cutRiser(); SFX.play("pause");
     this.say(H.pause.pid ? "lost" : "pause", true);
     this.save(); this.render(); this.push(true);
   },
@@ -1987,6 +2159,7 @@ const TV = {
     const now = Date.now();
     H.ph = ph; H.phaseEnds = secs ? now + secs * 1000 : 0;
     if (ph === "q") { H.qStart = now; H.qDur = secs * 1000; }
+    SFX.cutRiser();
     H.phDur = secs * 1000;
     this.sound(ph);
     this.lastTick = 0;
@@ -2387,7 +2560,7 @@ const TV = {
     }
     if (H.phaseEnds && now >= H.phaseEnds) {
       // The buzzer only sounds when the clock ran out, not when everyone answered early.
-      if (H.ph === "q" && H.phaseEnds === H.qStart + H.qDur) SFX.play("buzz");
+      if (H.ph === "q" && H.phaseEnds === H.qStart + H.qDur) { SFX.play("buzz"); MUSIC.tape(); }
       return this.advance();
     }
     if (H.ph === "imp-word") {
@@ -3124,7 +3297,7 @@ const TV = {
     clock.classList.toggle("hurry", left <= 5);
     // Ticks for the last five seconds, unless everyone has already answered and the clock was cut short.
     const k = Math.ceil(left);
-    if (H.ph === "q" && H.phaseEnds && !H.pause && k <= 5 && k >= 1 && k !== this.lastTick && H.phaseEnds === H.qStart + H.qDur) { this.lastTick = k; SFX.play("tick"); if (k === 5 && !["song", "tune"].includes(H.cur?.t) && Math.random() < 0.5) this.say("hurry"); }
+    if (H.ph === "q" && H.phaseEnds && !H.pause && k <= 5 && k >= 1 && k !== this.lastTick && H.phaseEnds === H.qStart + H.qDur) { this.lastTick = k; SFX.play("tick"); if (k === 5 && !["song", "tune"].includes(H.cur?.t)) { SFX.riser(4.9); if (Math.random() < 0.5) this.say("hurry"); } }
   },
 };
 

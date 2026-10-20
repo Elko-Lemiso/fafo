@@ -110,6 +110,8 @@ app.get("/avatars/:pid", (req, res) => {
 
 // The host's recorded lines (made with tools/make-voice.js). The list of recordings can change with a deploy, so it isn't cached long.
 app.use("/voice", express.static(path.join(PUBLIC, "voice"), { maxAge: "7d", setHeaders: (res, p) => { if (p.endsWith(".json")) res.set("Cache-Control", "no-cache"); } }));
+// The soundtrack (tools/make-music.js). The page asks for each track with its version in the address, so it can be cached for long.
+app.use("/music", express.static(path.join(PUBLIC, "music"), { maxAge: "30d", setHeaders: (res, p) => { if (p.endsWith(".json")) res.set("Cache-Control", "no-cache"); } }));
 // Smart-TV browsers lag years behind phones: a 2020 Samsung or LG runs a Chrome 69 to 79 engine. The page is written in
 // modern JavaScript, so its script is served rewritten (by esbuild) into syntax those engines understand.
 const esbuild = require("esbuild");
