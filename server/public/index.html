@@ -219,6 +219,7 @@ button{font:inherit;color:inherit}
 .block small{display:block;font-size:.42em;font-family:var(--body);font-weight:800}
 .p1 .block{height:24vmin;background:var(--sun)}.p2 .block{height:16vmin;animation-delay:.25s}.p3 .block{height:11vmin;animation-delay:.4s}
 .rest{display:flex;flex-wrap:wrap;gap:1vmin 2.4vmin;justify-content:center;font-weight:700;font-size:max(13px,2.3vmin)}
+.sharenote{font-family:var(--label);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:max(12px,1.9vmin);color:var(--ink-soft);animation:rise .4s 2.4s both}
 
 @media (max-width:760px){
   .lobby,.qgrid,.rgrid{grid-template-columns:minmax(0,1fr);height:auto;gap:24px}
@@ -601,6 +602,59 @@ button{touch-action:manipulation}
 .ssb:active{transform:translateY(5px);box-shadow:0 1px 0 var(--ink)}
 @keyframes flipout{from{transform:rotateY(0)}to{transform:rotateY(90deg)}}
 @keyframes flipin{from{transform:rotateY(90deg)}to{transform:rotateY(0)}}
+/* Draw it */
+.dwcard{gap:10px}
+.dprompt{font-size:24px}
+.sketch{display:block;width:100%;height:auto;aspect-ratio:4/3;background:#fff;border:3px solid var(--ink);border-radius:12px;touch-action:none;cursor:crosshair}
+.tools{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.tools .sw{width:34px;height:34px;border-radius:50%;border:3px solid var(--ink);background:var(--sw);cursor:pointer;padding:0}
+.tools .sw.on{box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--ink)}
+.tools .tsep{flex:1}
+.tools .sz{width:38px;height:38px;border-radius:10px;border:2px solid var(--ink);background:#fff;display:grid;place-items:center;cursor:pointer;padding:0}
+.tools .sz i{display:block;border-radius:50%;background:var(--ink)}
+.tools .sz.on{background:var(--sun)}
+.dwbtns{display:grid;grid-template-columns:auto auto 1fr;gap:8px}
+.sketch-img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:contain;background:#fff;border:3px solid var(--ink);border-radius:12px}
+.drawrev{height:100%;display:flex;flex-direction:column;justify-content:center;gap:2.6vmin;max-width:1700px;margin:0 auto;width:100%;position:relative}
+.dchain{display:flex;gap:2.2vmin;align-items:stretch;justify-content:center}
+.dcard{position:relative;flex:1;max-width:36vmin;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:1.2vmin;background:var(--paper);border:3px solid var(--ink);border-radius:1.6vmin;box-shadow:0 .8vmin 0 var(--ink);padding:1.4vmin;animation:deal .5s var(--d,0s) cubic-bezier(.2,1.2,.4,1) both}
+.dcard:nth-child(even){transform:rotate(1.5deg)}
+.dcard:nth-child(odd){transform:rotate(-1.5deg)}
+.dcard+.dcard::before{content:"";position:absolute;left:-2.1vmin;top:50%;width:1.8vmin;height:1.8vmin;border-top:4px solid var(--ink);border-right:4px solid var(--ink);transform:translate(-30%,-50%) rotate(45deg)}
+.dcard.pic img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:contain;background:#fff;border:2px solid var(--ink);border-radius:1vmin}
+.dcard.text{text-align:center;min-height:26vmin}
+.dcard.text b{font-family:var(--display);font-weight:400;font-size:max(16px,3.2vmin);line-height:1.1;overflow-wrap:anywhere}
+.dcard.start{background:var(--ink);color:var(--sun)}
+.dcard.start .eyebrow{color:var(--paper)}
+.dcard.hit{background:var(--cobalt);color:var(--paper)}
+.dcard.close{background:#E7D9B0}
+.dcard i{font-style:normal;font-family:var(--label);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:max(11px,1.7vmin)}
+.dcard.none{opacity:.55;text-align:center}
+.dwho{display:flex;align-items:center;gap:.8vmin;font-weight:800;font-size:max(12px,2vmin);justify-content:center}
+.dwho .avatar{font-size:.8em;border-width:2px}
+.dverdict{top:auto;bottom:4%;font-size:max(22px,5vmin)}
+/* twists and reactions */
+.twcard{display:flex;flex-direction:column;align-items:center;gap:.4vmin;background:var(--tomato);color:var(--paper);border:4px solid var(--ink);border-radius:1.6vmin;box-shadow:0 1vmin 0 var(--ink);padding:1.4vmin 3.4vmin;transform:rotate(-2deg);animation:slam .5s .5s cubic-bezier(.2,1.4,.4,1) both}
+.twcard b{font-family:var(--label);font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:max(13px,2.2vmin);color:var(--sun)}
+.twcard span{font-family:var(--display);font-size:max(26px,6vmin);line-height:1}
+.twcard i{font-style:normal;font-weight:800;font-size:max(14px,2.6vmin)}
+.stage[data-tw]:not([data-tw=""])::before{content:"Twist · " attr(data-tw);position:absolute;top:-1.4vmin;left:50%;transform:translateX(-50%) rotate(-1.5deg);z-index:3;background:var(--tomato);color:var(--paper);border:3px solid var(--ink);border-radius:999px;padding:.3vmin 2vmin;font-family:var(--display);font-size:max(13px,2.2vmin);white-space:nowrap}
+.twnote{position:absolute;left:50%;top:-1.4vmin;transform:translateX(-50%);display:flex;align-items:center;gap:1.4vmin;background:var(--tomato);color:var(--paper);border:3px solid var(--ink);border-radius:999px;padding:.8vmin 2.4vmin;font-weight:800;font-size:max(14px,2.5vmin);white-space:nowrap;animation:rise .4s var(--t2,3s) both;z-index:4}
+.twnote b{font-family:var(--display);font-weight:400;color:var(--sun)}
+.reacts{position:fixed;left:0;right:0;bottom:0;height:70vh;pointer-events:none;z-index:24;overflow:hidden}
+.rx{position:absolute;bottom:-12vmin;left:var(--x);display:flex;align-items:center;gap:.6vmin;transform:translateX(-50%) rotate(var(--r));animation:floatup 3.1s cubic-bezier(.2,.8,.4,1) forwards}
+.rx .avatar{font-size:max(11px,1.8vmin);border-width:2px}
+.rx b{font-size:max(34px,7vmin);line-height:1;font-weight:400}
+.rx.word b{font-family:var(--display);font-size:max(18px,3.6vmin);background:var(--ink);color:var(--sun);border-radius:999px;padding:.3vmin 1.4vmin}
+@keyframes floatup{0%{bottom:-12vmin;opacity:0}12%{opacity:1}75%{opacity:1}100%{bottom:62vh;opacity:0}}
+.rxbar{width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.rxbar button{font:inherit;min-height:48px;border:2px solid var(--ink);border-radius:14px;background:var(--paper);box-shadow:0 3px 0 var(--ink);cursor:pointer;display:grid;place-items:center;padding:4px}
+.rxbar button span{font-size:26px;line-height:1}
+.rxbar button b{font-family:var(--display);font-weight:400;font-size:14px}
+.rxbar button.hit{animation:pop .3s cubic-bezier(.3,1.6,.5,1) both}
+.rxbar button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.twph{background:var(--tomato);color:var(--paper)}
+.twph .eyebrow{color:var(--sun)}
 /* the host's captions */
 .caption{pointer-events:none;position:fixed;left:50%;bottom:calc(2.4vmin + 58px);transform:translateX(-50%);z-index:25;width:max-content;max-width:min(86vw,1100px);display:flex;align-items:center;gap:1.4vmin;
   background:var(--ink);color:var(--paper);border-radius:999px;padding:1vmin 2.6vmin 1vmin 1vmin;font-weight:800;font-size:max(15px,2.9vmin);line-height:1.2;box-shadow:0 .8vmin 0 rgba(29,20,15,.3);animation:cap .3s cubic-bezier(.3,1.4,.5,1) both}
@@ -650,13 +704,13 @@ const COLORS = ["#D93A26","#2342C6","#11704F","#7339D6","#C42F78","#0B7584","#B5
 const CODE_CHARS = "ABCDEFGHJKMNPQRSTUVWXYZ";
 // Kinds of round. Photo games play every photo; flag and map rounds come in sets of ROUNDS (fewer when mixed).
 const ROUNDS = 10, SONGS_PER_PLAYER = 3;
-const MODES = ["photo", "song", "prof", "said", "ttl", "hot", "quip", "bluff", "meld", "tune", "face", "flag", "map", "cap", "big", "trivia", "buzz", "num", "year", "hilo", "odd", "emoji", "imp", "fakin", "split", "likely", "wyr", "nhie"];
+const MODES = ["photo", "song", "prof", "said", "ttl", "hot", "quip", "bluff", "draw", "meld", "tune", "face", "flag", "map", "cap", "big", "trivia", "buzz", "num", "year", "hilo", "odd", "emoji", "imp", "fakin", "split", "likely", "wyr", "nhie"];
 // Owner rounds show something a player brought, and everyone guesses which player. The rest are quiz rounds with 4 answers.
 const OWNER_KINDS = ["photo", "song", "prof"];
 // Rounds where you answer by picking a player rather than one of 4 answers.
 const PLAYER_KINDS = ["photo", "song", "prof", "imp", "fakin", "likely"];
 // Modes that need at least 3 players to make sense.
-const CROWD_KINDS = ["prof", "said", "quip", "bluff", "imp", "fakin", "likely", "wyr", "nhie"];
+const CROWD_KINDS = ["prof", "said", "quip", "bluff", "draw", "imp", "fakin", "likely", "wyr", "nhie"];
 // Modes that work with 2 players.
 const PAIR_KINDS = ["ttl", "meld", "hot", "split"];
 // What each mode is, for the pickers: an icon, a one-line pitch, what kind of game it is, how a round goes, and how it scores.
@@ -673,6 +727,7 @@ const MODE_CARD = {
   wyr: { i: "⚖️", tag: "Vote", blurb: "Would you rather… and hot takes. Pick a side and see where the room lands.", how: ["Two options on the TV", "Pick one", "See how the room split"], score: "200 for siding with most of the room." },
   nhie: { i: "🙈", tag: "Confess", blurb: "Never have I ever… Tap I have or Never, and the TV shows who has.", how: ["A never-have-I-ever on the TV", "Tap I have or Never", "The TV shows who has"], score: "No points, just confessions." },
   quip: { i: "😂", tag: "Write · Vote", blurb: "Write the funniest answer to a prompt. The room votes for the best.", how: ["You get two prompts, each shared with one other player", "Write something funny for each", "The room votes between the two answers"], score: "250 a vote, plus 250 for taking every vote. The game ends with the Last Lash for everyone." },
+  draw: { i: "✏️", tag: "Draw · Guess", blurb: "Draw a prompt, the next person guesses it, the next draws that guess. Watch it drift.", how: ["Draw your secret prompt on your phone", "Guess what someone else's drawing is", "Draw that guess, and so on. The TV shows how far it drifted"], score: "1,000 each to the drawer and the guesser when a guess nails it, 400 when it's close." },
   bluff: { i: "🃏", tag: "Write · Bluff", blurb: "Write a fake answer to a real fact. Then find the truth among the fakes.", how: ["A true fact with a blank appears", "Write a fake answer that sounds true", "Pick the real one among everyone's fakes"], score: "500 for finding the truth, and 250 for every player your fake fools." },
   imp: { i: "🕵️", tag: "Talk · Vote", blurb: "Everyone has the same secret word except one. Find the imposter.", how: ["Check your secret word on your phone", "Take turns saying a one-word clue out loud", "Talk it over, then vote"], score: "500 for spotting the imposter. 1,000 to the imposter if they get away." },
   fakin: { i: "🎭", tag: "Bluff · Vote", blurb: "Everyone gets the same question except one player. Spot the faker.", how: ["Answer your question on your phone", "The TV shows the real question and every answer", "Talk it over and vote for the faker"], score: "500 for spotting the faker. 1,000 to the faker if they get away." },
@@ -711,7 +766,7 @@ const modeNeeds = m => [CROWD_KINDS.includes(m) ? 3 : PAIR_KINDS.includes(m) || 
 // One-tap sets of rounds for a kind of night. Picking one replaces the current rounds.
 const PRESETS = [
   ["know", "Get to know you", ["prof", "said", "ttl", "hot", "likely", "nhie"]],
-  ["chaos", "Party chaos", ["quip", "bluff", "fakin", "imp", "split", "likely", "wyr"]],
+  ["chaos", "Party chaos", ["quip", "draw", "fakin", "imp", "split", "likely", "wyr"]],
   ["quiz", "Quiz night", ["trivia", "buzz", "flag", "cap", "year", "hilo", "odd"]],
   ["music", "Music and movies", ["song", "tune", "face", "emoji"]],
   ["two", "Just the two of us", ["meld", "hot", "ttl", "split", "hilo", "trivia"]],
@@ -720,7 +775,7 @@ const PRESETS = [
 // How the round picker groups the modes in the TV's settings. Anything not listed here shows under "More".
 const MODE_GROUPS = [
   ["About you", ["photo", "song", "prof", "said", "ttl", "hot", "meld", "likely", "wyr", "nhie"]],
-  ["Write and bluff", ["quip", "bluff", "capt"]],
+  ["Write and bluff", ["quip", "bluff", "draw", "capt"]],
   ["Secret roles", ["imp", "fakin", "split"]],
   ["Quiz", ["tune", "face", "flag", "map", "cap", "big", "trivia", "buzz", "num", "year", "hilo", "odd", "emoji"]],
 ];
@@ -755,8 +810,28 @@ const FK_PHASES = ["fk-ans", "fk-talk"], FK_SECS = 45, SECRET_PHASES = [...IMP_P
 // Split or steal: two players face off over a pot of points. Each picks Split or Steal in secret on their phone while
 // everyone else bets on how it ends. Both split: half each. One steals: they take it all. Both steal: nobody gets a thing.
 const SPLIT_POT = 2000, SPLIT_SECS = 45, SPLIT_BET = 300, SPLIT_BETS = ["Both split", "Someone steals", "Both steal"];
-const MODE_LABEL = { photo: "Whose photo", song: "Whose song", prof: "Whose answer", said: "Who said it", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather", nhie: "Never have I ever", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps", cap: "Capitals", big: "Which is bigger", trivia: "Trivia", emoji: "Emoji puzzles", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", likely: "Most likely to" };
-const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", prof: "Whose answer?", said: "Who said it?", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather?", nhie: "Never have I ever", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country", cap: "Capital cities", big: "Which is bigger?", trivia: "Trivia", emoji: "Emoji puzzle", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", likely: "Most likely to…" };
+// Reactions: any phone can throw these onto the TV while it waits. Words stand in for the emoji on TVs that can't show emoji.
+const REACTS = [["😂", "LOL"], ["🔥", "FIRE"], ["😱", "OMG"], ["👏", "CLAP"], ["💀", "DEAD"], ["🍻", "CHEERS"], ["", "BOO!"], ["", "TOO EASY"]];
+// Twists (Rounds & settings, on by default): now and then a round gets a twist, announced on its title card. Never the
+// first round or the final, never two in a row. Each only goes on rounds it makes sense for.
+const RIGHT_KINDS = ["trivia", "buzz", "flag", "map", "cap", "big", "emoji", "face", "odd", "hilo", "tune", "photo", "song", "prof"];
+const TWISTS = {
+  double: { label: "Double points", note: "Every point this round counts twice.", ok: t => !["nhie"].includes(t) },
+  underdog: { label: "Underdog round", note: "Whoever's last right now scores triple.", ok: t => !["nhie"].includes(t) },
+  lightning: { label: "Lightning round", note: "Only 8 seconds to answer!", ok: t => ["trivia", "buzz", "flag", "map", "cap", "big", "emoji", "face", "odd", "hilo", "photo", "prof", "likely", "hot", "wyr"].includes(t) },
+  robbery: { label: "Robbery", note: "The fastest right answer steals 300 from the leader.", ok: t => RIGHT_KINDS.includes(t) },
+  sudden: { label: "No guessing", note: "A wrong answer loses 250.", ok: t => RIGHT_KINDS.includes(t) },
+};
+const LIGHTNING_SECS = 8;
+// Draw it: a drawing chain. Everyone draws a secret prompt on their phone, the next player guesses it from the drawing
+// alone, the next draws that guess, and so on, up to four steps. Then the TV walks through each chain to see how far it drifted.
+const DRAW_SECS = 60, GUESS_SECS = 30, DRAW_W = 640, DRAW_H = 480;
+// Does a guess match what was being drawn? 2 = nailed it (the same, give or take plurals and a typo), 1 = close (a key word in common).
+const DRAW_STOP = new Set(["the", "and", "with", "for", "from", "into", "onto", "that", "this", "its", "his", "her", "their", "out", "off", "over", "under", "some", "who", "while"]);
+const drawWords = t => String(t || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(/[^\p{L}\p{N}]+/u).filter(w => w.length >= 3 && !DRAW_STOP.has(w)).map(w => (w.length > 3 ? w.replace(/s$/, "") : w));
+const drawMatch = (want, got) => { if (!want || !got) return 0; if (meldSame(want, got)) return 2; const a = new Set(drawWords(want)); return drawWords(got).some(w => a.has(w)) ? 1 : 0; };
+const MODE_LABEL = { photo: "Whose photo", song: "Whose song", prof: "Whose answer", said: "Who said it", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather", nhie: "Never have I ever", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps", cap: "Capitals", big: "Which is bigger", trivia: "Trivia", emoji: "Emoji puzzles", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", draw: "Draw it", likely: "Most likely to" };
+const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", prof: "Whose answer?", said: "Who said it?", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather?", nhie: "Never have I ever", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country", cap: "Capital cities", big: "Which is bigger?", trivia: "Trivia", emoji: "Emoji puzzle", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", draw: "Draw it", likely: "Most likely to…" };
 const KIND_ASK = { photo: "Whose photo is this?", song: "Whose song is this?", prof: "Whose answer is this?", said: "Who wrote this?", face: "Who is this?", flag: "Which country's flag is this?", map: "Which country has this shape?", big: "Which country is bigger?", imp: "Who's the imposter?", fakin: "Who had the other question?" };
 const KIND_ASK_PHONE = { photo: "Whose photo is on the TV?", song: "Whose song is playing?", prof: "Whose answer is on the TV?", said: "Who wrote this?", face: "Who's on the TV?", flag: "Which country's flag is on the TV?", map: "Which country is the shape on the TV?", big: "Which country is bigger?", imp: "Who's the imposter?", fakin: "Who had the other question?" };
 const askOf = c => (c.t === "tune" ? (c.ask === "artist" ? "Who's the artist?" : "What's this song?")
@@ -946,6 +1021,7 @@ const SFX = {
         arp([67, 72, 76], 0.16, 0.16, { type: "square", vol: 0.05 });
         [72, 76, 79, 84].forEach(m => n(m, 1.2, { type: "triangle", vol: 0.1, at: 0.5 })); this.hiss(t + 0.5, 1.1, { f: 6000, vol: 0.05 }); break;
       case "blip": n(76, 0.14, { type: "triangle", vol: 0.15 }); break;
+      case "pop": n(84 + Math.floor(Math.random() * 5), 0.08, { type: "sine", vol: 0.07 }); break;
       case "pause": n(79, 0.16, { type: "triangle", vol: 0.16 }); n(72, 0.3, { type: "triangle", vol: 0.16, at: 0.13 }); break;
       case "count": n(81, 0.14, { type: "square", vol: 0.06 }); break;
       case "go": n(88, 0.35, { type: "square", vol: 0.07 }); break;
@@ -1008,7 +1084,7 @@ const SFX = {
 // TV.mood() says which track fits the moment, how loud it plays and how open it sounds; MUSIC crossfades to it.
 // A track plays as back-to-back passes of its loop, each started on the audio clock, so the joins are exact.
 // Without the files (no internet, or a copy without them) the synth loop in SFX plays instead.
-const MUSIC_LEVEL = { lobby: 0.85, intro: 0.75, q: 0.62, qv: 0.62, qw: 0.5, rev: 0.75, lb: 0.85, end: 0.9, "imp-word": 0.55, "imp-clue": 0.32, "imp-talk": 0.36, "fk-ans": 0.5, "fk-talk": 0.36 };
+const MUSIC_LEVEL = { lobby: 0.85, intro: 0.75, q: 0.62, qv: 0.62, qw: 0.5, dw: 0.5, rev: 0.75, lb: 0.85, end: 0.9, "imp-word": 0.55, "imp-clue": 0.32, "imp-talk": 0.36, "fk-ans": 0.5, "fk-talk": 0.36 };
 const MUSIC_GAIN = 0.47; // the whole soundtrack, so it sits under the host's voice
 // Tracks carry on where they left off last time, so a night of questions doesn't hear the same opening bars over and
 // over. These two start from the top: they each come once.
@@ -1129,6 +1205,44 @@ const MUSIC = {
     if (!v) return;
     this.out(v, 0.6, "tape"); this.hold = SFX.ctx.currentTime + 0.45;
   },
+};
+
+// ---------- Draw it: the drawing pad on the phone ----------
+// Strokes are kept, so Undo redraws without the last one and a screen that re-draws keeps the picture.
+const SKETCH_COLORS = ["#1D140F", "#D93A26", "#2342C6", "#11704F", "#FFC53D", "#B5530B", "#FFFFFF"];
+const SKETCH = {
+  cv: null, rk: null, strokes: [], cur: null, color: "#1D140F", size: 12,
+  // A new step starts a blank page; the same step again (the screen re-drew) keeps what's there.
+  mount(cv, rk) {
+    if (!cv) return;
+    if (this.rk !== rk) { this.rk = rk; this.strokes = []; this.cur = null; }
+    this.cv = cv;
+    const pos = e => { const r = cv.getBoundingClientRect(); return [((e.clientX - r.left) / r.width) * DRAW_W, ((e.clientY - r.top) / r.height) * DRAW_H]; };
+    cv.onpointerdown = e => {
+      e.preventDefault();
+      try { cv.setPointerCapture(e.pointerId); } catch {}
+      this.cur = { c: this.color, w: this.size, p: [pos(e)] }; this.strokes.push(this.cur); this.dot(this.cur);
+    };
+    cv.onpointermove = e => {
+      if (!this.cur) return;
+      e.preventDefault();
+      for (const x of e.getCoalescedEvents?.() || [e]) { const a = this.cur.p[this.cur.p.length - 1], b = pos(x); this.cur.p.push(b); this.seg(this.cur, a, b); }
+    };
+    cv.onpointerup = cv.onpointercancel = () => { this.cur = null; };
+    this.redraw();
+  },
+  ctx() { const c = this.cv?.getContext("2d"); if (c) { c.lineCap = c.lineJoin = "round"; } return c; },
+  dot(s) { const c = this.ctx(); if (!c) return; c.fillStyle = s.c; c.beginPath(); c.arc(s.p[0][0], s.p[0][1], s.w / 2, 0, Math.PI * 2); c.fill(); },
+  seg(s, a, b) { const c = this.ctx(); if (!c) return; c.strokeStyle = s.c; c.lineWidth = s.w; c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.stroke(); },
+  redraw() {
+    const c = this.ctx();
+    if (!c) return;
+    c.fillStyle = "#FFFFFF"; c.fillRect(0, 0, DRAW_W, DRAW_H);
+    for (const s of this.strokes) { this.dot(s); for (let i = 1; i < s.p.length; i++) this.seg(s, s.p[i - 1], s.p[i]); }
+  },
+  undo() { this.strokes.pop(); this.redraw(); },
+  clear() { this.strokes = []; this.redraw(); },
+  jpeg() { return this.cv ? this.cv.toDataURL("image/jpeg", 0.85).split(",")[1] || "" : ""; },
 };
 
 // Downscale a picked photo to a TV-sized JPEG before it goes over the Wi-Fi.
@@ -1308,6 +1422,140 @@ function qrSvg(text) {
   return `<svg viewBox="0 0 ${n + 4} ${n + 4}" role="img" aria-label="QR code that opens this game on a phone"><rect width="100%" height="100%" style="fill:var(--paper)"/><path d="${d}" style="fill:var(--ink)" shape-rendering="crispEdges"/></svg>`;
 }
 
+// ---------- sharing: pictures made on the phone for the group chat or a story ----------
+// The night (winner, scores, awards, the best line, a code to play) and Draw it chains. Each is drawn on a canvas in the
+// game's own look, then handed to the phone's share sheet (or downloaded where there isn't one).
+const SHARE_URL = JOIN_HOSTED ? JOIN_BASE : "https://fafo.up.railway.app/";
+const SHARE = {
+  async fonts() { try { await Promise.all(["400 80px Bungee", "800 40px Barlow", "700 30px 'Barlow Condensed'"].map(f => document.fonts?.load(f))); } catch {} },
+  img(src) { return new Promise(ok => { if (!src) return ok(null); const i = new Image(); i.onload = () => ok(i); i.onerror = () => ok(null); i.src = src; }); },
+  base(w, h) {
+    const c = document.createElement("canvas"); c.width = w; c.height = h;
+    const x = c.getContext("2d");
+    x.fillStyle = "#FFC53D"; x.fillRect(0, 0, w, h);
+    x.fillStyle = "#EBA61A";
+    for (let y = 12; y < h; y += 24) for (let X = 12; X < w; X += 24) { x.beginPath(); x.arc(X, y, 2.2, 0, 7); x.fill(); }
+    x.textBaseline = "alphabetic";
+    return [c, x];
+  },
+  wordmark(x, X, Y, size) {
+    x.font = `400 ${size}px Bungee`; x.fillStyle = "#1D140F"; x.fillText("fa", X, Y);
+    const w = x.measureText("fa").width;
+    x.fillText("fo", X + w + size * 0.045, Y + size * 0.055);
+    x.lineWidth = size * 0.06; x.strokeStyle = "#1D140F"; x.lineJoin = "round"; x.strokeText("fo", X + w, Y); x.fillStyle = "#FFFBF0"; x.fillText("fo", X + w, Y);
+  },
+  card(x, X, Y, w, h, fill = "#FFFBF0", r = 26) {
+    x.fillStyle = "#1D140F"; this.round(x, X, Y + 10, w, h, r); x.fill();
+    x.fillStyle = fill; this.round(x, X, Y, w, h, r); x.fill();
+    x.lineWidth = 6; x.strokeStyle = "#1D140F"; x.stroke();
+  },
+  round(x, X, Y, w, h, r) { x.beginPath(); x.moveTo(X + r, Y); x.arcTo(X + w, Y, X + w, Y + h, r); x.arcTo(X + w, Y + h, X, Y + h, r); x.arcTo(X, Y + h, X, Y, r); x.arcTo(X, Y, X + w, Y, r); x.closePath(); },
+  wrap(x, text, w) {
+    const out = []; let line = "";
+    for (const word of String(text).split(/\s+/)) { const t = line ? line + " " + word : word; if (x.measureText(t).width > w && line) { out.push(line); line = word; } else line = t; }
+    if (line) out.push(line);
+    return out;
+  },
+  async avatar(x, p, X, Y, r) {
+    x.fillStyle = color(p[2]); x.beginPath(); x.arc(X, Y, r, 0, 7); x.fill();
+    const pic = AV[p[0]] ? await this.img(AV[p[0]]) : null;
+    if (pic) { x.save(); x.beginPath(); x.arc(X, Y, r, 0, 7); x.clip(); x.drawImage(pic, X - r, Y - r, r * 2, r * 2); x.restore(); }
+    else { x.fillStyle = "#FFFBF0"; x.font = `400 ${Math.round(r * 0.95)}px Bungee`; x.textAlign = "center"; x.fillText((cleanName(p[1])[0] || "?").toUpperCase(), X, Y + r * 0.34); x.textAlign = "left"; }
+    x.lineWidth = Math.max(4, r * 0.12); x.strokeStyle = "#1D140F"; x.beginPath(); x.arc(X, Y, r, 0, 7); x.stroke();
+  },
+  qr(x, text, X, Y, size) {
+    if (!window.qrcode) return;
+    const q = qrcode(0, "M"); q.addData(text); q.make();
+    const n = q.getModuleCount(), m = size / (n + 4);
+    x.fillStyle = "#FFFBF0"; x.fillRect(X, Y, size, size); x.fillStyle = "#1D140F";
+    for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (q.isDark(r, c)) x.fillRect(X + (c + 2) * m, Y + (r + 2) * m, Math.ceil(m), Math.ceil(m));
+  },
+  footer(x, w, h) {
+    this.qr(x, SHARE_URL, w - 70 - 150, h - 70 - 150, 150);
+    x.fillStyle = "#1D140F"; x.font = "700 34px 'Barlow Condensed'"; x.fillText("PLAY FREE ON ONE TV AND EVERYONE'S PHONES", 70, h - 132);
+    x.font = "400 44px Bungee"; x.fillText(SHARE_URL.replace(/^https?:\/\//, "").replace(/\/$/, ""), 70, h - 78);
+  },
+  blob(c) { return new Promise(ok => c.toBlob(b => ok(b), "image/png")); },
+  // The night: who won, everyone's score, the awards and the best line of the night.
+  async night(pl, aw, best) {
+    await this.fonts();
+    const ps = pl.slice().sort((a, b) => b[3] - a[3]).slice(0, 8), W = 1080, H = 1350, [c, x] = this.base(W, H);
+    this.wordmark(x, 70, 150, 96);
+    x.font = "700 32px 'Barlow Condensed'"; x.fillStyle = "#5A4630"; x.textAlign = "right";
+    x.fillText("GAME NIGHT · " + new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short" }).toUpperCase(), W - 70, 110); x.textAlign = "left";
+    const tie = ps[1] && ps[0][3] === ps[1][3];
+    x.font = "400 92px Bungee"; x.fillStyle = "#1D140F";
+    let y = 290;
+    for (const l of this.wrap(x, tie ? "It's a tie!" : `${cleanName(ps[0]?.[1] || "")} wins!`, W - 140).slice(0, 2)) { x.fillText(l, 70, y); y += 96; }
+    y += 10;
+    const row = ps.length > 6 ? 78 : 92;
+    for (const [i, p] of ps.entries()) {
+      const top = i === 0, rank = 1 + ps.filter(q => q[3] > p[3]).length;
+      this.card(x, 70, y, W - 140, row - 14, top ? "#1D140F" : "#FFFBF0", 20);
+      x.font = "400 38px Bungee"; x.fillStyle = top ? "#FFC53D" : "#1D140F"; x.fillText(String(rank), 100, y + row / 2 + 6);
+      await this.avatar(x, p, 190, y + (row - 14) / 2, (row - 14) / 2 - 10);
+      x.font = "800 40px Barlow"; x.fillStyle = top ? "#FFFBF0" : "#1D140F"; x.fillText(cleanName(p[1]), 250, y + row / 2 + 4);
+      x.font = "400 42px Bungee"; x.fillStyle = top ? "#FFC53D" : "#1D140F"; x.textAlign = "right"; x.fillText(fmt(p[3]), W - 100, y + row / 2 + 6); x.textAlign = "left";
+      y += row;
+    }
+    const names = Object.fromEntries(pl.map(p => [p[0], cleanName(p[1])]));
+    if (best?.a && y < H - 430) {
+      y += 14;
+      x.font = "800 40px Barlow";
+      const lines = this.wrap(x, `“${best.a}”`, W - 200).slice(0, 3), h = 120 + lines.length * 48;
+      this.card(x, 70, y, W - 140, h, "#2342C6", 22);
+      x.font = "700 28px 'Barlow Condensed'"; x.fillStyle = "#FFC53D"; x.fillText(("Best line · " + best.q).toUpperCase().slice(0, 60), 100, y + 48);
+      x.font = "800 40px Barlow"; x.fillStyle = "#FFFBF0"; lines.forEach((l, k) => x.fillText(l, 100, y + 100 + k * 48));
+      x.font = "700 28px 'Barlow Condensed'"; x.fillText("— " + (names[best.pid] || "").toUpperCase(), 100, y + h - 22);
+      y += h + 20;
+    }
+    if (aw?.length && y < H - 300) {
+      x.font = "700 30px 'Barlow Condensed'"; x.fillStyle = "#1D140F";
+      x.fillText(aw.slice(0, 3).map(a => `${a[1].toUpperCase()}: ${(names[a[0]] || "").toUpperCase()}`).join("   ·   ").slice(0, 70), 70, y + 30);
+    }
+    this.footer(x, W, H);
+    return this.blob(c);
+  },
+  // One Draw it chain from top to bottom: the prompt, then each drawing and guess.
+  async chain(rv, names) {
+    await this.fonts();
+    const items = (rv.items || []).filter(it => it?.v), pics = await Promise.all(items.map(it => (it.k === "d" ? this.img(photoSrc(it.v)) : null)));
+    const W = 1080, pw = W - 140, ph = Math.round(pw * 0.75), H = 330 + 170 + items.reduce((n, it, k) => n + (it.k === "d" && pics[k] ? ph + 90 : 170), 0) + 260;
+    const [c, x] = this.base(W, H);
+    this.wordmark(x, 70, 130, 80);
+    x.font = "700 34px 'Barlow Condensed'"; x.fillStyle = "#5A4630"; x.fillText("DRAW IT · HOW FAR DID IT DRIFT?", 70, 200);
+    let y = 240;
+    const text = (label, t, fill, ink) => {
+      x.font = "400 48px Bungee"; const lines = this.wrap(x, t, pw - 60).slice(0, 2), h = 70 + lines.length * 56;
+      this.card(x, 70, y, pw, h, fill, 22);
+      x.font = "700 28px 'Barlow Condensed'"; x.fillStyle = ink; x.globalAlpha = 0.8; x.fillText(label.toUpperCase(), 100, y + 42); x.globalAlpha = 1;
+      x.font = "400 48px Bungee"; lines.forEach((l, k) => x.fillText(l, 100, y + 100 + k * 56));
+      y += h + 30;
+    };
+    text(`${names[rv.by] || "The"}'s prompt`, rv.p, "#1D140F", "#FFC53D");
+    items.forEach((it, k) => {
+      if (it.k === "g") return text(`${names[it.pid] || "Someone"} guessed`, `“${it.v}”`, "#FFFBF0", "#1D140F");
+      if (!pics[k]) return;
+      this.card(x, 70, y, pw, ph + 60, "#FFFFFF", 22);
+      x.drawImage(pics[k], 90, y + 20, pw - 40, ph - 30);
+      x.font = "700 28px 'Barlow Condensed'"; x.fillStyle = "#1D140F"; x.fillText(`DRAWN BY ${(names[it.pid] || "SOMEONE").toUpperCase()}`, 100, y + ph + 30);
+      y += ph + 90;
+    });
+    this.footer(x, W, H);
+    return this.blob(c);
+  },
+  async send(blob, name, text) {
+    if (!blob) return false;
+    const file = new File([blob], name, { type: "image/png" });
+    try {
+      if (navigator.canShare?.({ files: [file] })) { await navigator.share({ files: [file], text }); return true; }
+    } catch (e) { if (e?.name === "AbortError") return true; }
+    const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    return true;
+  },
+};
+
 // ---------- live room ----------
 // A socket to the laptop's server. Each page publishes one presence object; the server hands every
 // page the presences it should see (the TV sees its phones, phones see the TVs) whenever they change.
@@ -1383,6 +1631,7 @@ const TV = {
       <footer class="hostbar" id="hostbar"></footer>
       <div class="pause-ov" id="pause-ov" hidden></div>
       <div class="caption" id="caption" role="status" aria-live="polite" hidden></div>
+      <div class="reacts" id="reacts" aria-hidden="true"></div>
     </div>`;
     this.audio = new Audio(); this.audio.preload = "auto";
     this.audio.addEventListener("error", () => this.clipError());
@@ -1406,7 +1655,7 @@ const TV = {
   },
   fresh() {
     const code = Array.from(crypto.getRandomValues(new Uint8Array(4)), x => CODE_CHARS[x % CODE_CHARS.length]).join("");
-    return { code, gid: rid(6), ph: "lobby", r: 0, R: 0, rk: "", cur: null, order: [], players: {}, photos: {}, guesses: {}, phaseEnds: 0, qStart: 0, qDur: Q_SECS * 1000, rv: null, vip: null, modes: ["photo"], songs: {}, tune: { q: "top worldwide", label: "Today's hits" }, faceCat: "all", theme: "mix", len: "normal", impVar: "similar", snd: "all", host: "voice", anon: false, spicy: "off", drinks: false, diff: "normal", pause: null, turn: 0, savedAt: 0 };
+    return { code, gid: rid(6), ph: "lobby", r: 0, R: 0, rk: "", cur: null, order: [], players: {}, photos: {}, guesses: {}, phaseEnds: 0, qStart: 0, qDur: Q_SECS * 1000, rv: null, vip: null, modes: ["photo"], songs: {}, tune: { q: "top worldwide", label: "Today's hits" }, faceCat: "all", theme: "mix", len: "normal", impVar: "similar", snd: "all", host: "voice", anon: false, spicy: "off", drinks: false, diff: "normal", twists: true, pause: null, turn: 0, savedAt: 0 };
   },
   revive(s) {
     const H = Object.assign(this.fresh(), s);
@@ -1414,7 +1663,7 @@ const TV = {
     if (!Array.isArray(H.modes) || !H.modes.length) H.modes = ["photo"];
     H.modes = H.modes.filter(m => MODES.includes(m)); if (!H.modes.length) H.modes = ["photo"];
     H.songs ||= {}; if (!H.tune?.q) H.tune = { q: "top worldwide", label: "Today's hits" }; H.faceCat ||= "all"; H.theme ||= "mix"; H.len ||= "normal"; H.impVar ||= "similar";
-    if (!["all", "fx", "off"].includes(H.snd)) H.snd = "all"; if (!["voice", "captions", "off"].includes(H.host)) H.host = "voice"; if (!SPICE.some(([k]) => k === H.spicy)) H.spicy = "off"; H.drinks = !!H.drinks; if (!DIFFS.some(([k]) => k === H.diff)) H.diff = "normal"; H.anon = !!H.anon; H.pause = null;
+    if (!["all", "fx", "off"].includes(H.snd)) H.snd = "all"; if (!["voice", "captions", "off"].includes(H.host)) H.host = "voice"; if (!SPICE.some(([k]) => k === H.spicy)) H.spicy = "off"; H.drinks = !!H.drinks; if (!DIFFS.some(([k]) => k === H.diff)) H.diff = "normal"; H.anon = !!H.anon; H.twists = H.twists !== false; H.pause = null;
     H.order = (H.order || []).map(x => (typeof x === "string" ? { t: "photo", id: x } : x));
     if (typeof H.cur === "string") H.cur = { t: "photo", id: H.cur };
     for (const id of Object.keys(H.photos)) if (!H.photos[id]?.src) delete H.photos[id];
@@ -1472,6 +1721,16 @@ const TV = {
     return this.players().filter(p => p.online && (c?.t === "quip" ? !c.ps[c.mi].by.includes(p.pid) : c?.t === "bluff" ? true : (c?.ord || []).some(x => x !== p.pid)));
   },
   isImp() { return this.H.cur?.t === "imp"; },
+  // Draw it: at step s, chain i is with the player s places round the ring from where it started.
+  drawTask(pid, s = this.H.cur?.step || 0) {
+    const c = this.H.cur, n = c?.order?.length || 0, j = n ? c.order.indexOf(pid) : -1;
+    if (j < 0 || s >= c.S) return null;
+    const i = (((j - s) % n) + n) % n;
+    return s % 2 ? [i, "guess", [...c.chains[i].items.slice(0, s)].reverse().find(x => x?.k === "d" && x.v)?.v || ""] : [i, "draw", this.drawText(c.chains[i], s)];
+  },
+  // What a drawing step draws: the prompt at the start, after that the latest guess in the chain.
+  drawText(ch, s) { return (s && [...ch.items.slice(0, s)].reverse().find(x => x?.k === "g" && x.v)?.v) || ch.p; },
+  drawDone(pid) { const t = this.drawTask(pid); return !!(t && this.H.cur.chains[t[0]].items[this.H.cur.step]); },
   songCount() { return Object.keys(this.H.songs).length; },
   photosOn() { return this.H.modes.includes("photo"); },
   photoCount() { return Object.keys(this.H.photos).length; },
@@ -1568,6 +1827,11 @@ const TV = {
           if (pid !== this.curOwner() && isPid(g.p) && g.p !== pid && H.players[g.p]) { H.guesses[pid] = { p: g.p, t: now }; changed = true; SFX.play("lock"); }
         } else if (pid !== this.curOwner() && Number.isInteger(g.i) && g.i >= 0 && g.i < H.cur.o.length) { H.guesses[pid] = { i: g.i, t: now }; changed = true; SFX.play("lock"); }
       }
+      // Draw it: `dr` = this phone's drawing (an uploaded picture's id) or guess for the current step. Counts once.
+      if (H.ph === "dw" && !H.pause && p.dr?.rk === H.rk && !this.drawDone(pid)) {
+        const t = this.drawTask(pid), v = t && (t[1] === "draw" ? (isFid(p.dr.v) ? p.dr.v : "") : cleanText(p.dr.v, 60));
+        if (v) { H.cur.chains[t[0]].items[H.cur.step] = { k: t[1] === "draw" ? "d" : "g", pid, v }; changed = true; SFX.play("lock"); }
+      }
       // Quips: `qa` = this phone's answers, by prompt number. They count once, and can't be changed after.
       if (H.ph === "qw" && !H.pause && p.qa?.rk === H.rk && p.qa.a && typeof p.qa.a === "object") {
         const mine = this.writesFor(pid);
@@ -1587,6 +1851,7 @@ const TV = {
         pl.cmdSeen = [...pl.cmdSeen, c.k].slice(-40);
         // Anyone can say a spicy prompt went too far; everything else comes from whoever starts the game.
         if (c.a.startsWith("toofar:")) this.tooFar(c.a.slice(7));
+        else if (c.a.startsWith("react:")) this.react(pid, Number(c.a.slice(6)));
         else if (pid === H.vip) this.command(c.a);
       }
     }
@@ -1644,7 +1909,7 @@ const TV = {
   // A lobby setting changed from the host's phone. Each setter checks its own value.
   setting(k, v) {
     const set = { th: () => this.setTheme(v), len: () => this.setLen(v), diff: () => this.setDiff(v), snd: () => this.setSnd(v), host: () => this.setHost(v),
-      anon: () => this.setAnon(v), spicy: () => this.setSpicy(v), drinks: () => this.setDrinks(v), imp: () => this.setImpVar(v),
+      anon: () => this.setAnon(v), spicy: () => this.setSpicy(v), drinks: () => this.setDrinks(v), imp: () => this.setImpVar(v), tw: () => this.setTwists(v),
       tune: () => { const m = TUNE_MIXES.find(([q]) => q === v); if (m) this.setTune(m[0], m[1]); } }[k];
     if (set) { set(); this.push(true); }
   },
@@ -1670,7 +1935,7 @@ const TV = {
   prefetch() {
     const H = this.H;
     if (H.modes.includes("face")) getFaces().catch(() => {});
-    for (const [m, f] of [["emoji", "emoji"], ["likely", "likely"], ["prof", "profile"], ["quip", "quips"], ["said", "said"], ["meld", "meld"], ["hot", "hot"], ["fakin", "fakin"], ["year", "hilo"], ["hilo", "hilo"]]) if (H.modes.includes(m)) getData(f).catch(() => {});
+    for (const [m, f] of [["draw", "draw"], ["emoji", "emoji"], ["likely", "likely"], ["prof", "profile"], ["quip", "quips"], ["said", "said"], ["meld", "meld"], ["hot", "hot"], ["fakin", "fakin"], ["year", "hilo"], ["hilo", "hilo"]]) if (H.modes.includes(m)) getData(f).catch(() => {});
     if (H.spicy !== "off") getData("quips").catch(() => {});
     if (H.theme === "africa") getData("kenya").catch(() => {});
     if (H.modes.includes("cap") || H.modes.includes("big")) getCountries().catch(() => {});
@@ -1732,6 +1997,10 @@ const TV = {
     if (this.H.ph !== "lobby") return;
     this.H.drinks = v === "on"; this.save(); this.renderModes(); this.push(true);
   },
+  setTwists(v) {
+    if (this.H.ph !== "lobby") return;
+    this.H.twists = v !== "off"; this.save(); this.renderModes(); this.push(true);
+  },
   // Someone tapped Too far on a spicy prompt: skip the rest of this round, no questions asked.
   tooFar(rk) {
     const H = this.H;
@@ -1752,7 +2021,7 @@ const TV = {
     if (ph === "lobby") return wild ? "afterdark" : "lobby";
     if (ph === "end") return "victory";
     if (ph === "rev" || ph === "lb") return wild ? "afterdark" : "groove";
-    if (ph === "qw" || (ph === "intro" && WRITE_KINDS.includes(t))) return "write";
+    if (ph === "qw" || ph === "dw" || (ph === "intro" && (WRITE_KINDS.includes(t) || t === "draw"))) return "write";
     if (t === "imp" || t === "fakin" || t === "split") return "suspense";
     if (H.R > 1 && r === H.R) return "final";
     return modeGroup(t) === "Quiz" ? "quiz" : "social";
@@ -1827,7 +2096,7 @@ const TV = {
   // Someone dropping out mid-question would miss it, so the game waits for them, once per player per round.
   waitFor(pid) {
     const H = this.H, key = H.rk + pid;
-    const needed = (H.ph === "q" && !H.guesses[pid] && pid !== this.curOwner()) || ["qw", ...SECRET_PHASES].includes(H.ph) || (H.ph === "qv" && !H.guesses[pid]);
+    const needed = (H.ph === "q" && !H.guesses[pid] && pid !== this.curOwner()) || ["qw", ...SECRET_PHASES].includes(H.ph) || (H.ph === "qv" && !H.guesses[pid]) || (H.ph === "dw" && !this.drawDone(pid));
     if (!needed || this.waited?.has(key)) return false;
     (this.waited ||= new Set()).add(key);
     return true;
@@ -1902,10 +2171,17 @@ const TV = {
       if (k >= 1) { clearInterval(this.fadeT); then?.(); }
     }, 40);
   },
-  // Skip what this room saw in its last few games, as long as enough is left.
+  // Skip what this TV has already shown, in any game. When too little is left, the ones seen longest ago come back first.
   unseen(list, key, kind, need) {
-    const seen = new Set(this.H.recent?.[kind] || []), fresh = list.filter(x => !seen.has(key(x)));
-    return fresh.length >= need ? fresh : list;
+    const at = new Map(this.seenList(kind).map((k, i) => [k, i])), fresh = list.filter(x => !at.has(key(x)));
+    if (fresh.length >= need) return fresh;
+    const old = list.filter(x => at.has(key(x))).sort((a, b) => at.get(key(b)) - at.get(key(a)));
+    return [...fresh, ...old.slice(0, need - fresh.length)];
+  },
+  // What's been shown lives in its own store (newest first), so New room doesn't wipe it. Older pages kept it in the game.
+  seenList(kind) {
+    const S = (this.seenAll ||= store.get("wiw.seen") || {});
+    return Array.isArray(S[kind]) ? S[kind] : this.H.recent?.[kind] || [];
   },
   // Spicy prompts for tonight's level: Cheeky draws on the cheeky list, Savage adds the savage one, and No holds barred
   // plays its own wild list first. `D` holds the lists; `k` renames them for files that call them something else.
@@ -1919,9 +2195,9 @@ const TV = {
   // The share of a mode's rounds that are spicy: its usual share on Cheeky and Savage, most of them on No holds barred.
   spicyShare(usual) { return this.H.spicy === "off" ? 0 : this.H.spicy === "wild" ? Math.max(usual, 0.75) : usual; },
   remember(kind, keys) {
-    const H = this.H;
-    H.recent ||= {};
-    H.recent[kind] = [...new Set([...keys, ...(H.recent[kind] || [])])].slice(0, 300);
+    const S = (this.seenAll ||= store.get("wiw.seen") || {});
+    S[kind] = [...new Set([...keys, ...this.seenList(kind)])].slice(0, 1000);
+    if (!store.set("wiw.seen", S)) { for (const k of Object.keys(S)) S[k] = S[k].slice(0, 300); store.set("wiw.seen", S); }
   },
   lbEvery() { return Math.max(3, Math.min(6, Math.round(this.H.R / 4))); },
   revSecs(n) { return n ? REVEAL_SECS + Math.min(3, n * 0.15) : 6; },
@@ -1941,7 +2217,7 @@ const TV = {
       if (modes.includes("song") && online >= 2) pools.song = spread(Object.values(H.songs).filter(x => H.players[x.pid]), x => x.pid).map(x => ({ t: "song", id: x.id, pid: x.pid, title: x.title, artist: x.artist, art: x.art, ap: x.ap || "" }));
       if (modes.includes("prof") && online >= 3) {
         // One player's answer, only when nobody else in the room tapped the same one. At most one round per question.
-        const bank = (await getData("profile")).questions, ps = this.players().filter(p => p.online && p.pf), seen = new Set(H.recent?.prof || []), out = [];
+        const bank = (await getData("profile")).questions, ps = this.players().filter(p => p.online && p.pf), seen = new Set(this.seenList("prof")), out = [];
         for (const q of shuffle(bank.slice())) {
           const ans = ps.filter(p => Number.isInteger(p.pf[q.id]) && q.o[p.pf[q.id]]);
           const solo = shuffle(ans.filter(p => ans.filter(x => x.pf[q.id] === p.pf[q.id]).length === 1 && !seen.has(p.pid + q.id)));
@@ -2052,8 +2328,10 @@ const TV = {
       if (modes.includes("trivia") || modes.includes("buzz")) {
         const want = (modes.includes("trivia") ? each : 0) + (modes.includes("buzz") ? each : 0);
         const nK = kenya ? Math.ceil(want / 2) : 0, local = kenya ? shuffle(this.unseen(kenya.trivia, x => x.q, "trivia-ke", nK)).slice(0, nK) : [];
-        const list = local.length < want ? await fetch(`/api/trivia?n=${want - local.length}&theme=${encodeURIComponent(theme.id)}&diff=${H.diff}`).then(r => r.json()) : [];
-        const all = shuffle([...local, ...list]).map(x => { const o = shuffle([x.a, ...x.w]); return { t: "trivia", q: x.q, o, a: o.indexOf(x.a), cat: x.cat }; });
+        // Ask for twice as many as needed, so questions this TV has already shown can be left out.
+        const list = local.length < want ? await fetch(`/api/trivia?n=${Math.min(30, (want - local.length) * 2)}&theme=${encodeURIComponent(theme.id)}&diff=${H.diff}`).then(r => r.json()) : [];
+        const fresh = shuffle(this.unseen(list, x => x.q, "trivia-ke", want - local.length)).slice(0, want - local.length);
+        const all = shuffle([...local, ...fresh]).map(x => { const o = shuffle([x.a, ...x.w]); return { t: "trivia", q: x.q, o, a: o.indexOf(x.a), cat: x.cat }; });
         if (modes.includes("buzz")) pools.buzz = all.splice(0, modes.includes("trivia") ? Math.ceil(all.length / 2) : all.length).map(r => ({ ...r, t: "buzz" }));
         if (modes.includes("trivia")) pools.trivia = all;
       }
@@ -2165,6 +2443,13 @@ const TV = {
         const qs = shuffle([...hot.map(x => ({ ...x, sp: true })), ...shuffle(this.unseen(Q.questions, x => x.q, "hot", n)).slice(0, n - hot.length)]);
         pools.hot = qs.map((x, i) => { const p = people[i % people.length]; return { t: "hot", pid: p.pid, k: x.q, q: x.q.replace(/\{name\}/g, p.name), me: x.me, o: x.o, a: -1, sp: !!x.sp }; });
       }
+      if (modes.includes("draw") && online >= 3) {
+        // Draw it: one chain per player, each starting from its own prompt, passed round the room (up to four steps).
+        const D = await getData("draw"), n = H.len === "long" ? 2 : 1, people = this.players().filter(p => p.online).map(p => p.pid), k = people.length * n;
+        const wild = H.spicy === "wild" ? shuffle(this.unseen(D.wild || [], x => x, "draw", k)) : [], plain = shuffle(this.unseen(D.prompts, x => x, "draw", k));
+        pools.draw = Array.from({ length: n }, () => ({ t: "draw", order: shuffle(people.slice()), S: Math.min(4, people.length), step: 0, ci: 0,
+          chains: people.map(() => ({ p: (wild.length && Math.random() < 0.6 ? wild.pop() : plain.pop()) || D.prompts[Math.floor(Math.random() * D.prompts.length)], items: [] })) }));
+      }
       if (modes.includes("split") && online >= 2) {
         // Split or steal: everyone faces off once before anyone goes twice.
         const n = { quick: 2, normal: 3, long: 4 }[H.len] || 3, people = this.players().filter(p => p.online).map(p => p.pid), q = [];
@@ -2218,6 +2503,12 @@ const TV = {
       }
       // The Last Lash is always the final round.
       if (lash) order.push(lash);
+      // Twists: about one round in four from the second to the second-last, never two in a row.
+      if (H.twists) for (let i = 1; i < order.length - 1; i++) {
+        if (order[i - 1].tw || Math.random() > 0.27) continue;
+        const ok = Object.keys(TWISTS).filter(k => TWISTS[k].ok(order[i].t));
+        if (ok.length) order[i].tw = ok[Math.floor(Math.random() * ok.length)];
+      }
       if (!order.length) throw new Error("no rounds");
       // Real artist photos from Wikipedia where there's one; Deezer's picture otherwise.
       const artists = [...new Set(order.flatMap(r => r.t === "tune" || r.t === "song" ? [r.artist, leadName(r.artist)] : r.t === "face" && r.src === "Deezer" ? [r.n, leadName(r.n)] : []))].filter(n => n && !n.includes("|"));
@@ -2252,10 +2543,11 @@ const TV = {
       this.remember("hot", order.filter(r => r.t === "hot").map(r => r.k));
       this.remember("fakin", order.filter(r => r.t === "fakin").map(r => r.k));
       this.remember("meld", order.filter(r => r.t === "meld").flatMap(r => r.ps.map(m => m.q)));
+      this.remember("draw", order.filter(r => r.t === "draw").flatMap(r => r.chains.map(c => c.p)));
       if (this.H !== H || H.ph !== "lobby") return;
       H.order = order; H.R = order.length; H.r = 0; H.rv = null;
       for (const p of Object.values(H.players)) { p.score = 0; p.prev = 0; p.st = { right: 0, fast: 0, fooled: 0 }; }
-      H.lbSnap = {}; H.lbFrom = {};
+      H.lbSnap = {}; H.lbFrom = {}; H.best = null;
       this.starting = false;
       this.nextRound();
     } catch (e) {
@@ -2283,12 +2575,62 @@ const TV = {
     H.phDur = secs * 1000;
     this.sound(ph);
     this.lastTick = 0;
+    if (ph === "rev" && H.rv && H.cur?.tw && !H.rv.tw) this.applyTwist();
     if (ph === "rev" && H.rv) H.rv.sip = H.drinks ? this.sippers() : [];
     if (ph === "lb") { H.dare = this.pickDare(); H.lbFrom = H.lbSnap || {}; H.lbSnap = Object.fromEntries(this.players().map(p => [p.pid, p.score])); }
     const fx = { intro: "whoosh", rev: "reveal", lb: "board", end: "fanfare", "imp-clue": "blip" }[ph];
     if (fx) SFX.play(fx);
     this.speak(ph);
     this.save(); this.render(); this.push(true);
+  },
+  // A reaction from a phone floats up the TV with the player's face. A few a second per player at most.
+  react(pid, i) {
+    const p = this.H.players[pid], r = REACTS[i], box = $("#reacts"), now = Date.now();
+    if (!p || !r || !box || this.H.ph === "lobby") return;
+    this.rxAt ||= {};
+    if (now - (this.rxAt[pid] || 0) < 350) return;
+    this.rxAt[pid] = now;
+    while (box.children.length > 24) box.firstElementChild.remove();
+    const el = document.createElement("div");
+    el.className = "rx" + (r[0] && EMOJI_OK ? "" : " word");
+    el.style.setProperty("--x", (6 + Math.random() * 88).toFixed(1) + "%");
+    el.style.setProperty("--r", (Math.random() * 24 - 12).toFixed(0) + "deg");
+    el.innerHTML = `${face(p)}<b>${esc(r[0] && EMOJI_OK ? r[0] : r[1])}</b>`;
+    box.appendChild(el);
+    setTimeout(() => el.remove(), 3200);
+    if (now - (this.rxSnd || 0) > 160) { this.rxSnd = now; SFX.play("pop"); }
+  },
+  // A twist changes this round's points once they're worked out, just before the reveal shows them.
+  applyTwist() {
+    const H = this.H, rv = H.rv, tw = H.cur.tw, P = H.players, ex = {}, d = rv.d || (rv.d = {});
+    const before = pid => (P[pid] ? P[pid].prev ?? P[pid].score - (d[pid] || 0) : 0);
+    const answer = H.cur.t === "photo" || H.cur.t === "song" || H.cur.t === "prof" ? rv.o : rv.a;
+    const guessed = Object.keys(rv.g || {}).filter(pid => P[pid] && (answer !== undefined && answer !== null)), right = guessed.filter(pid => rv.g[pid] === answer);
+    if (tw === "double") for (const [pid, v] of Object.entries(d)) ex[pid] = v;
+    if (tw === "underdog") {
+      const ps = this.players().filter(p => p.online), low = Math.min(...ps.map(p => before(p.pid)));
+      for (const p of ps) if (before(p.pid) === low && d[p.pid] > 0) ex[p.pid] = d[p.pid] * 2;
+      rv.twWho = ps.filter(p => before(p.pid) === low).map(p => p.pid);
+    }
+    if (tw === "robbery" && right.length) {
+      const fast = right.slice().sort((a, b) => (H.guesses[a]?.t || 0) - (H.guesses[b]?.t || 0))[0];
+      const lead = this.players().filter(p => p.pid !== fast).sort((a, b) => before(b.pid) - before(a.pid))[0];
+      if (lead && before(lead.pid) > 0) { const n = Math.min(300, before(lead.pid)); ex[fast] = n; ex[lead.pid] = -n; rv.twWho = [fast, lead.pid, n]; }
+    }
+    if (tw === "sudden") for (const pid of guessed) if (rv.g[pid] !== answer) ex[pid] = -250;
+    for (const [pid, v] of Object.entries(ex)) { if (!v || !P[pid]) continue; P[pid].score += v; d[pid] = (d[pid] || 0) + v; }
+    rv.tw = { k: tw, ex };
+  },
+  // One line under a reveal saying what the twist did.
+  twistNote() {
+    const H = this.H, rv = H.rv, t = rv?.tw && TWISTS[rv.tw.k], P = H.players;
+    if (!t) return "";
+    const n = id => esc(P[id]?.name || "Someone"), ex = rv.tw.ex || {}, losers = Object.keys(ex).filter(id => ex[id] < 0);
+    const what = rv.tw.k === "robbery" ? (rv.twWho ? `${n(rv.twWho[0])} steals ${fmt(rv.twWho[2])} from ${n(rv.twWho[1])}!` : "Nobody got it, so nothing was stolen.")
+      : rv.tw.k === "sudden" ? (losers.length ? `${losers.map(n).join(", ")} ${losers.length === 1 ? "loses" : "lose"} 250.` : "Nobody guessed wrong.")
+      : rv.tw.k === "underdog" ? (Object.keys(ex).length ? `${Object.keys(ex).map(n).join(" and ")} scored triple!` : "The underdog didn't score.")
+      : rv.tw.k === "double" ? "Every point counted twice." : t.note;
+    return `<div class="twnote"><b>Twist · ${esc(t.label)}</b><span>${what}</span></div>`;
   },
   // What the host says as each part of a round starts.
   speak(ph) {
@@ -2346,7 +2688,9 @@ const TV = {
     // A TV that reloaded partway through the guessing in Who said it or Two truths picks up at the answer it was on.
     if (H.ph === "intro" && EACH_KINDS.includes(H.cur?.t) && H.cur.ord?.length) return this.askNext(Math.min(H.cur.mi || 0, H.cur.ord.length - 1));
     if (H.ph === "intro" && H.cur?.t === "fakin") return this.fkStart();
-    if (H.ph === "intro") return this.isImp() ? this.impStart() : this.isWrite() ? this.go("qw", QW_SECS[H.cur.t]) : this.go("q", H.cur?.t === "split" ? SPLIT_SECS : Q_SECS);
+    if (H.ph === "intro" && H.cur?.t === "draw") return this.drawStep(0);
+    if (H.ph === "dw") { if (H.cur.step + 1 < H.cur.S) return this.drawStep(H.cur.step + 1); H.cur.ci = 0; return this.reveal(); }
+    if (H.ph === "intro") return this.isImp() ? this.impStart() : this.isWrite() ? this.go("qw", QW_SECS[H.cur.t]) : this.go("q", H.cur?.t === "split" ? SPLIT_SECS : H.cur?.tw === "lightning" ? LIGHTNING_SECS : Q_SECS);
     if (H.ph === "qw") return this.startVote(0);
     if (H.ph === "qv") return this.reveal();
     if (H.ph === "imp-word") { H.turn = 0; return this.go("imp-clue"); }
@@ -2358,6 +2702,7 @@ const TV = {
     if (H.ph === "q") return this.reveal();
     if (H.ph === "rev") {
       if (H.cur?.t === "quip") { const n = this.nextMatch(H.cur.mi + 1); if (n >= 0) return this.startVote(n); }
+      if (H.cur?.t === "draw" && H.cur.ci + 1 < H.cur.chains.length) { H.cur.ci++; return this.reveal(); }
       if (EACH_KINDS.includes(H.cur?.t) && H.cur.mi + 1 < (H.cur.ord || []).length) return this.askNext(H.cur.mi + 1);
       return this.endRound();
     }
@@ -2368,6 +2713,11 @@ const TV = {
     if (H.r >= H.R) return this.go("end");
     if (H.r % this.lbEvery() === 0) return this.go("lb", LB_SECS);
     return this.nextRound();
+  },
+  drawStep(s) {
+    const H = this.H;
+    H.cur.step = s; H.rk = H.gid + "-" + H.r + "-d" + s;
+    this.go("dw", s % 2 ? GUESS_SECS : DRAW_SECS);
   },
   // Quips: vote on the next prompt that got answers. With only one answer, that one wins without a vote.
   startVote(from) {
@@ -2461,8 +2811,24 @@ const TV = {
       if (sweep) d[m.by[v[0] ? 0 : 1]] += 250 * mult;
       score();
       H.rv = { q: m.q, a: m.by.map(pid => ans[pid] || ""), by: m.by, g, d, m: mult, v, sweep, mi: H.cur.mi, n: H.cur.ps.length };
+      m.by.forEach((pid, k) => { if (ans[pid] && v[k] > (H.best?.v || 0)) H.best = { q: m.q, a: ans[pid], pid, v: v[k] }; });
       this.revEv = sweep ? "quip-sweep" : has[0] !== has[1] ? null : v[0] === v[1] ? "quip-tie" : "quip-win";
       return this.go("rev", REVEAL_SECS - 1);
+    }
+    if (H.cur.t === "draw") {
+      // One chain at a time. Each guess is checked against what its drawer was drawing; a match scores both of them.
+      const c = H.cur, ch = c.chains[c.ci], items = Array.from({ length: c.S }, (_, s) => ch.items[s] || null), marks = [];
+      for (let s = 1; s < c.S; s += 2) {
+        const drawer = items[s - 1], guess = items[s], hit = drawer?.v && guess?.v ? drawMatch(this.drawText(ch, s - 1), guess.v) : 0;
+        marks[s] = hit;
+        if (hit) for (const pid of [drawer.pid, guess.pid]) d[pid] = (d[pid] || 0) + (hit === 2 ? 1000 : 400) * mult;
+      }
+      score();
+      const last = [...items].reverse().find(x => x?.k === "g" && x.v);
+      H.rk = H.gid + "-" + H.r + "-c" + c.ci;
+      H.rv = { ci: c.ci, n: c.chains.length, by: c.order[c.ci], p: ch.p, items, marks, end: last ? drawMatch(ch.p, last.v) : -1, g: {}, d, m: mult };
+      this.revEv = H.rv.end === 2 ? "draw-nailed" : H.rv.end === 0 ? "draw-lost" : null;
+      return this.go("rev", 4 + (c.S + 1) * 1.6);
     }
     if (H.cur.t === "split") {
       // Both split: half each. One steals: they take the lot. Both steal: nobody. No pick counts as Split. A right bet wins 300.
@@ -2591,6 +2957,7 @@ const TV = {
       if (best) d[best] += 300 * mult;
       score();
       H.rv = { q: H.cur.q, a: ord.map(pid => [pid, ans[pid]]), g, d, m: mult, v, best };
+      ord.forEach((pid, k) => { if (ans[pid] && v[k] > (H.best?.v || 0)) H.best = { q: H.cur.q, a: ans[pid], pid, v: v[k] }; });
       this.revEv = best ? "lash-win" : ord.length > 1 ? "quip-tie" : null;
       return this.go("rev", Math.max(REVEAL_SECS, 5 + ord.length * 1.2));
     }
@@ -2737,6 +3104,10 @@ const TV = {
       const ps = this.players().filter(p => p.online), done = ps.every(p => this.writesFor(p.pid).every(i => H.cur.ans[i]?.[p.pid]));
       if (ps.length && done && (!H.phaseEnds || H.phaseEnds - now > 1500)) { H.phaseEnds = now + 1500; this.push(true); }
     }
+    if (H.ph === "dw") {
+      const ps = this.players().filter(p => p.online && H.cur.order.includes(p.pid));
+      if (ps.length && ps.every(p => this.drawDone(p.pid)) && (!H.phaseEnds || H.phaseEnds - now > 1500)) { H.phaseEnds = now + 1500; this.push(true); }
+    }
     if (H.ph === "qv") {
       const vs = this.voters();
       if (vs.length && vs.every(p => H.guesses[p.pid]) && (!H.phaseEnds || H.phaseEnds - now > 1200)) { H.phaseEnds = now + 1200; this.push(true); }
@@ -2763,6 +3134,7 @@ const TV = {
       kind: H.cur?.t || null, th: themeOf(H).label, ih: H.ph === "intro" && H.introHow && H.introHow === H.cur?.t ? 1 : 0,
       imp: this.isImp() && ["intro", ...IMP_PHASES, "q", "rev"].includes(H.ph) ? { cat: H.cur.cat, sp: H.ph === "imp-clue" ? H.cur.order[H.turn] : null, turn: H.turn || 0, n: H.cur.order.length, none: H.impVar === "none" ? 1 : 0 } : null,
       aw: H.ph === "end" ? this.awards().map(([p, title, detail]) => [p.pid, title, detail]) : null,
+      best: H.ph === "end" ? H.best || null : null,
       vip: H.vip || null, can: this.canStart() ? 1 : 0,
       x: H.ph === "q" && this.curOwner() ? fnv(this.curOwner() + H.rk) : null,
       // Who said it: the answer the room is guessing about, and which one of how many.
@@ -2772,6 +3144,8 @@ const TV = {
       qz: this.isQuiz() && (H.ph === "q" || H.ph === "rev") ? { t: H.cur.t, o: H.cur.o || null, k: H.cur.ask || null, q: askOf(H.cur), e: H.cur.t === "emoji" ? H.cur.e : null, u: H.cur.u || null, y: H.cur.y ? 1 : 0,
         ...(H.cur.t === "hot" ? { me: H.cur.me, s: H.cur.pid } : {}), ...(H.cur.t === "hilo" && H.ph === "rev" ? { hv: [H.cur.B.n, this.hiloVal(H.cur, H.cur.B.v)] } : {}) } : null,
       lk: H.cur?.t === "likely" ? H.cur.lk : null,
+      tw: H.cur?.tw && ["intro", "q", "rev"].includes(H.ph) ? H.cur.tw : null, qd: H.ph === "q" ? H.qDur / 1000 : null,
+      dw: H.ph === "dw" ? { s: H.cur.step, S: H.cur.S, t: Object.fromEntries(H.cur.order.map(pid => [pid, this.drawTask(pid)])), done: H.cur.order.filter(pid => this.drawDone(pid)) } : null,
       ss: H.cur?.t === "split" && ["intro", "q", "rev"].includes(H.ph) ? { by: H.cur.by, pot: H.cur.pot * (H.R > 1 && H.r === H.R ? 2 : 1) } : null,
       fk: H.cur?.t === "fakin" && ["fk-ans", "fk-talk", "q", "rev"].includes(H.ph) ? { ty: H.cur.ty, q: H.ph === "fk-ans" ? null : H.cur.q } : null,
       // Writing rounds: the prompts while writing, then the answers being voted on. `x` marks whose they are, hashed like `x` above.
@@ -2782,7 +3156,7 @@ const TV = {
       sp: H.cur?.sp ? 1 : 0, spicy: H.spicy === "wild" ? 2 : H.spicy !== "off" ? 1 : 0, drinks: H.drinks ? 1 : 0,
       dare: H.ph === "lb" ? H.dare || null : null,
       // The lobby settings, so whoever starts the game can change them from their phone instead of the TV.
-      cfg: H.ph === "lobby" ? { th: H.theme, len: H.len, diff: H.diff, snd: H.snd, host: H.host, anon: H.anon ? 1 : 0, spicy: H.spicy, drinks: H.drinks ? 1 : 0, imp: H.impVar, tune: H.tune.q, tl: H.tune.label, mix: this.needMix() ? 1 : 0 } : null,
+      cfg: H.ph === "lobby" ? { th: H.theme, len: H.len, diff: H.diff, snd: H.snd, host: H.host, anon: H.anon ? 1 : 0, spicy: H.spicy, drinks: H.drinks ? 1 : 0, tw: H.twists ? 1 : 0, imp: H.impVar, tune: H.tune.q, tl: H.tune.label, mix: this.needMix() ? 1 : 0 } : null,
       pause: H.pause ? { cd: H.pause.cd ? Math.max(1, Math.ceil((H.pause.cd - now) / 1000)) : 0, who: H.pause.pid ? H.players[H.pause.pid]?.name || null : null } : null,
     };
     const body = JSON.stringify(pres);
@@ -2849,7 +3223,7 @@ const TV = {
   },
 
   // ---------- TV rendering ----------
-  render() { const tv = $(".tv"); if (tv) tv.dataset.ph = this.H.ph; this.renderStatus(); this.renderHostbar(); this.renderStage(); this.renderRail(); this.renderClock(); this.renderPause(); this.mood(); },
+  render() { const tv = $(".tv"); if (tv) tv.dataset.ph = this.H.ph; const st = $("#stage"); if (st) st.dataset.tw = this.H.ph === "q" && this.H.cur?.tw ? TWISTS[this.H.cur.tw]?.label || "" : ""; this.renderStatus(); this.renderHostbar(); this.renderStage(); this.renderRail(); this.renderClock(); this.renderPause(); this.mood(); },
   // Everyone's points along the top of the TV all game. During a reveal they wait until the answer is out, then tick up.
   renderRail() {
     const H = this.H, el = $("#rail");
@@ -2933,12 +3307,14 @@ const TV = {
       const big = only ? (final ? "Final photo" : "Photo " + H.r) : final ? "Final round" : KIND_BIG[kind] || "Round " + H.r;
       return paint(stage, "intro|" + H.rk, `<section class="intro"><p class="eyebrow">Phones out. ${unitOf(H)} ${H.r} of ${H.R}${only ? "" : " · " + (MODE_LABEL[kind] || "") + this.musicTag(H.cur)}</p>
         <h2 class="big">${big}</h2>${final ? `<p class="dbl">Double points</p>` : ""}
+        ${H.cur?.tw && TWISTS[H.cur.tw] ? `<div class="twcard"><b>Twist!</b><span>${esc(TWISTS[H.cur.tw].label)}</span><i>${esc(TWISTS[H.cur.tw].note)}</i></div>` : ""}
         ${kind === "split" ? (([a, b]) => `<p class="ssvs">${a ? face(a) : ""}<b>${esc(a?.name || "?")}</b><span>vs</span><b>${esc(b?.name || "?")}</b>${b ? face(b) : ""}</p><p class="sspot">for <b class="num">${fmt(H.cur.pot * (final ? 2 : 1))}</b> points</p>`)(H.cur.by.map(id => H.players[id])) : ""}
         ${H.introHow === kind && MODE_CARD[kind]?.how ? `<ol class="introhow">${MODE_CARD[kind].how.map((x, i) => `<li style="animation-delay:${(0.5 + i * 0.35).toFixed(2)}s"><b>${i + 1}</b><span>${esc(x)}</span></li>`).join("")}</ol>` : ""}</section>`);
     }
     if (IMP_PHASES.includes(H.ph) || (H.ph === "q" && this.isImp())) return this.renderImp(stage);
     if (FK_PHASES.includes(H.ph) || (H.ph === "q" && H.cur?.t === "fakin")) return this.renderFakin(stage);
     if (H.ph === "qw") return this.renderWrite(stage);
+    if (H.ph === "dw") return this.renderDraw(stage);
     if (H.ph === "qv") return this.renderVote(stage);
     if (H.ph === "q" && H.cur?.t === "likely") return this.renderLikely(stage);
     if (H.ph === "q" && H.cur?.t === "split") return this.renderSplit(stage);
@@ -2960,7 +3336,7 @@ const TV = {
     }
     if (H.ph === "rev") {
       // The scores along the top change when this reveal shows who scored (its --t2), not before.
-      if (paint(stage, "rev|" + H.rk + "|" + (DATA.shapes ? 1 : 0), this.revealHtml()) && this.revRk !== H.rk) {
+      if (paint(stage, "rev|" + H.rk + "|" + (DATA.shapes ? 1 : 0), this.revealHtml() + this.twistNote()) && this.revRk !== H.rk) {
         const t2 = parseFloat(stage.firstElementChild?.style.getPropertyValue("--t2")) || 2.6;
         this.revRk = H.rk; this.railAt = Date.now() + t2 * 1000;
         clearTimeout(this.railT); this.railT = setTimeout(() => this.renderRail(), t2 * 1000 + 30);
@@ -3021,6 +3397,7 @@ const TV = {
     if (this.H.cur?.t === "bluff") return this.bluffRevealHtml();
     if (this.H.cur?.t === "likely") return this.likelyRevealHtml();
     if (this.H.cur?.t === "split") return this.splitRevealHtml();
+    if (this.H.cur?.t === "draw") return this.drawRevealHtml();
     if (this.isQuiz()) return this.quizRevealHtml();
     const H = this.H, rv = H.rv || { g: {}, d: {} };
     const P = H.players, owner = P[rv.o];
@@ -3085,7 +3462,8 @@ const TV = {
     return `<section class="end"><p class="eyebrow">Final scores</p><h2 class="qtitle">${title}</h2>
       <div class="podium">${slot(ps[1], "p2", "2nd")}${slot(ps[0], "p1", "1st")}${slot(ps[2], "p3", "3rd")}</div>
       ${rest ? `<ol class="rest">${rest}</ol>` : ""}
-      ${(aw => aw.length ? `<div class="awards">${aw.map(([p, title, detail]) => `<div class="award">${face(p)}<div><b>${esc(title)}</b><span>${esc(p.name)} · ${esc(detail)}</span></div></div>`).join("")}</div>` : "")(this.awards())}</section>`;
+      ${(aw => aw.length ? `<div class="awards">${aw.map(([p, title, detail]) => `<div class="award">${face(p)}<div><b>${esc(title)}</b><span>${esc(p.name)} · ${esc(detail)}</span></div></div>`).join("")}</div>` : "")(this.awards())}
+      <p class="sharenote">Share tonight's results from your phone</p></section>`;
   },
   // Who has locked in so far (never what they picked). With anonymous votes, just a dot per player.
   renderLocks(owner) {
@@ -3125,7 +3503,7 @@ const TV = {
     };
     const grouped = MODE_GROUPS.flatMap(([, l]) => l), more = MODES.filter(m => !grouped.includes(m)), c = this.confirm?.a;
     const groups = [...MODE_GROUPS.map(([g, l]) => [g, l.filter(m => MODES.includes(m))]), ["More", more]].filter(([, l]) => l.length);
-    paint(el, [H.modes.join(), H.theme, H.len, H.tune.q, this.mixNote, H.impVar, H.snd, H.anon, H.host, VOICE.recorded(), H.spicy, H.drinks, H.diff, c, here].join("|"), `<p class="eyebrow">Game nights · one click picks a whole night</p>
+    paint(el, [H.modes.join(), H.theme, H.len, H.tune.q, this.mixNote, H.impVar, H.snd, H.anon, H.host, VOICE.recorded(), H.spicy, H.drinks, H.twists, H.diff, c, here].join("|"), `<p class="eyebrow">Game nights · one click picks a whole night</p>
       <div class="tnights">${PRESETS.map(p => `<button class="preset ${p.modes.join() === H.modes.join() ? "on" : ""}" data-act="preset" data-p="${p.id}">${EMOJI_OK ? `<span class="picons" aria-hidden="true">${p.modes.slice(0, 5).map(m => MODE_CARD[m]?.i || "").join("")}</span>` : ""}<b>${esc(p.label)}</b><span>${esc(p.modes.map(m => MODE_LABEL[m]).join(" · "))}</span></button>`).join("")}</div>
       ${groups.map(([g, l]) => `<p class="eyebrow">${esc(g)} <span class="num">· ${l.filter(m => H.modes.includes(m)).length} of ${l.length} on</span></p><div class="tcards">${l.map(card).join("")}</div>`).join("")}
       <p class="eyebrow">Settings</p>
@@ -3142,6 +3520,7 @@ const TV = {
       <div class="sub">
         <label class="sub-l" for="spicy-sel">Spicy</label><select id="spicy-sel" class="sel">${SPICE.map(([k, l]) => opt(k, l, H.spicy === k)).join("")}</select>
         <label class="sub-l" for="drinks-sel">Drinks</label><select id="drinks-sel" class="sel">${opt("off", "Off", !H.drinks)}${opt("on", "Sips on (any drink)", H.drinks)}</select>
+        <label class="sub-l" for="tw-sel">Twists</label><select id="tw-sel" class="sel">${opt("on", "On (surprise rounds)", H.twists)}${opt("off", "Off", !H.twists)}</select>
       </div>
       ${this.needMix() ? `<div class="sub"><label class="sub-l" for="tune-sel">Music</label>
         <select id="tune-sel" class="sel">${custom ? opt(H.tune.q, H.tune.label, true) : ""}${TUNE_GROUPS.map(([g, list]) => `<optgroup label="${esc(g)}">${list.map(([q, l]) => opt(q, l, H.tune.q === q)).join("")}</optgroup>`).join("")}</select>
@@ -3381,6 +3760,32 @@ const TV = {
       <div class="rside"><p class="eyebrow">${rows.length ? "Votes" : "Nobody voted"}${rv.m > 1 ? " · Double points" : ""}</p><ul class="rows">${rowHtml}</ul>
         <div class="deltas">${this.scorersHtml(rv, sided ? `${sided} ${sided === 1 ? "person" : "people"} sided with the room` : "", "Nobody scored this round")}${this.sipHtml()}</div></div></section>`;
   },
+  // Draw it while people draw or guess: what this step is, the clock, and who's done.
+  renderDraw(stage) {
+    const H = this.H, c = H.cur, s = c.step, guess = s % 2 === 1, final = H.R > 1 && H.r === H.R;
+    paint(stage, "dw|" + H.rk, `<section class="imp"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Draw it · Step ${s + 1} of ${c.S}${final ? " · Double points" : ""}</p>
+      <h2 class="qtitle">${s === 0 ? "Draw your prompt" : guess ? "What's that drawing?" : "Now draw that guess"}</h2>
+      <p class="lede">${s === 0 ? "Everyone has a secret prompt on their phone. Draw it. No words or letters!" : guess ? "You each have someone else's drawing. Type what you think it is." : "Draw the guess on your phone. Nobody here can draw either."}</p>
+      <div class="qfoot">${this.clockHtml()}<div><p class="eyebrow" id="lockcount"></p><ul class="locks" id="locks"></ul></div></div></section>`);
+    const ps = this.players().filter(p => c.order.includes(p.pid) && (p.online || this.drawDone(p.pid))), done = ps.filter(p => this.drawDone(p.pid));
+    paint($("#lockcount"), `${done.length}/${ps.length}`, `Done <span class="num">${done.length} of ${ps.length}</span>`);
+    paint($("#locks"), ps.map(p => p.pid + (this.drawDone(p.pid) ? 1 : 0)).join(), ps.map(p => `<li class="lock ${this.drawDone(p.pid) ? "in" : ""}">${face(p)}<span>${esc(p.name)}</span></li>`).join(""));
+  },
+  // One chain, card by card: the prompt, then each drawing and guess as it was passed along.
+  drawRevealHtml() {
+    const H = this.H, rv = H.rv, P = H.players, gap = 1.6, starter = P[rv.by];
+    const who = x => (x && P[x.pid] ? `<span class="dwho">${face(P[x.pid])}${esc(P[x.pid].name)}</span>` : "");
+    const cards = [`<li class="dcard text start" style="--d:.3s"><span class="eyebrow">${esc(starter?.name || "The")}'s prompt</span><b>${esc(rv.p)}</b></li>`, ...rv.items.map((x, s) => {
+      const st = `--d:${(0.3 + (s + 1) * gap).toFixed(1)}s`;
+      if (!x?.v) return `<li class="dcard ${s % 2 ? "text" : "pic"} none" style="${st}"><b>${s % 2 ? "No guess" : "No drawing"}</b></li>`;
+      if (x.k === "d") return `<li class="dcard pic" style="${st}"><img src="${photoSrc(x.v)}" alt="A drawing">${who(x)}</li>`;
+      return `<li class="dcard text ${rv.marks[s] === 2 ? "hit" : rv.marks[s] ? "close" : ""}" style="${st}">${who(x)}<b>“${esc(x.v)}”</b>${rv.marks[s] ? `<i>${rv.marks[s] === 2 ? "Nailed it" : "Close"}</i>` : ""}</li>`;
+    })];
+    const t = 0.3 + (rv.items.length + 1) * gap, verdict = rv.end === 2 ? "Nailed it!" : rv.end === 1 ? "Close enough" : rv.end === 0 ? "Lost in translation" : "";
+    return `<section class="drawrev" style="--t:${t.toFixed(1)}s;--t2:${(t + 0.6).toFixed(1)}s"><p class="eyebrow">Draw it · Chain ${rv.ci + 1} of ${rv.n}${rv.m > 1 ? " · Double points" : ""}</p>
+      <ol class="dchain">${cards.join("")}</ol>${verdict ? `<div class="stamp dverdict">${verdict}</div>` : ""}
+      <div class="deltas">${this.scorersHtml(rv, "", "No matches in this chain")}${this.sipHtml()}</div></section>`;
+  },
   // Split or steal: the two players either side of the pot, whether each has picked yet, and the bets coming in.
   renderSplit(stage) {
     const H = this.H, cur = H.cur, P = H.players, final = H.R > 1 && H.r === H.R, pot = cur.pot * (final ? 2 : 1);
@@ -3495,7 +3900,7 @@ const TV = {
   },
   renderClock() {
     const H = this.H;
-    if (H.ph !== "q" && H.ph !== "qw" && H.ph !== "qv" && !SECRET_PHASES.includes(H.ph)) return;
+    if (H.ph !== "q" && H.ph !== "qw" && H.ph !== "qv" && H.ph !== "dw" && !SECRET_PHASES.includes(H.ph)) return;
     const ring = $("#ring"), n = $("#clock-n"), clock = $("#clock");
     if (!ring || !n) return;
     const left = Math.max(0, (H.phaseEnds - (H.pause ? H.pause.at : Date.now())) / 1000);
@@ -3652,7 +4057,7 @@ const PH = {
       sg: this.songs.map(x => [x.id, x.t, x.a, x.art, x.ap || ""]),
       g: this.g ?? null, cmd: this.cmd ?? null, cq: this.cq || [],
       wk: this.secret?.rk || null, fk: this.fkq?.rk || null, sw: this.sw || null, dn: this.dn || null, rd: this.rd || null,
-      av: this.avUp ? this.av : null, pf: this.pf, qa: this.qa || null,
+      av: this.avUp ? this.av : null, pf: this.pf, qa: this.qa || null, dr: this.dr || null,
     }).catch(e => console.warn("presence", e));
   },
 
@@ -3762,6 +4167,26 @@ const PH = {
       if (!H?.imp || H.ph !== "imp-clue" || H.imp.sp !== this.pid) return;
       this.dn = H.rk + ":" + H.imp.turn; vibrate(20); this.push(); return this.renderMain(true);
     }
+    if (a === "react") {
+      const now = Date.now();
+      if (now - (this.rxAt || 0) < 400) return;
+      this.rxAt = now; this.send("react:" + Number(el.dataset.i)); el.classList.remove("hit"); void el.offsetWidth; el.classList.add("hit");
+      return vibrate(10);
+    }
+    if (a === "share-night" || a === "share-chain") {
+      const key = a === "share-night" ? "night|" + this.host?.gid : el.dataset.k, b = this.shares?.[key]?.blob;
+      if (!b) return;
+      vibrate(15);
+      return SHARE.send(b, a === "share-night" ? "fafo-game-night.png" : "fafo-draw-it.png", a === "share-night" ? "Our fafo game night" : "How far did it drift? fafo");
+    }
+    if (a === "sk-color" || a === "sk-size") {
+      if (a === "sk-color") SKETCH.color = el.dataset.c; else SKETCH.size = Number(el.dataset.z) || 12;
+      for (const b of document.querySelectorAll(a === "sk-color" ? ".tools .sw" : ".tools .sz")) b.classList.toggle("on", b === el);
+      return vibrate(8);
+    }
+    if (a === "sk-undo") return SKETCH.undo();
+    if (a === "sk-clear") return SKETCH.clear();
+    if (a === "sk-send") return this.sendDrawing(false);
     if (a === "ss") {
       const i = Number(el.dataset.i), H = this.host;
       if (!H || H.ph !== "q" || H.kind !== "split" || this.g?.rk === H.rk || !Number.isInteger(i)) return;
@@ -3819,7 +4244,10 @@ const PH = {
   renderFoot() {
     const H = this.host, live = this.joined && H && !["lobby", "end", "lb"].includes(H.ph) && !H.pause;
     const pause = live && H.vip === this.pid, far = live && H.sp && ["intro", "q", "qw", "qv"].includes(H.ph) && this.tooFarAt !== H.rk;
-    paint($("#ph-foot"), [pause, far].join(), (far ? `<button class="btn sm" data-act="toofar">Too far</button>` : "") + (pause ? `<button class="btn sm" data-act="pause">Pause game</button>` : ""));
+    // Reactions whenever this phone has nothing to do: reveals, scores, the title cards, and after locking in.
+    const idle = H && this.joined && this.me() && !H.pause && (["intro", "rev", "lb", "end"].includes(H.ph) || (["q", "qv", "fk-ans"].includes(H.ph) && this.g?.rk === H.rk) || (H.ph === "dw" && this.dr?.rk === H.rk) || H.ph === "imp-clue" || (H.ph === "q" && H.x === fnv(this.pid + H.rk)));
+    paint($("#ph-foot"), [pause, far, !!idle].join(), (idle ? `<div class="rxbar">${REACTS.map(([e, w], i) => `<button data-act="react" data-i="${i}" aria-label="${esc(w)}">${e ? `<span>${e}</span>` : `<b>${esc(w)}</b>`}</button>`).join("")}</div>` : "")
+      + (far ? `<button class="btn sm" data-act="toofar">Too far</button>` : "") + (pause ? `<button class="btn sm" data-act="pause">Pause game</button>` : ""));
   },
   // Quips: this phone's prompts with a box for each. Sent answers are final.
   rWrite(main) {
@@ -3938,11 +4366,12 @@ const PH = {
     if (!me) return paint(main, "wait-in", `<div class="card center"><p class="ph-h">Joining…</p><p class="muted">Hang on while the TV adds you.</p></div>`);
     if (H.ph === "lobby") return this.rLobby(main);
     if (H.pause && H.ph !== "end") return this.rPaused(main);
-    if (H.ph === "intro") return paint(main, "intro|" + H.rk, `<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">Eyes on the TV</p><p class="muted">${H.kind === "imp" ? "Imposter round. Your secret word is coming." : H.kind === "fakin" ? "Fakin' it. Your question is coming." : H.kind === "split" ? (Array.isArray(H.ss?.by) && H.ss.by.includes(this.pid) ? "Split or steal. You're up!" : "Split or steal. Get ready to bet.") : WRITE_KINDS.includes(H.kind) ? "Get your thumbs ready. You'll be writing." : "Get ready to guess."}</p></div>
+    if (H.ph === "intro") return paint(main, "intro|" + H.rk, `${H.tw && TWISTS[H.tw] ? `<div class="card center twph"><p class="eyebrow">Twist!</p><p class="ph-h">${esc(TWISTS[H.tw].label)}</p><p>${esc(TWISTS[H.tw].note)}</p></div>` : ""}<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">Eyes on the TV</p><p class="muted">${H.kind === "imp" ? "Imposter round. Your secret word is coming." : H.kind === "fakin" ? "Fakin' it. Your question is coming." : H.kind === "draw" ? "Draw it. Warm up your finger." : H.kind === "split" ? (Array.isArray(H.ss?.by) && H.ss.by.includes(this.pid) ? "Split or steal. You're up!" : "Split or steal. Get ready to bet.") : WRITE_KINDS.includes(H.kind) ? "Get your thumbs ready. You'll be writing." : "Get ready to guess."}</p></div>
       ${H.ih && MODE_CARD[H.kind]?.how ? `<div class="card"><p class="eyebrow">How to play ${esc(MODE_LABEL[H.kind] || "")}</p><ol class="steps">${MODE_CARD[H.kind].how.map(x => `<li>${esc(x)}</li>`).join("")}</ol><p class="muted"><b>Scoring</b> ${esc(MODE_CARD[H.kind].score || "")}</p></div>` : ""}`);
     if (IMP_PHASES.includes(H.ph)) return this.rImp(main);
     if (FK_PHASES.includes(H.ph)) return this.rFakin(main);
     if (H.ph === "qw") return this.rWrite(main);
+    if (H.ph === "dw") return this.rDraw(main);
     if (H.ph === "qv") return this.rVote(main);
     if (H.ph === "q") return this.rQuestion(main);
     if (H.ph === "rev") return this.rReveal(main);
@@ -4129,6 +4558,7 @@ const PH = {
       ${sel("diff", "Difficulty", DIFFS.map(([k, l]) => opt(k, l, c.diff === k)).join(""))}
       ${sel("spicy", "Spicy", SPICE.map(([k, l]) => opt(k, l, c.spicy === k)).join(""))}
       ${sel("drinks", "Drinks", opt("off", "Off", !c.drinks) + opt("on", "Sips on (any drink)", !!c.drinks))}
+      ${sel("tw", "Twists", opt("on", "On (surprise rounds)", c.tw !== 0) + opt("off", "Off", c.tw === 0))}
       ${c.mix ? sel("tune", "Music", (custom ? opt(c.tune, c.tl, true) : "") + TUNE_GROUPS.map(([g, list]) => `<optgroup label="${esc(g)}">${list.map(([q, l]) => opt(q, l, c.tune === q)).join("")}</optgroup>`).join("")) : ""}
       ${modes.includes("imp") ? sel("imp", "Imposter gets", opt("similar", "A similar word", c.imp === "similar") + opt("none", "No word", c.imp === "none")) : ""}
       ${sel("snd", "Sound", opt("all", "Music and effects", c.snd === "all") + opt("fx", "Effects only", c.snd === "fx") + opt("off", "Off", c.snd === "off"))}
@@ -4137,7 +4567,7 @@ const PH = {
   },
   setting(k, v) {
     if (this.host?.vip !== this.pid || this.host.ph !== "lobby") return;
-    (this.wantCfg ||= {})[k] = { v: k === "anon" ? (v === "anon" ? 1 : 0) : k === "drinks" ? (v === "on" ? 1 : 0) : v, at: Date.now() };
+    (this.wantCfg ||= {})[k] = { v: k === "anon" ? (v === "anon" ? 1 : 0) : k === "drinks" || k === "tw" ? (v === "on" ? 1 : 0) : v, at: Date.now() };
     this.send(`set:${k}:${v}`); vibrate(10);
     clearTimeout(this.cfgT); this.cfgT = setTimeout(() => this.render(), 5200);
     this.renderCtrl();
@@ -4216,6 +4646,64 @@ const PH = {
       <p class="${sa ? "eyebrow" : "ph-h"}">${esc(H.kind === "likely" ? `Who's most likely to ${H.lk || "…"}?` : KIND_ASK_PHONE[H.kind] || KIND_ASK_PHONE.photo)}</p>
       <div class="choices">${opts.map(p => `<button class="choice" data-act="guess" data-pid="${p[0]}">${faceA(p)}<span>${esc(p[1])}</span></button>`).join("")}</div></div>`);
   },
+  // Draw it on the phone: a drawing pad with this step's prompt, or someone's drawing and a box for your guess.
+  rDraw(main) {
+    const H = this.host, dw = H.dw || {}, t = dw.t?.[this.pid], tbar = `<div class="tbar" aria-hidden="true"><i id="tbar"></i></div>`, step = `Draw it · Step ${(dw.s || 0) + 1} of ${dw.S || 1}`;
+    if (!Array.isArray(t)) return paint(main, "dw-none|" + H.rk, `${tbar}<div class="card center result"><p class="ph-big">Sit tight</p><p class="muted">You joined after the drawings went out. Watch the TV.</p></div>`);
+    if (this.dr?.rk === H.rk || (dw.done || []).includes(this.pid)) return paint(main, "dw-sent|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">${step}</p><p class="ph-big">Sent!</p><p class="muted">Waiting for the others.</p></div>`);
+    if (t[1] === "guess") {
+      const typed = $("#dw-in")?.value;
+      const did = paint(main, "dw-g|" + H.rk, `${tbar}<form class="card dw-form" novalidate><p class="eyebrow">${step}</p><p class="ph-h">What's this?</p>
+        ${t[2] ? `<img class="sketch-img" src="${photoSrc(t[2])}" alt="Someone's drawing">` : `<p class="muted">No drawing came through. Make something up!</p>`}
+        <div class="field"><label for="dw-in">Your guess</label><input id="dw-in" maxlength="60" autocomplete="off" autocorrect="off" enterkeyhint="send"></div>
+        <button class="btn primary wide" type="submit">Send</button></form>`);
+      if (did && typed) $("#dw-in").value = typed;
+      return;
+    }
+    const busy = this.drawing?.rk === H.rk && this.drawing.busy;
+    const did = paint(main, ["dw-d", H.rk, busy, this.drawErr || ""].join("|"), `${tbar}<div class="card dwcard"><p class="eyebrow">${step} · Draw this</p><p class="ph-h dprompt">${esc(t[2])}</p>
+      <canvas id="sketch" class="sketch" width="${DRAW_W}" height="${DRAW_H}"></canvas>
+      <div class="tools">${SKETCH_COLORS.map(c => `<button class="sw ${SKETCH.color === c ? "on" : ""}" style="--sw:${c}" data-act="sk-color" data-c="${c}" aria-label="Colour"></button>`).join("")}<span class="tsep"></span>${[5, 12, 28].map(z => `<button class="sz ${SKETCH.size === z ? "on" : ""}" data-act="sk-size" data-z="${z}" aria-label="Brush size"><i style="width:${Math.round(z * 0.7)}px;height:${Math.round(z * 0.7)}px"></i></button>`).join("")}</div>
+      <div class="dwbtns"><button class="btn sm" data-act="sk-undo">Undo</button><button class="btn sm" data-act="sk-clear">Clear</button><button class="btn primary" data-act="sk-send" ${busy ? "disabled" : ""}>${busy ? "Sending…" : "Done"}</button></div>
+      ${this.drawErr ? `<p class="warn">${esc(this.drawErr)}</p>` : ""}<p class="muted">No words or letters. It goes to the next person, who has to guess it.</p></div>`);
+    if (did || !SKETCH.cv?.isConnected) SKETCH.mount($("#sketch"), H.rk);
+  },
+  // Sends this step's drawing: uploaded like a photo, then its id goes to the TV. Also called just before time runs out.
+  async sendDrawing(auto) {
+    const H = this.host;
+    if (!H || H.ph !== "dw" || this.dr?.rk === H.rk || (this.drawing?.rk === H.rk && this.drawing.busy)) return;
+    if (SKETCH.rk !== H.rk || !SKETCH.strokes.length) { if (!auto) { this.drawErr = "Draw something first."; this.renderMain(); } return; }
+    const rk = H.rk, b64 = SKETCH.jpeg(), id = "f" + rid(9);
+    this.drawing = { rk, busy: true }; this.drawErr = ""; this.renderMain();
+    for (let tries = 0; tries < 3 && this.dr?.rk !== rk; tries++) {
+      try { await postPhoto(id, this.pid, this.code, b64); this.dr = { rk, v: id }; } catch { await new Promise(r => setTimeout(r, 700)); }
+    }
+    this.drawing = { rk, busy: false };
+    if (this.dr?.rk !== rk) this.drawErr = "That didn't send. Try again.";
+    vibrate(25); this.push(); this.renderMain();
+  },
+  sendGuess() {
+    const H = this.host, v = cleanText($("#dw-in")?.value, 60);
+    if (!H || H.ph !== "dw" || this.dr?.rk === H.rk || !v) return;
+    this.dr = { rk: H.rk, v }; vibrate(25); this.push(); this.renderMain();
+  },
+  rDrawReveal(main) {
+    const H = this.host, rv = H.rv || {}, me = this.pid, pts = rv.d?.[me] || 0, mine = rv.by === me || (rv.items || []).some(x => x?.pid === me), key = "chain|" + H.rk;
+    this.prepShare(key, () => SHARE.chain(rv, Object.fromEntries(this.pl().map(p => [p[0], cleanName(p[1])]))));
+    paint(main, ["dr-rev", H.rk, this.shareReady(key)].join("|"), `<div class="card center result ${pts ? "good" : ""}"><p class="eyebrow">Draw it · Chain ${(rv.ci || 0) + 1} of ${rv.n || 1}</p><p class="ph-big">${pts ? "Nailed it!" : "Eyes on the TV"}</p>
+      <p style="font-weight:800;font-size:19px">${pts ? `+${fmt(pts)} points` : mine ? "Your work is up there." : "Watch how far it drifted."}</p>${this.sipNote()}</div>
+      <button class="btn wide" data-act="share-chain" data-k="${esc(key)}">${this.shareReady(key) ? "Share this chain" : "Making the picture…"}</button>`);
+  },
+  // Share pictures are made as soon as their screen shows, so a tap opens the share sheet at once (phones only allow
+  // sharing straight after a tap). Only the latest few are kept.
+  prepShare(key, make) {
+    this.shares ||= {};
+    if (this.shares[key]) return;
+    this.shares[key] = { blob: null };
+    make().then(b => { if (this.shares[key]) { this.shares[key].blob = b; this.renderMain(); } }).catch(() => {});
+    const keys = Object.keys(this.shares); if (keys.length > 4) delete this.shares[keys[0]];
+  },
+  shareReady(key) { return !!this.shares?.[key]?.blob; },
   // Split or steal on the phone: the two players get Split and Steal; everyone else bets on how it ends.
   rSplit(main) {
     const H = this.host, ss = H.ss || {}, by = Array.isArray(ss.by) ? ss.by : [], mine = by.includes(this.pid), pot = Number(ss.pot) || SPLIT_POT;
@@ -4416,6 +4904,7 @@ const PH = {
     if (this.host.kind === "quip" || this.host.kind === "lash" || this.host.kind === "bluff") return this.rQuipReveal(main);
     if (this.host.kind === "likely") return this.rLikelyReveal(main);
     if (this.host.kind === "split") return this.rSplitReveal(main);
+    if (this.host.kind === "draw") return this.rDrawReveal(main);
     if (this.host.kind === "meld") return this.rMeldReveal(main);
     if (this.host.qz && this.host.rv) return this.rQuizReveal(main);
     const H = this.host, rv = H.rv || { g: {}, d: {} }, ownerP = this.nameOf(rv.o);
@@ -4434,7 +4923,8 @@ const PH = {
     const H = this.host, ps = this.pl().slice().sort((a, b) => b[3] - a[3]), me = this.me();
     const rank = me ? 1 + ps.filter(p => p[3] > me[3]).length : 0;
     const end = H.ph === "end", vip = H.vip === this.pid;
-    paint(main, [H.ph, H.rk, H.gid, me?.[3], vip, !!this.cmd, JSON.stringify(H.aw || null), H.dare?.pid, H.dare?.t].join("|"), `<div class="card center result ${end && rank === 1 ? "good" : ""}">
+    if (end) this.prepShare("night|" + H.gid, () => SHARE.night(this.pl(), H.aw || [], H.best));
+    paint(main, [H.ph, H.rk, H.gid, me?.[3], vip, !!this.cmd, JSON.stringify(H.aw || null), H.dare?.pid, H.dare?.t, end && this.shareReady("night|" + H.gid)].join("|"), `<div class="card center result ${end && rank === 1 ? "good" : ""}">
         <p class="eyebrow">${end ? "Final scores" : "Scores so far"}</p>
         <p class="ph-big">${me ? (end && rank === 1 ? "You win!" : ordinal(rank) + " place") : "Next game"}</p>
         ${me ? `<p style="font-weight:800;font-size:20px" class="num">${fmt(me[3])} points</p>` : ""}
@@ -4443,13 +4933,16 @@ const PH = {
         ${me && rank > 1 ? `<p class="muted">${fmt(ps[rank - 2][3] - me[3])} behind ${esc(ps[rank - 2][1])}</p>` : me && ps[1] && rank === 1 ? `<p class="muted">${fmt(me[3] - ps[1][3])} ahead of ${esc(ps[1][1])}</p>` : ""}
       </div>
       <ol class="phboard">${ps.map((p, i) => `<li class="${p[0] === this.pid ? "me" : ""}"><span class="num">${1 + ps.filter(q => q[3] > p[3]).length}</span>${faceA(p)}<span class="nm">${esc(p[1])}</span><b class="num">${fmt(p[3])}</b></li>`).join("")}</ol>
+      ${end ? `<button class="btn wide blue" data-act="share-night">${this.shareReady("night|" + H.gid) ? "Share the night" : "Making your picture…"}</button>` : ""}
       ${end ? (vip ? `<button class="btn primary wide" data-act="again" ${this.cmd ? "disabled" : ""}>${this.cmd ? "Starting…" : "Play again"}</button>${(H.modes || []).includes("photo") ? `<p class="muted" style="text-align:center">Everyone picks new photos for the next game.</p>` : ""}`
         : `<p class="muted" style="text-align:center">Waiting for ${esc(this.nameOf(H.vip)?.[1] || "the host")} to start another game.</p>`) : ""}`);
   },
   renderClock() {
     const bar = $("#tbar"), H = this.host;
-    if (!bar || !H || !["q", "qw", "qv", "fk-ans"].includes(H.ph) || (H.ph === "q" && (H.kind === "imp" || H.kind === "fakin")) || H.pause) return;
-    const total = H.ph === "qw" ? QW_SECS[H.kind] || Q_SECS : H.ph === "qv" ? QV_SECS[H.kind] || Q_SECS : H.ph === "fk-ans" ? FK_SECS : H.kind === "split" ? SPLIT_SECS : Q_SECS;
+    // Draw it: whatever is drawn or typed goes in just before the clock runs out.
+    if (H?.ph === "dw" && !H.pause && this.dr?.rk !== H.rk && this.deadline - Date.now() < 2500) { if (H.dw?.t?.[this.pid]?.[1] === "draw") this.sendDrawing(true); else this.sendGuess(); }
+    if (!bar || !H || !["q", "qw", "qv", "fk-ans", "dw"].includes(H.ph) || (H.ph === "q" && (H.kind === "imp" || H.kind === "fakin")) || H.pause) return;
+    const total = H.ph === "dw" ? ((H.dw?.s || 0) % 2 ? GUESS_SECS : DRAW_SECS) : H.ph === "qw" ? QW_SECS[H.kind] || Q_SECS : H.ph === "qv" ? QV_SECS[H.kind] || Q_SECS : H.ph === "fk-ans" ? FK_SECS : H.qd || Q_SECS;
     const left = Math.max(0, (this.deadline - Date.now()) / 1000);
     bar.style.width = Math.min(100, left / total * 100).toFixed(1) + "%";
   },
@@ -4478,6 +4971,7 @@ app.addEventListener("change", e => {
   if (e.target.id === "host-sel") TV.setHost(e.target.value);
   if (e.target.id === "spicy-sel") TV.setSpicy(e.target.value);
   if (e.target.id === "drinks-sel") TV.setDrinks(e.target.value);
+  if (e.target.id === "tw-sel") TV.setTwists(e.target.value);
   if (e.target.id === "diff-sel") TV.setDiff(e.target.value);
   if (e.target.tagName === "SELECT") TV.push(true); // phones show the same settings
 });
@@ -4489,6 +4983,7 @@ app.addEventListener("submit", e => {
   if (mode === "phone" && e.target.classList.contains("ttl-form")) return PH.sendTtl(!!e.submitter);
   if (mode === "phone" && e.target.classList.contains("num-form")) return PH.sendNum();
   if (mode === "phone" && e.target.classList.contains("fk-num-form")) return PH.sendFkNum();
+  if (mode === "phone" && e.target.classList.contains("dw-form")) return PH.sendGuess();
   if (mode === "phone") PH.act("join");
 });
 $("#selfie-in").addEventListener("change", e => { const f = e.target.files?.[0]; if (f && mode === "phone") PH.setSelfie(f); });

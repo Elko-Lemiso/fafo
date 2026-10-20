@@ -69,6 +69,12 @@ tapped quickly. The same rounds and settings are under **Rounds & settings** on 
   have you been to?", "Can you swim?") except one player, who gets a different one. Everyone answers by pointing at a
   player, typing a number or tapping yes or no. Then the TV shows the real question and every answer; talk it over
   (no clock) and vote for the faker. Spotting them scores 500; a faker who gets away scores 1,000. Needs 3 players.
+- **Draw it:** a drawing chain. Everyone gets a secret prompt ("a goat at a wedding") and draws it on their phone
+  with a finger: colours, three brush sizes, undo. The next player sees only the drawing and types what it is, the
+  next draws that guess, and so on, up to four steps. Then the TV walks through each chain card by card to show how
+  far it drifted. A guess that nails what was being drawn scores 1,000 for the drawer and the guesser; a close one
+  (a key word in common) 400. Drawings upload like photos and live in the server's memory. Prompts are in
+  `server/data/draw.json`, with a `wild` list for No holds barred. Needs 3 players.
 - **Split or steal:** two players face off over a pot of 2,000 points. They talk it out, then each picks Split or
   Steal in secret on their phone while everyone else bets on how it ends. Both split: 1,000 each. One steals: they
   take all 2,000. Both steal: nobody gets a thing. A right bet wins 300. Everyone faces off once before anyone goes
@@ -92,11 +98,30 @@ wrong, you get 250 points. The last round counts double. Each reveal shows who p
 **Votes** to Anonymous in Rounds & settings to show only how many picked each one. The game ends with a podium and
 a few awards.
 
+**Twists** (Rounds & settings, on by default): about one round in four gets a twist, announced on its title card
+and on the phones: Double points, Underdog round (whoever's last scores triple), Lightning round (8 seconds),
+Robbery (the fastest right answer steals 300 from the leader) or No guessing (a wrong answer loses 250). Never the
+first round or the final, never two in a row, and only on rounds where it makes sense. The reveal says what it did.
+
+**Reactions:** whenever a phone has nothing to do (reveals, scores, title cards, after locking in), it shows a row of
+reactions. Tapping one floats it up the TV with your face: 😂 🔥 😱 👏 💀 🍻, BOO! and TOO EASY.
+
+**Sharing:** at the end, every phone gets **Share the night**: a picture with the winner, everyone's score, the
+awards, the best line of the night (the most-voted Quip or Last Lash answer) and a code to play, ready for the
+group chat or a story. Each Draw it chain can be shared the same way. The pictures are made on the phone; nothing
+is uploaded.
+
 **Points are always on show.** Everyone's score runs along the top of the TV all game; during a reveal it waits until
 the answer is out, then each player's points tick up. Every phone shows its own points and place at the top. Every
 few rounds the scores page calls the race ("Amani takes the lead!", "Neck and neck!"): rows start where they stood
 last time, the points count up, then everyone slides into their new place, with the leader crowned, the biggest haul
 and the biggest climber called out. The phones show the full standings and how far you are from the next place.
+
+**Fresh questions:** the friend modes have big pools (for example 260 Quips, 260 Most likely to, 220 Never have I
+ever, 200 Would you rather, 200 Who said it, 250 Mind meld, 170 Hot seat, 160 Fakin' it, 330 Imposter pairs), and
+the TV remembers what it has shown, across games and New room, so the same prompt doesn't come back until the
+pool runs low, and then the ones seen longest ago come first. Trivia from Open Trivia DB skips questions the TV has
+already asked.
 
 **Spicy (18+):** set Spicy to Cheeky for dating, exes and group-chat prompts in Quips and Most likely to, or
 Savage for friendly roasts. The scoreboard then dares whoever is last (they can always pass). Any phone can tap
@@ -240,7 +265,7 @@ Then phones can join over mobile data, with no shared Wi-Fi needed.
   photos through Wikipedia.
 - `server/data/faces.json` is the famous-faces list with Wikipedia photos. Rebuild it with `python3 server/data/build-faces.py server/data/faces.json`.
 - `server/data/imposter.json`, `emoji.json` and `likely.json` hold the Imposter word pairs, emoji puzzles and
-  Most likely to prompts. `said.json`, `meld.json`, `hot.json` and `fakin.json` hold the Who said it, Mind meld, Hot seat and Fakin' it prompts; `hilo.json` the Higher or lower and Guess the year facts; `kenya.json` the Kenya pack. `trivia-fallback.json` is the offline trivia set.
+  Most likely to prompts. `said.json`, `meld.json`, `hot.json` and `fakin.json` hold the Who said it, Mind meld, Hot seat and Fakin' it prompts; `hilo.json` the Higher or lower and Guess the year facts; `kenya.json` the Kenya pack; `draw.json` the Draw it prompts. `trivia-fallback.json` is the offline trivia set.
 - `whos-who.html` is the original Claude artifact version, kept for reference.
 
 Photos of famous people come from Wikipedia and Wikimedia Commons under free licences; song clips and cover art come from Deezer.

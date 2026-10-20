@@ -302,6 +302,15 @@
     { "id": "split-steal-3", "ev": "split-steal", "t": "Betrayal! Never trust that smile again!" },
     { "id": "split-greedy-1", "ev": "split-greedy", "t": "Both of you stole? Nobody gets anything! Beautiful!" },
     { "id": "split-greedy-2", "ev": "split-greedy", "t": "Greedy, greedy! Zero points each!" },
-    { "id": "split-greedy-3", "ev": "split-greedy", "t": "Two thieves, no money! Fuck around and find out!" }
+    { "id": "split-greedy-3", "ev": "split-greedy", "t": "Two thieves, no money! Fuck around and find out!" },
+    { "id": "intro-draw-1", "ev": "intro-draw", "t": "Draw it! Grab your phone and show us your art skills. Or lack of them!" },
+    { "id": "intro-draw-2", "ev": "intro-draw", "t": "Time to draw! No words, no letters, just pure talent!" },
+    { "id": "intro-draw-3", "ev": "intro-draw", "t": "Draw it! Let's see how far this goes off the rails!" },
+    { "id": "draw-nailed-1", "ev": "draw-nailed", "t": "Nailed it! All the way down the line!" },
+    { "id": "draw-nailed-2", "ev": "draw-nailed", "t": "It made it! Somebody give that chain a medal!" },
+    { "id": "draw-nailed-3", "ev": "draw-nailed", "t": "Unbelievable! It survived the whole room!" },
+    { "id": "draw-lost-1", "ev": "draw-lost", "t": "That went downhill fast!" },
+    { "id": "draw-lost-2", "ev": "draw-lost", "t": "How did we get from that to that? Incredible!" },
+    { "id": "draw-lost-3", "ev": "draw-lost", "t": "Lost in translation! Who drew that?" }
   ]
 }

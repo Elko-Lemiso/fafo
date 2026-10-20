@@ -245,7 +245,16 @@
   "split-steal-3": "1r1f7ho",
   "split-greedy-1": "a6pxeh",
   "split-greedy-2": "ggsp09",
-  "split-greedy-3": "335jc6"
+  "split-greedy-3": "335jc6",
+  "intro-draw-1": "o3aygc",
+  "intro-draw-2": "qudr8h",
+  "intro-draw-3": "rn8at8",
+  "draw-nailed-1": "fljq07",
+  "draw-nailed-2": "5xd7lj",
+  "draw-nailed-3": "js6qdl",
+  "draw-lost-1": "1l8o16g",
+  "draw-lost-2": "15o7a32",
+  "draw-lost-3": "yfu850"
  },
  "voice": "Liam",
  "model": "eleven_multilingual_v2",
