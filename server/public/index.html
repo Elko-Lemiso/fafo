@@ -279,10 +279,10 @@ button{touch-action:manipulation}
 .sh-sec{display:flex;flex-direction:column;gap:10px}
 .sh-sec .num{color:var(--ink-soft)}
 .presets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.preset{font:inherit;text-align:left;display:flex;flex-direction:column;gap:4px;padding:12px;border:3px solid var(--ink);border-radius:14px;background:var(--paper);box-shadow:0 4px 0 var(--ink);cursor:pointer;color:var(--ink);min-width:0}
+.preset{font:inherit;text-align:left;display:flex;flex-direction:column;gap:4px;padding:10px 12px;border:3px solid var(--ink);border-radius:14px;background:var(--paper);box-shadow:0 4px 0 var(--ink);cursor:pointer;color:var(--ink);min-width:0}
 .preset:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
 .preset b{font-family:var(--display);font-weight:400;font-size:16px;line-height:1.1}
-.preset span{font-size:12.5px;font-weight:600;color:var(--ink-soft);line-height:1.3}
+.preset span{font-size:12.5px;font-weight:600;color:var(--ink-soft);line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .preset.on{background:var(--ink);color:var(--sun)}
 .preset.on span{color:var(--paper)}
 .mlist{display:flex;flex-direction:column;gap:8px}
