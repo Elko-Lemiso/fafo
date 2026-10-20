@@ -196,7 +196,7 @@ button{font:inherit;color:inherit}
 .board2 .dare{grid-column:1/-1;justify-self:center}
 /* everyone's points along the top of the TV */
 .rail{flex:1;min-width:0;display:flex;justify-content:center;align-items:center;gap:.8vmin;overflow:hidden}
-.rchip{flex:none;display:flex;align-items:center;gap:.6vmin;background:var(--paper);border:2px solid var(--ink);border-radius:999px;padding:.3vmin 1.2vmin .3vmin .3vmin;animation:fadein .3s both}
+.rchip{flex:none;display:flex;align-items:center;gap:.6vmin;background:var(--paper);border:2px solid var(--ink);border-radius:999px;padding:.3vmin 1.2vmin .3vmin .3vmin}
 .rchip .avatar{font-size:max(10px,1.55vmin);border-width:2px}
 .rchip b{font-family:var(--display);font-weight:400;font-size:max(13px,2.4vmin);line-height:1}
 .rchip.lead{background:var(--ink);color:var(--sun)}
@@ -638,6 +638,44 @@ button{touch-action:manipulation}
 .ssb:active{transform:translateY(5px);box-shadow:0 1px 0 var(--ink)}
 @keyframes flipout{from{transform:rotateY(0)}to{transform:rotateY(90deg)}}
 @keyframes flipin{from{transform:rotateY(90deg)}to{transform:rotateY(0)}}
+/* Cash or crash, Categories */
+.cash,.cats{height:100%;display:flex;flex-direction:column;justify-content:center;gap:2.2vmin;max-width:1500px;margin:0 auto;width:100%}
+.cash{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:5vmin;align-items:center}
+.cleft{display:flex;flex-direction:column;gap:2.2vmin;min-width:0}
+.cboard{grid-template-columns:minmax(0,1fr)!important;align-content:center}
+.cbox{background:var(--paper);border:3px solid var(--ink);border-radius:1.8vmin;box-shadow:0 .8vmin 0 var(--ink);padding:1.8vmin 2.2vmin;display:flex;flex-direction:column;gap:1.2vmin}
+.cbox .slist li{font-size:max(15px,2.6vmin)}
+.cash .lede,.cats .lede{max-width:64ch;font-size:max(15px,2.5vmin);margin:0}
+.cpot{align-self:flex-start;display:flex;flex-direction:column;background:var(--ink);color:var(--sun);border-radius:2vmin;padding:1.6vmin 3.6vmin;transform:rotate(-1.5deg);box-shadow:0 1vmin 0 rgba(29,20,15,.3);animation:pop .45s cubic-bezier(.3,1.6,.5,1) both}
+.cpot .eyebrow{color:var(--paper)}
+.cpot b{font-family:var(--display);font-weight:400;font-size:max(48px,13vmin);line-height:1}
+.cpot>span:last-child:not(.eyebrow){font-weight:700;color:var(--paper);font-size:max(13px,2.1vmin)}
+.cboard{display:grid;grid-template-columns:1fr 1fr;gap:3vmin}
+.slist.banked b{font-family:var(--display);font-weight:400;margin-left:.6vmin}
+.cash.crashed .cpot{background:var(--tomato);color:var(--paper);animation:pop .45s both,shake .5s .3s both}
+.cash.rev .lowh{font-size:max(30px,8vmin)}
+.cash.crashed .lowh{color:var(--tomato)}
+.cashbtns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cashb{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:110px;border:3px solid var(--ink);border-radius:16px;box-shadow:0 5px 0 var(--ink);cursor:pointer;color:var(--paper);font:inherit}
+.cashb b{font-family:var(--display);font-weight:400;font-size:24px}
+.cashb span{font-weight:800;font-size:15px}
+.cashb.out{background:var(--mint)}
+.cashb.stay{background:var(--tomato)}
+.cashb:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.ctile{align-self:flex-start;display:grid;place-items:center;width:max(80px,18vmin);aspect-ratio:1;background:var(--paper);border:4px solid var(--ink);border-radius:2vmin;box-shadow:0 1vmin 0 var(--ink);font-family:var(--display);font-size:max(56px,13vmin);line-height:1;transform:rotate(-3deg);animation:slam .5s cubic-bezier(.2,1.4,.4,1) both}
+.chead{display:flex;align-items:center;gap:3vmin}
+.chead .qtitle{font-size:max(26px,6vmin);max-width:22ch}
+.ctile.sm{width:72px;font-size:48px;border-width:3px;border-radius:14px;box-shadow:0 4px 0 var(--ink)}
+.crows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2vmin 3vmin}
+.crows li{display:flex;align-items:center;gap:1.2vmin;background:var(--paper);border:3px solid var(--ink);border-radius:1.4vmin;padding:.9vmin 1.4vmin;font-weight:800;font-size:max(15px,2.8vmin);min-width:0;animation:rise .4s both}
+.crows li .nm{flex:1;min-width:0;overflow-wrap:anywhere}
+.crows li .avatar{font-size:.8em;border-width:2px}
+.crows li>b{font-family:var(--display);font-weight:400;color:var(--mint)}
+.crows li>i{font-style:normal;font-family:var(--label);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.65em;color:var(--tomato);text-align:right}
+.crows li.win{background:var(--cobalt);color:var(--paper)}
+.crows li.win>b{color:var(--sun)}
+.crows li.out .nm{text-decoration:line-through;text-decoration-thickness:3px;text-decoration-color:var(--tomato)}
+@keyframes shake{0%,100%{transform:rotate(-1.5deg)}20%{transform:rotate(3deg) translateX(-1vmin)}40%{transform:rotate(-4deg) translateX(1vmin)}60%{transform:rotate(2deg)}80%{transform:rotate(-2deg)}}
 /* Herd mind, Showdown, Who's older */
 .hgrps{display:flex;flex-wrap:wrap;gap:1.4vmin;justify-content:center}
 .hgrp{position:relative;display:flex;flex-direction:column;align-items:center;gap:1vmin;background:var(--paper);border:3px solid var(--ink);border-radius:1.6vmin;box-shadow:0 .7vmin 0 var(--ink);padding:1.4vmin 2.2vmin;min-width:18vmin;max-width:42vmin;animation:pop .4s calc(.3s + var(--i) * .25s) cubic-bezier(.3,1.6,.5,1) both}
@@ -827,7 +865,7 @@ const COLORS = ["#D93A26","#2342C6","#11704F","#7339D6","#C42F78","#0B7584","#B5
 const CODE_CHARS = "ABCDEFGHJKMNPQRSTUVWXYZ";
 // Kinds of round. Photo games play every photo; flag and map rounds come in sets of ROUNDS (fewer when mixed).
 const ROUNDS = 10, SONGS_PER_PLAYER = 3;
-const MODES = ["photo", "song", "prof", "said", "ttl", "hot", "quip", "bluff", "draw", "meld", "tune", "face", "flag", "map", "cap", "big", "trivia", "buzz", "num", "year", "hilo", "odd", "emoji", "imp", "fakin", "split", "low", "shot", "herd", "rps", "older", "likely", "wyr", "nhie"];
+const MODES = ["photo", "song", "prof", "said", "ttl", "hot", "quip", "bluff", "draw", "meld", "tune", "face", "flag", "map", "cap", "big", "trivia", "buzz", "num", "year", "hilo", "odd", "emoji", "imp", "fakin", "split", "low", "shot", "herd", "rps", "cash", "cats", "older", "likely", "wyr", "nhie"];
 // Owner rounds show something a player brought, and everyone guesses which player. The rest are quiz rounds with 4 answers.
 const OWNER_KINDS = ["photo", "song", "prof"];
 // Rounds where you answer by picking a player rather than one of 4 answers.
@@ -835,7 +873,7 @@ const PLAYER_KINDS = ["photo", "song", "prof", "imp", "fakin", "likely"];
 // Modes that need at least 3 players to make sense.
 const CROWD_KINDS = ["prof", "said", "quip", "bluff", "draw", "imp", "fakin", "low", "herd", "likely", "wyr", "nhie"];
 // Modes that work with 2 players.
-const PAIR_KINDS = ["ttl", "meld", "hot", "split", "shot", "rps"];
+const PAIR_KINDS = ["ttl", "meld", "hot", "split", "shot", "rps", "cash", "cats"];
 // What each mode is, for the pickers: an icon, a one-line pitch, what kind of game it is, how a round goes, and how it scores.
 const QUIZ_SCORE = "500 to 1,000 for a right answer. The faster you are, the more you get.";
 const MODE_CARD = {
@@ -856,6 +894,8 @@ const MODE_CARD = {
   fakin: { i: "🎭", tag: "Bluff · Vote", blurb: "Everyone gets the same question except one player. Spot the faker.", how: ["Answer your question on your phone", "The TV shows the real question and every answer", "Talk it over and vote for the faker"], score: "500 for spotting the faker. 1,000 to the faker if they get away." },
   herd: { i: "🐑", tag: "Write · Think alike", blurb: "Answer like everyone else. The biggest group of matching answers scores.", how: ["A question with lots of answers, like a pizza topping", "Type what you think most people will type", "Everyone in the biggest group scores. The odd one out is the black sheep"], score: "500 each for the biggest group of matching answers (two or more). A tie for biggest? Nobody scores." },
   rps: { i: "✊", tag: "Mind games", blurb: "Rock, paper, scissors against the whole room at once. Beat as many as you can.", how: ["Pick rock, paper or scissors in secret", "Everyone plays everyone at once", "Three throws, each worth more"], score: "For every player you beat: 100, then 200, then 300 on the last throw." },
+  cash: { i: "📈", tag: "Nerve", blurb: "The pot keeps growing. Cash out, or stay in for more before it crashes.", how: ["The pot grows every few seconds", "Cash out to bank it, or stay in for more", "When it crashes, everyone still in gets nothing"], score: "Whatever the pot was when you cashed out. Still in when it crashes? Nothing." },
+  cats: { i: "🔤", tag: "Write · Quick", blurb: "A category and a letter. Write something nobody else will think of.", how: ["Something in a kitchen, starting with B", "Type an answer on your phone", "Answers nobody else wrote score. Two the same cancel out"], score: "500 for an answer nobody else wrote that starts with the letter. Same as someone else, or the wrong letter: nothing." },
   older: { i: "🎂", tag: "Quiz", blurb: "Two famous faces. Who's older? Closer than you think.", how: ["Two famous people appear", "Pick the one born first", "The reveal shows both birth years"], score: QUIZ_SCORE },
   low: { i: "🎯", tag: "Mind games", blurb: "Everyone secretly picks a number from 1 to 10. The lowest number nobody else picked wins.", how: ["Pick a number from 1 to 10 in secret", "Numbers two people picked are knocked out", "The lowest number left wins. Three goes, the stakes go up"], score: "The winner takes 300, then 600, then 1,000. Nobody left standing? Nobody scores." },
   shot: { i: "💥", tag: "Mind games", blurb: "Hide in a square, shoot a square. Everyone at once. Last one standing wins.", how: ["Pick a square to hide in and one to shoot", "All the shots land at once. Hit means you're out", "Out? You come back as a ghost and keep shooting"], score: "200 for every player you hit. 1,000 for the last one standing, or 500 each if several survive five volleys." },
@@ -904,9 +944,9 @@ const PRESETS = [
 // How the round picker groups the modes in the TV's settings. Anything not listed here shows under "More".
 const MODE_GROUPS = [
   ["About you", ["photo", "song", "prof", "said", "ttl", "hot", "meld", "likely", "wyr", "nhie"]],
-  ["Write and bluff", ["quip", "bluff", "draw", "capt"]],
+  ["Write and bluff", ["quip", "bluff", "draw", "cats", "capt"]],
   ["Secret roles", ["imp", "fakin"]],
-  ["Mind games", ["split", "low", "shot", "herd", "rps"]],
+  ["Mind games", ["split", "low", "shot", "herd", "rps", "cash"]],
   ["Quiz", ["tune", "face", "older", "flag", "map", "cap", "big", "trivia", "buzz", "num", "year", "hilo", "odd", "emoji"]],
 ];
 // Rounds with no right answer: Would you rather (score for siding with the room) and Never have I ever (just for fun).
@@ -945,6 +985,13 @@ const SPLIT_POT = 2000, SPLIT_SECS = 45, SPLIT_BET = 300, SPLIT_BETS = ["Both sp
 const LOW_MAX = 10, LOW_SECS = 15, LOW_PTS = [300, 600, 1000];
 // Herd mind: everyone types an answer; the biggest group of matching answers (two or more, no tie) scores.
 const HERD_SECS = 25, HERD_PTS = 500;
+// Cash or crash: a pot that grows step by step. Everyone still in cashes out (banks the pot) or stays; a secret crash
+// point wipes out whoever is still in. The last step always pays out.
+const CASH_POT = [100, 200, 350, 550, 800, 1100, 1500, 2000], CASH_SECS = 9;
+// Categories: a category and a letter; answers that start with the letter and that nobody else wrote score.
+const CATS_SECS = 30, CATS_PTS = 500;
+// The answer's first letter, ignoring "the", "a" and "an" in front.
+const catLetter = a => (String(a || "").trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/^(the|a|an) +/, "").match(/[a-z0-9]/) || [""])[0].toUpperCase();
 // Showdown: rock, paper, scissors against everyone at once. Each throw scores per player beaten, more each throw.
 const RPS = [["✊", "Rock"], ["✋", "Paper"], ["✌️", "Scissors"]], RPS_SECS = 12, RPS_PTS = [100, 200, 300];
 const rpsBeats = (a, b) => (a - b + 3) % 3 === 1; // paper beats rock, scissors beats paper, rock beats scissors
@@ -972,8 +1019,8 @@ const DRAW_SECS = 60, GUESS_SECS = 30, DRAW_W = 640, DRAW_H = 480;
 const DRAW_STOP = new Set(["the", "and", "with", "for", "from", "into", "onto", "that", "this", "its", "his", "her", "their", "out", "off", "over", "under", "some", "who", "while"]);
 const drawWords = t => String(t || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(/[^\p{L}\p{N}]+/u).filter(w => w.length >= 3 && !DRAW_STOP.has(w)).map(w => (w.length > 3 ? w.replace(/s$/, "") : w));
 const drawMatch = (want, got) => { if (!want || !got) return 0; if (meldSame(want, got)) return 2; const a = new Set(drawWords(want)); return drawWords(got).some(w => a.has(w)) ? 1 : 0; };
-const MODE_LABEL = { photo: "Whose photo", song: "Whose song", prof: "Whose answer", said: "Who said it", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather", nhie: "Never have I ever", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps", cap: "Capitals", big: "Which is bigger", trivia: "Trivia", emoji: "Emoji puzzles", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", low: "Lowest number wins", shot: "Shot in the dark", herd: "Herd mind", rps: "Showdown", older: "Who's older", draw: "Draw it", likely: "Most likely to" };
-const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", prof: "Whose answer?", said: "Who said it?", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather?", nhie: "Never have I ever", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country", cap: "Capital cities", big: "Which is bigger?", trivia: "Trivia", emoji: "Emoji puzzle", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", low: "Lowest number wins", shot: "Shot in the dark", herd: "Herd mind", rps: "Showdown", older: "Who's older?", draw: "Draw it", likely: "Most likely to…" };
+const MODE_LABEL = { photo: "Whose photo", song: "Whose song", prof: "Whose answer", said: "Who said it", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather", nhie: "Never have I ever", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps", cap: "Capitals", big: "Which is bigger", trivia: "Trivia", emoji: "Emoji puzzles", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", low: "Lowest number wins", shot: "Shot in the dark", herd: "Herd mind", rps: "Showdown", cash: "Cash or crash", cats: "Categories", older: "Who's older", draw: "Draw it", likely: "Most likely to" };
+const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", prof: "Whose answer?", said: "Who said it?", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather?", nhie: "Never have I ever", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country", cap: "Capital cities", big: "Which is bigger?", trivia: "Trivia", emoji: "Emoji puzzle", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", low: "Lowest number wins", shot: "Shot in the dark", herd: "Herd mind", rps: "Showdown", cash: "Cash or crash", cats: "Categories", older: "Who's older?", draw: "Draw it", likely: "Most likely to…" };
 const KIND_ASK = { photo: "Whose photo is this?", song: "Whose song is this?", prof: "Whose answer is this?", said: "Who wrote this?", face: "Who is this?", flag: "Which country's flag is this?", map: "Which country has this shape?", big: "Which country is bigger?", imp: "Who's the imposter?", fakin: "Who had the other question?" };
 const KIND_ASK_PHONE = { older: "Who's older?", photo: "Whose photo is on the TV?", song: "Whose song is playing?", prof: "Whose answer is on the TV?", said: "Who wrote this?", face: "Who's on the TV?", flag: "Which country's flag is on the TV?", map: "Which country is the shape on the TV?", big: "Which country is bigger?", imp: "Who's the imposter?", fakin: "Who had the other question?" };
 const askOf = c => (c.t === "tune" ? (c.ask === "artist" ? "Who's the artist?" : "What's this song?")
@@ -1914,7 +1961,7 @@ const TV = {
   players() { return Object.values(this.H.players).sort((a, b) => a.at - b.at); },
   ownerOf(id) { return this.H.photos[id]?.pid || null; },
   curOwner() { const c = this.H.cur; return c?.t === "photo" ? this.ownerOf(c.id) : c?.t === "song" || c?.t === "prof" || EACH_KINDS.includes(c?.t) ? c.pid || null : null; },
-  isQuiz() { const t = this.H.cur?.t; return !!t && !["split", "low", "shot", "herd", "rps"].includes(t) && (QUIZ_WRITE.includes(t) || (!PLAYER_KINDS.includes(t) && !WRITE_KINDS.includes(t))); },
+  isQuiz() { const t = this.H.cur?.t; return !!t && !["split", "low", "shot", "herd", "rps", "cash", "cats"].includes(t) && (QUIZ_WRITE.includes(t) || (!PLAYER_KINDS.includes(t) && !WRITE_KINDS.includes(t))); },
   isWrite() { return WRITE_KINDS.includes(this.H.cur?.t); },
   // Which prompts this player writes for: two in Quips, the one in the Last Lash.
   writesFor(pid) { const c = this.H.cur; return c?.t === "lash" || c?.t === "bluff" || c?.t === "said" ? [0] : c?.t === "ttl" ? [0, 1, 2] : c?.t === "quip" || c?.t === "meld" ? c.ps.map((m, i) => (m.by.includes(pid) ? i : -1)).filter(i => i >= 0) : []; },
@@ -2031,7 +2078,9 @@ const TV = {
       const g = p.g;
       if (H.ph === "q" && !H.pause && g && g.rk === H.rk && !H.guesses[pid]) {
         // Split or steal: the two players pick Split (0) or Steal (1); everyone else bets on one of the three endings.
-        if (H.cur.t === "herd") { const a = cleanText(g.a, 40); if (a) { H.guesses[pid] = { a, t: now }; changed = true; SFX.play("lock"); } }
+        if (H.cur.t === "cats") { const a = cleanText(g.a, 40); if (a) { H.guesses[pid] = { a, t: now }; changed = true; SFX.play("lock"); } }
+        else if (H.cur.t === "cash") { if (H.cur.in.includes(pid) && (g.i === 0 || g.i === 1)) { H.guesses[pid] = { i: g.i, t: now }; changed = true; SFX.play("lock"); } }
+        else if (H.cur.t === "herd") { const a = cleanText(g.a, 40); if (a) { H.guesses[pid] = { a, t: now }; changed = true; SFX.play("lock"); } }
         else if (H.cur.t === "rps") { if ([0, 1, 2].includes(g.i)) { H.guesses[pid] = { i: g.i, t: now }; changed = true; SFX.play("lock"); } }
         else if (H.cur.t === "shot") {
           // Players still in hide and shoot; everyone else (ghosts, latecomers) only shoots. You can't shoot your own square.
@@ -2154,7 +2203,7 @@ const TV = {
     const H = this.H;
     if (H.modes.includes("face")) getFaces().catch(() => {});
     if (H.modes.includes("older")) getFaces().catch(() => {});
-    for (const [m, f] of [["herd", "meld"], ["draw", "draw"], ["emoji", "emoji"], ["likely", "likely"], ["prof", "profile"], ["quip", "quips"], ["said", "said"], ["meld", "meld"], ["hot", "hot"], ["fakin", "fakin"], ["year", "hilo"], ["hilo", "hilo"]]) if (H.modes.includes(m)) getData(f).catch(() => {});
+    for (const [m, f] of [["cats", "cats"], ["herd", "meld"], ["draw", "draw"], ["emoji", "emoji"], ["likely", "likely"], ["prof", "profile"], ["quip", "quips"], ["said", "said"], ["meld", "meld"], ["hot", "hot"], ["fakin", "fakin"], ["year", "hilo"], ["hilo", "hilo"]]) if (H.modes.includes(m)) getData(f).catch(() => {});
     if (H.spicy !== "off") getData("quips").catch(() => {});
     if (H.theme === "africa") getData("kenya").catch(() => {});
     if (H.modes.includes("cap") || H.modes.includes("big")) getCountries().catch(() => {});
@@ -2241,7 +2290,7 @@ const TV = {
     if (ph === "end") return "victory";
     if (ph === "rev" || ph === "lb") return wild ? "afterdark" : "groove";
     if (ph === "qw" || ph === "dw" || (ph === "intro" && (WRITE_KINDS.includes(t) || t === "draw"))) return "write";
-    if (t === "imp" || t === "fakin" || t === "split" || t === "low" || t === "shot" || t === "rps") return "suspense";
+    if (t === "imp" || t === "fakin" || t === "split" || t === "low" || t === "shot" || t === "rps" || t === "cash") return "suspense";
     if (H.R > 1 && r === H.R) return "final";
     return modeGroup(t) === "Quiz" ? "quiz" : "social";
   },
@@ -2315,7 +2364,7 @@ const TV = {
   // Someone dropping out mid-question would miss it, so the game waits for them, once per player per round.
   waitFor(pid) {
     const H = this.H, key = H.rk + pid;
-    const needed = (H.ph === "q" && !H.guesses[pid] && pid !== this.curOwner()) || ["qw", ...SECRET_PHASES].includes(H.ph) || (H.ph === "qv" && !H.guesses[pid]) || (H.ph === "dw" && !this.drawDone(pid));
+    const needed = (H.ph === "q" && !H.guesses[pid] && pid !== this.curOwner() && (H.cur?.t !== "cash" || H.cur.in.includes(pid))) || ["qw", ...SECRET_PHASES].includes(H.ph) || (H.ph === "qv" && !H.guesses[pid]) || (H.ph === "dw" && !this.drawDone(pid));
     if (!needed || this.waited?.has(key)) return false;
     (this.waited ||= new Set()).add(key);
     return true;
@@ -2677,6 +2726,21 @@ const TV = {
         const MD = await getData("meld"), wild = H.spicy === "wild" ? shuffle(this.unseen(MD.wild || [], x => x, "herd", each)).slice(0, Math.ceil(each * 0.6)) : [];
         pools.herd = shuffle([...wild.map(q => ({ q, sp: true })), ...shuffle(this.unseen(MD.prompts, x => x, "herd", each)).slice(0, each - wild.length).map(q => ({ q }))]).map(x => ({ t: "herd", q: x.q, sp: !!x.sp }));
       }
+      if (modes.includes("cash") && online >= 2) {
+        // Cash or crash: the crash point is set at the start. It's never the first step, and gets likelier the bigger the pot.
+        const people = this.players().filter(p => p.online).map(p => p.pid);
+        pools.cash = Array.from({ length: cap(2) }, () => {
+          let at = CASH_POT.length;
+          for (let k = 1; k < CASH_POT.length; k++) if (Math.random() < 0.1 + k * 0.06) { at = k; break; }
+          return { t: "cash", s: 0, crash: at, in: people.slice(), out: {} };
+        });
+      }
+      if (modes.includes("cats") && online >= 2) {
+        const C = await getData("cats"), wild = H.spicy === "wild" ? shuffle(this.unseen(C.wild || [], x => x, "cats", each)).slice(0, Math.ceil(each * 0.5)) : [];
+        const letters = String(C.letters || "ABCDEFGHIJKLMNOPRSTW").split("");
+        pools.cats = shuffle([...wild.map(q => ({ q, sp: true })), ...shuffle(this.unseen(C.categories, x => x, "cats", each)).slice(0, each - wild.length).map(q => ({ q }))])
+          .map(x => ({ t: "cats", q: x.q, l: letters[Math.floor(Math.random() * letters.length)], sp: !!x.sp }));
+      }
       if (modes.includes("rps") && online >= 2) pools.rps = Array.from({ length: cap(2) }, () => ({ t: "rps", go: 0, goes: RPS_PTS.length }));
       if (modes.includes("older")) {
         // Who's older: two famous people a few years apart (more on Easy, fewer on Hard), the same kind of famous when possible.
@@ -2794,6 +2858,7 @@ const TV = {
       this.remember("meld", order.filter(r => r.t === "meld").flatMap(r => r.ps.map(m => m.q)));
       this.remember("draw", order.filter(r => r.t === "draw").flatMap(r => r.chains.map(c => c.p)));
       this.remember("herd", order.filter(r => r.t === "herd").map(r => r.q));
+      this.remember("cats", order.filter(r => r.t === "cats").map(r => r.q));
       this.remember("older", order.filter(r => r.t === "older").flatMap(r => r.o));
       if (this.H !== H || H.ph !== "lobby") return;
       H.order = order; H.R = order.length; H.r = 0; H.rv = null;
@@ -2913,6 +2978,8 @@ const TV = {
     // Split or steal: whoever got robbed (or both, if both stole), and everyone who bet wrong.
     if (t === "low") return Object.values(rv.by || {}).filter(l => l.length > 1).flat();
     if (t === "shot") return rv.out || [];
+    if (t === "cash") return rv.crash ? rv.still : [];
+    if (t === "cats") return (rv.rows || []).filter(r => !rv.d?.[r.pid]).map(r => r.pid);
     if (t === "herd") return rv.herd === 0 ? Object.keys(rv.g || {}).filter(pid => !rv.groups[0].by.includes(pid)) : rv.sheep ? [rv.sheep] : [];
     if (t === "rps") return Object.keys(rv.g || {}).filter(pid => !rv.wins?.[pid]);
     if (t === "split") return [...(rv.out === 1 ? [rv.by[rv.ch[0] ? 1 : 0]] : rv.out === 2 ? rv.by : []), ...Object.entries(rv.g || {}).filter(([, i]) => i !== rv.out).map(([pid]) => pid)];
@@ -2947,6 +3014,8 @@ const TV = {
     if (H.ph === "intro" && H.cur?.t === "low") return this.lowGo(0);
     if (H.ph === "intro" && H.cur?.t === "shot") return this.shotVolley(0);
     if (H.ph === "intro" && H.cur?.t === "rps") return this.rpsThrow(0);
+    if (H.ph === "intro" && H.cur?.t === "cash") return this.cashStep(0);
+    if (H.ph === "intro" && H.cur?.t === "cats") return this.go("q", H.cur.tw === "lightning" ? LIGHTNING_SECS : CATS_SECS);
     if (H.ph === "intro" && H.cur?.t === "herd") return this.go("q", H.cur.tw === "lightning" ? LIGHTNING_SECS : HERD_SECS);
     if (H.ph === "dw") { if (H.cur.step + 1 < H.cur.S) return this.drawStep(H.cur.step + 1); H.cur.ci = 0; return this.reveal(); }
     if (H.ph === "intro") return this.isImp() ? this.impStart() : this.isWrite() ? this.go("qw", QW_SECS[H.cur.t]) : this.go("q", H.cur?.t === "split" ? SPLIT_SECS : H.cur?.tw === "lightning" ? LIGHTNING_SECS : Q_SECS);
@@ -2965,6 +3034,7 @@ const TV = {
       if (H.cur?.t === "low" && H.cur.go + 1 < H.cur.goes) return this.lowGo(H.cur.go + 1);
       if (H.cur?.t === "shot" && H.rv && !H.rv.end) return this.shotVolley(H.cur.v + 1);
       if (H.cur?.t === "rps" && H.cur.go + 1 < H.cur.goes) return this.rpsThrow(H.cur.go + 1);
+      if (H.cur?.t === "cash" && H.rv && !H.rv.end) return this.cashStep(H.cur.s + 1);
       if (EACH_KINDS.includes(H.cur?.t) && H.cur.mi + 1 < (H.cur.ord || []).length) return this.askNext(H.cur.mi + 1);
       return this.endRound();
     }
@@ -2975,6 +3045,11 @@ const TV = {
     if (H.r >= H.R) return this.go("end");
     if (H.r % this.lbEvery() === 0) return this.go("lb", LB_SECS);
     return this.nextRound();
+  },
+  cashStep(i) {
+    const H = this.H;
+    H.cur.s = i; H.rk = H.gid + "-" + H.r + "-c" + i; H.guesses = {}; H.rv = null;
+    this.go("q", CASH_SECS);
   },
   rpsThrow(i) {
     const H = this.H;
@@ -3094,6 +3169,27 @@ const TV = {
       m.by.forEach((pid, k) => { if (ans[pid] && v[k] > (H.best?.v || 0)) H.best = { q: m.q, a: ans[pid], pid, v: v[k] }; });
       this.revEv = sweep ? "quip-sweep" : has[0] !== has[1] ? null : v[0] === v[1] ? "quip-tie" : "quip-win";
       return this.go("rev", REVEAL_SECS - 1);
+    }
+    if (H.cur.t === "cash") {
+      // Whoever cashed out banks this step's pot. Then the pot grows, unless this is where it crashes: then everyone
+      // still in gets nothing. If nobody is left, or it's the last step, the round ends (the last step pays everyone).
+      const c = H.cur, pot = CASH_POT[c.s], last = c.s + 1 >= CASH_POT.length, cashed = c.in.filter(pid => H.guesses[pid]?.i === 0 || last);
+      for (const pid of cashed) { d[pid] = pot * mult; c.out[pid] = pot * mult; }
+      const still = c.in.filter(pid => !cashed.includes(pid)), crash = !last && still.length > 0 && c.s + 1 === c.crash;
+      score();
+      H.rv = { s: c.s, pot, next: CASH_POT[c.s + 1] || 0, cashed, still, crash, end: crash || last || !still.length, out: { ...c.out }, g: {}, d, m: mult };
+      c.in = crash ? [] : still;
+      this.revEv = crash ? "cash-crash" : cashed.length ? "cash-out" : null;
+      return this.go("rev", crash ? 5 : 3.5);
+    }
+    if (H.cur.t === "cats") {
+      // Answers that start with the letter and that nobody else wrote score. Two the same cancel each other out.
+      const rows = Object.entries(H.guesses).map(([pid, x]) => ({ pid, a: x.a, ok: catLetter(x.a) === H.cur.l }));
+      for (const r of rows) { g[r.pid] = r.a; r.twin = rows.filter(o => o !== r && o.ok && r.ok && meldSame(o.a, r.a)).map(o => o.pid); if (r.ok && !r.twin.length) d[r.pid] = CATS_PTS * mult; }
+      score();
+      H.rv = { q: H.cur.q, l: H.cur.l, rows, g, d, m: mult };
+      this.revEv = Object.keys(d).length ? "cats-win" : rows.length ? "cats-none" : null;
+      return this.go("rev", Math.max(REVEAL_SECS, 5 + rows.length * 0.6));
     }
     if (H.cur.t === "herd") {
       // Matching answers group together (case, plurals, "the" and a typo aside). The biggest group, if it's two or more
@@ -3434,7 +3530,7 @@ const TV = {
     if (H.ph === "q" && H.cur?.t === "buzz" && Object.values(H.guesses).some(x => x.i === H.cur.a) && (!H.phaseEnds || H.phaseEnds - now > 900)) { H.phaseEnds = now + 900; this.push(true); }
     if (H.ph === "q") {
       const owner = this.curOwner();
-      const eligible = Object.values(H.players).filter(p => p.online && p.pid !== owner);
+      const eligible = Object.values(H.players).filter(p => p.online && p.pid !== owner && (H.cur?.t !== "cash" || H.cur.in.includes(p.pid)));
       if (eligible.length && eligible.every(p => H.guesses[p.pid]) && (!H.phaseEnds || H.phaseEnds - now > 1200)) {
         const early = !H.phaseEnds || H.phaseEnds - now > 6000;
         H.phaseEnds = now + 1200; this.push(true);
@@ -3487,6 +3583,8 @@ const TV = {
       lk: H.cur?.t === "likely" ? H.cur.lk : null,
       tw: H.cur?.tw && ["intro", "q", "rev"].includes(H.ph) ? H.cur.tw : null, qd: H.ph === "q" ? H.qDur / 1000 : null,
       dw: H.ph === "dw" ? { s: H.cur.step, S: H.cur.S, t: Object.fromEntries(H.cur.order.map(pid => [pid, this.drawTask(pid)])), done: H.cur.order.filter(pid => this.drawDone(pid)) } : null,
+      cs: H.cur?.t === "cash" && ["intro", "q", "rev"].includes(H.ph) ? { s: H.cur.s, pot: CASH_POT[H.cur.s] * (H.R > 1 && H.r === H.R ? 2 : 1), in: H.cur.in, out: H.cur.out, m: H.R > 1 && H.r === H.R ? 2 : 1 } : null,
+      ct: H.cur?.t === "cats" && ["intro", "q", "rev"].includes(H.ph) ? { q: H.cur.q, l: H.cur.l } : null,
       hd: H.cur?.t === "herd" && ["intro", "q", "rev"].includes(H.ph) ? { q: H.cur.q } : null,
       ps: H.cur?.t === "rps" && ["intro", "q", "rev"].includes(H.ph) ? { go: H.cur.go, goes: H.cur.goes, pts: RPS_PTS[H.cur.go] * (H.R > 1 && H.r === H.R ? 2 : 1) } : null,
       sd: H.cur?.t === "shot" && ["intro", "q", "rev"].includes(H.ph) ? { v: H.cur.v, n: H.cur.n, size: H.cur.size, alive: H.cur.alive, ghosts: H.cur.ghosts } : null,
@@ -3669,6 +3767,8 @@ const TV = {
     if (H.ph === "q" && H.cur?.t === "low") return this.renderLow(stage);
     if (H.ph === "q" && H.cur?.t === "shot") return this.renderShot(stage);
     if (H.ph === "q" && H.cur?.t === "herd") return this.renderHerd(stage);
+    if (H.ph === "q" && H.cur?.t === "cash") return this.renderCash(stage);
+    if (H.ph === "q" && H.cur?.t === "cats") return this.renderCats(stage);
     if (H.ph === "q" && H.cur?.t === "rps") return this.renderRps(stage);
     if (H.ph === "q") {
       if (this.isQuiz()) return this.renderQuiz(stage);
@@ -3753,6 +3853,8 @@ const TV = {
     if (this.H.cur?.t === "low") return this.lowRevealHtml();
     if (this.H.cur?.t === "shot") return this.shotRevealHtml();
     if (this.H.cur?.t === "herd") return this.herdRevealHtml();
+    if (this.H.cur?.t === "cash") return this.cashRevealHtml();
+    if (this.H.cur?.t === "cats") return this.catsRevealHtml();
     if (this.H.cur?.t === "rps") return this.rpsRevealHtml();
     if (this.isQuiz()) return this.quizRevealHtml();
     const H = this.H, rv = H.rv || { g: {}, d: {} };
@@ -4128,6 +4230,46 @@ const TV = {
       <div class="qphoto bigav"><p class="eyebrow">Most likely to ${esc(rv.lk || H.cur.lk)}</p>${lead ? face(lead) : ""}${rows.length ? `<div class="stamp low">${lead ? esc(lead.name) + "!" : tops.length ? "It's a tie!" : "Split vote!"}</div>` : ""}</div>
       <div class="rside"><p class="eyebrow">${rows.length ? "Votes" : "Nobody voted"}${rv.m > 1 ? " · Double points" : ""}</p><ul class="rows">${rowHtml}</ul>
         <div class="deltas">${this.scorersHtml(rv, sided ? `${sided} ${sided === 1 ? "person" : "people"} sided with the room` : "", "Nobody scored this round")}${this.sipHtml()}</div></div></section>`;
+  },
+  // Cash or crash: the pot, who's still in and who has banked what.
+  cashBoard(c, P, extra = "") {
+    const ins = c.in.filter(id => P[id]), outs = Object.entries(c.out).filter(([id]) => P[id]).sort((a, b) => b[1] - a[1]);
+    return `<div class="cboard"><div class="cbox"><p class="eyebrow">Still in · ${ins.length}</p><ul class="slist">${ins.map(id => `<li class="${this.H.guesses[id] ? "in" : ""}">${face(P[id])}<span>${esc(P[id].name)}</span></li>`).join("") || "<li>Nobody</li>"}</ul></div>
+      <div class="cbox"><p class="eyebrow">Cashed out</p><ul class="slist banked">${outs.map(([id, v]) => `<li class="in">${face(P[id])}<span>${esc(P[id].name)}</span><b class="num">${fmt(v)}</b></li>`).join("") || "<li>Nobody yet</li>"}</ul></div>${extra}</div>`;
+  },
+  renderCash(stage) {
+    const H = this.H, c = H.cur, P = H.players, final = H.R > 1 && H.r === H.R, m = final ? 2 : 1;
+    paint(stage, ["cq", H.rk, Object.keys(H.guesses).join()].join("|"), `<section class="cash"><div class="cleft"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Cash or crash · Step ${c.s + 1}${final ? " · Double points" : ""}</p>
+      <div class="cpot"><span class="eyebrow">The pot</span><b class="num">${fmt(CASH_POT[c.s] * m)}</b><span>${c.s + 1 < CASH_POT.length ? `Next: ${fmt(CASH_POT[c.s + 1] * m)}, if it doesn't crash` : "Last step: everyone still in gets paid"}</span></div>
+      <p class="lede">On your phone: <b>cash out</b> and bank it, or <b>stay in</b> for more. It crashes somewhere, and everyone still in gets nothing.</p>
+      <div class="qfoot">${this.clockHtml()}<div><p class="eyebrow" id="lockcount"></p></div></div></div>${this.cashBoard(c, P)}</section>`);
+    const ins = c.in.filter(id => P[id]?.online);
+    paint($("#lockcount"), `${ins.filter(id => H.guesses[id]).length}/${ins.length}`, `Decided <span class="num">${ins.filter(id => H.guesses[id]).length} of ${ins.length}</span>`);
+  },
+  cashRevealHtml() {
+    const H = this.H, rv = H.rv, P = H.players, t = 1.2, names = ids => ids.filter(id => P[id]).map(id => esc(P[id].name)).join(", ");
+    const head = rv.crash ? "CRASH!" : rv.end && rv.still.length === 0 ? "Everyone's out!" : rv.end ? "Paid out!" : `The pot grows to ${fmt(rv.next * rv.m)}`;
+    const sub = rv.crash ? `${names(rv.still)} ${rv.still.length === 1 ? "was" : "were"} still in and ${rv.still.length === 1 ? "loses" : "lose"} it all.` : rv.cashed.length ? `${names(rv.cashed)} banked ${fmt(rv.pot * rv.m)}.` : "Nobody cashed out. Brave.";
+    return `<section class="cash rev ${rv.crash ? "crashed" : ""}" style="--t:${t}s;--t2:${t + 0.6}s"><div class="cleft"><p class="eyebrow">Cash or crash · Step ${rv.s + 1}${rv.m > 1 ? " · Double points" : ""}</p>
+      <div class="cpot"><span class="eyebrow">${rv.crash ? "It crashed at" : "The pot was"}</span><b class="num">${fmt((rv.crash ? rv.next : rv.pot) * rv.m)}</b></div>
+      <h2 class="lowh">${head}</h2><p class="lede">${sub}</p><div class="deltas">${this.sipHtml()}</div></div>${this.cashBoard({ in: rv.end ? [] : rv.still, out: rv.out }, P)}</section>`;
+  },
+  // Categories: the letter, big, and the category.
+  renderCats(stage) {
+    const H = this.H, c = H.cur, final = H.R > 1 && H.r === H.R;
+    paint(stage, "ctq|" + H.rk, `<section class="cats"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Categories${final ? " · Double points" : ""}</p>
+      <div class="chead"><div class="ctile num">${esc(c.l)}</div><h2 class="qtitle">${esc(c.q)}</h2></div><p class="lede">Starting with <b>${esc(c.l)}</b>. Write something nobody else will. Two the same cancel out.</p>
+      <div class="qfoot">${this.clockHtml()}<div><p class="eyebrow" id="lockcount"></p><ul class="locks" id="locks"></ul></div></div></section>`);
+    this.renderLocks(null);
+  },
+  catsRevealHtml() {
+    const H = this.H, rv = H.rv, P = H.players, t = 0.8 + rv.rows.length * 0.25;
+    const rows = rv.rows.filter(r => P[r.pid]).sort((a, b) => (rv.d[b.pid] || 0) - (rv.d[a.pid] || 0)).map((r, i) => {
+      const why = !r.ok ? `Doesn't start with ${esc(rv.l)}` : r.twin.length ? `Same as ${r.twin.filter(id => P[id]).map(id => esc(P[id].name)).join(", ")}` : "";
+      return `<li class="${rv.d[r.pid] ? "win" : "out"}" style="animation-delay:${(0.3 + i * 0.25).toFixed(2)}s">${face(P[r.pid])}<span class="nm">${esc(r.a)}</span>${why ? `<i>${why}</i>` : `<b class="num">+${fmt(rv.d[r.pid])}</b>`}</li>`;
+    }).join("");
+    return `<section class="cats rev" style="--t:${t.toFixed(1)}s;--t2:${(t + 0.6).toFixed(1)}s"><p class="eyebrow">Categories · ${esc(rv.q)}${rv.m > 1 ? " · Double points" : ""}</p>
+      <div class="chead"><div class="ctile num">${esc(rv.l)}</div><h2 class="qtitle">${esc(rv.q)}</h2></div><ul class="crows">${rows || "<li>Nobody answered</li>"}</ul><div class="deltas">${this.sipHtml()}</div></section>`;
   },
   renderHerd(stage) {
     const H = this.H, final = H.R > 1 && H.r === H.R;
@@ -4646,6 +4788,11 @@ const PH = {
     if (a === "sk-undo") return SKETCH.undo();
     if (a === "sk-clear") return SKETCH.clear();
     if (a === "sk-send") return this.sendDrawing(false);
+    if (a === "cash") {
+      const i = Number(el.dataset.i), H = this.host;
+      if (!H || H.ph !== "q" || H.kind !== "cash" || this.g?.rk === H.rk || !(H.cs?.in || []).includes(this.pid) || (i !== 0 && i !== 1)) return;
+      this.g = { rk: H.rk, i }; vibrate(i ? 20 : 45); this.push(); return this.renderMain();
+    }
     if (a === "rps") {
       const i = Number(el.dataset.i), H = this.host;
       if (!H || H.ph !== "q" || H.kind !== "rps" || this.g?.rk === H.rk || ![0, 1, 2].includes(i)) return;
@@ -4726,7 +4873,7 @@ const PH = {
     const H = this.host, live = this.joined && H && !["lobby", "end", "lb"].includes(H.ph) && !H.pause;
     const pause = live && H.vip === this.pid, far = live && H.sp && ["intro", "q", "qw", "qv"].includes(H.ph) && this.tooFarAt !== H.rk;
     // Reactions whenever this phone has nothing to do: reveals, scores, the title cards, and after locking in.
-    const idle = H && this.joined && this.me() && !H.pause && (["intro", "rev", "lb", "end"].includes(H.ph) || (["q", "qv", "fk-ans"].includes(H.ph) && this.g?.rk === H.rk) || (H.ph === "dw" && this.dr?.rk === H.rk) || H.ph === "imp-clue" || (H.ph === "q" && H.x === fnv(this.pid + H.rk)));
+    const idle = H && this.joined && this.me() && !H.pause && (["intro", "rev", "lb", "end"].includes(H.ph) || (["q", "qv", "fk-ans"].includes(H.ph) && this.g?.rk === H.rk) || (H.ph === "dw" && this.dr?.rk === H.rk) || (H.ph === "q" && H.kind === "cash" && !(H.cs?.in || []).includes(this.pid)) || H.ph === "imp-clue" || (H.ph === "q" && H.x === fnv(this.pid + H.rk)));
     paint($("#ph-foot"), [pause, far, !!idle].join(), (idle ? `<div class="rxbar">${REACTS.map(([e, w], i) => `<button data-act="react" data-i="${i}" aria-label="${esc(w)}">${e ? `<span>${e}</span>` : `<b>${esc(w)}</b>`}</button>`).join("")}</div>` : "")
       + (far ? `<button class="btn sm" data-act="toofar">Too far</button>` : "") + (pause ? `<button class="btn sm" data-act="pause">Pause game</button>` : ""));
   },
@@ -4847,7 +4994,7 @@ const PH = {
     if (!me) return paint(main, "wait-in", `<div class="card center"><p class="ph-h">Joining…</p><p class="muted">Hang on while the TV adds you.</p></div>`);
     if (H.ph === "lobby") return this.rLobby(main);
     if (H.pause && H.ph !== "end") return this.rPaused(main);
-    if (H.ph === "intro") return paint(main, "intro|" + H.rk, `${H.tw && TWISTS[H.tw] ? `<div class="card center twph"><p class="eyebrow">Twist!</p><p class="ph-h">${esc(TWISTS[H.tw].label)}</p><p>${esc(TWISTS[H.tw].note)}</p></div>` : ""}<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">Eyes on the TV</p><p class="muted">${H.kind === "imp" ? "Imposter round. Your secret word is coming." : H.kind === "fakin" ? "Fakin' it. Your question is coming." : H.kind === "draw" ? "Draw it. Warm up your finger." : H.kind === "low" ? "Lowest number wins. Think like everyone else, then don't." : H.kind === "shot" ? "Shot in the dark. Hide well, shoot better." : H.kind === "herd" ? "Herd mind. Think like everyone else." : H.kind === "rps" ? "Showdown. Rock, paper, scissors against everyone." : H.kind === "split" ? (Array.isArray(H.ss?.by) && H.ss.by.includes(this.pid) ? "Split or steal. You're up!" : "Split or steal. Get ready to bet.") : WRITE_KINDS.includes(H.kind) ? "Get your thumbs ready. You'll be writing." : "Get ready to guess."}</p></div>
+    if (H.ph === "intro") return paint(main, "intro|" + H.rk, `${H.tw && TWISTS[H.tw] ? `<div class="card center twph"><p class="eyebrow">Twist!</p><p class="ph-h">${esc(TWISTS[H.tw].label)}</p><p>${esc(TWISTS[H.tw].note)}</p></div>` : ""}<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">Eyes on the TV</p><p class="muted">${H.kind === "imp" ? "Imposter round. Your secret word is coming." : H.kind === "fakin" ? "Fakin' it. Your question is coming." : H.kind === "draw" ? "Draw it. Warm up your finger." : H.kind === "low" ? "Lowest number wins. Think like everyone else, then don't." : H.kind === "shot" ? "Shot in the dark. Hide well, shoot better." : H.kind === "herd" ? "Herd mind. Think like everyone else." : H.kind === "cash" ? "Cash or crash. Know when to walk away." : H.kind === "cats" ? "Categories. Think of something nobody else will." : H.kind === "rps" ? "Showdown. Rock, paper, scissors against everyone." : H.kind === "split" ? (Array.isArray(H.ss?.by) && H.ss.by.includes(this.pid) ? "Split or steal. You're up!" : "Split or steal. Get ready to bet.") : WRITE_KINDS.includes(H.kind) ? "Get your thumbs ready. You'll be writing." : "Get ready to guess."}</p></div>
       ${H.ih && MODE_CARD[H.kind]?.how ? `<div class="card"><p class="eyebrow">How to play ${esc(MODE_LABEL[H.kind] || "")}</p><ol class="steps">${MODE_CARD[H.kind].how.map(x => `<li>${esc(x)}</li>`).join("")}</ol><p class="muted"><b>Scoring</b> ${esc(MODE_CARD[H.kind].score || "")}</p></div>` : ""}`);
     if (IMP_PHASES.includes(H.ph)) return this.rImp(main);
     if (FK_PHASES.includes(H.ph)) return this.rFakin(main);
@@ -5129,6 +5276,8 @@ const PH = {
     if (this.host.kind === "low") return this.rLow(main);
     if (this.host.kind === "shot") return this.rShot(main);
     if (this.host.kind === "herd") return this.rHerd(main);
+    if (this.host.kind === "cash") return this.rCash(main);
+    if (this.host.kind === "cats") return this.rCats(main);
     if (this.host.kind === "rps") return this.rRps(main);
     const H = this.host, owner = H.x === fnv(this.pid + H.rk);
     const tbar = H.kind === "imp" || H.kind === "fakin" ? "" : `<div class="tbar" aria-hidden="true"><i id="tbar"></i></div>`;
@@ -5203,6 +5352,45 @@ const PH = {
   },
   shareReady(key) { return !!this.shares?.[key]?.blob; },
   // Split or steal on the phone: the two players get Split and Steal; everyone else bets on how it ends.
+  // Cash or crash on the phone: cash out or stay in while you're in; your banked amount once you're out.
+  rCash(main) {
+    const H = this.host, cs = H.cs || {}, inn = (cs.in || []).includes(this.pid), banked = cs.out?.[this.pid], tbar = `<div class="tbar" aria-hidden="true"><i id="tbar"></i></div>`;
+    const head = `<p class="eyebrow">Cash or crash · Step ${(cs.s || 0) + 1}</p>`;
+    if (!inn) return paint(main, "cs-out|" + H.rk + "|" + banked, `<div class="card center result ${banked ? "good" : ""}">${head}<p class="ph-big">${banked ? `Banked ${fmt(banked)}` : "You're out"}</p><p class="muted">${banked ? "Watch the others sweat." : "The pot crashed on you. Watch the others."}</p></div>`);
+    if (this.g?.rk === H.rk) return paint(main, "cs-lock|" + H.rk, `${tbar}<div class="card center result ${this.g.i === 0 ? "good" : "bad"}">${head}<p class="ph-big">${this.g.i === 0 ? "Cashing out" : "Staying in"}</p><p class="muted">${this.g.i === 0 ? `You'll bank ${fmt(cs.pot)}.` : "Brave. Hope it doesn't crash."}</p></div>`);
+    paint(main, "cs|" + H.rk, `${tbar}<div class="card">${head}<p class="ph-h">The pot is ${fmt(cs.pot)}</p><p class="muted">Bank it now, or stay in for more. If it crashes while you're in, you get nothing.</p>
+      <div class="cashbtns"><button class="cashb out" data-act="cash" data-i="0"><b>Cash out</b><span>Bank ${fmt(cs.pot)}</span></button><button class="cashb stay" data-act="cash" data-i="1"><b>Stay in</b><span>Risk it</span></button></div></div>`);
+  },
+  rCashReveal(main) {
+    const H = this.host, rv = H.rv || {}, me = this.pid, pts = rv.d?.[me] || 0, lost = rv.crash && (rv.still || []).includes(me);
+    const head = pts ? `+${fmt(pts)}` : lost ? "Crashed!" : (rv.still || []).includes(me) ? "Still in" : rv.out?.[me] ? "Banked" : "Watching";
+    const sub = pts ? "Banked. Nice." : lost ? "You were still in. Nothing this round." : (rv.still || []).includes(me) ? `The pot grows to ${fmt((rv.next || 0) * (rv.m || 1))}.` : rv.out?.[me] ? `You banked ${fmt(rv.out[me])} earlier.` : "";
+    paint(main, "cs-rev|" + H.rk, `<div class="card center result ${pts ? "good" : lost ? "bad" : ""}"><p class="eyebrow">Cash or crash · Step ${(rv.s || 0) + 1}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+  },
+  // Categories on the phone: the letter, big, and a box.
+  rCats(main) {
+    const H = this.host, ct = H.ct || {}, tbar = `<div class="tbar" aria-hidden="true"><i id="tbar"></i></div>`;
+    if (this.g?.rk === H.rk) return paint(main, "ct-lock|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">You wrote</p><p class="ph-big">${esc(this.g.a)}</p><p class="muted">${catLetter(this.g.a) === ct.l ? "Hope nobody else thought of it." : `Careful: that doesn't start with ${esc(ct.l)}.`}</p></div>`);
+    const typed = $("#cats-in")?.value;
+    const did = paint(main, "ct|" + H.rk + "|" + (this.catsErr || ""), `${tbar}<form class="card cats-form" novalidate><p class="eyebrow">Categories</p><div class="ctile sm num">${esc(ct.l || "")}</div><p class="ph-h">${esc(ct.q || "")}</p>
+      <p class="muted">Starting with <b>${esc(ct.l || "")}</b>. Answers nobody else wrote score. Two the same cancel out.</p>
+      <div class="field"><label for="cats-in">Your answer</label><input id="cats-in" maxlength="40" autocomplete="off" autocorrect="off" autocapitalize="words" enterkeyhint="send"></div>
+      ${this.catsErr ? `<p class="warn">${esc(this.catsErr)}</p>` : ""}<button class="btn primary wide" type="submit">Send</button></form>`);
+    if (did && typed) $("#cats-in").value = typed;
+  },
+  sendCats() {
+    const H = this.host, a = cleanText($("#cats-in")?.value, 40), l = H?.ct?.l;
+    if (!H || H.ph !== "q" || H.kind !== "cats" || !a || this.g?.rk === H.rk) return;
+    // A wrong first letter gets one warning; sending it again sends it anyway.
+    if (catLetter(a) !== l && this.catsWarned !== H.rk + a) { this.catsWarned = H.rk + a; this.catsErr = `That doesn't start with ${l}. Send again to send it anyway.`; return this.renderMain(); }
+    this.catsErr = ""; this.g = { rk: H.rk, a }; vibrate(25); this.push(); this.renderMain();
+  },
+  rCatsReveal(main) {
+    const H = this.host, rv = H.rv || {}, me = this.pid, pts = rv.d?.[me] || 0, row = (rv.rows || []).find(r => r.pid === me);
+    const head = pts ? "Original!" : !row ? "No answer" : !row.ok ? "Wrong letter" : "Cancelled out";
+    const sub = pts ? `+${fmt(pts)} points` : !row ? "" : !row.ok ? `It had to start with ${esc(rv.l)}.` : `Same as ${row.twin.map(id => esc(this.nameOf(id)?.[1] || "?")).join(", ")}.`;
+    paint(main, "ct-rev|" + H.rk, `<div class="card center result ${pts ? "good" : row ? "bad" : ""}"><p class="eyebrow">Categories · ${esc(rv.q || "")} · ${esc(rv.l || "")}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+  },
   // Herd mind on the phone: a box for your answer. What most people will type, not what you'd say.
   rHerd(main) {
     const H = this.host, q = H.hd?.q || "", tbar = `<div class="tbar" aria-hidden="true"><i id="tbar"></i></div>`;
@@ -5477,6 +5665,8 @@ const PH = {
     if (this.host.kind === "low") return this.rLowReveal(main);
     if (this.host.kind === "shot") return this.rShotReveal(main);
     if (this.host.kind === "herd") return this.rHerdReveal(main);
+    if (this.host.kind === "cash") return this.rCashReveal(main);
+    if (this.host.kind === "cats") return this.rCatsReveal(main);
     if (this.host.kind === "rps") return this.rRpsReveal(main);
     if (this.host.kind === "meld") return this.rMeldReveal(main);
     if (this.host.qz && this.host.rv) return this.rQuizReveal(main);
@@ -5558,6 +5748,7 @@ app.addEventListener("submit", e => {
   if (mode === "phone" && e.target.classList.contains("fk-num-form")) return PH.sendFkNum();
   if (mode === "phone" && e.target.classList.contains("dw-form")) return PH.sendGuess();
   if (mode === "phone" && e.target.classList.contains("herd-form")) return PH.sendHerd();
+  if (mode === "phone" && e.target.classList.contains("cats-form")) return PH.sendCats();
   if (mode === "phone") PH.act("join");
 });
 $("#selfie-in").addEventListener("change", e => { const f = e.target.files?.[0]; if (f && mode === "phone") PH.setSelfie(f); });

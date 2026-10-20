@@ -83,6 +83,12 @@ tapped quickly. The same rounds and settings are under **Rounds & settings** on 
   scores 100, then 200, then 300. Works with 2 players.
 - **Who's older?:** two famous faces a few years apart (more on Easy, fewer on Hard), usually the same kind of
   famous. Pick the one born first; the reveal shows both birth years.
+- **Cash or crash:** a pot grows step by step (100, 200, 350, 550… up to 2,000). Each step, everyone still in
+  either cashes out and banks the pot, or stays in for more. It crashes at a secret step, and everyone still in gets
+  nothing; the last step pays everyone still in. Works with 2 players.
+- **Categories:** a category and a letter ("A fruit or vegetable", P). Everyone types an answer; answers that start
+  with the letter and that nobody else wrote score 500. Two the same cancel out. The phone warns once if your
+  answer starts with the wrong letter. Categories are in `server/data/cats.json`, with a `wild` list. Works with 2.
 - **Lowest number wins:** everyone secretly picks a number from 1 to 10 on their phone. Numbers more than one player
   picked are knocked out, and the lowest number left wins. Three goes a round, worth 300, 600 and 1,000. The reveal
   shows who picked what, crosses out the clashes and lights up the winner. Needs 3 players.

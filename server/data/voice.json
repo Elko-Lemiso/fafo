@@ -348,6 +348,20 @@
     { "id": "rps-draw-2", "ev": "rps-draw", "t": "Stalemate! Again!" },
     { "id": "intro-older-1", "ev": "intro-older", "t": "Who's older? It's closer than you think!" },
     { "id": "intro-older-2", "ev": "intro-older", "t": "Birthday quiz! Who was born first?" },
-    { "id": "intro-older-3", "ev": "intro-older", "t": "Who's older? No googling!" }
+    { "id": "intro-older-3", "ev": "intro-older", "t": "Who's older? No googling!" },
+    { "id": "intro-cash-1", "ev": "intro-cash", "t": "Cash or crash! The pot keeps growing. Know when to walk away!" },
+    { "id": "intro-cash-2", "ev": "intro-cash", "t": "How greedy are you feeling? Cash or crash!" },
+    { "id": "intro-cash-3", "ev": "intro-cash", "t": "Cash or crash! Don't be the last one in!" },
+    { "id": "cash-crash-1", "ev": "cash-crash", "t": "Crash! Should have cashed out!" },
+    { "id": "cash-crash-2", "ev": "cash-crash", "t": "Boom! Greed gets punished!" },
+    { "id": "cash-crash-3", "ev": "cash-crash", "t": "And it's gone! All of it!" },
+    { "id": "cash-out-1", "ev": "cash-out", "t": "Smart money! Banked!" },
+    { "id": "cash-out-2", "ev": "cash-out", "t": "Chicken! But a rich chicken!" },
+    { "id": "intro-cats-1", "ev": "intro-cats", "t": "Categories! Think of something nobody else will!" },
+    { "id": "intro-cats-2", "ev": "intro-cats", "t": "One letter, one category. Be original!" },
+    { "id": "cats-win-1", "ev": "cats-win", "t": "Original thinkers! Points for you!" },
+    { "id": "cats-win-2", "ev": "cats-win", "t": "Nobody else thought of that! Nice!" },
+    { "id": "cats-none-1", "ev": "cats-none", "t": "You all wrote the same thing! Nobody scores!" },
+    { "id": "cats-none-2", "ev": "cats-none", "t": "Zero points! Be more creative!" }
   ]
 }
