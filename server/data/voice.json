@@ -320,6 +320,17 @@
     { "id": "low-win-3", "ev": "low-win", "t": "Sneaky! The lowest number standing wins!" },
     { "id": "low-none-1", "ev": "low-none", "t": "You all think alike! Nobody wins that one!" },
     { "id": "low-none-2", "ev": "low-none", "t": "Total clash! Not a single number survived!" },
-    { "id": "low-none-3", "ev": "low-none", "t": "Great minds think alike, and lose together!" }
+    { "id": "low-none-3", "ev": "low-none", "t": "Great minds think alike, and lose together!" },
+    { "id": "intro-shot-1", "ev": "intro-shot", "t": "Shot in the dark! Hide in a square, shoot a square, and pray!" },
+    { "id": "intro-shot-2", "ev": "intro-shot", "t": "Lights out! Pick your hiding spot and take your shot!" },
+    { "id": "intro-shot-3", "ev": "intro-shot", "t": "Shot in the dark! Last one standing wins!" },
+    { "id": "shot-hit-1", "ev": "shot-hit", "t": "Got 'em! Down they go!" },
+    { "id": "shot-hit-2", "ev": "shot-hit", "t": "Direct hit! Welcome to the ghost club!" },
+    { "id": "shot-hit-3", "ev": "shot-hit", "t": "Ouch! Didn't see that coming, did you?" },
+    { "id": "shot-miss-1", "ev": "shot-miss", "t": "Everybody missed! Terrible aim, all of you!" },
+    { "id": "shot-miss-2", "ev": "shot-miss", "t": "Not a single hit! Keep shooting!" },
+    { "id": "shot-last-1", "ev": "shot-last", "t": "Last one standing! What a survivor!" },
+    { "id": "shot-last-2", "ev": "shot-last", "t": "And then there was one! Champion of the dark!" },
+    { "id": "shot-last-3", "ev": "shot-last", "t": "Untouchable! The last one left alive!" }
   ]
 }

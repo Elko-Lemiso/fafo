@@ -78,6 +78,10 @@ tapped quickly. The same rounds and settings are under **Rounds & settings** on 
 - **Lowest number wins:** everyone secretly picks a number from 1 to 10 on their phone. Numbers more than one player
   picked are knocked out, and the lowest number left wins. Three goes a round, worth 300, 600 and 1,000. The reveal
   shows who picked what, crosses out the clashes and lights up the winner. Needs 3 players.
+- **Shot in the dark:** a grid on the TV (3×3, or 4×4 with six or more players). Each volley, everyone still in
+  secretly picks a square to hide in and a square to shoot on their phone. All the shots land at once, and anyone
+  hiding in a shot square is out. The out come back as ghosts who keep shooting. Every hit scores 200; the last one
+  standing gets 1,000, or everyone who survives five volleys gets 500. Works with 2 players.
 - **Split or steal:** two players face off over a pot of 2,000 points. They talk it out, then each picks Split or
   Steal in secret on their phone while everyone else bets on how it ends. Both split: 1,000 each. One steals: they
   take all 2,000. Both steal: nobody gets a thing. A right bet wins 300. Everyone faces off once before anyone goes
