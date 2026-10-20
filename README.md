@@ -71,6 +71,7 @@ tapped quickly. The same rounds and settings are under **Rounds & settings** on 
   (no clock) and vote for the faker. Spotting them scores 500; a faker who gets away scores 1,000. Needs 3 players.
 - **Draw it:** a drawing chain. Everyone gets a secret prompt ("a goat at a wedding") and draws it on their phone
   on a canvas that fills the available space: pen, eraser, lines, rectangles, ellipses, colours, brush sizes, undo and redo.
+  An unfinished drawing recovers after refreshing the same phone; each new drawing starts with Pen selected.
   The next player sees only the drawing and types what it is, the next draws that guess, and so on, up to four steps.
   The host reveals the original prompt and each drawing or guess one at a time, with no automatic reveal countdown.
   A guess that nails what was being drawn scores 1,000 for the drawer and the guesser; a close one
@@ -111,8 +112,9 @@ and on the phones: Double points, Underdog round (whoever's last scores triple),
 Robbery (the fastest right answer steals 300 from the leader) or No guessing (a wrong answer loses 250). Never the
 first round or the final, never two in a row, and only on rounds where it makes sense. The reveal says what it did.
 
-**Reactions:** whenever a phone has nothing to do (reveals, scores, title cards, after locking in), it shows a row of
-reactions. Tapping one floats it up the TV with your face: 😂 🔥 😱 👏 💀 🍻, BOO! and TOO EASY.
+**Reactions:** whenever a phone has nothing to do (reveals, scores, title cards, after locking in), type your own
+reaction (up to 40 characters) and tap Send or the keyboard's send key. A swipeable row of large presets is also
+right there: 😂 🔥 😱 👏 💀 🍻, BOO! and TOO EASY. Reactions float up the TV with your face.
 
 **Sharing:** at the end, every phone gets **Share the night**: a picture with the winner, everyone's score, the
 awards, the best line of the night (the most-voted Quip or Last Lash answer) and a code to play, ready for the

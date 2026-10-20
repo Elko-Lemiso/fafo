@@ -227,11 +227,11 @@ button{font:inherit;color:inherit}
 }
 
 /* ---------- phone ---------- */
-.phone{max-width:520px;margin:0 auto;min-height:100%;padding-block:14px 40px;display:flex;flex-direction:column;gap:16px}
+.phone{max-width:520px;margin:0 auto;min-height:100%;padding-block:max(14px,env(safe-area-inset-top,0px)) max(40px,env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:16px}
 .ph-top{display:flex;align-items:center;gap:8px;min-height:44px}
 .ph-top .logo{font-size:17px;white-space:nowrap}
 .ph-top .room{font-family:var(--label);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:13px;margin-left:auto;white-space:nowrap}
-.ph-top .btn.ghost{font-size:14px;padding:.3em .4em}
+.ph-top .btn.ghost{font-size:14px;padding:.3em .4em;min-width:44px;min-height:44px}
 .ph-top .avatar{font-size:13px;border-width:2px}
 .ph-main{display:flex;flex-direction:column;gap:16px}
 .card{background:var(--paper);border:3px solid var(--ink);border-radius:18px;box-shadow:0 5px 0 var(--ink);padding:18px;display:flex;flex-direction:column;gap:12px;min-width:0}
@@ -657,7 +657,7 @@ button{touch-action:manipulation}
 .lowb:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
 @keyframes knock{to{background:#E7D9B0;color:var(--ink-soft);transform:scale(.92)}}
 /* Draw it */
-.drawing-active .phone{max-width:1100px;padding-block:8px 16px;gap:8px}
+.drawing-active .phone{max-width:1100px;padding-block:max(8px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-bottom,0px));gap:8px}
 .drawing-active .ph-main{gap:8px}
 .dwcard{gap:8px;padding:8px;border:0;border-radius:0;box-shadow:none;background:transparent}
 .dprompt{font-size:clamp(18px,3vw,26px);line-height:1.2}
@@ -684,7 +684,7 @@ button{touch-action:manipulation}
 .draw-confirm{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--paper);padding:8px;border:2px solid var(--ink);border-radius:10px}
 .draw-confirm .btn{min-height:44px}
 .draw-confirm[hidden]{display:none}
-@media(max-width:600px){.drawing-active{margin-inline:-10px}.drawing-active .ph-top{padding-inline:8px}.dwcard{padding:0}.tools{gap:0}.tools .sw{flex:1;max-width:48px}.tools .tsep{flex-basis:100%;height:4px}.tools .sz{flex:1;max-width:none}.sketch-stage{height:clamp(240px,calc(100vh - 370px),900px);height:clamp(240px,calc(100dvh - 370px),900px)}}
+@media(max-width:600px){.drawing-active{margin-left:min(0px,calc(env(safe-area-inset-left,0px) - 10px));margin-right:min(0px,calc(env(safe-area-inset-right,0px) - 10px))}.drawing-active .ph-top{padding-inline:8px}.dwcard{padding:0}.tools{gap:0}.tools .sw{flex:1;max-width:48px}.tools .tsep{flex-basis:100%;height:4px}.tools .sz{flex:1;max-width:none}.sketch-stage{height:clamp(240px,calc(100vh - 370px),900px);height:clamp(240px,calc(100dvh - 370px),900px)}}
 @media(orientation:landscape) and (max-height:600px){.dwcard{display:grid;grid-template-columns:minmax(0,1fr) 232px;align-items:start}.draw-heading{grid-column:1;grid-row:1}.sketch-stage{grid-column:1;grid-row:2/6;height:calc(100vh - 170px);height:calc(100dvh - 170px);min-height:160px}.draw-tools{grid-column:2;grid-row:2;grid-template-columns:repeat(3,minmax(0,1fr))}.tools{grid-column:2;grid-row:3;display:grid;grid-template-columns:repeat(5,minmax(44px,1fr));gap:2px}.tools .sw,.tools .sz{width:44px;height:44px}.tools .tsep{display:none}.dwbtns{grid-column:2;grid-row:1;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;align-self:end}.dwbtns .btn{font-size:12px;padding:4px;min-height:44px}.dwbtns .primary{grid-column:auto}.draw-confirm{grid-column:1/-1}.draw-hint{display:none}}
 .sketch-img{display:block;width:100%;height:auto;max-height:55vh;max-height:55dvh;object-fit:contain;background:#fff;border:3px solid var(--ink);border-radius:12px}
 .drawrev{height:100%;display:flex;flex-direction:column;justify-content:center;gap:2.2vmin;max-width:1700px;margin:0 auto;width:100%;position:relative}
@@ -722,19 +722,22 @@ button{touch-action:manipulation}
 .rx b{font-size:max(34px,7vmin);line-height:1;font-weight:400}
 .rx.word b{font-family:var(--display);font-size:max(18px,3.6vmin);background:var(--ink);color:var(--sun);border-radius:999px;padding:.3vmin 1.4vmin}
 @keyframes floatup{0%{bottom:-12vmin;opacity:0}12%{opacity:1}75%{opacity:1}100%{bottom:62vh;opacity:0}}
-.rx-trigger{min-height:56px;flex:1;min-width:160px}
-.rx-feedback{width:100%;text-align:center;font-weight:700;min-height:1.5em}
-.rx-picker{position:fixed;inset:auto 0 0;margin:0 auto;width:min(100%,520px);max-height:85dvh;overflow:auto;background:var(--paper);color:var(--ink);border:3px solid var(--ink);border-radius:24px 24px 0 0;padding:20px 16px max(24px,env(safe-area-inset-bottom));box-sizing:border-box;box-shadow:0 -8px 36px #0003}
-.rx-picker::backdrop{background:#1d140f88}
-.rx-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
-.rx-heading h2{font-family:var(--display);font-size:24px;margin:0}
-.rx-heading .btn{min-width:72px;min-height:48px}
-.rxbar{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.rxbar button{font:inherit;min-height:76px;border:2px solid var(--ink);border-radius:14px;background:var(--paper);box-shadow:0 3px 0 var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;padding:12px;touch-action:manipulation}
-.rxbar button span{font-size:32px;line-height:1}
-.rxbar button b{font-family:var(--display);font-weight:400;font-size:16px}
-.rxbar button:focus-visible,.rx-trigger:focus-visible{outline:4px solid var(--cobalt);outline-offset:3px}
+.rx.custom{max-width:56vw;align-items:flex-start}
+.rx.custom b{min-width:0;font-size:clamp(18px,3.6vmin,32px);line-height:1.2;overflow-wrap:anywhere;padding:.35em .65em;border-radius:18px}
+.rx-compose{width:100%;min-width:0;display:flex;flex-direction:column;gap:8px;padding-top:8px;border-top:2px solid #1d140f22}
+.rx-label{display:flex;align-items:center;justify-content:space-between;font-weight:700;gap:12px}
+.rx-label span{font-size:13px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.rx-form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
+.rx-form input{width:100%;min-width:0;min-height:52px;font:inherit;font-size:18px;padding:10px 12px;border:2px solid var(--ink);border-radius:12px;background:var(--paper);color:var(--ink);scroll-margin-block:24px}
+.rx-form .btn{min-height:52px;padding:8px 14px;font-size:14px}
+.rx-feedback{font-size:14px;font-weight:700;min-height:1.3em;overflow-wrap:anywhere}
+.rxbar{width:100%;min-width:0;display:flex;gap:10px;overflow-x:auto;padding:4px 4px 8px;scroll-snap-type:x proximity;overscroll-behavior-x:contain}
+.rxbar button{flex:0 0 78px;min-height:64px;font:inherit;border:2px solid var(--ink);border-radius:12px;background:var(--paper);box-shadow:0 3px 0 var(--ink);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px;touch-action:manipulation;scroll-snap-align:start}
+.rxbar button span{font-size:26px;line-height:1}
+.rxbar button b{font-family:var(--display);font-weight:400;font-size:12px}
+.rxbar button:focus-visible,.rx-form input:focus-visible{outline:3px solid var(--cobalt);outline-offset:1px}
 .rxbar button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.ph-foot>.btn{min-height:44px}
 .twph{background:var(--tomato);color:var(--paper)}
 .twph .eyebrow{color:var(--sun)}
 /* the host's captions */
@@ -904,6 +907,14 @@ const LOW_MAX = 10, LOW_SECS = 15, LOW_PTS = [300, 600, 1000];
 const SHOT_SECS = 20, SHOT_VOLLEYS = 5, SHOT_HIT = 200, SHOT_LAST = 1000, SHOT_SURVIVE = 500;
 // Reactions: any phone can throw these onto the TV while it waits. Words stand in for the emoji on TVs that can't show emoji.
 const REACTS = [["😂", "LOL"], ["🔥", "FIRE"], ["😱", "OMG"], ["👏", "CLAP"], ["💀", "DEAD"], ["🍻", "CHEERS"], ["", "BOO!"], ["", "TOO EASY"]];
+const REACTION_MAX_CHARS = 40;
+function normalizeReactionText(value) {
+  if (typeof value !== "string") return "";
+  // Keep emoji joiners, but remove control characters and invisible directional overrides.
+  const text = value.normalize("NFC").replace(/\s+/gu, " ").replace(/[\p{Cc}\p{Cs}\u00ad\u061c\u200b\u200e\u200f\u202a-\u202e\u2060-\u206f]/gu, "").replace(/ +/g, " ").trim();
+  const clipped = Array.from(text).slice(0, REACTION_MAX_CHARS).join("").trim();
+  return clipped.replace(/[\u200c\u200d\ufe0e\ufe0f]/gu, "").trim() ? clipped : "";
+}
 // Twists (Rounds & settings, on by default): now and then a round gets a twist, announced on its title card. Never the
 // first round or the final, never two in a row. Each only goes on rounds it makes sense for.
 const RIGHT_KINDS = ["trivia", "buzz", "flag", "map", "cap", "big", "emoji", "face", "odd", "hilo", "tune", "photo", "song", "prof"];
@@ -1311,14 +1322,61 @@ const MUSIC = {
 // Strokes are kept, so Undo redraws without the last one and a screen that re-draws keeps the picture.
 const SKETCH_COLORS = ["#1D140F", "#D93A26", "#2342C6", "#11704F", "#FFC53D", "#B5530B", "#FFFFFF"];
 const SKETCH = {
-  cv: null, rk: null, strokes: [], future: [], cur: null, pointer: null, color: "#1D140F", size: 12, tool: "pen", height: DRAW_H,
+  cv: null, rk: null, strokes: [], future: [], cur: null, pointer: null, color: "#1D140F", size: 12, tool: "pen", height: DRAW_H, draftKey: null, watching: false,
+  readDraft(key) {
+    try {
+      const raw = localStorage.getItem("wiw.draw-draft");
+      if (!raw || raw.length > 600000) return null;
+      const d = JSON.parse(raw), types = ["pen", "eraser", "line", "rect", "ellipse"];
+      if (d?.v !== 1 || d.key !== key || d.width !== DRAW_W || !Number.isInteger(d.height) || d.height < 240 || d.height > 1280 || !types.includes(d.tool) || !/^#[0-9a-f]{6}$/i.test(d.color) || ![5, 12, 28].includes(d.size)) return null;
+      if (!Array.isArray(d.strokes) || !Array.isArray(d.future) || d.strokes.length + d.future.length > 1000) return null;
+      let points = 0;
+      for (const s of [...d.strokes, ...d.future]) {
+        if (s?.t === "clear") continue;
+        if (!types.includes(s?.t) || !/^#[0-9a-f]{6}$/i.test(s.c) || ![5, 12, 28].includes(s.w) || !Array.isArray(s.p) || !s.p.length || (points += s.p.length) > 16000) return null;
+        if (!["pen", "eraser"].includes(s.t) && s.p.length > 2) return null;
+        if (s.p.some(p => !Array.isArray(p) || p.length !== 2 || p.some(n => !Number.isFinite(n) || Math.abs(n) > 1000000))) return null;
+      }
+      return d;
+    } catch { return null; }
+  },
+  saveDraft() {
+    if (!this.draftKey) return;
+    try {
+      const all = [...this.strokes, ...this.future];
+      // One draft per browser, bounded even for a very dense stylus drawing. Keep every stroke and its endpoints.
+      if (all.length > 1000) { localStorage.removeItem("wiw.draw-draft"); return; }
+      const total = all.reduce((n, s) => n + (s.p?.length || 0), 0);
+      const snapshot = list => list.map(s => {
+        if (s.t === "clear") return { t: "clear" };
+        const limit = Math.max(2, Math.floor(12000 * s.p.length / Math.max(1, total))), p = [];
+        const count = Math.min(s.p.length, limit);
+        for (let i = 0; i < count; i++) {
+          const point = s.p[count < s.p.length ? Math.round(i * (s.p.length - 1) / (count - 1)) : i];
+          p.push(point.map(n => Math.round(n * 10) / 10));
+        }
+        return { t: s.t || "pen", c: s.c, w: s.w, p };
+      });
+      const raw = JSON.stringify({ v: 1, key: this.draftKey, width: DRAW_W, height: this.height, strokes: snapshot(this.strokes), future: snapshot(this.future), tool: this.tool, color: this.color, size: this.size });
+      if (raw.length <= 600000) localStorage.setItem("wiw.draw-draft", raw); else localStorage.removeItem("wiw.draw-draft");
+    } catch { /* Drawing still works when storage is full or disabled. */ }
+  },
   // Keep the original coordinate space when the viewport changes, so rotation never stretches a drawing.
   mount(cv, rk) {
     if (!cv) return;
-    if (this.rk !== rk) {
+    const key = JSON.stringify([PH.code, PH.pid, rk]);
+    if (this.rk !== rk || this.draftKey !== key) {
       this.rk = rk; this.strokes = []; this.future = []; this.cur = null; this.pointer = null;
+      this.draftKey = key; this.tool = "pen";
       const r = cv.getBoundingClientRect();
       this.height = Math.round(Math.max(240, Math.min(1280, r.height / (r.width || DRAW_W) * DRAW_W)));
+      const draft = this.readDraft(key);
+      if (draft) { this.strokes = draft.strokes; this.future = draft.future; this.height = draft.height; this.tool = draft.tool; this.color = draft.color; this.size = draft.size; }
+    }
+    if (!this.watching) {
+      this.watching = true;
+      addEventListener("pagehide", () => this.finish());
+      document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") this.finish(); });
     }
     this.cur = null; this.pointer = null;
     this.cv = cv;
@@ -1383,14 +1441,17 @@ const SKETCH = {
     for (const s of this.strokes) this.paint(s);
     if (this.cur) this.paint(this.cur);
   },
-  finish() { if (this.cur) { this.strokes.push(this.cur); this.future = []; } this.cur = null; this.pointer = null; this.redraw(); this.controls(); },
+  finish() { if (this.cur) { this.strokes.push(this.cur); this.future = []; } this.cur = null; this.pointer = null; this.redraw(); this.controls(); this.saveDraft(); },
   controls() {
     const locked = this.cv?.getAttribute("aria-disabled") === "true";
     for (const a of ["undo", "redo", "clear"]) { const b = document.querySelector(`[data-act="sk-${a}"]`); if (b) b.disabled = locked || !(a === "redo" ? this.future.length : this.strokes.length); }
+    for (const [selector, field, value] of [[".draw-tools button", "tool", this.tool], [".tools .sw", "c", this.color], [".tools .sz", "z", String(this.size)]]) {
+      for (const b of document.querySelectorAll(selector)) { const on = b.dataset[field] === value; b.classList.toggle("on", on); b.setAttribute("aria-pressed", String(on)); }
+    }
   },
-  undo() { this.cur = null; this.pointer = null; if (this.strokes.length) this.future.push(this.strokes.pop()); this.redraw(); this.controls(); },
-  redo() { this.cur = null; this.pointer = null; if (this.future.length) this.strokes.push(this.future.pop()); this.redraw(); this.controls(); },
-  clear() { this.cur = null; this.pointer = null; this.strokes.push({ t: "clear" }); this.future = []; this.redraw(); this.controls(); },
+  undo() { this.cur = null; this.pointer = null; if (this.strokes.length) this.future.push(this.strokes.pop()); this.redraw(); this.controls(); this.saveDraft(); },
+  redo() { this.cur = null; this.pointer = null; if (this.future.length) this.strokes.push(this.future.pop()); this.redraw(); this.controls(); this.saveDraft(); },
+  clear() { this.cur = null; this.pointer = null; this.strokes.push({ t: "clear" }); this.future = []; this.redraw(); this.controls(); this.saveDraft(); },
   hasInk() { const lastClear = this.strokes.map(s => s.t).lastIndexOf("clear"); return this.strokes.slice(lastClear + 1).some(s => s.t !== "eraser"); },
   jpeg() { this.finish(); return this.cv ? this.cv.toDataURL("image/jpeg", 0.85).split(",")[1] || "" : ""; },
 };
@@ -2012,9 +2073,10 @@ const TV = {
       for (const c of cmds) {
         if (pl.cmdSeen.includes(c.k)) continue;
         pl.cmdSeen = [...pl.cmdSeen, c.k].slice(-40);
-        // Anyone can say a spicy prompt went too far; everything else comes from whoever starts the game.
+        // Everyone can react or flag a spicy prompt; other controls belong to whoever starts the game.
         if (c.a.startsWith("toofar:")) this.tooFar(c.a.slice(7));
-        else if (c.a.startsWith("react:")) this.react(pid, Number(c.a.slice(6)));
+        else if (/^react:\d+$/.test(c.a)) this.react(pid, Number(c.a.slice(6)));
+        else if (c.a.startsWith("react-text:")) this.react(pid, c.a.slice(11));
         else if (pid === H.vip) this.command(c.a);
       }
     }
@@ -2753,18 +2815,19 @@ const TV = {
     this.save(); this.render(); this.push(true);
   },
   // A reaction from a phone floats up the TV with the player's face. A few a second per player at most.
-  react(pid, i) {
-    const p = this.H.players[pid], r = REACTS[i], box = $("#reacts"), now = Date.now();
-    if (!p || !r || !box || this.H.ph === "lobby") return;
+  react(pid, value) {
+    const p = this.H.players[pid], custom = typeof value === "string", r = Number.isInteger(value) ? REACTS[value] : null, box = $("#reacts"), now = Date.now();
+    const text = custom ? normalizeReactionText(value) : r ? (r[0] && EMOJI_OK ? r[0] : r[1]) : "";
+    if (!p || !text || !box || this.H.ph === "lobby" || this.H.pause) return;
     this.rxAt ||= {};
     if (now - (this.rxAt[pid] || 0) < 350) return;
     this.rxAt[pid] = now;
-    while (box.children.length > 24) box.firstElementChild.remove();
+    while (box.children.length >= 24) box.firstElementChild.remove();
     const el = document.createElement("div");
-    el.className = "rx" + (r[0] && EMOJI_OK ? "" : " word");
-    el.style.setProperty("--x", (6 + Math.random() * 88).toFixed(1) + "%");
+    el.className = custom ? "rx word custom" : "rx" + (r[0] && EMOJI_OK ? "" : " word");
+    el.style.setProperty("--x", (custom ? 35 + Math.random() * 30 : 6 + Math.random() * 88).toFixed(1) + "%");
     el.style.setProperty("--r", (Math.random() * 24 - 12).toFixed(0) + "deg");
-    el.innerHTML = `${face(p)}<b>${esc(r[0] && EMOJI_OK ? r[0] : r[1])}</b>`;
+    el.innerHTML = `${face(p)}<b>${esc(text)}</b>`;
     box.appendChild(el);
     setTimeout(() => el.remove(), 3200);
     if (now - (this.rxSnd || 0) > 160) { this.rxSnd = now; SFX.play("pop"); }
@@ -4478,21 +4541,7 @@ const PH = {
       if (!H?.imp || H.ph !== "imp-clue" || H.imp.sp !== this.pid) return;
       this.dn = H.rk + ":" + H.imp.turn; vibrate(20); this.push(); return this.renderMain(true);
     }
-    if (a === "rx-open" || a === "rx-close") {
-      this.rxOpen = a === "rx-open"; this.renderFoot();
-      if (!this.rxOpen) $("#rx-trigger")?.focus();
-      return;
-    }
-    if (a === "react") {
-      const now = Date.now();
-      const i = Number(el.dataset.i);
-      if (!this.rxOpen || !Number.isInteger(i) || !REACTS[i] || now - (this.rxAt || 0) < 400) return;
-      this.rxAt = now; this.send("react:" + i); this.rxOpen = false;
-      this.rxFeedback = REACTS[i][1] + " sent"; this.renderFoot(); $("#rx-trigger")?.focus();
-      clearTimeout(this.rxFeedbackTimer);
-      this.rxFeedbackTimer = setTimeout(() => { this.rxFeedback = ""; this.renderFoot(); }, 2200);
-      return vibrate(10);
-    }
+    if (a === "react") return this.sendReaction(Number(el.dataset.i));
     if (a === "share-night" || a === "share-chain") {
       const key = a === "share-night" ? "night|" + this.host?.gid : el.dataset.k, b = this.shares?.[key]?.blob;
       if (!b) return;
@@ -4587,23 +4636,59 @@ const PH = {
 
   // ---------- phone rendering ----------
   render() { this.renderTop(); this.renderMain(); this.renderFoot(); this.renderSheet(); },
+  canReact() {
+    const H = this.host;
+    return !!(H && this.joined && this.me() && !H.pause && (["intro", "rev", "lb", "end"].includes(H.ph) || (["q", "qv", "fk-ans"].includes(H.ph) && this.g?.rk === H.rk) || (H.ph === "dw" && this.dr?.rk === H.rk) || H.ph === "imp-clue" || (H.ph === "q" && H.x === fnv(this.pid + H.rk))));
+  },
+  updateReactionInput(composing = false) {
+    const input = $("#rx-input");
+    if (!input) return;
+    this.rxComposing = composing;
+    // Do not interrupt a phone keyboard's in-progress composition.
+    if (!composing) {
+      const limited = Array.from(input.value).slice(0, REACTION_MAX_CHARS).join("");
+      if (input.value !== limited) {
+        const start = input.selectionStart, end = input.selectionEnd;
+        input.value = limited;
+        if (start !== null && end !== null) input.setSelectionRange(Math.min(start, limited.length), Math.min(end, limited.length));
+      }
+    }
+    this.rxDraft = input.value;
+    $("#rx-count").textContent = `${Array.from(input.value).length}/${REACTION_MAX_CHARS}`;
+    $("#rx-send").disabled = composing || !normalizeReactionText(input.value);
+  },
+  sendReaction(i) {
+    if (!this.canReact() || Date.now() - (this.rxAt || 0) < 400) return;
+    const custom = i === undefined, input = $("#rx-input");
+    if (custom && this.rxComposing) return;
+    const text = custom ? normalizeReactionText(input?.value || "") : (Number.isInteger(i) ? REACTS[i]?.[1] : "");
+    if (!text) return;
+    this.rxAt = Date.now(); this.send(custom ? "react-text:" + text : "react:" + i);
+    if (custom) { this.rxDraft = ""; if (input) input.value = ""; this.updateReactionInput(); }
+    this.rxFeedback = custom ? `“${text}” sent` : text + " sent";
+    const feedback = $("#rx-feedback"); if (feedback) feedback.textContent = this.rxFeedback;
+    clearTimeout(this.rxFeedbackTimer);
+    // Updating status alone keeps the keyboard, caret, and any new draft intact.
+    this.rxFeedbackTimer = setTimeout(() => { this.rxFeedback = ""; const status = $("#rx-feedback"); if (status) status.textContent = ""; }, 2200);
+    vibrate(10);
+  },
   // Whoever starts the game can pause it from their phone too.
   renderFoot() {
     const H = this.host, live = this.joined && H && !["lobby", "end", "lb"].includes(H.ph) && !H.pause;
     const pause = live && H.vip === this.pid, far = live && H.sp && ["intro", "q", "qw", "qv"].includes(H.ph) && this.tooFarAt !== H.rk;
     // Reactions whenever this phone has nothing to do: reveals, scores, the title cards, and after locking in.
-    const idle = H && this.joined && this.me() && !H.pause && (["intro", "rev", "lb", "end"].includes(H.ph) || (["q", "qv", "fk-ans"].includes(H.ph) && this.g?.rk === H.rk) || (H.ph === "dw" && this.dr?.rk === H.rk) || H.ph === "imp-clue" || (H.ph === "q" && H.x === fnv(this.pid + H.rk)));
-    if (!idle) { this.rxOpen = false; this.rxFeedback = ""; }
-    const changed = paint($("#ph-foot"), [pause, far, !!idle, !!this.rxOpen, this.rxFeedback || ""].join(), (idle ? `<button id="rx-trigger" class="btn rx-trigger" data-act="rx-open" aria-haspopup="dialog" aria-expanded="${!!this.rxOpen}">React</button>
-      <p class="rx-feedback" role="status">${esc(this.rxFeedback || "")}</p>
-      <dialog id="rx-picker" class="rx-picker" aria-labelledby="rx-title"><header class="rx-heading"><h2 id="rx-title">Send a reaction</h2><button class="btn sm" data-act="rx-close" autofocus>Close</button></header>
-      <div class="rxbar">${REACTS.map(([e, w], i) => `<button data-act="react" data-i="${i}" aria-label="${esc(w)}">${e ? `<span aria-hidden="true">${e}</span>` : ""}<b>${esc(w)}</b></button>`).join("")}</div></dialog>` : "")
+    const idle = this.canReact();
+    if (!idle) { this.rxFeedback = ""; clearTimeout(this.rxFeedbackTimer); }
+    const changed = paint($("#ph-foot"), [pause, far, idle].join(), (idle ? `<section class="rx-compose" aria-label="Reactions"><div class="rx-label"><label for="rx-input">Your reaction</label><span id="rx-count" aria-hidden="true">0/${REACTION_MAX_CHARS}</span></div>
+      <form id="rx-form" class="rx-form"><input id="rx-input" placeholder="Say it your way…" value="${esc(this.rxDraft || "")}" maxlength="${REACTION_MAX_CHARS * 2}" autocomplete="off" enterkeyhint="send" aria-label="Your reaction, up to ${REACTION_MAX_CHARS} characters"><button id="rx-send" class="btn primary" type="submit" disabled>Send</button></form>
+      <div class="rxbar" role="group" aria-label="Quick reactions, swipe for more">${REACTS.map(([e, w], i) => `<button type="button" data-act="react" data-i="${i}" aria-label="${esc(w)}">${e ? `<span aria-hidden="true">${e}</span>` : ""}<b>${esc(w)}</b></button>`).join("")}</div>
+      <p id="rx-feedback" class="rx-feedback" role="status">${esc(this.rxFeedback || "")}</p></section>` : "")
       + (far ? `<button class="btn sm" data-act="toofar">Too far</button>` : "") + (pause ? `<button class="btn sm" data-act="pause">Pause game</button>` : ""));
-    if (changed && this.rxOpen) {
-      const picker = $("#rx-picker");
-      picker.oncancel = e => { e.preventDefault(); this.rxOpen = false; this.renderFoot(); $("#rx-trigger")?.focus(); };
-      picker.onclick = e => { if (e.target !== picker) return; const r = picker.getBoundingClientRect(); if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) { this.rxOpen = false; this.renderFoot(); $("#rx-trigger")?.focus(); } };
-      picker.showModal();
+    if (changed && idle) {
+      const input = $("#rx-input");
+      input.oninput = e => this.updateReactionInput(e.isComposing);
+      input.oncompositionend = () => this.updateReactionInput();
+      this.updateReactionInput();
     }
   },
   // Quips: this phone's prompts with a box for each. Sent answers are final.
@@ -5380,6 +5465,7 @@ app.addEventListener("change", e => {
 });
 app.addEventListener("submit", e => {
   e.preventDefault();
+  if (mode === "phone" && e.target.id === "rx-form") return PH.sendReaction();
   if (mode === "tv" && e.target.id === "tune-form") return TV.setTune($("#tune-in")?.value, null);
   if (mode === "phone" && e.target.id === "song-form") return PH.searchSongs();
   if (mode === "phone" && e.target.classList.contains("qa-form")) return PH.sendQuip(Number(e.target.dataset.i));
