@@ -1520,7 +1520,11 @@ const SHARE = {
   async chain(rv, names) {
     await this.fonts();
     const items = (rv.items || []).filter(it => it?.v), pics = await Promise.all(items.map(it => (it.k === "d" ? this.img(photoSrc(it.v)) : null)));
-    const W = 1080, pw = W - 140, ph = Math.round(pw * 0.75), H = 330 + 170 + items.reduce((n, it, k) => n + (it.k === "d" && pics[k] ? ph + 90 : 170), 0) + 260;
+    const W = 1080, pw = W - 140, ph = Math.round(pw * 0.75);
+    // Measure the text cards first, so the picture is exactly as tall as what's on it.
+    const m = document.createElement("canvas").getContext("2d"); m.font = "400 48px Bungee";
+    const tall = t => 100 + Math.min(2, this.wrap(m, t, pw - 60).length) * 56;
+    const H = 240 + tall(rv.p) + items.reduce((n, it, k) => n + (it.k === "g" ? tall(`“${it.v}”`) : pics[k] ? ph + 90 : 0), 0) + 250;
     const [c, x] = this.base(W, H);
     this.wordmark(x, 70, 130, 80);
     x.font = "700 34px 'Barlow Condensed'"; x.fillStyle = "#5A4630"; x.fillText("DRAW IT · HOW FAR DID IT DRIFT?", 70, 200);
