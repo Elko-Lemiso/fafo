@@ -251,6 +251,20 @@ Flags, maps and fonts work without internet; music, famous faces and artist phot
   `HOST_IP=192.168.1.23 npm start`. The startup message lists the other addresses it found.
 - **Port in use:** the server tries 3000, then 3001 and onwards. To choose one: `PORT=8080 npm start`.
 
+## Keeping an eye on it
+
+**One screen per room.** Only one screen can run a game. If the same room opens on a second screen or in another
+tab (or an old game gets reopened), that screen pauses with "Already open somewhere else" instead of fighting the
+first one, so phones never jump between two versions of the game. "Use this screen" moves the game there; the
+first screen then says it moved. A TV that reloads mid-round picks up where it was, with the answers already in.
+
+**The watcher** (`server/watch.js`) keeps a short log of what's going on: rooms, phases, players joining and
+leaving, commands like Start and Play again, second screens, TVs that reload mid-game, and errors from the pages.
+It never records names, answers, photos or anything typed; players show as a short tag. It lives in memory (the
+last few thousand events, gone on restart) and is also printed to the server's output (Railway's logs).
+Open `/watch` to see it live: on a laptop it's open, on a public server it needs `WATCH_KEY`
+(`/watch?key=…`). `/api/watch?key=…&code=ABCD` gives one room's log as JSON.
+
 ## Put it online (Railway)
 
 The `server` folder is self-contained, so you can also host the game at a public address.

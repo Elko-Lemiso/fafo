@@ -59,6 +59,9 @@ app.get("/vendor/qrcode.js", (req, res) => res.sendFile(path.join(MODULES, "qrco
 for (const f of ["bungee", "barlow", "barlow-condensed"]) {
   app.use(`/fonts/${f}`, express.static(path.join(MODULES, "@fontsource", f), { maxAge: "7d" }));
 }
+// The watcher (watch.js): a short log of what's going on in the games, at /watch.
+if (hosted) app.set("trust proxy", 1);
+const W = require("./watch")(app, express, { hosted });
 // Flag, map and famous-face rounds, and music.
 require("./quiz")(app, MODULES);
 require("./music")(app);
@@ -135,6 +138,7 @@ app.use((req, res) => res.status(404).type("text").send("Not found"));
 const server = http.createServer(app);
 const io = new Server(server, { pingInterval: 10000, pingTimeout: 15000, maxHttpBufferSize: 64 * 1024 });
 const clients = new Map(); // socket.id -> { sock, presence, at, sent }
+const owners = new Map(); // room code -> { sid, tid }: the connection and tab of the one TV running it
 
 function view(c) {
   const me = c.presence, tv = me?.role === "h", peers = [];
@@ -162,6 +166,23 @@ io.on("connection", sock => {
 
   sock.on("presence", p => {
     if (!p || typeof p !== "object" || Array.isArray(p) || JSON.stringify(p).length > MAX_PRESENCE) return;
+    // One screen runs each room. A second TV with the same room code (another tab, or an old game reopened) is told so
+    // and ignored, so phones never flip between two versions of the game. It can take over: then the first one is told.
+    // Each TV page sends a tab id (tid), so the same tab coming back on a new connection keeps its room.
+    if (p.role === "h" && isCode(p.code)) {
+      const own = owners.get(p.code), other = own && own.sid !== sock.id ? clients.get(own.sid) : null, same = own && typeof p.tid === "string" && own.tid === p.tid;
+      if (other && !same && !p.take) {
+        if (c.clash !== p.code) { c.clash = p.code; c.presence = null; sock.emit("clash", { code: p.code }); W.clash(p.code, "clash"); broadcast(); }
+        return;
+      }
+      if (other && same) other.presence = null; // this tab's old connection
+      else if (other) { other.sock.emit("taken", { code: p.code }); W.gone(other.presence); other.presence = null; W.clash(p.code, "takeover"); }
+      if (c.owns && c.owns !== p.code && owners.get(c.owns)?.sid === sock.id) owners.delete(c.owns);
+      owners.set(p.code, { sid: sock.id, tid: typeof p.tid === "string" ? p.tid.slice(0, 20) : "" }); c.owns = p.code; c.clash = null;
+    }
+    const prev = c.presence;
+    if (p.role === "h" && isCode(p.code)) W.tv(p, prev?.role === "h" ? prev : null);
+    else if (p.role === "p") W.phone(c, p, prev?.role === "p" ? prev : null);
     c.presence = p; c.at = Date.now();
     broadcast();
   });
@@ -185,7 +206,11 @@ io.on("connection", sock => {
     if (me?.role !== "h" || !msg || !isPid(msg.to) || JSON.stringify(msg.data ?? null).length > 2000) return;
     for (const o of clients.values()) if (o.presence?.role === "p" && o.presence.code === me.code && o.presence.pid === msg.to) o.sock.emit("whisper", msg.data);
   });
-  sock.on("disconnect", () => { clients.delete(sock.id); broadcast(); });
+  sock.on("disconnect", () => {
+    W.gone(c.presence);
+    if (c.owns && owners.get(c.owns)?.sid === sock.id) owners.delete(c.owns);
+    clients.delete(sock.id); broadcast();
+  });
 });
 
 // ---------- start ----------

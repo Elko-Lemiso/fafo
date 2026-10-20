@@ -5,3 +5,5 @@ node_modules/
 game.html
 # Takes downloaded by tools/make-music.js, before the loops are cut
 .music-raw/
+# The watcher key for the live server (see server/watch.js)
+.watch-key

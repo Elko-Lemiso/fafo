@@ -478,6 +478,7 @@ button{touch-action:manipulation}
 .pause-ov{position:fixed;top:0;right:0;bottom:0;left:0;z-index:20;display:grid;place-items:center;align-content:center;gap:2.4vmin;text-align:center;padding:4vmin;
   background:rgba(29,20,15,.86);color:var(--paper);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 .pause-ov[hidden]{display:none}
+.clash-ov{z-index:40}
 .pause-ov .eyebrow{color:var(--sun)}
 .pause-ov .big{font-family:var(--display);font-size:max(56px,17vmin);line-height:.9;color:var(--sun);animation:slam .5s cubic-bezier(.2,1.4,.4,1) both}
 .pause-ov .why{font-size:max(16px,3.2vmin);font-weight:700;max-width:38ch;line-height:1.35}
@@ -1150,6 +1151,9 @@ const SFX = {
 // Without the files (no internet, or a copy without them) the synth loop in SFX plays instead.
 const MUSIC_LEVEL = { lobby: 0.85, intro: 0.75, q: 0.62, qv: 0.62, qw: 0.5, dw: 0.5, rev: 0.75, lb: 0.85, end: 0.9, "imp-word": 0.55, "imp-clue": 0.32, "imp-talk": 0.36, "fk-ans": 0.5, "fk-talk": 0.36 };
 const MUSIC_GAIN = 0.47; // the whole soundtrack, so it sits under the host's voice
+// Decoded tracks take a lot of memory (about 20 MB each). Phones, tablets and small TVs keep fewer, so the browser
+// doesn't reload the page to free memory mid-game.
+const MUSIC_KEEP = (() => { try { return (navigator.deviceMemory && navigator.deviceMemory <= 4) || matchMedia("(pointer: coarse)").matches ? 2 : 4; } catch { return 4; } })();
 // Tracks carry on where they left off last time, so a night of questions doesn't hear the same opening bars over and
 // over. These two start from the top: they each come once.
 const FROM_TOP = ["final", "victory"];
@@ -1202,15 +1206,15 @@ const MUSIC = {
   },
   trim() {
     const need = new Set([...this.voices.map(v => v.id), this.want && this.want.id, ...this.keep]);
-    for (const id of [...this.bufs.keys()]) if (this.bufs.size > 4 && !need.has(id)) this.bufs.delete(id);
+    for (const id of [...this.bufs.keys()]) if (this.bufs.size > MUSIC_KEEP && !need.has(id)) this.bufs.delete(id);
   },
   // Gets the tracks likely to be wanted next ready, so a switch doesn't wait on the network or the decoder.
   warm(ids) {
-    this.keep = ids.filter(id => this.has(id));
+    this.keep = ids.filter(id => this.has(id)).slice(0, MUSIC_KEEP);
     if (!this.setup()) return;
     for (const id of this.keep) if (!this.bufs.has(id)) this.buffer(id).catch(() => {});
     // Once something is playing, fetch the rest (not decode: that waits until it's needed).
-    if (!this.fetchedAll && this.voices.length) { this.fetchedAll = true; for (const id of Object.keys(this.meta)) this.fetch(id).catch(() => {}); }
+    if (!this.fetchedAll && this.voices.length && MUSIC_KEEP > 2) { this.fetchedAll = true; for (const id of Object.keys(this.meta)) this.fetch(id).catch(() => {}); }
   },
   // What should play: { id, lvl, lp, drop } or null for silence. Called often; only what changed does anything.
   set(w) {
@@ -1650,12 +1654,32 @@ function openRoom() {
     // Something only one phone should see, like its secret word.
     whisper(to, data) { if (socket.connected) socket.emit("whisper", { to, data }); },
     onWhisper(cb) { socket.on("whisper", cb); },
+    // Another screen is already running this room (clash), or another screen took this room over (taken).
+    onClash(cb) { socket.on("clash", cb); },
+    onTaken(cb) { socket.on("taken", cb); },
   };
 }
+
+// ---------- reporting: errors on the page, and TVs that reload mid-game, go to the server's watcher (watch.js) ----------
+// Only what's needed to spot a problem: what happened, the room, the phase. Never names or answers.
+const report = (() => {
+  let n = 0;
+  return (ev, data = {}) => {
+    if (++n > 15) return;
+    const H = mode === "tv" ? TV.H : PH.host;
+    const body = JSON.stringify({ ev, mode, code: mode === "tv" ? TV.H?.code : PH.code, ph: H?.ph, r: H?.r, ...data });
+    try { navigator.sendBeacon?.("/api/log", new Blob([body], { type: "application/json" })) || fetch("/api/log", { method: "POST", headers: { "Content-Type": "application/json" }, body, keepalive: true }).catch(() => {}); } catch {}
+  };
+})();
+addEventListener("error", e => report("error", { msg: String(e.message || "").slice(0, 200), src: String(e.filename || "").split("/").pop(), line: e.lineno }));
+addEventListener("unhandledrejection", e => report("error", { msg: "Unhandled: " + String(e.reason?.message || e.reason || "").slice(0, 180) }));
+// Each TV tab has its own id, kept across reloads of that tab, so the server can tell a reconnect from a second screen.
+const TV_TID = (() => { try { return sessionStorage.getItem("wiw.tid") || (sessionStorage.setItem("wiw.tid", "t" + rid(8)), sessionStorage.getItem("wiw.tid")); } catch { return "t" + rid(8); } })();
 
 let mode = null;
 // Smart TVs and streaming sticks (Samsung, LG, Sony, Android TV, Google TV, Fire TV, Chromecast, Hisense…). They open
 // straight into TV mode and get a clear outline on whatever the remote has selected.
+const PHONE_LIKE = (() => { try { return matchMedia("(pointer: coarse)").matches && Math.min(screen.width, screen.height) < 600; } catch { return false; } })();
 const ON_TV = /SMART-?TV|SmartTV|Tizen|Web0S|webOS|NetCast|BRAVIA|HbbTV|VIDAA|\bAFT[A-Z]|Android TV|GoogleTV|Google TV|CrKey|Roku/i.test(navigator.userAgent);
 if (ON_TV) document.documentElement.classList.add("on-tv");
 const room = openRoom(), roomState = room ? "ok" : "none";
@@ -1700,6 +1724,7 @@ const TV = {
       <div class="pause-ov" id="pause-ov" hidden></div>
       <div class="caption" id="caption" role="status" aria-live="polite" hidden></div>
       <div class="reacts" id="reacts" aria-hidden="true"></div>
+      <div class="pause-ov clash-ov" id="clash-ov" hidden></div>
     </div>`;
     this.audio = new Audio(); this.audio.preload = "auto";
     this.audio.addEventListener("error", () => this.clipError());
@@ -1719,6 +1744,7 @@ const TV = {
     if (roomState === "ok") this.onRoom();
     setInterval(() => this.tick(), 200);
     document.addEventListener("keydown", e => this.key(e));
+    report(this.revived ? "tv-reload" : "tv-fresh", this.revived ? { msg: "picked up at " + this.revived } : {});
     wake();
   },
   fresh() {
@@ -1736,14 +1762,25 @@ const TV = {
     if (typeof H.cur === "string") H.cur = { t: "photo", id: H.cur };
     for (const id of Object.keys(H.photos)) if (!H.photos[id]?.src) delete H.photos[id];
     for (const p of Object.values(H.players)) { p.online = false; p.seen = now; p.sending = 0; p.photos = (p.photos || []).filter(id => H.photos[id]); }
-    if (H.ph === "q" || H.ph === "intro" || H.ph === "qw" || H.ph === "qv" || SECRET_PHASES.includes(H.ph)) { H.ph = "intro"; H.guesses = {}; H.phaseEnds = now + INTRO_SECS * 1000; }
+    // A TV that reloads mid-round picks up where it was: the same step, the answers already in, and at least 10 seconds
+    // on the clock. Song rounds go back to their title card so the clip plays from the top.
+    const clip = H.cur && (H.cur.t === "song" || H.cur.t === "tune");
+    this.revived = H.ph !== "lobby" && H.ph !== "end" ? H.ph : null;
+    if (["q", "qw", "qv", "dw", ...SECRET_PHASES].includes(H.ph) && !clip) {
+      if (H.phaseEnds) {
+        const ends = now + Math.max(10000, H.phaseEnds - (s.savedAt || now)), shift = ends - H.phaseEnds;
+        H.phaseEnds = ends;
+        if (H.ph === "q") { H.qStart += shift; for (const g of Object.values(H.guesses || {})) g.t += shift; }
+      }
+    } else if (["q", "intro", "qw", "qv", "dw", ...SECRET_PHASES].includes(H.ph)) { H.ph = "intro"; H.guesses = {}; H.phaseEnds = now + INTRO_SECS * 1000; }
     else if (H.ph === "rev" || H.ph === "lb") H.phaseEnds = now + 2000;
     return H;
   },
   save() {
     clearTimeout(this.saveT);
+    if (this.blocked) return;
     this.saveT = setTimeout(() => {
-      const H = { ...this.H, savedAt: Date.now() };
+      const H = { ...this.H, savedAt: this.lastSaved = Date.now() };
       if (store.set("wiw.host", H)) return;
       const players = {}; for (const [k, p] of Object.entries(H.players)) players[k] = { ...p, photos: [] };
       store.set("wiw.host", { ...H, players, photos: {} });
@@ -1753,10 +1790,34 @@ const TV = {
   onRoom() {
     if (!room) return this.render();
     room.onPeers(ch => { this.peers = ch.peers; this.sync(ch.peers); });
+    room.onClash?.(d => { if (d?.code === this.H.code) this.block("clash"); });
+    room.onTaken?.(d => { if (d?.code === this.H.code) this.block("taken"); });
     room.onConnection(c => { this.connected = c; this.renderStatus(); if (c) this.checkPhotos(); });
     this.connected = room.connected();
     this.push(true);
     this.render();
+  },
+  // Another screen runs this room (clash), or took it over (taken). This one stops: no clock, no saving, no sound, and
+  // says so, with a button to make this the screen after all.
+  block(kind) {
+    if (this.blocked === kind) return;
+    this.blocked = kind;
+    this.audio?.pause(); VOICE.stop(); MUSIC.set(null); SFX.setMood("off");
+    const el = $("#clash-ov");
+    if (el) {
+      el.hidden = false;
+      el.innerHTML = `<p class="eyebrow">Room ${esc(this.H.code)}</p><h2 class="big">${kind === "taken" ? "Moved to another screen" : "Already open somewhere else"}</h2>
+        <p class="why">${kind === "taken" ? "Someone opened this game on another screen, so this one stopped. Phones follow the other screen now." : "This room is already running on another screen or in another tab. Only one screen can run a game, so this one is paused to keep the phones from jumping between the two."}</p>
+        <div class="hostbar"><button class="btn primary" data-act="take-over">Use this screen</button><button class="btn sm" data-act="clash-new">Start a new room here</button></div>`;
+    }
+  },
+  takeOver() {
+    // Same browser: the other tab saved the latest game, so carry on from that.
+    const s = store.get("wiw.host");
+    if (s && s.code === this.H.code && (s.savedAt || 0) > (this.lastSaved || 0)) { this.H = this.revive(s); for (const p of Object.values(this.H.players)) setAV(p.pid, p.av); }
+    this.blocked = null; this.take = true;
+    const el = $("#clash-ov"); if (el) el.hidden = true;
+    this.lastBody = ""; this.render(); this.push(true);
   },
   // After a reconnect, forget photos the server no longer has (it keeps them in memory only).
   async checkPhotos() {
@@ -1818,6 +1879,7 @@ const TV = {
   },
 
   sync(peers) {
+    if (this.blocked) return;
     const H = this.H, now = Date.now(), seen = new Set();
     let changed = false, clueDone = false;
     for (const peer of peers) {
@@ -3188,6 +3250,7 @@ const TV = {
 
   tick() {
     const H = this.H, now = Date.now();
+    if (this.blocked) return;
     if (H.pause) {
       const p = H.pause;
       if (p.cd) {
@@ -3255,10 +3318,10 @@ const TV = {
   },
 
   push(force) {
-    if (!room || roomState !== "ok") return;
+    if (!room || roomState !== "ok" || this.blocked) return;
     const H = this.H, now = Date.now();
     const pres = {
-      app: APP, role: "h", code: H.code, gid: H.gid, ph: H.ph, r: H.r, R: H.R, rk: H.rk || null,
+      app: APP, role: "h", code: H.code, tid: TV_TID, take: this.take ? 1 : undefined, gid: H.gid, ph: H.ph, r: H.r, R: H.R, rk: H.rk || null,
       pl: this.players().map(p => [p.pid, p.name, p.color, p.score, p.online ? 1 : 0, p.photos, p.songs || [], p.av || ""]),
       kind: H.cur?.t || null, th: themeOf(H).label, ih: H.ph === "intro" && H.introHow && H.introHow === H.cur?.t ? 1 : 0,
       imp: this.isImp() && ["intro", ...IMP_PHASES, "q", "rev"].includes(H.ph) ? { cat: H.cur.cat, sp: H.ph === "imp-clue" ? H.cur.order[H.turn] : null, turn: H.turn || 0, n: H.cur.order.length, none: H.impVar === "none" ? 1 : 0 } : null,
@@ -3293,11 +3356,12 @@ const TV = {
     const body = JSON.stringify(pres);
     if (!force && body === this.lastBody && now - this.lastPush < 1000) return;
     pres.left = H.phaseEnds ? Math.max(0, Math.round((H.phaseEnds - (H.pause ? H.pause.at : now)) / 100) / 10) : null;
-    this.lastBody = body; this.lastPush = now;
+    this.lastBody = body; this.lastPush = now; this.take = false;
     room.presence(pres).catch(e => console.warn("presence", e));
   },
 
   key(e) {
+    if (this.blocked) return;
     if (e.key === "Escape" && this.settingsOpen) { e.preventDefault(); return this.openSettings(false); }
     if (e.target.closest?.("input,textarea,button,select")) return;
     const H = this.H, ph = H.ph;
@@ -3325,6 +3389,8 @@ const TV = {
     else if (a === "end-game") { this.unpause(); this.go("end"); }
     else if (a === "again") this.playAgain();
     else if (a === "new-room") { this.settingsOpen = false; this.newRoom(); }
+    else if (a === "take-over") this.takeOver();
+    else if (a === "clash-new") { $("#clash-ov").hidden = true; this.blocked = null; this.newRoom(); }
     else if (a === "exit") { store.del("wiw.mode"); location.href = "/"; }
     else if (a === "full") { if (document.fullscreenElement) document.exitFullscreen?.().catch(() => {}); else document.documentElement.requestFullscreen?.().catch(() => {}); }
     else if (a === "add-photo") { this.addFor = el.dataset.pid; fileIn.value = ""; fileIn.click(); }
@@ -5251,7 +5317,8 @@ document.addEventListener("error", e => {
 const last = store.get("wiw.mode");
 if (location.pathname === "/tv") TV.start();
 else if (hashCode) PH.start();
-else if (last && Date.now() - (last.at || 0) < 4 * 3600e3 && (last.m === "tv" || last.m === "phone")) (last.m === "tv" ? TV : PH).start();
+// A phone that was once the TV doesn't reopen the TV by itself (it would bring back that old game); it asks instead.
+else if (last && Date.now() - (last.at || 0) < 4 * 3600e3 && (last.m === "phone" || (last.m === "tv" && !PHONE_LIKE))) (last.m === "tv" ? TV : PH).start();
 else if (ON_TV) TV.start();
 else renderLanding();
 })();
