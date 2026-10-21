@@ -89,6 +89,15 @@ tapped quickly. The same rounds and settings are under **Rounds & settings** on 
 - **Categories:** a category and a letter ("A fruit or vegetable", P). Everyone types an answer; answers that start
   with the letter and that nobody else wrote score 500. Two the same cancel out. The phone warns once if your
   answer starts with the wrong letter. Categories are in `server/data/cats.json`, with a `wild` list. Works with 2.
+- **Quick draw:** every phone goes dark, then says DRAW! a few seconds later. Tap as fast as you can. The time is
+  measured on the phone itself, from the moment DRAW shows to the moment the finger lands, so slow Wi-Fi doesn't
+  decide it. Tap too early and you miss that draw; from the second draw on, a fake word (DRAMA, DRAWER, DRACULA…)
+  usually flashes first. Three draws a round; the fastest taps score 500, 300 and 150. The TV shows everyone's time.
+  Works with 2 players.
+- **Hot potato:** a bomb with a secret fuse goes round the room. The TV shows a category ("A fruit or vegetable");
+  whoever holds the bomb says one out loud (no repeats), then passes it to someone on their phone (not straight back).
+  When it blows, everyone else scores 300 and whoever passed it last 200 more. Three bombs a round, each with a new
+  category from `server/data/cats.json`. There's no clock on the TV or the phones. Needs 3 players.
 - **Lowest number wins:** everyone secretly picks a number from 1 to 10 on their phone. Numbers more than one player
   picked are knocked out, and the lowest number left wins. Three goes a round, worth 300, 600 and 1,000. The reveal
   shows who picked what, crosses out the clashes and lights up the winner. Needs 3 players.

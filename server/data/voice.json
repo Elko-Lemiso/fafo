@@ -362,6 +362,20 @@
     { "id": "cats-win-1", "ev": "cats-win", "t": "Original thinkers! Points for you!" },
     { "id": "cats-win-2", "ev": "cats-win", "t": "Nobody else thought of that! Nice!" },
     { "id": "cats-none-1", "ev": "cats-none", "t": "You all wrote the same thing! Nobody scores!" },
-    { "id": "cats-none-2", "ev": "cats-none", "t": "Zero points! Be more creative!" }
+    { "id": "cats-none-2", "ev": "cats-none", "t": "Zero points! Be more creative!" },
+    { "id": "intro-quick-1", "ev": "intro-quick", "t": "Quick draw! Eyes on your phone, partner. Don't shoot early!" },
+    { "id": "intro-quick-2", "ev": "intro-quick", "t": "It's a showdown! Fastest finger in the room wins!" },
+    { "id": "intro-quick-3", "ev": "intro-quick", "t": "Quick draw! Wait for it... wait for it..." },
+    { "id": "quick-win-1", "ev": "quick-win", "t": "Fastest finger in the west!" },
+    { "id": "quick-win-2", "ev": "quick-win", "t": "Now that's a quick draw!" },
+    { "id": "quick-win-3", "ev": "quick-win", "t": "Blink and you missed it!" },
+    { "id": "quick-foul-1", "ev": "quick-foul", "t": "You all shot too early! Read the screen!" },
+    { "id": "quick-foul-2", "ev": "quick-foul", "t": "Nobody waited! Twitchy bunch!" },
+    { "id": "intro-potato-1", "ev": "intro-potato", "t": "Hot potato! Say something, pass the bomb, and pray!" },
+    { "id": "intro-potato-2", "ev": "intro-potato", "t": "Here comes the bomb! Don't be holding it when it blows!" },
+    { "id": "intro-potato-3", "ev": "intro-potato", "t": "Hot potato! Talk fast, pass faster!" },
+    { "id": "potato-boom-1", "ev": "potato-boom", "t": "Boom! Too slow!" },
+    { "id": "potato-boom-2", "ev": "potato-boom", "t": "Kaboom! Someone's toast!" },
+    { "id": "potato-boom-3", "ev": "potato-boom", "t": "And it blows! Should have passed it faster!" }
   ]
 }
