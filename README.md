@@ -109,6 +109,17 @@ tapped quickly. The same rounds and settings are under **Rounds & settings** on 
   tap it on your phone. The time counts from when the grid shows on your phone, and a wrong tap freezes it for a
   second. Three grids a round (4×4, 5×5, 6×6), the later ones with pairs that look nearly the same. The fastest
   three score 500, 300 and 150. Works with 2 players.
+- **Simon says:** an order on the TV and every phone ("Simon says tap blue"), with four colour buttons. Only obey
+  when it starts with Simon says; from the third order the word's colour can lie (BLUE printed in red). Get one wrong,
+  or don't tap when Simon said, and you're out; if everyone slips, nobody is. Eight orders, each a bit faster. 100 an
+  order, and 500 for the last one standing (300 each if several make it to the end). Works with 2 players.
+- **Count up:** the room counts to a target (three per player, 10 to 30) together, one tap at a time, without
+  talking. Two taps within 0.7 seconds of each other crash it back to zero, and nobody can tap twice in a row. Everyone
+  scores 25 for every number in the best run, and 250 more if the room gets there. Needs 3 players.
+- **Act it out:** charades. One player acts each round; their phone gets a word ("Riding a boda boda", "Titanic")
+  and they act it out without talking while the room shouts guesses. They tap Got it and then who guessed it, or
+  Pass. 200 each to the actor and the guesser for every word got. The TV lists each word once it's got or passed.
+  Prompts are in `server/data/act.json`, with a `wild` list for No holds barred. Needs 3 players.
 - **Lowest number wins:** everyone secretly picks a number from 1 to 10 on their phone. Numbers more than one player
   picked are knocked out, and the lowest number left wins. Three goes a round, worth 300, 600 and 1,000. The reveal
   shows who picked what, crosses out the clashes and lights up the winner. Needs 3 players.

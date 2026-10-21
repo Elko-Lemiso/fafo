@@ -390,6 +390,25 @@
     { "id": "intro-spot-1", "ev": "intro-spot", "t": "Spot it! Find the odd one out!" },
     { "id": "intro-spot-2", "ev": "intro-spot", "t": "Eyes sharp! One of these is not like the others!" },
     { "id": "spot-win-1", "ev": "spot-win", "t": "Eagle eyes!" },
-    { "id": "spot-win-2", "ev": "spot-win", "t": "Spotted it! Too quick!" }
+    { "id": "spot-win-2", "ev": "spot-win", "t": "Spotted it! Too quick!" },
+    { "id": "intro-simon-1", "ev": "intro-simon", "t": "Simon says: get your phones out! Only when Simon says!" },
+    { "id": "intro-simon-2", "ev": "intro-simon", "t": "Simon says... play Simon says!" },
+    { "id": "simon-out-1", "ev": "simon-out", "t": "Gotcha! Simon didn't say!" },
+    { "id": "simon-out-2", "ev": "simon-out", "t": "Out! Listen to Simon!" },
+    { "id": "simon-end-1", "ev": "simon-end", "t": "Simon is impressed!" },
+    { "id": "simon-end-2", "ev": "simon-end", "t": "And we have our survivors!" },
+    { "id": "intro-count-1", "ev": "intro-count", "t": "Count up! One tap each, no talking, and don't tap at the same time!" },
+    { "id": "intro-count-2", "ev": "intro-count", "t": "Time to read each other's minds. Count together. No talking!" },
+    { "id": "count-win-1", "ev": "count-win", "t": "You did it! Telepathy!" },
+    { "id": "count-win-2", "ev": "count-win", "t": "Perfect teamwork! I'm shocked!" },
+    { "id": "count-crash-1", "ev": "count-crash", "t": "Crash! Back to zero!" },
+    { "id": "count-crash-2", "ev": "count-crash", "t": "So close, and yet so many crashes." },
+    { "id": "intro-act-1", "ev": "intro-act", "t": "Act it out! No talking, just your body!" },
+    { "id": "intro-act-2", "ev": "intro-act", "t": "Charades time! Shout those guesses!" },
+    { "id": "intro-act-3", "ev": "intro-act", "t": "Lights, camera, act it out!" },
+    { "id": "act-great-1", "ev": "act-great", "t": "Give that actor an Oscar!" },
+    { "id": "act-great-2", "ev": "act-great", "t": "What a performance!" },
+    { "id": "act-some-1", "ev": "act-some", "t": "Not bad! A few got there." },
+    { "id": "act-none-1", "ev": "act-none", "t": "Not a single one! Was that even acting?" }
   ]
 }

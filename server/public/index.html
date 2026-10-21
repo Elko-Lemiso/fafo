@@ -787,6 +787,55 @@ button{touch-action:manipulation}
 .spad2.locked{opacity:.35;pointer-events:none}
 .spc{display:grid;place-items:center;aspect-ratio:1;padding:0;background:var(--paper);border:2px solid var(--ink);border-radius:10px;font-family:var(--display);font-size:calc((min(100vw,480px) - 90px) / var(--n) * .55);line-height:1;color:var(--ink);cursor:pointer;touch-action:manipulation;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
 .spc.wrong{background:var(--tomato);color:var(--paper)}
+/* Simon says, Count up, Act it out */
+.simon,.count{height:100%;display:flex;flex-direction:column;justify-content:center;gap:2.4vmin;max-width:1500px;margin:0 auto;width:100%}
+.simon-o{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 2.4vmin;font-family:var(--display);font-size:max(36px,9vmin);line-height:1.05;margin:0}
+.simon-o .ss{width:100%;font-size:.55em;color:var(--ink-soft)}
+.simon-o b{font-weight:400;font-size:1.5em;-webkit-text-stroke:.03em var(--ink);paint-order:stroke fill}
+.simon .slist li.dead{opacity:.45;text-decoration:line-through}
+.simon.rev .lede{font-size:max(15px,2.6vmin);margin:0}
+.cuwrap{display:flex;align-items:center;gap:5vmin}
+.cunum{font-family:var(--display);font-size:max(110px,30vmin);line-height:.9;min-width:1.2em;animation:pop .3s cubic-bezier(.3,1.6,.5,1) both}
+.count.crashed .cunum{color:var(--tomato);animation:pop .3s both,shake .5s both}
+.cuside{display:flex;flex-direction:column;gap:.6vmin}
+.cuside b{font-family:var(--display);font-weight:400;font-size:max(30px,7vmin);line-height:1}
+.cuwho{display:flex;align-items:center;gap:1vmin;font-weight:800;font-size:max(18px,3.4vmin);margin:0}
+.cuwho .avatar{font-size:.85em}
+.count.crashed .cuwho{color:var(--tomato)}
+.count .lede{max-width:52ch;font-size:max(15px,2.4vmin);margin:0}
+.act{height:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:5vmin;align-items:center;max-width:1500px;margin:0 auto;width:100%}
+.aleft{display:flex;flex-direction:column;gap:2.2vmin;min-width:0}
+.awho{display:flex;align-items:center;gap:1.6vmin;margin:0}
+.awho .avatar{font-size:max(20px,4.4vmin)}
+.awho b{font-family:var(--display);font-weight:400;font-size:max(24px,5.4vmin);line-height:1}
+.awho em{font-style:normal;font-family:var(--label);font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-soft);font-size:max(13px,2.4vmin)}
+.act .lede{font-size:max(15px,2.5vmin);margin:0}
+.agot{display:flex;align-items:baseline;gap:1vmin}
+.agot b{font-family:var(--display);font-weight:400;font-size:max(40px,10vmin);line-height:1}
+.agot span{font-weight:800;font-size:max(16px,3vmin)}
+.alog{display:flex;flex-direction:column;gap:1vmin}
+.alog li{display:flex;align-items:center;gap:1.2vmin;background:var(--paper);border:3px solid var(--ink);border-radius:1.4vmin;padding:1vmin 1.6vmin;font-weight:800;font-size:max(15px,2.7vmin);animation:rise .35s both}
+.alog li>.w{flex:1;min-width:0}
+.alog.two{display:grid;grid-template-columns:1fr 1fr}
+.alog.two li{font-size:max(12px,2vmin);padding:.7vmin 1.2vmin}
+.act.rev .aright{max-height:82vh;overflow:hidden}
+.alog li.got{background:var(--mint);color:var(--paper)}
+.alog li.pass{opacity:.6}
+.alog li i{font-style:normal;font-family:var(--label);text-transform:uppercase;letter-spacing:.08em;font-size:.7em}
+.alog .avatar{font-size:.8em;border-width:2px}
+.smbtns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.smb{min-height:110px;border:3px solid var(--ink);border-radius:18px;box-shadow:0 5px 0 var(--ink);color:var(--paper);font-family:var(--display);font-size:24px;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.smb:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.simon-p{font-family:var(--display);font-size:30px;line-height:1.1;margin:4px 0 0}
+.simon-p .ss{display:block;font-size:.6em;color:var(--ink-soft)}
+.simon-p b{font-weight:400;font-size:1.35em;-webkit-text-stroke:1px var(--ink);paint-order:stroke fill}
+.qpad.cu-mine{background:var(--ink-soft);color:var(--paper)}
+.qpad.cu-go{background:var(--mint);color:var(--paper)}
+.qpad.cu-crash{background:var(--tomato);color:var(--paper)}
+.qpad.cu-go b,.qpad.cu-mine b,.qpad.cu-crash b{font-size:88px}
+.actw{font-family:var(--display);font-size:clamp(30px,10vw,46px);line-height:1.05;text-align:center;margin:10px 0 16px;overflow-wrap:anywhere}
+.actbtns{display:grid;grid-template-columns:1.4fr 1fr;gap:10px}
+.actbtns .cashb{min-height:96px}
 /* Herd mind, Showdown, Who's older */
 .hgrps{display:flex;flex-wrap:wrap;gap:1.4vmin;justify-content:center}
 .hgrp{position:relative;display:flex;flex-direction:column;align-items:center;gap:1vmin;background:var(--paper);border:3px solid var(--ink);border-radius:1.6vmin;box-shadow:0 .7vmin 0 var(--ink);padding:1.4vmin 2.2vmin;min-width:18vmin;max-width:42vmin;animation:pop .4s calc(.3s + var(--i) * .25s) cubic-bezier(.3,1.6,.5,1) both}
@@ -976,15 +1025,15 @@ const COLORS = ["#D93A26","#2342C6","#11704F","#7339D6","#C42F78","#0B7584","#B5
 const CODE_CHARS = "ABCDEFGHJKMNPQRSTUVWXYZ";
 // Kinds of round. Photo games play every photo; flag and map rounds come in sets of ROUNDS (fewer when mixed).
 const ROUNDS = 10, SONGS_PER_PLAYER = 3;
-const MODES = ["photo", "song", "prof", "said", "ttl", "hot", "quip", "bluff", "draw", "meld", "tune", "face", "flag", "map", "cap", "big", "trivia", "buzz", "num", "year", "hilo", "odd", "emoji", "imp", "fakin", "split", "low", "shot", "herd", "rps", "cash", "quick", "potato", "pump", "tug", "spot", "cats", "older", "likely", "wyr", "nhie"];
+const MODES = ["photo", "song", "prof", "said", "ttl", "hot", "quip", "bluff", "draw", "meld", "tune", "face", "flag", "map", "cap", "big", "trivia", "buzz", "num", "year", "hilo", "odd", "emoji", "imp", "fakin", "split", "low", "shot", "herd", "rps", "cash", "quick", "potato", "pump", "tug", "spot", "simon", "count", "act", "cats", "older", "likely", "wyr", "nhie"];
 // Owner rounds show something a player brought, and everyone guesses which player. The rest are quiz rounds with 4 answers.
 const OWNER_KINDS = ["photo", "song", "prof"];
 // Rounds where you answer by picking a player rather than one of 4 answers.
 const PLAYER_KINDS = ["photo", "song", "prof", "imp", "fakin", "likely"];
 // Modes that need at least 3 players to make sense.
-const CROWD_KINDS = ["prof", "said", "quip", "bluff", "draw", "imp", "fakin", "low", "herd", "potato", "likely", "wyr", "nhie"];
+const CROWD_KINDS = ["prof", "said", "quip", "bluff", "draw", "imp", "fakin", "low", "herd", "potato", "count", "act", "likely", "wyr", "nhie"];
 // Modes that work with 2 players.
-const PAIR_KINDS = ["ttl", "meld", "hot", "split", "shot", "rps", "cash", "cats", "quick", "pump", "tug", "spot"];
+const PAIR_KINDS = ["ttl", "meld", "hot", "split", "shot", "rps", "cash", "cats", "quick", "pump", "tug", "spot", "simon"];
 // What each mode is, for the pickers: an icon, a one-line pitch, what kind of game it is, how a round goes, and how it scores.
 const QUIZ_SCORE = "500 to 1,000 for a right answer. The faster you are, the more you get.";
 const MODE_CARD = {
@@ -1011,6 +1060,9 @@ const MODE_CARD = {
   pump: { i: "🎈", tag: "Fast hands · Nerve", blurb: "Pump up your balloon for points. Bank it before it pops. Everyone's pops at a different size.", how: ["Tap Pump to blow up your balloon: 25 points a pump", "Tap Bank it to keep what you've got", "Pump past its secret size and it pops: nothing"], score: "25 for every pump on a balloon you bank. A popped balloon scores nothing. Three balloons." },
   tug: { i: "🪢", tag: "Fast hands · Teams", blurb: "Two teams, one rope. Tap your phone as fast as you can to pull.", how: ["The room splits into Red and Blue", "When it says PULL, tap your phone like mad", "The team that pulls hardest wins. Best of three pulls"], score: "300 each for the team that wins a pull, and 100 more for the fastest tapper." },
   spot: { i: "🔍", tag: "Fast hands · Eyes", blurb: "A grid full of one letter, with one odd one out. Find it first.", how: ["A grid of letters appears on your phone and the TV", "One of them is different. Tap it", "A wrong tap freezes you for a second. Three grids, each bigger"], score: "500, 300 and 150 for the fastest to find it." },
+  simon: { i: "🚦", tag: "Fast hands", blurb: "Simon says tap blue. Tap red! Gotcha. Only do it when Simon says.", how: ["The TV and your phone give an order: tap a colour", "Only do it if it starts with Simon says. The word's colour can lie", "Get it wrong and you're out. Last one standing wins"], score: "100 for every order you get right, and 500 for the last one standing (300 each if several make it to the end)." },
+  count: { i: "🔢", tag: "Team · No talking", blurb: "Count to 20 together, one tap at a time. Two taps at once and it crashes back to zero.", how: ["Anyone can tap +1 on their phone. No talking, no planning", "If two of you tap at the same moment, it crashes to zero", "You can't tap twice in a row. Reach the target together"], score: "25 each for every number in your best run, and 250 each if you reach the target." },
+  act: { i: "🎭", tag: "Perform · Guess", blurb: "Charades. Your phone shows a word; act it out without talking while the room shouts guesses.", how: ["One player acts each round. Their phone shows the word", "No talking! The room shouts guesses", "Got it? The actor taps who guessed it. Pass if it's too hard"], score: "200 to the actor and 200 to the guesser for every word got." },
   cats: { i: "🔤", tag: "Write · Quick", blurb: "A category and a letter. Write something nobody else will think of.", how: ["Something in a kitchen, starting with B", "Type an answer on your phone", "Answers nobody else wrote score. Two the same cancel out"], score: "500 for an answer nobody else wrote that starts with the letter. Same as someone else, or the wrong letter: nothing." },
   older: { i: "🎂", tag: "Quiz", blurb: "Two famous faces. Who's older? Closer than you think.", how: ["Two famous people appear", "Pick the one born first", "The reveal shows both birth years"], score: QUIZ_SCORE },
   low: { i: "🎯", tag: "Mind games", blurb: "Everyone secretly picks a number from 1 to 10. The lowest number nobody else picked wins.", how: ["Pick a number from 1 to 10 in secret", "Numbers two people picked are knocked out", "The lowest number left wins. Three goes, the stakes go up"], score: "The winner takes 300, then 600, then 1,000. Nobody left standing? Nobody scores." },
@@ -1050,6 +1102,7 @@ const modeNeeds = m => [CROWD_KINDS.includes(m) ? 3 : PAIR_KINDS.includes(m) || 
 // One-tap sets of rounds for a kind of night. Picking one replaces the current rounds.
 const PRESETS = [
   ["party", "Party starter", ["trivia", "likely", "split", "low", "shot"]],
+  ["loud", "Fast and loud", ["quick", "potato", "pump", "tug", "spot", "simon"]],
   ["know", "Get to know you", ["prof", "said", "ttl", "hot", "likely", "nhie"]],
   ["chaos", "Party chaos", ["quip", "draw", "fakin", "imp", "split", "low", "likely", "wyr"]],
   ["quiz", "Quiz night", ["trivia", "buzz", "flag", "cap", "year", "hilo", "odd"]],
@@ -1059,11 +1112,11 @@ const PRESETS = [
 ].map(([id, label, list]) => ({ id, label, modes: MODES.filter(m => list.includes(m)) }));
 // How the round picker groups the modes in the TV's settings. Anything not listed here shows under "More".
 const MODE_GROUPS = [
-  ["About you", ["photo", "song", "prof", "said", "ttl", "hot", "meld", "likely", "wyr", "nhie"]],
+  ["About you", ["photo", "song", "prof", "said", "ttl", "hot", "meld", "likely", "wyr", "nhie", "act"]],
   ["Write and bluff", ["quip", "bluff", "draw", "cats", "capt"]],
   ["Secret roles", ["imp", "fakin"]],
   ["Mind games", ["split", "low", "shot", "herd", "rps", "cash"]],
-  ["Fast hands", ["quick", "potato", "pump", "tug", "spot"]],
+  ["Fast hands", ["quick", "potato", "pump", "tug", "spot", "simon", "count"]],
   ["Quiz", ["tune", "face", "older", "flag", "map", "cap", "big", "trivia", "buzz", "num", "year", "hilo", "odd", "emoji"]],
 ];
 // Rounds with no right answer: Would you rather (score for siding with the room) and Never have I ever (just for fun).
@@ -1136,8 +1189,17 @@ const SPOT_SECS = 25, SPOT_SIZES = [4, 5, 6], SPOT_PTS = [500, 300, 150];
 // The first grid uses an easier pair; the bigger ones, pairs that look nearly the same.
 const SPOT_EASY = [["6", "8"], ["H", "N"], ["W", "M"], ["T", "I"], ["K", "X"], ["2", "Z"], ["5", "S"], ["A", "4"]];
 const SPOT_HARD = [["O", "Q"], ["3", "8"], ["B", "8"], ["E", "F"], ["P", "R"], ["C", "G"], ["U", "V"], ["M", "N"], ["D", "O"], ["0", "O"]];
+// Simon says: an order each step ("Simon says tap blue"). Only obey when Simon says; from the third order the word's
+// colour can lie. Wrong, or slow when Simon said, and you're out. If everyone gets one wrong, nobody's out.
+const SIMON = [["Red", "#D93A26"], ["Blue", "#2342C6"], ["Green", "#11704F"], ["Yellow", "#EBA61A"]];
+const SIMON_STEPS = 8, SIMON_SECS = [4, 4, 3.5, 3.5, 3, 3, 2.6, 2.6], SIMON_PTS = 100, SIMON_LAST = 500, SIMON_END = 300;
+// Count up: the room counts to a target together, one tap each. Two taps within COUNT_CLASH ms of each other crash
+// it back to zero, and nobody can tap twice in a row.
+const COUNT_SECS = 50, COUNT_CLASH = 700, COUNT_PTS = 25, COUNT_WIN = 250;
+// Act it out: charades. The actor's phone gets each word in a whisper; they tap Got it (and who guessed) or Pass.
+const ACT_SECS = 50, ACT_PTS = 200;
 // Rounds where phones send running counts while the round is live, rather than one answer.
-const LIVE_KINDS = ["pump", "tug"];
+const LIVE_KINDS = ["pump", "tug", "count"];
 // Reactions: any phone can throw these onto the TV while it waits. Words stand in for the emoji on TVs that can't show emoji.
 const REACTS = [["😂", "LOL"], ["🔥", "FIRE"], ["😱", "OMG"], ["👏", "CLAP"], ["💀", "DEAD"], ["🍻", "CHEERS"], ["", "BOO!"], ["", "TOO EASY"]];
 // Twists (Rounds & settings, on by default): now and then a round gets a twist, announced on its title card. Never the
@@ -1158,8 +1220,8 @@ const DRAW_SECS = 60, GUESS_SECS = 30, DRAW_W = 640, DRAW_H = 480;
 const DRAW_STOP = new Set(["the", "and", "with", "for", "from", "into", "onto", "that", "this", "its", "his", "her", "their", "out", "off", "over", "under", "some", "who", "while"]);
 const drawWords = t => String(t || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(/[^\p{L}\p{N}]+/u).filter(w => w.length >= 3 && !DRAW_STOP.has(w)).map(w => (w.length > 3 ? w.replace(/s$/, "") : w));
 const drawMatch = (want, got) => { if (!want || !got) return 0; if (meldSame(want, got)) return 2; const a = new Set(drawWords(want)); return drawWords(got).some(w => a.has(w)) ? 1 : 0; };
-const MODE_LABEL = { photo: "Whose photo", song: "Whose song", prof: "Whose answer", said: "Who said it", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather", nhie: "Never have I ever", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps", cap: "Capitals", big: "Which is bigger", trivia: "Trivia", emoji: "Emoji puzzles", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", low: "Lowest number wins", shot: "Shot in the dark", herd: "Herd mind", rps: "Showdown", cash: "Cash or crash", quick: "Quick draw", potato: "Hot potato", pump: "Pump it", tug: "Tug of war", spot: "Spot it", cats: "Categories", older: "Who's older", draw: "Draw it", likely: "Most likely to" };
-const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", prof: "Whose answer?", said: "Who said it?", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather?", nhie: "Never have I ever", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country", cap: "Capital cities", big: "Which is bigger?", trivia: "Trivia", emoji: "Emoji puzzle", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", low: "Lowest number wins", shot: "Shot in the dark", herd: "Herd mind", rps: "Showdown", cash: "Cash or crash", quick: "Quick draw", potato: "Hot potato", pump: "Pump it!", tug: "Tug of war", spot: "Spot it", cats: "Categories", older: "Who's older?", draw: "Draw it", likely: "Most likely to…" };
+const MODE_LABEL = { photo: "Whose photo", song: "Whose song", prof: "Whose answer", said: "Who said it", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather", nhie: "Never have I ever", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps", cap: "Capitals", big: "Which is bigger", trivia: "Trivia", emoji: "Emoji puzzles", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", low: "Lowest number wins", shot: "Shot in the dark", herd: "Herd mind", rps: "Showdown", cash: "Cash or crash", quick: "Quick draw", potato: "Hot potato", pump: "Pump it", tug: "Tug of war", spot: "Spot it", simon: "Simon says", count: "Count up", act: "Act it out", cats: "Categories", older: "Who's older", draw: "Draw it", likely: "Most likely to" };
+const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", prof: "Whose answer?", said: "Who said it?", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather?", nhie: "Never have I ever", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country", cap: "Capital cities", big: "Which is bigger?", trivia: "Trivia", emoji: "Emoji puzzle", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", low: "Lowest number wins", shot: "Shot in the dark", herd: "Herd mind", rps: "Showdown", cash: "Cash or crash", quick: "Quick draw", potato: "Hot potato", pump: "Pump it!", tug: "Tug of war", spot: "Spot it", simon: "Simon says", count: "Count up", act: "Act it out", cats: "Categories", older: "Who's older?", draw: "Draw it", likely: "Most likely to…" };
 const KIND_ASK = { photo: "Whose photo is this?", song: "Whose song is this?", prof: "Whose answer is this?", said: "Who wrote this?", face: "Who is this?", flag: "Which country's flag is this?", map: "Which country has this shape?", big: "Which country is bigger?", imp: "Who's the imposter?", fakin: "Who had the other question?" };
 const KIND_ASK_PHONE = { older: "Who's older?", photo: "Whose photo is on the TV?", song: "Whose song is playing?", prof: "Whose answer is on the TV?", said: "Who wrote this?", face: "Who's on the TV?", flag: "Which country's flag is on the TV?", map: "Which country is the shape on the TV?", big: "Which country is bigger?", imp: "Who's the imposter?", fakin: "Who had the other question?" };
 const askOf = c => (c.t === "tune" ? (c.ask === "artist" ? "Who's the artist?" : "What's this song?")
@@ -2104,7 +2166,7 @@ const TV = {
   players() { return Object.values(this.H.players).sort((a, b) => a.at - b.at); },
   ownerOf(id) { return this.H.photos[id]?.pid || null; },
   curOwner() { const c = this.H.cur; return c?.t === "photo" ? this.ownerOf(c.id) : c?.t === "song" || c?.t === "prof" || EACH_KINDS.includes(c?.t) ? c.pid || null : null; },
-  isQuiz() { const t = this.H.cur?.t; return !!t && !["split", "low", "shot", "herd", "rps", "cash", "cats", "quick", "potato", "pump", "tug", "spot"].includes(t) && (QUIZ_WRITE.includes(t) || (!PLAYER_KINDS.includes(t) && !WRITE_KINDS.includes(t))); },
+  isQuiz() { const t = this.H.cur?.t; return !!t && !["split", "low", "shot", "herd", "rps", "cash", "cats", "quick", "potato", "pump", "tug", "spot", "simon", "count", "act"].includes(t) && (QUIZ_WRITE.includes(t) || (!PLAYER_KINDS.includes(t) && !WRITE_KINDS.includes(t))); },
   isWrite() { return WRITE_KINDS.includes(this.H.cur?.t); },
   // Which prompts this player writes for: two in Quips, the one in the Last Lash.
   writesFor(pid) { const c = this.H.cur; return c?.t === "lash" || c?.t === "bluff" || c?.t === "said" ? [0] : c?.t === "ttl" ? [0, 1, 2] : c?.t === "quip" || c?.t === "meld" ? c.ps.map((m, i) => (m.by.includes(pid) ? i : -1)).filter(i => i >= 0) : []; },
@@ -2184,6 +2246,8 @@ const TV = {
       if (H.ph === "imp-clue" && !H.pause && p.dn === H.rk + ":" + H.turn && pid === H.cur.order[H.turn]) clueDone = true;
       // Fakin' it: `fk` = this phone has its question. Its answer comes in `g` while the TV is in fk-ans.
       if (H.cur?.t === "fakin" && H.ph === "fk-ans" && p.fk !== H.rk) this.sendFk(pid);
+      // Act it out: the actor's phone gets each word in a whisper; `aw` says which one it has.
+      if (H.cur?.t === "act" && ["intro", "q"].includes(H.ph) && pid === H.cur.pid && p.aw !== H.rk + ":" + H.cur.i) this.sendAct(pid);
       if (H.cur?.t === "fakin" && H.ph === "fk-ans" && !H.pause && p.g?.rk === H.rk && !(pid in H.cur.ans)) {
         const g = p.g, ty = H.cur.ty;
         const v = ty === "who" ? (isPid(g.p) && H.players[g.p] ? g.p : null) : ty === "num" ? (Number.isFinite(g.v) && Math.abs(g.v) < 1e6 ? g.v : null) : g.i === 0 || g.i === 1 ? g.i : null;
@@ -2221,9 +2285,14 @@ const TV = {
       const g = p.g;
       // Hot potato: `g` passes the bomb on. `n` is which pass this is, so an old pass sitting on a phone can't count twice.
       if (H.ph === "q" && !H.pause && H.cur?.t === "potato" && g && g.rk === H.rk && g.n === H.cur.n && pid === H.cur.h && this.potatoPass(pid, g.p)) changed = true;
+      // Act it out: the actor got the word (and who guessed it) or passed. `n` is which word, so it counts once.
+      if (H.ph === "q" && !H.pause && H.cur?.t === "act" && g && g.rk === H.rk && g.n === H.cur.i && pid === H.cur.pid && this.actNext(g)) changed = true;
       // Pump it and Tug of war: phones send running counts while the round is live.
       if (H.ph === "q" && !H.pause && g && g.rk === H.rk && LIVE_KINDS.includes(H.cur?.t) && this.liveIn(pid, g, now)) changed = true;
-      if (H.ph === "q" && !H.pause && g && g.rk === H.rk && !H.guesses[pid] && H.cur?.t !== "potato" && !LIVE_KINDS.includes(H.cur?.t)) {
+      if (H.ph === "q" && !H.pause && g && g.rk === H.rk && !H.guesses[pid] && H.cur?.t !== "potato" && H.cur?.t !== "act" && !LIVE_KINDS.includes(H.cur?.t)) {
+        // Simon says: the first colour a player still in taps.
+        if (H.cur.t === "simon") { if (H.cur.alive.includes(pid) && [0, 1, 2, 3].includes(g.i)) { H.guesses[pid] = { i: g.i, t: now }; changed = true; SFX.play("lock"); } }
+        else
         // Spot it: the phone timed how long it took to find the odd one out, wrong taps included.
         if (H.cur.t === "spot") { if (Number.isFinite(g.ms) && g.ms > 0 && g.ms < 60000) { H.guesses[pid] = { ms: Math.round(g.ms), w: Math.min(99, g.w | 0), t: now }; changed = true; SFX.play("lock"); } }
         else
@@ -2443,7 +2512,7 @@ const TV = {
     if (ph === "end") return "victory";
     if (ph === "rev" || ph === "lb") return wild ? "afterdark" : "groove";
     if (ph === "qw" || ph === "dw" || (ph === "intro" && (WRITE_KINDS.includes(t) || t === "draw"))) return "write";
-    if (t === "imp" || t === "fakin" || t === "split" || t === "low" || t === "shot" || t === "rps" || t === "cash" || t === "quick" || t === "potato" || t === "pump") return "suspense";
+    if (t === "imp" || t === "fakin" || t === "split" || t === "low" || t === "shot" || t === "rps" || t === "cash" || t === "quick" || t === "potato" || t === "pump" || t === "simon") return "suspense";
     if (H.R > 1 && r === H.R) return "final";
     return modeGroup(t) === "Quiz" ? "quiz" : "social";
   },
@@ -2517,7 +2586,7 @@ const TV = {
   // Someone dropping out mid-question would miss it, so the game waits for them, once per player per round.
   waitFor(pid) {
     const H = this.H, key = H.rk + pid;
-    const needed = (H.ph === "q" && !H.guesses[pid] && pid !== this.curOwner() && H.cur?.t !== "potato" && !LIVE_KINDS.includes(H.cur?.t) && (H.cur?.t !== "cash" || H.cur.in.includes(pid))) || ["qw", ...SECRET_PHASES].includes(H.ph) || (H.ph === "qv" && !H.guesses[pid]) || (H.ph === "dw" && !this.drawDone(pid));
+    const needed = (H.ph === "q" && !H.guesses[pid] && pid !== this.curOwner() && H.cur?.t !== "potato" && H.cur?.t !== "act" && !LIVE_KINDS.includes(H.cur?.t) && (H.cur?.t !== "simon" || H.cur.alive.includes(pid)) && (H.cur?.t !== "cash" || H.cur.in.includes(pid))) || ["qw", ...SECRET_PHASES].includes(H.ph) || (H.ph === "qv" && !H.guesses[pid]) || (H.ph === "dw" && !this.drawDone(pid));
     if (!needed || this.waited?.has(key)) return false;
     (this.waited ||= new Set()).add(key);
     return true;
@@ -2895,6 +2964,15 @@ const TV = {
           .map(x => ({ t: "cats", q: x.q, l: letters[Math.floor(Math.random() * letters.length)], sp: !!x.sp }));
       }
       if (modes.includes("rps") && online >= 2) pools.rps = Array.from({ length: cap(2) }, () => ({ t: "rps", go: 0, goes: RPS_PTS.length }));
+      if (modes.includes("simon") && online >= 2) pools.simon = Array.from({ length: cap(2) }, () => ({ t: "simon", s: 0, n: SIMON_STEPS, alive: [], cmd: null }));
+      if (modes.includes("count") && online >= 3) pools.count = Array.from({ length: cap(2) }, () => ({ t: "count", c: 0, best: 0, last: null, at: 0, seen: {}, crash: null, crashes: 0, taps: {}, target: 0 }));
+      if (modes.includes("act") && online >= 3) {
+        // Act it out: one actor a round, everyone before anyone twice. Each gets plenty of words for the clock.
+        const A = await getData("act"), people = shuffle(this.players().filter(p => p.online).map(p => p.pid)), n = Math.min(people.length, Math.max(2, each));
+        const plain = shuffle(this.unseen(A.prompts, x => x, "act", n * 14)), wild = H.spicy === "wild" ? shuffle(this.unseen(A.wild || [], x => x, "act", n * 6)) : [];
+        pools.act = people.slice(0, n).map(pid => ({ t: "act", pid, i: 0, log: [],
+          ws: Array.from({ length: 14 }, () => (wild.length && Math.random() < 0.35 ? wild.pop() : plain.pop()) || A.prompts[Math.floor(Math.random() * A.prompts.length)]) }));
+      }
       if (modes.includes("pump") && online >= 2) pools.pump = Array.from({ length: cap(2) }, () => ({ t: "pump", b: 0, n: PUMP_BALLOONS, seed: "" }));
       if (modes.includes("tug") && online >= 2) pools.tug = Array.from({ length: cap(2) }, () => ({ t: "tug", go: 0, goes: TUG_PULLS, team: {}, wins: [0, 0] }));
       if (modes.includes("spot") && online >= 2) pools.spot = Array.from({ length: cap(2) }, () => ({ t: "spot", go: 0, goes: SPOT_SIZES.length, n: 4, a: "", o: "", k: 0 }));
@@ -3145,6 +3223,9 @@ const TV = {
     if (t === "cash") return rv.crash ? rv.still : [];
     if (t === "potato") return rv.loser ? [rv.loser] : [];
     if (t === "pump") return (rv.rows || []).filter(r => r.pop).map(r => r.pid);
+    if (t === "simon") return rv.out || [];
+    if (t === "count") return rv.crashers || [];
+    if (t === "act") return [];
     if (t === "tug") return rv.win < 0 ? [] : Object.keys(rv.team || {}).filter(pid => rv.team[pid] !== rv.win);
     if (t === "spot") { const ok = (rv.rows || []).filter(r => r.ms); return ok.length > 1 ? [ok[ok.length - 1].pid] : []; }
     if (t === "quick") { const ok = (rv.rows || []).filter(r => r.ms); return [...(rv.rows || []).filter(r => !r.ms).map(r => r.pid), ...(ok.length > 1 ? [ok[ok.length - 1].pid] : [])]; }
@@ -3187,6 +3268,9 @@ const TV = {
     if (H.ph === "intro" && H.cur?.t === "quick") return this.quickGo(0);
     if (H.ph === "intro" && H.cur?.t === "potato") return this.potatoBomb(0);
     if (H.ph === "intro" && H.cur?.t === "pump") return this.pumpGo(0);
+    if (H.ph === "intro" && H.cur?.t === "simon") { H.cur.alive = this.players().filter(p => p.online).map(p => p.pid); return this.simonStep(0); }
+    if (H.ph === "intro" && H.cur?.t === "count") { H.cur.target = Math.min(30, Math.max(10, this.players().filter(p => p.online).length * 3)); return this.go("q", COUNT_SECS); }
+    if (H.ph === "intro" && H.cur?.t === "act") return this.go("q", ACT_SECS);
     if (H.ph === "intro" && H.cur?.t === "tug") return this.tugGo(0);
     if (H.ph === "intro" && H.cur?.t === "spot") return this.spotGo(0);
     if (H.ph === "intro" && H.cur?.t === "cats") return this.go("q", H.cur.tw === "lightning" ? LIGHTNING_SECS : CATS_SECS);
@@ -3212,6 +3296,7 @@ const TV = {
       if (H.cur?.t === "quick" && H.cur.go + 1 < H.cur.goes) return this.quickGo(H.cur.go + 1);
       if (H.cur?.t === "potato" && H.cur.b + 1 < H.cur.bombs) return this.potatoBomb(H.cur.b + 1);
       if (H.cur?.t === "pump" && H.cur.b + 1 < H.cur.n) return this.pumpGo(H.cur.b + 1);
+      if (H.cur?.t === "simon" && H.rv && !H.rv.end) return this.simonStep(H.cur.s + 1);
       if (H.cur?.t === "tug" && H.cur.go + 1 < H.cur.goes && !(H.cur.goes === 3 && H.cur.wins.some(w => w >= 2))) return this.tugGo(H.cur.go + 1);
       if (H.cur?.t === "spot" && H.cur.go + 1 < H.cur.goes) return this.spotGo(H.cur.go + 1);
       if (EACH_KINDS.includes(H.cur?.t) && H.cur.mi + 1 < (H.cur.ord || []).length) return this.askNext(H.cur.mi + 1);
@@ -3242,6 +3327,29 @@ const TV = {
     H.rk = H.gid + "-" + H.r + "-b" + i; H.guesses = {}; H.rv = null;
     this.go("q", POTATO_FUSE[0] + Math.random() * (POTATO_FUSE[1] - POTATO_FUSE[0]));
   },
+  // Simon says: a new order. The first is always a Simon says; later ones may be traps, and the word's colour may lie.
+  simonStep(i) {
+    const H = this.H, c = H.cur, k = Math.floor(Math.random() * 4);
+    c.s = i; c.cmd = { c: k, simon: i === 0 || Math.random() < 0.68, ink: i >= 2 && Math.random() < 0.6 ? (k + 1 + Math.floor(Math.random() * 3)) % 4 : k };
+    H.rk = H.gid + "-" + H.r + "-m" + i; H.guesses = {}; H.rv = null;
+    this.go("q", c.tw === "lightning" ? 2 : SIMON_SECS[i] || 2.6);
+  },
+  sendAct(pid) {
+    const H = this.H, c = H.cur, now = Date.now();
+    if (!room?.whisper || c?.t !== "act" || (this.asent?.[pid] || 0) > now - 1500) return;
+    (this.asent ||= {})[pid] = now;
+    room.whisper(pid, { rk: H.rk, ak: H.rk + ":" + c.i, aw: c.ws[c.i] || "" });
+  },
+  // Act it out: the actor got it (and says who guessed) or passed. Out of words, the round ends.
+  actNext(g) {
+    const H = this.H, c = H.cur;
+    if (g.a === "got") { if (!isPid(g.p) || g.p === c.pid || !H.players[g.p]) return false; c.log.push([c.i, 1, g.p]); SFX.play("check"); }
+    else if (g.a === "pass") { c.log.push([c.i, 0, null]); SFX.play("blip"); }
+    else return false;
+    c.i++;
+    if (c.i >= c.ws.length) H.phaseEnds = Date.now() + 1200;
+    return true;
+  },
   pumpGo(i) {
     const H = this.H, c = H.cur;
     c.b = i; c.seed = rid(6); H.rk = H.gid + "-" + H.r + "-u" + i; H.guesses = {}; H.rv = null;
@@ -3269,6 +3377,17 @@ const TV = {
       H.guesses[pid] = st; st.t = now;
       if (n >= pop) { st.n = pop; st.pop = 1; st.done = 1; SFX.play("pop"); }
       else { st.n = n; if (g.b) { st.bank = 1; st.done = 1; SFX.play("lock"); } }
+      return true;
+    }
+    if (c.t === "count") {
+      // A new tap from this phone. Too close after someone else's and it all crashes back to zero.
+      const n = Math.floor(Number(g.n) || 0);
+      if (n <= (c.seen[pid] || 0)) return false;
+      c.seen[pid] = n;
+      if (c.c >= c.target || pid === c.last || (c.crash && now - c.crash.at < 1500)) return true;
+      if (c.last && now - c.at < COUNT_CLASH) { c.crash = { by: [c.last, pid], at: now, n: c.c }; c.crashes++; c.c = 0; c.last = null; SFX.play("buzz"); return true; }
+      c.c++; c.last = pid; c.at = now; c.taps[pid] = (c.taps[pid] || 0) + 1; c.best = Math.max(c.best, c.c); c.crash = null; SFX.play(c.c >= c.target ? "fanfare" : "blip");
+      if (c.c >= c.target) H.phaseEnds = now + 2000;
       return true;
     }
     if (c.t === "tug") {
@@ -3436,6 +3555,38 @@ const TV = {
       H.rv = { go: H.cur.go, goes: H.cur.goes, rows: [...ok, ...rows.filter(r => !r.ms)], fw: H.cur.fw, g, d, m: mult };
       this.revEv = ok.length ? "quick-win" : rows.length ? "quick-foul" : null;
       return this.go("rev", Math.max(6, 4 + rows.length * 0.5));
+    }
+    if (H.cur.t === "simon") {
+      // Everyone still in who got it right stays in and scores. If everyone slipped, nobody's out.
+      const c = H.cur, cmd = c.cmd, ok = pid => (cmd.simon ? H.guesses[pid]?.i === cmd.c : !H.guesses[pid]);
+      for (const pid of c.alive) g[pid] = H.guesses[pid] ? H.guesses[pid].i : -1;
+      let out = c.alive.filter(pid => !ok(pid));
+      const all = out.length === c.alive.length && c.alive.length > 1;
+      if (all) out = [];
+      const alive = c.alive.filter(pid => !out.includes(pid)), end = alive.length <= 1 || c.s + 1 >= c.n;
+      for (const pid of alive) if (!all) d[pid] = SIMON_PTS * mult;
+      if (end) for (const pid of alive) d[pid] = (d[pid] || 0) + (alive.length === 1 ? SIMON_LAST : SIMON_END) * mult;
+      c.alive = alive;
+      score();
+      H.rv = { s: c.s, n: c.n, cmd, out, all, alive, end, g, d, m: mult };
+      this.revEv = end ? "simon-end" : out.length ? "simon-out" : null;
+      return this.go("rev", end ? 6 : out.length ? 3.2 : 2.4);
+    }
+    if (H.cur.t === "count") {
+      const c = H.cur, ps = this.players().filter(p => p.online || c.taps[p.pid]), win = c.best >= c.target;
+      for (const p of ps) { g[p.pid] = c.taps[p.pid] || 0; const v = (c.best * COUNT_PTS + (win ? COUNT_WIN : 0)) * mult; if (v) d[p.pid] = v; }
+      score();
+      H.rv = { best: c.best, target: c.target, win, crashes: c.crashes, crashers: c.crash ? c.crash.by : [], g, d, m: mult };
+      this.revEv = win ? "count-win" : c.crashes ? "count-crash" : null;
+      return this.go("rev", 6);
+    }
+    if (H.cur.t === "act") {
+      const c = H.cur, got = c.log.filter(x => x[1]);
+      for (const [, , by] of got) { d[c.pid] = (d[c.pid] || 0) + ACT_PTS * mult; d[by] = (d[by] || 0) + ACT_PTS * mult; g[by] = (g[by] || 0) + 1; }
+      score();
+      H.rv = { pid: c.pid, log: c.log.map(([i, ok, by]) => [c.ws[i], ok, by]), got: got.length, g, d, m: mult };
+      this.revEv = got.length >= 4 ? "act-great" : got.length ? "act-some" : "act-none";
+      return this.go("rev", Math.max(7, 4 + c.log.length * 0.5));
     }
     if (H.cur.t === "pump") {
       // Every balloon still in one piece is banked: 25 a pump.
@@ -3824,6 +3975,11 @@ const TV = {
       if (!sp || !sp.online) return this.advance();
     }
     if (H.ph === "q" && H.cur?.t === "tug") this.tugLive();
+    // Act it out: keep whispering the actor their word until their phone says it has it (nothing else may prompt a resend).
+    if ((H.ph === "q" || H.ph === "intro") && H.cur?.t === "act") {
+      const p = (this.peers || []).find(x => x.presence?.role === "p" && x.presence.pid === H.cur.pid)?.presence;
+      if (p && p.aw !== H.rk + ":" + H.cur.i) this.sendAct(H.cur.pid);
+    }
     // Hot potato: the fuse ticks; a holder who drops out passes the bomb to someone random.
     if (H.ph === "q" && H.cur?.t === "potato") {
       const c = H.cur, k = Math.floor((now - c.at) / 500);
@@ -3839,7 +3995,8 @@ const TV = {
       const owner = this.curOwner();
       const eligible = Object.values(H.players).filter(p => p.online && p.pid !== owner && (H.cur?.t !== "cash" || H.cur.in.includes(p.pid)));
       const done = H.cur?.t === "pump" ? p => H.guesses[p.pid]?.done : p => H.guesses[p.pid];
-      if (eligible.length && H.cur?.t !== "potato" && H.cur?.t !== "tug" && eligible.every(done) && (!H.phaseEnds || H.phaseEnds - now > 1200)) {
+      const els = H.cur?.t === "simon" ? eligible.filter(p => H.cur.alive.includes(p.pid)) : eligible;
+      if (els.length && !["potato", "tug", "count", "act"].includes(H.cur?.t) && !(H.cur?.t === "simon" && !H.cur.cmd?.simon) && els.every(done) && (!H.phaseEnds || H.phaseEnds - now > 1200)) {
         const early = !H.phaseEnds || H.phaseEnds - now > 6000;
         H.phaseEnds = now + 1200; this.push(true);
         if (early && eligible.length >= 2 && !["song", "tune"].includes(H.cur?.t) && Math.random() < 0.35) this.say("allin");
@@ -3895,6 +4052,9 @@ const TV = {
       ct: H.cur?.t === "cats" && ["intro", "q", "rev"].includes(H.ph) ? { q: H.cur.q, l: H.cur.l } : null,
       hd: H.cur?.t === "herd" && ["intro", "q", "rev"].includes(H.ph) ? { q: H.cur.q } : null,
       pu: H.cur?.t === "pump" && ["intro", "q", "rev"].includes(H.ph) ? { b: H.cur.b, n: H.cur.n, seed: H.cur.seed, pts: PUMP_PTS * (H.R > 1 && H.r === H.R ? 2 : 1) } : null,
+      sm: H.cur?.t === "simon" && ["intro", "q", "rev"].includes(H.ph) ? { s: H.cur.s, n: H.cur.n, alive: H.cur.alive, cmd: H.ph === "q" ? H.cur.cmd : null } : null,
+      cu: H.cur?.t === "count" && ["intro", "q", "rev"].includes(H.ph) ? { c: H.cur.c, best: H.cur.best, target: H.cur.target, last: H.cur.last, crash: H.cur.crash && now - H.cur.crash.at < 1500 ? H.cur.crash.by : null } : null,
+      ac: H.cur?.t === "act" && ["intro", "q", "rev"].includes(H.ph) ? { pid: H.cur.pid, i: H.cur.i, n: H.cur.ws.length, got: H.cur.log.filter(x => x[1]).length } : null,
       tg: H.cur?.t === "tug" && ["intro", "q", "rev"].includes(H.ph) ? { go: H.cur.go, goes: H.cur.goes, team: H.cur.team, wins: H.cur.wins } : null,
       so: H.cur?.t === "spot" && ["intro", "q", "rev"].includes(H.ph) ? { go: H.cur.go, goes: H.cur.goes, n: H.cur.n, a: H.cur.a, o: H.cur.o, k: H.cur.k } : null,
       qk: H.cur?.t === "quick" && ["intro", "q", "rev"].includes(H.ph) ? { go: H.cur.go, goes: H.cur.goes, w: H.cur.w, fa: H.cur.fa, fw: H.cur.fw, pts: QUICK_PTS[0] * (H.R > 1 && H.r === H.R ? 2 : 1) } : null,
@@ -4070,6 +4230,7 @@ const TV = {
         <h2 class="big">${big}</h2>${final ? `<p class="dbl">Double points</p>` : ""}
         ${H.cur?.tw && TWISTS[H.cur.tw] ? `<div class="twcard"><b>Twist!</b><span>${esc(TWISTS[H.cur.tw].label)}</span><i>${esc(TWISTS[H.cur.tw].note)}</i></div>` : ""}
         ${kind === "split" ? (([a, b]) => `<p class="ssvs">${a ? face(a) : ""}<b>${esc(a?.name || "?")}</b><span>vs</span><b>${esc(b?.name || "?")}</b>${b ? face(b) : ""}</p><p class="sspot">for <b class="num">${fmt(H.cur.pot * (final ? 2 : 1))}</b> points</p>`)(H.cur.by.map(id => H.players[id])) : ""}
+        ${kind === "act" && H.players[H.cur.pid] ? `<p class="ssvs">${face(H.players[H.cur.pid])}<b>${esc(H.players[H.cur.pid].name)}</b><span>is acting</span></p>` : ""}
         ${H.introHow === kind && MODE_CARD[kind]?.how ? `<ol class="introhow">${MODE_CARD[kind].how.map((x, i) => `<li style="animation-delay:${(0.5 + i * 0.35).toFixed(2)}s"><b>${i + 1}</b><span>${esc(x)}</span></li>`).join("")}</ol>` : ""}</section>`);
     }
     if (IMP_PHASES.includes(H.ph) || (H.ph === "q" && this.isImp())) return this.renderImp(stage);
@@ -4088,6 +4249,9 @@ const TV = {
     if (H.ph === "q" && H.cur?.t === "quick") return this.renderQuick(stage);
     if (H.ph === "q" && H.cur?.t === "potato") return this.renderPotato(stage);
     if (H.ph === "q" && H.cur?.t === "pump") return this.renderPump(stage);
+    if (H.ph === "q" && H.cur?.t === "simon") return this.renderSimon(stage);
+    if (H.ph === "q" && H.cur?.t === "count") return this.renderCount(stage);
+    if (H.ph === "q" && H.cur?.t === "act") return this.renderAct(stage);
     if (H.ph === "q" && H.cur?.t === "tug") return this.renderTug(stage);
     if (H.ph === "q" && H.cur?.t === "spot") return this.renderSpot(stage);
     if (H.ph === "q") {
@@ -4179,6 +4343,9 @@ const TV = {
     if (this.H.cur?.t === "quick") return this.quickRevealHtml();
     if (this.H.cur?.t === "potato") return this.potatoRevealHtml();
     if (this.H.cur?.t === "pump") return this.pumpRevealHtml();
+    if (this.H.cur?.t === "simon") return this.simonRevealHtml();
+    if (this.H.cur?.t === "count") return this.countRevealHtml();
+    if (this.H.cur?.t === "act") return this.actRevealHtml();
     if (this.H.cur?.t === "tug") return this.tugRevealHtml();
     if (this.H.cur?.t === "spot") return this.spotRevealHtml();
     if (this.isQuiz()) return this.quizRevealHtml();
@@ -4646,6 +4813,60 @@ const TV = {
       <ol class="crows" style="grid-template-rows:repeat(${Math.max(1, Math.ceil(rows.length / 2))},auto);grid-auto-flow:column">${rows.map((r, i) => `<li class="${r === win ? "win" : r.ms ? "" : "out"}" style="animation-delay:${(0.2 + i * 0.22).toFixed(2)}s"><em class="num">${r.ms ? rows.indexOf(r) + 1 : "✗"}</em>${face(P[r.pid])}<span class="nm">${esc(P[r.pid].name)}</span>${r.ms ? `<b class="num">${(r.ms / 1000).toFixed(3)} s</b>` : `<i>${r.fk ? `Shot at ${esc(rv.fw)}` : "Too early"}</i>`}</li>`).join("")}</ol>
       <h2 class="lowh">${head}</h2><div class="deltas">${this.scorersHtml(rv, "", "Nobody scored")}${this.sipHtml()}</div></section>`;
   },
+  // Simon says: the order, big. The coloured word is printed in its ink colour, which can lie.
+  simonOrder(cmd) {
+    return `<p class="simon-o">${cmd.simon ? `<span class="ss">Simon says</span>` : ""}<span>tap</span> <b style="color:${SIMON[cmd.ink][1]}">${SIMON[cmd.c][0].toUpperCase()}</b>${cmd.simon ? "" : "<span>!</span>"}</p>`;
+  },
+  renderSimon(stage) {
+    const H = this.H, c = H.cur, P = H.players, final = H.R > 1 && H.r === H.R;
+    paint(stage, ["mq", H.rk, Object.keys(H.guesses).join()].join("|"), `<section class="simon"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Simon says · Order ${c.s + 1} of ${c.n}${final ? " · Double points" : ""}</p>
+      ${this.simonOrder(c.cmd)}
+      <div class="qfoot">${this.clockHtml()}<div><p class="eyebrow">Still in · ${c.alive.length}</p><ul class="slist">${c.alive.filter(id => P[id]).map(id => `<li class="${H.guesses[id] ? "in" : ""}">${face(P[id])}<span>${esc(P[id].name)}</span></li>`).join("")}</ul></div></div></section>`);
+  },
+  simonRevealHtml() {
+    const H = this.H, rv = H.rv, P = H.players, names = ids => ids.filter(id => P[id]).map(id => esc(P[id].name)).join(", ");
+    const head = rv.end ? (rv.alive.length === 1 && P[rv.alive[0]] ? `${esc(P[rv.alive[0]].name)} wins!` : rv.alive.length ? "Survivors!" : "Nobody left!") : rv.all ? "Everyone slipped! Nobody's out." : rv.out.length ? `Out: ${names(rv.out)}` : "Everyone's safe!";
+    const why = rv.cmd.simon ? `Simon said tap ${SIMON[rv.cmd.c][0].toLowerCase()}.` : `Simon didn't say! You shouldn't have tapped.`;
+    return `<section class="simon rev" style="--t:.3s;--t2:.9s"><p class="eyebrow">Simon says · Order ${rv.s + 1} of ${rv.n}${rv.m > 1 ? " · Double points" : ""}</p>
+      ${this.simonOrder(rv.cmd)}<p class="lede">${why}</p><h2 class="lowh">${head}</h2>
+      <ul class="slist">${rv.alive.filter(id => P[id]).map(id => `<li class="in">${face(P[id])}<span>${esc(P[id].name)}</span></li>`).join("")}${rv.out.filter(id => P[id]).map(id => `<li class="dead">${face(P[id])}<span>${esc(P[id].name)}</span></li>`).join("")}</ul>
+      ${rv.end ? `<div class="deltas">${this.scorersHtml(rv, "", "Nobody scored")}${this.sipHtml()}</div>` : this.sipHtml() ? `<div class="deltas">${this.sipHtml()}</div>` : ""}</section>`;
+  },
+  // Count up: the number, who tapped last, and a crash when two tap at once.
+  renderCount(stage) {
+    const H = this.H, c = H.cur, P = H.players, final = H.R > 1 && H.r === H.R, L = P[c.last], cr = c.crash && Date.now() - c.crash.at < 1500 ? c.crash : null;
+    paint(stage, ["cuq", H.rk, c.c, c.last, cr ? cr.at : 0].join("|"), `<section class="count ${cr ? "crashed" : ""}"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Count up${final ? " · Double points" : ""}</p>
+      <div class="cuwrap"><div class="cunum num">${cr ? "0" : c.c}</div><div class="cuside"><p class="eyebrow">Count to</p><b class="num">${c.target}</b><p class="eyebrow">Best so far</p><b class="num">${c.best}</b></div></div>
+      <p class="cuwho">${cr ? `CRASH! ${cr.by.filter(id => P[id]).map(id => face(P[id]) + esc(P[id].name)).join(" and ")} tapped together` : L ? `${face(L)}${esc(L.name)} said ${c.c}` : "Anyone can start. One tap each, no talking."}</p>
+      <div class="qfoot">${this.clockHtml()}<p class="lede">Tap +1 on your phone. Two at once and it crashes to zero. You can't go twice in a row.</p></div></section>`);
+    if (cr) setTimeout(() => this.render(), 1550 - (Date.now() - cr.at));
+  },
+  countRevealHtml() {
+    const H = this.H, rv = H.rv;
+    return `<section class="count rev" style="--t:.4s;--t2:1s"><p class="eyebrow">Count up${rv.m > 1 ? " · Double points" : ""}</p>
+      <div class="cuwrap"><div class="cunum num">${rv.best}</div><div class="cuside"><p class="eyebrow">Target</p><b class="num">${rv.target}</b><p class="eyebrow">Crashes</p><b class="num">${rv.crashes}</b></div></div>
+      <h2 class="lowh">${rv.win ? "You did it! Telepathy!" : rv.best ? `Best run: ${rv.best}` : "Not even one!"}</h2>
+      <div class="deltas">${Object.keys(rv.d || {}).length ? `<span class="delta">Everyone <b class="num">+${fmt(Object.values(rv.d)[0])}</b></span>` : ""}${this.sipHtml()}</div></section>`;
+  },
+  // Act it out: who's acting, the clock, and each word once it's got or passed.
+  actLog(log, P) {
+    return `<ol class="alog ${log.length > 7 ? "two" : ""}">${log.map(([w, ok, by]) => `<li class="${ok ? "got" : "pass"}"><span class="w">${esc(w)}</span>${ok ? (P[by] ? `${face(P[by])}<b>${esc(P[by].name)}</b>` : "") : "<i>passed</i>"}</li>`).join("")}</ol>`;
+  },
+  renderAct(stage) {
+    const H = this.H, c = H.cur, P = H.players, A = P[c.pid], final = H.R > 1 && H.r === H.R, got = c.log.filter(x => x[1]).length;
+    paint(stage, ["aq", H.rk, c.i].join("|"), `<section class="act"><div class="aleft"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Act it out${final ? " · Double points" : ""}</p>
+      <p class="awho">${A ? face(A) : ""}<b>${esc(A?.name || "?")}</b><em>is acting</em></p>
+      <h2 class="qtitle">No talking! Shout your guesses.</h2>
+      <p class="lede">${esc(A?.name || "The actor")} taps who got it. ${fmt(ACT_PTS * (final ? 2 : 1))} each to the actor and the guesser.</p>
+      <div class="qfoot">${this.clockHtml()}<div class="agot"><b class="num">${got}</b><span>got</span></div></div></div>
+      <div class="aright">${c.log.length ? this.actLog(c.log.map(([i, ok, by]) => [c.ws[i], ok, by]).slice(-8), P) : `<p class="muted">Words show up here once they're got.</p>`}</div></section>`);
+  },
+  actRevealHtml() {
+    const H = this.H, rv = H.rv, P = H.players, A = P[rv.pid];
+    return `<section class="act rev" style="--t:.4s;--t2:1s"><div class="aleft"><p class="eyebrow">Act it out${rv.m > 1 ? " · Double points" : ""}</p>
+      <h2 class="lowh">${rv.got ? `${esc(A?.name || "?")} got ${rv.got} across!` : "Not a single one!"}</h2>
+      <div class="deltas">${this.scorersHtml(rv, "", "Nobody scored")}</div></div><div class="aright">${this.actLog(rv.log, P)}</div></section>`;
+  },
   // Pump it: everyone's balloon, growing live as the phones pump.
   renderPump(stage) {
     const H = this.H, c = H.cur, P = H.players, final = H.R > 1 && H.r === H.R, ps = this.players().filter(p => p.online || H.guesses[p.pid]);
@@ -4994,7 +5215,7 @@ const PH = {
   onRoom() {
     if (!room) return this.render();
     room.onPeers(ch => this.sync(ch.peers));
-    room.onWhisper?.(d => (d?.fq ? this.gotFk(d) : this.gotWord(d)));
+    room.onWhisper?.(d => (d?.ak ? this.gotAct(d) : d?.fq ? this.gotFk(d) : this.gotWord(d)));
     room.onConnection(c => { this.connected = c; this.render(); if (c) { this.checkPhotos(); this.sendSelfie(); } });
     this.connected = room.connected();
     if (this.connected) this.sendSelfie();
@@ -5089,7 +5310,7 @@ const PH = {
       sg: this.songs.map(x => [x.id, x.t, x.a, x.art, x.ap || ""]),
       g: this.g ?? null, cmd: this.cmd ?? null, cq: this.cq || [],
       wk: this.secret?.rk || null, fk: this.fkq?.rk || null, sw: this.sw || null, dn: this.dn || null, rd: this.rd || null,
-      av: this.avUp ? this.av : null, pf: this.pf, qa: this.qa || null, dr: this.dr || null,
+      av: this.avUp ? this.av : null, pf: this.pf, qa: this.qa || null, dr: this.dr || null, aw: this.actw?.k || null,
     }).catch(e => console.warn("presence", e));
   },
 
@@ -5219,6 +5440,20 @@ const PH = {
     if (a === "sk-undo") return SKETCH.undo();
     if (a === "sk-clear") return SKETCH.clear();
     if (a === "sk-send") return this.sendDrawing(false);
+    if (a === "simon") {
+      const i = Number(el.dataset.i), H = this.host;
+      if (!H || H.ph !== "q" || H.kind !== "simon" || this.g?.rk === H.rk || ![0, 1, 2, 3].includes(i) || !(H.sm?.alive || []).includes(this.pid)) return;
+      this.g = { rk: H.rk, i }; vibrate(25); this.push(); return this.renderMain();
+    }
+    if (a === "act-got" || a === "act-pass" || a === "act-who" || a === "act-back") {
+      const H = this.host, ac = H?.ac, key = H ? H.rk + ":" + ac?.i : "";
+      if (!H || H.ph !== "q" || H.kind !== "act" || ac?.pid !== this.pid || this.actw?.k !== key) return;
+      if (a === "act-got") { this.actWho = key; vibrate(15); return this.renderMain(); }
+      if (a === "act-back") { this.actWho = null; return this.renderMain(); }
+      if (a === "act-who" && !isPid(el.dataset.pid)) return;
+      this.actWho = null; this.g = { rk: H.rk, n: ac.i, a: a === "act-who" ? "got" : "pass", p: a === "act-who" ? el.dataset.pid : null }; this.gAt = Date.now();
+      vibrate(a === "act-who" ? 40 : 15); this.push(); setTimeout(() => this.renderMain(), 2600); return this.renderMain();
+    }
     if (a === "pump-bank") {
       const H = this.host, p = this.pu;
       if (!H || H.ph !== "q" || H.kind !== "pump" || !p || p.rk !== H.rk || p.done || !p.n) return;
@@ -5316,7 +5551,7 @@ const PH = {
     const H = this.host, live = this.joined && H && !["lobby", "end", "lb"].includes(H.ph) && !H.pause;
     const pause = live && H.vip === this.pid, far = live && H.sp && ["intro", "q", "qw", "qv"].includes(H.ph) && this.tooFarAt !== H.rk;
     // Reactions whenever this phone has nothing to do: reveals, scores, the title cards, and after locking in.
-    const idle = H && this.joined && this.me() && !H.pause && !(H.ph === "q" && ["quick", "pump", "tug", "spot"].includes(H.kind)) && (["intro", "rev", "lb", "end"].includes(H.ph) || (["q", "qv", "fk-ans"].includes(H.ph) && this.g?.rk === H.rk) || (H.ph === "dw" && this.dr?.rk === H.rk) || (H.ph === "q" && H.kind === "cash" && !(H.cs?.in || []).includes(this.pid)) || (H.ph === "q" && H.kind === "potato" && H.pt?.h !== this.pid) || H.ph === "imp-clue" || (H.ph === "q" && H.x === fnv(this.pid + H.rk)));
+    const idle = H && this.joined && this.me() && !H.pause && !(H.ph === "q" && ["quick", "pump", "tug", "spot", "count"].includes(H.kind)) && !(H.ph === "q" && H.kind === "act" && H.ac?.pid === this.pid) && (["intro", "rev", "lb", "end"].includes(H.ph) || (["q", "qv", "fk-ans"].includes(H.ph) && this.g?.rk === H.rk) || (H.ph === "dw" && this.dr?.rk === H.rk) || (H.ph === "q" && H.kind === "cash" && !(H.cs?.in || []).includes(this.pid)) || (H.ph === "q" && H.kind === "potato" && H.pt?.h !== this.pid) || (H.ph === "q" && H.kind === "act" && H.ac?.pid !== this.pid) || (H.ph === "q" && H.kind === "simon" && !(H.sm?.alive || []).includes(this.pid)) || H.ph === "imp-clue" || (H.ph === "q" && H.x === fnv(this.pid + H.rk)));
     paint($("#ph-foot"), [pause, far, !!idle].join(), (idle ? `<div class="rxbar">${REACTS.map(([e, w], i) => `<button data-act="react" data-i="${i}" aria-label="${esc(w)}">${e ? `<span>${e}</span>` : `<b>${esc(w)}</b>`}</button>`).join("")}</div>` : "")
       + (far ? `<button class="btn sm" data-act="toofar">Too far</button>` : "") + (pause ? `<button class="btn sm" data-act="pause">Pause game</button>` : ""));
   },
@@ -5437,7 +5672,7 @@ const PH = {
     if (!me) return paint(main, "wait-in", `<div class="card center"><p class="ph-h">Joining…</p><p class="muted">Hang on while the TV adds you.</p></div>`);
     if (H.ph === "lobby") return this.rLobby(main);
     if (H.pause && H.ph !== "end") return this.rPaused(main);
-    if (H.ph === "intro") return paint(main, "intro|" + H.rk, `${H.tw && TWISTS[H.tw] ? `<div class="card center twph"><p class="eyebrow">Twist!</p><p class="ph-h">${esc(TWISTS[H.tw].label)}</p><p>${esc(TWISTS[H.tw].note)}</p></div>` : ""}<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">Eyes on the TV</p><p class="muted">${H.kind === "imp" ? "Imposter round. Your secret word is coming." : H.kind === "fakin" ? "Fakin' it. Your question is coming." : H.kind === "draw" ? "Draw it. Warm up your finger." : H.kind === "low" ? "Lowest number wins. Think like everyone else, then don't." : H.kind === "shot" ? "Shot in the dark. Hide well, shoot better." : H.kind === "herd" ? "Herd mind. Think like everyone else." : H.kind === "cash" ? "Cash or crash. Know when to walk away." : H.kind === "quick" ? "Quick draw. Eyes on your phone, finger ready." : H.kind === "potato" ? "Hot potato. Don't get caught holding it." : H.kind === "pump" ? "Pump it. Know when to stop." : H.kind === "tug" ? (H.tg?.team && H.tg.team[this.pid] !== undefined ? `Tug of war. You're on ${H.tg.team[this.pid] ? "Blue" : "Red"}!` : "Tug of war. Get your thumb ready.") : H.kind === "spot" ? "Spot it. Eyes sharp." : H.kind === "cats" ? "Categories. Think of something nobody else will." : H.kind === "rps" ? "Showdown. Rock, paper, scissors against everyone." : H.kind === "split" ? (Array.isArray(H.ss?.by) && H.ss.by.includes(this.pid) ? "Split or steal. You're up!" : "Split or steal. Get ready to bet.") : WRITE_KINDS.includes(H.kind) ? "Get your thumbs ready. You'll be writing." : "Get ready to guess."}</p></div>
+    if (H.ph === "intro") return paint(main, "intro|" + H.rk, `${H.tw && TWISTS[H.tw] ? `<div class="card center twph"><p class="eyebrow">Twist!</p><p class="ph-h">${esc(TWISTS[H.tw].label)}</p><p>${esc(TWISTS[H.tw].note)}</p></div>` : ""}<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">Eyes on the TV</p><p class="muted">${H.kind === "imp" ? "Imposter round. Your secret word is coming." : H.kind === "fakin" ? "Fakin' it. Your question is coming." : H.kind === "draw" ? "Draw it. Warm up your finger." : H.kind === "low" ? "Lowest number wins. Think like everyone else, then don't." : H.kind === "shot" ? "Shot in the dark. Hide well, shoot better." : H.kind === "herd" ? "Herd mind. Think like everyone else." : H.kind === "cash" ? "Cash or crash. Know when to walk away." : H.kind === "quick" ? "Quick draw. Eyes on your phone, finger ready." : H.kind === "potato" ? "Hot potato. Don't get caught holding it." : H.kind === "pump" ? "Pump it. Know when to stop." : H.kind === "tug" ? (H.tg?.team && H.tg.team[this.pid] !== undefined ? `Tug of war. You're on ${H.tg.team[this.pid] ? "Blue" : "Red"}!` : "Tug of war. Get your thumb ready.") : H.kind === "spot" ? "Spot it. Eyes sharp." : H.kind === "simon" ? "Simon says. Only when Simon says!" : H.kind === "count" ? "Count up. No talking!" : H.kind === "act" ? (H.ac?.pid === this.pid ? "You're acting! Your first word is coming." : `Act it out. ${esc(this.nameOf(H.ac?.pid)?.[1] || "Someone")} is up.`) : H.kind === "cats" ? "Categories. Think of something nobody else will." : H.kind === "rps" ? "Showdown. Rock, paper, scissors against everyone." : H.kind === "split" ? (Array.isArray(H.ss?.by) && H.ss.by.includes(this.pid) ? "Split or steal. You're up!" : "Split or steal. Get ready to bet.") : WRITE_KINDS.includes(H.kind) ? "Get your thumbs ready. You'll be writing." : "Get ready to guess."}</p></div>
       ${H.ih && MODE_CARD[H.kind]?.how ? `<div class="card"><p class="eyebrow">How to play ${esc(MODE_LABEL[H.kind] || "")}</p><ol class="steps">${MODE_CARD[H.kind].how.map(x => `<li>${esc(x)}</li>`).join("")}</ol><p class="muted"><b>Scoring</b> ${esc(MODE_CARD[H.kind].score || "")}</p></div>` : ""}`);
     if (IMP_PHASES.includes(H.ph)) return this.rImp(main);
     if (FK_PHASES.includes(H.ph)) return this.rFakin(main);
@@ -5727,6 +5962,9 @@ const PH = {
     if (this.host.kind === "pump") return this.rPump(main);
     if (this.host.kind === "tug") return this.rTug(main);
     if (this.host.kind === "spot") return this.rSpot(main);
+    if (this.host.kind === "simon") return this.rSimon(main);
+    if (this.host.kind === "count") return this.rCount(main);
+    if (this.host.kind === "act") return this.rAct(main);
     const H = this.host, owner = H.x === fnv(this.pid + H.rk);
     const tbar = H.kind === "imp" || H.kind === "fakin" ? "" : `<div class="tbar" aria-hidden="true"><i id="tbar"></i></div>`;
     if (owner) return paint(main, "q-own|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">This one's yours</p><p class="muted">Keep a straight face. Every wrong guess earns you points.</p></div>`);
@@ -5902,6 +6140,68 @@ const PH = {
     const sub = mine?.ms ? `${(mine.ms / 1000).toFixed(3)} s${pts ? ` · +${fmt(pts)} points` : ""}` : "Nothing this draw.";
     paint(main, "qk-rev|" + H.rk, `<div class="card center result ${pts ? "good" : mine && !mine.ms ? "bad" : ""}"><p class="eyebrow">Quick draw · Draw ${(rv.go || 0) + 1} of ${rv.goes || QUICK_DRAWS}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
   },
+  // Simon says on the phone: the order and four colour buttons.
+  rSimon(main) {
+    const H = this.host, sm = H.sm || {}, cmd = sm.cmd, alive = (sm.alive || []).includes(this.pid), tbar = `<div class="tbar" aria-hidden="true"><i id="tbar"></i></div>`, head = `<p class="eyebrow">Simon says · Order ${(sm.s || 0) + 1} of ${sm.n || SIMON_STEPS}</p>`;
+    if (!alive) return paint(main, "sm-out|" + H.rk, `<div class="card center result">${head}<p class="ph-big">You're out</p><p class="muted">Watch the others squirm.</p></div>`);
+    const order = cmd ? `<p class="simon-p">${cmd.simon ? `<span class="ss">Simon says</span>` : ""}tap <b style="color:${SIMON[cmd.ink]?.[1]}">${esc(SIMON[cmd.c]?.[0].toUpperCase() || "")}</b>${cmd.simon ? "" : "!"}</p>` : "";
+    if (this.g?.rk === H.rk) return paint(main, "sm-lock|" + H.rk, `${tbar}<div class="card center result">${head}${order}<p class="ph-big">You tapped ${esc(SIMON[this.g.i][0].toLowerCase())}</p></div>`);
+    paint(main, "sm|" + H.rk, `${tbar}<div class="card">${head}${order}<div class="smbtns">${SIMON.map(([w, c], k) => `<button class="smb" style="background:${c}" data-act="simon" data-i="${k}">${w}</button>`).join("")}</div></div>`);
+  },
+  rSimonReveal(main) {
+    const H = this.host, rv = H.rv || {}, me = this.pid, out = (rv.out || []).includes(me), alive = (rv.alive || []).includes(me), pts = rv.d?.[me] || 0;
+    const head = out ? "You're out!" : alive ? (rv.end ? (rv.alive.length === 1 ? "Last one standing!" : "You survived!") : rv.all ? "Phew! Everyone slipped" : "Safe!") : "You're out";
+    const sub = (rv.cmd ? (rv.cmd.simon ? `Simon said ${SIMON[rv.cmd.c][0].toLowerCase()}.` : "Simon didn't say!") : "") + (pts ? ` +${fmt(pts)}` : "");
+    paint(main, "sm-rev|" + H.rk, `<div class="card center result ${out ? "bad" : alive ? "good" : ""}"><p class="eyebrow">Simon says · Order ${(rv.s || 0) + 1} of ${rv.n || SIMON_STEPS}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+  },
+  // Count up on the phone: one big +1. Greyed out after your own tap until someone else goes.
+  rCount(main) {
+    const H = this.host, cu = H.cu || {}, me = this.pid;
+    if (this.cu?.rk !== H.rk) this.cu = { rk: H.rk, n: 0, at: 0, saw: -1 };
+    const p = this.cu, crash = Array.isArray(cu.crash), mine = cu.last === me || (p.at && Date.now() - p.at < 1500 && p.saw === cu.c);
+    if (p.saw !== cu.c && cu.last !== me) p.at = 0;
+    const st = crash ? "crash" : mine ? "mine" : "go";
+    paint(main, ["cu", H.rk, st, cu.c].join("|"), `<button class="qpad cu-${st}" data-tap="count" aria-label="Tap to count"><span class="qe">Count up · to ${cu.target || "?"}</span><b class="num">${crash ? "0" : st === "go" ? `${(cu.c || 0) + 1}` : cu.c || 0}</b><i>${crash ? "Crash! Two at once. Back to zero." : st === "mine" ? "That was you. Let someone else go." : `Tap to say ${(cu.c || 0) + 1}. Not at the same time as anyone!`}</i></button>`);
+  },
+  countTap() {
+    const H = this.host, cu = H.cu || {}, p = this.cu;
+    if (!p || p.rk !== H.rk || cu.last === this.pid || (p.at && Date.now() - p.at < 1500 && p.saw === cu.c)) return;
+    p.n++; p.at = Date.now(); p.saw = cu.c; vibrate(20);
+    this.g = { rk: H.rk, n: p.n }; this.push(); this.renderMain();
+  },
+  rCountReveal(main) {
+    const H = this.host, rv = H.rv || {}, pts = rv.d?.[this.pid] || 0;
+    paint(main, "cu-rev|" + H.rk, `<div class="card center result ${rv.win ? "good" : ""}"><p class="eyebrow">Count up</p><p class="ph-big">${rv.win ? "You did it!" : `Best run: ${rv.best || 0}`}</p><p style="font-weight:800;font-size:19px">${pts ? `+${fmt(pts)} points. ` : ""}${rv.crashes || 0} ${rv.crashes === 1 ? "crash" : "crashes"}.</p>${this.sipNote()}</div>`);
+  },
+  // Act it out on the phone. The actor sees the word (whispered by the TV), Got it and Pass; then who guessed it.
+  gotAct(d) {
+    if (typeof d.ak !== "string" || typeof d.aw !== "string") return;
+    this.actw = { k: d.ak, w: cleanText(d.aw, 80) };
+    this.push(); this.renderMain(true);
+  },
+  rAct(main) {
+    const H = this.host, ac = H.ac || {}, me = this.pid, tbar = `<div class="tbar" aria-hidden="true"><i id="tbar"></i></div>`, head = `<p class="eyebrow">Act it out · ${ac.got || 0} got</p>`;
+    if (ac.pid !== me) {
+      const A = this.nameOf(ac.pid);
+      return paint(main, ["ac-w", H.rk, ac.got].join("|"), `${tbar}<div class="card center result">${head}${A ? faceA(A) : ""}<p class="ph-big">${esc(A?.[1] || "Someone")} is acting</p><p class="muted">Shout your guesses! ${esc(A?.[1] || "They")} taps who got it.</p></div>`);
+    }
+    const key = H.rk + ":" + ac.i;
+    if (this.g?.rk === H.rk && this.g.n === ac.i && Date.now() - (this.gAt || 0) < 2500) return paint(main, "ac-sent|" + key, `${tbar}<div class="card center result">${head}<p class="ph-big">Next word…</p></div>`);
+    if (this.actw?.k !== key) return paint(main, "ac-wait|" + key, `${tbar}<div class="card center result">${head}<p class="ph-big">Your word is coming…</p></div>`);
+    if (this.actWho === key) {
+      const opts = this.pl().filter(p => p[0] !== me && p[4]);
+      return paint(main, ["ac-who", key, opts.map(p => p[0]).join()].join("|"), `${tbar}<div class="card">${head}<p class="muted">“${esc(this.actw.w)}”</p><p class="ph-h">Who got it?</p>
+        <div class="choices">${opts.map(p => `<button class="choice" data-act="act-who" data-pid="${p[0]}">${faceA(p)}<span>${esc(p[1])}</span></button>`).join("")}</div>
+        <button class="btn wide" data-act="act-back">Back</button></div>`);
+    }
+    paint(main, ["ac", key].join("|"), `${tbar}<div class="card">${head}<p class="eyebrow">Act this out. No talking!</p><p class="actw">${esc(this.actw.w)}</p>
+      <div class="actbtns"><button class="cashb out" data-act="act-got"><b>Got it!</b><span>Then tap who</span></button><button class="cashb stay" data-act="act-pass"><b>Pass</b><span>Next word</span></button></div></div>`);
+  },
+  rActReveal(main) {
+    const H = this.host, rv = H.rv || {}, me = this.pid, pts = rv.d?.[me] || 0, mine = rv.pid === me, n = rv.g?.[me] || 0;
+    const head = mine ? (rv.got ? `You got ${rv.got} across!` : "Tough crowd") : n ? `You guessed ${n}!` : "Eyes on the TV";
+    paint(main, "ac-rev|" + H.rk, `<div class="card center result ${pts ? "good" : ""}"><p class="eyebrow">Act it out</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${pts ? `+${fmt(pts)} points` : ""}</p>${this.sipNote()}</div>`);
+  },
   // Live rounds send the running count a few times a second, not on every tap.
   liveSend(g) {
     this.g = g;
@@ -5917,6 +6217,7 @@ const PH = {
     if (t === "pump" && H.kind === "pump") return this.pumpTap();
     if (t === "tug" && H.kind === "tug") return this.tugTap(el);
     if (t === "spot" && H.kind === "spot") return this.spotTap(e, el);
+    if (t === "count" && H.kind === "count") return this.countTap();
   },
   // Pump it on the phone: your balloon, a big Pump button and Bank it. The balloon pops here the moment it passes its size.
   rPump(main) {
@@ -6285,6 +6586,9 @@ const PH = {
     if (this.host.kind === "pump") return this.rPumpReveal(main);
     if (this.host.kind === "tug") return this.rTugReveal(main);
     if (this.host.kind === "spot") return this.rSpotReveal(main);
+    if (this.host.kind === "simon") return this.rSimonReveal(main);
+    if (this.host.kind === "count") return this.rCountReveal(main);
+    if (this.host.kind === "act") return this.rActReveal(main);
     if (this.host.kind === "meld") return this.rMeldReveal(main);
     if (this.host.qz && this.host.rv) return this.rQuizReveal(main);
     const H = this.host, rv = H.rv || { g: {}, d: {} }, ownerP = this.nameOf(rv.o);
