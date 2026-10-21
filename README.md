@@ -98,6 +98,17 @@ tapped quickly. The same rounds and settings are under **Rounds & settings** on 
   whoever holds the bomb says one out loud (no repeats), then passes it to someone on their phone (not straight back).
   When it blows, everyone else scores 300 and whoever passed it last 200 more. Three bombs a round, each with a new
   category from `server/data/cats.json`. There's no clock on the TV or the phones. Needs 3 players.
+- **Pump it:** everyone pumps up their own balloon on their phone, 25 points a pump, and banks it whenever they
+  like. Past its secret size it pops and that balloon scores nothing; every player's balloon pops at a different size.
+  The TV shows everyone's balloon growing live. Anything still in one piece when the clock runs out is banked. Three
+  balloons a round. Works with 2 players.
+- **Tug of war:** the room splits into Red and Blue. After a three-second countdown everyone taps their phone as fast
+  as they can for eight seconds, and the rope on the TV moves live. Each team's average taps decide it, so a smaller
+  team isn't punished. Best of three pulls: the winners score 300 each, the fastest tapper 100 more. Works with 2.
+- **Spot it:** a grid of one letter with a single odd one out (an O among Qs). It shows on every phone and the TV;
+  tap it on your phone. The time counts from when the grid shows on your phone, and a wrong tap freezes it for a
+  second. Three grids a round (4×4, 5×5, 6×6), the later ones with pairs that look nearly the same. The fastest
+  three score 500, 300 and 150. Works with 2 players.
 - **Lowest number wins:** everyone secretly picks a number from 1 to 10 on their phone. Numbers more than one player
   picked are knocked out, and the lowest number left wins. Three goes a round, worth 300, 600 and 1,000. The reveal
   shows who picked what, crosses out the clashes and lights up the winner. Needs 3 players.

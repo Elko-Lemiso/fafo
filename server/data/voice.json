@@ -376,6 +376,20 @@
     { "id": "intro-potato-3", "ev": "intro-potato", "t": "Hot potato! Talk fast, pass faster!" },
     { "id": "potato-boom-1", "ev": "potato-boom", "t": "Boom! Too slow!" },
     { "id": "potato-boom-2", "ev": "potato-boom", "t": "Kaboom! Someone's toast!" },
-    { "id": "potato-boom-3", "ev": "potato-boom", "t": "And it blows! Should have passed it faster!" }
+    { "id": "potato-boom-3", "ev": "potato-boom", "t": "And it blows! Should have passed it faster!" },
+    { "id": "intro-pump-1", "ev": "intro-pump", "t": "Pump it! Blow it up, but don't let it pop!" },
+    { "id": "intro-pump-2", "ev": "intro-pump", "t": "Balloon time! How brave are your thumbs?" },
+    { "id": "pump-win-1", "ev": "pump-win", "t": "Nice and big! Banked!" },
+    { "id": "pump-win-2", "ev": "pump-win", "t": "Now that's a balloon!" },
+    { "id": "pump-allpop-1", "ev": "pump-allpop", "t": "Pop, pop, pop! Greedy, the lot of you!" },
+    { "id": "intro-tug-1", "ev": "intro-tug", "t": "Tug of war! Red versus Blue! Tap like your life depends on it!" },
+    { "id": "intro-tug-2", "ev": "intro-tug", "t": "Grab the rope! It's tug of war!" },
+    { "id": "intro-tug-3", "ev": "intro-tug", "t": "Thumbs ready! Red against Blue!" },
+    { "id": "tug-win-1", "ev": "tug-win", "t": "What a pull!" },
+    { "id": "tug-win-2", "ev": "tug-win", "t": "They dragged them right over the line!" },
+    { "id": "intro-spot-1", "ev": "intro-spot", "t": "Spot it! Find the odd one out!" },
+    { "id": "intro-spot-2", "ev": "intro-spot", "t": "Eyes sharp! One of these is not like the others!" },
+    { "id": "spot-win-1", "ev": "spot-win", "t": "Eagle eyes!" },
+    { "id": "spot-win-2", "ev": "spot-win", "t": "Spotted it! Too quick!" }
   ]
 }

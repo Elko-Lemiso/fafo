@@ -726,6 +726,67 @@ button{touch-action:manipulation}
 .potcard .choice:disabled{opacity:.5}
 .potcard .choice i{font-style:normal;font-size:12px;font-weight:800;color:var(--ink-soft);margin-left:auto}
 .pbig{font-size:64px;line-height:1;text-align:center}
+/* Pump it, Tug of war, Spot it */
+.pump,.tug,.spot{height:100%;display:flex;flex-direction:column;justify-content:center;gap:2.2vmin;max-width:1500px;margin:0 auto;width:100%}
+.pump .lede,.tug .lede{max-width:60ch;font-size:max(15px,2.5vmin);margin:0}
+.pbals{display:flex;flex-wrap:wrap;gap:2vmin 3vmin;justify-content:center;align-items:flex-end;min-height:30vmin}
+.pbal{display:flex;flex-direction:column;align-items:center;gap:.8vmin;width:15vmin}
+.pbal .bl{position:relative;width:12vmin;aspect-ratio:.86;border-radius:50% 50% 47% 47%/56% 56% 44% 44%;background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.6),rgba(255,255,255,0) 26%),var(--c);border:3px solid var(--ink);transform:scale(var(--s,.3));transform-origin:50% 100%;transition:transform .18s cubic-bezier(.3,1.6,.5,1)}
+.pbal .bl:after{content:"";position:absolute;bottom:-1.3vmin;left:50%;width:1.6vmin;height:1.4vmin;transform:translateX(-50%);background:var(--c);border:3px solid var(--ink);border-radius:40% 40% 10% 10%}
+.pbal b{font-family:var(--display);font-weight:400;font-size:max(16px,3.2vmin)}
+.pbal span{display:flex;align-items:center;gap:.6vmin;font-weight:800;font-size:max(12px,1.9vmin)}
+.pbal span .avatar{font-size:.8em;border-width:2px}
+.pbal.banked .bl{animation:floaty 1.4s ease-in-out infinite alternate}
+.pbal.banked b{color:var(--mint)}
+.pbal.popped .bl{background:none;border-color:transparent;transition:none}
+.pbal.popped .bl:before{content:"POP!";position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);color:var(--tomato);font-size:max(16px,3.6vmin);transform:scale(calc(1 / var(--s,1)));animation:slam .3s both}
+.pbal.popped .bl:after{display:none}
+.pbal.popped b{color:var(--tomato)}
+@keyframes floaty{from{translate:0 0}to{translate:0 -1.2vmin}}
+.tugh{font-size:max(40px,11vmin);line-height:1;text-align:center}
+.tugh.go{color:var(--tomato)}
+.tugfield{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr) minmax(0,1fr);align-items:center;gap:3vmin}
+.tteam{display:flex;flex-direction:column;align-items:center;gap:1.2vmin;text-align:center}
+.tteam .slist{justify-content:center}
+.tteam>b{font-family:var(--display);font-weight:400;font-size:max(30px,8vmin);line-height:1}
+.tname{font-family:var(--display);font-size:max(22px,5vmin);margin:0}
+.tname span{font-family:var(--label);font-size:.45em;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.t0 .tname,.t0>b{color:var(--tomato)}
+.t1 .tname,.t1>b{color:var(--cobalt)}
+.tteam.lost{opacity:.5}
+.tteam.won{animation:pop .5s var(--t,.5s) cubic-bezier(.3,1.6,.5,1) both}
+.tavg{font-weight:800;color:var(--ink-soft);font-size:max(13px,2.2vmin)}
+.rope{position:relative;height:2.6vmin;background:repeating-linear-gradient(60deg,#8B5A2B 0 1.3vmin,#B07A45 1.3vmin 2.6vmin);border:3px solid var(--ink);border-radius:999px}
+.rope .mid{position:absolute;left:50%;top:-5vmin;bottom:-5vmin;width:.6vmin;background:var(--ink);transform:translateX(-50%);border-radius:1vmin}
+.rope .knot{position:absolute;left:50%;top:50%;width:6vmin;height:6vmin;border-radius:50%;background:var(--sun);border:4px solid var(--ink);transform:translate(-50%,-50%);transition:left .3s cubic-bezier(.3,1.3,.5,1);box-shadow:0 .6vmin 0 var(--ink)}
+.tug.rev .lowh{text-align:center;font-size:max(30px,8vmin)}
+.tug.rev .deltas{justify-content:center}
+.spot{display:grid;grid-template-columns:auto minmax(0,1fr);gap:5vmin;align-items:center}
+.spotg{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:.8vmin;width:min(66vmin,48vw)}
+.spotg i{display:grid;place-items:center;aspect-ratio:1;background:var(--paper);border:3px solid var(--ink);border-radius:1vmin;font-style:normal;font-family:var(--display);font-size:calc(min(66vmin,48vw) / var(--n) * .55);line-height:1}
+.spot.rev .spotg i{animation:dim .4s var(--t,.6s) both}
+.spot.rev .spotg i.odd{animation:win .5s var(--t,.6s) both}
+.spot .lede{max-width:40ch;font-size:max(15px,2.5vmin);margin:0}
+.crows.one{grid-template-columns:minmax(0,1fr)}
+.pumpwrap{display:grid;place-items:end center;height:min(34vh,280px);margin:6px 0 18px}
+.pball{position:relative;width:min(150px,40vw);aspect-ratio:.86;border-radius:50% 50% 47% 47%/56% 56% 44% 44%;background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.6),rgba(255,255,255,0) 26%),var(--c);border:3px solid var(--ink);transform:scale(var(--s,.3));transform-origin:50% 100%;transition:transform .12s cubic-bezier(.3,1.6,.5,1)}
+.pumpv{font-family:var(--display);font-size:44px;line-height:1;text-align:center;margin:0}
+.pumpbtns{display:grid;grid-template-columns:1.6fr 1fr;gap:10px;margin-top:12px}
+.pumpb{min-height:120px;font-family:var(--display);font-size:34px;background:var(--cobalt);color:var(--paper);border:3px solid var(--ink);border-radius:20px;box-shadow:0 6px 0 var(--ink);cursor:pointer;touch-action:manipulation;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
+.pumpb:active{transform:translateY(4px);box-shadow:0 2px 0 var(--ink)}
+.bankb{min-height:120px;font:inherit;font-weight:800;font-size:20px;background:var(--mint);color:var(--paper);border:3px solid var(--ink);border-radius:20px;box-shadow:0 6px 0 var(--ink);cursor:pointer}
+.bankb:disabled{opacity:.45}
+.qpad.tug-0{background:var(--tomato);color:var(--paper)}
+.qpad.tug-1{background:var(--cobalt);color:var(--paper)}
+.qpad.tug-0 b,.qpad.tug-1 b,.qpad.tugw b{font-size:72px}
+.qpad.tugw b:after{display:none}
+.qpad.tw-0 b{color:#FF7A66}
+.qpad.tw-1 b{color:#8FA6FF}
+.qpad.tug-0:active,.qpad.tug-1:active{filter:brightness(1.12)}
+.spad2{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:6px;margin-top:10px;transition:opacity .15s}
+.spad2.locked{opacity:.35;pointer-events:none}
+.spc{display:grid;place-items:center;aspect-ratio:1;padding:0;background:var(--paper);border:2px solid var(--ink);border-radius:10px;font-family:var(--display);font-size:calc((min(100vw,480px) - 90px) / var(--n) * .55);line-height:1;color:var(--ink);cursor:pointer;touch-action:manipulation;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
+.spc.wrong{background:var(--tomato);color:var(--paper)}
 /* Herd mind, Showdown, Who's older */
 .hgrps{display:flex;flex-wrap:wrap;gap:1.4vmin;justify-content:center}
 .hgrp{position:relative;display:flex;flex-direction:column;align-items:center;gap:1vmin;background:var(--paper);border:3px solid var(--ink);border-radius:1.6vmin;box-shadow:0 .7vmin 0 var(--ink);padding:1.4vmin 2.2vmin;min-width:18vmin;max-width:42vmin;animation:pop .4s calc(.3s + var(--i) * .25s) cubic-bezier(.3,1.6,.5,1) both}
@@ -915,7 +976,7 @@ const COLORS = ["#D93A26","#2342C6","#11704F","#7339D6","#C42F78","#0B7584","#B5
 const CODE_CHARS = "ABCDEFGHJKMNPQRSTUVWXYZ";
 // Kinds of round. Photo games play every photo; flag and map rounds come in sets of ROUNDS (fewer when mixed).
 const ROUNDS = 10, SONGS_PER_PLAYER = 3;
-const MODES = ["photo", "song", "prof", "said", "ttl", "hot", "quip", "bluff", "draw", "meld", "tune", "face", "flag", "map", "cap", "big", "trivia", "buzz", "num", "year", "hilo", "odd", "emoji", "imp", "fakin", "split", "low", "shot", "herd", "rps", "cash", "quick", "potato", "cats", "older", "likely", "wyr", "nhie"];
+const MODES = ["photo", "song", "prof", "said", "ttl", "hot", "quip", "bluff", "draw", "meld", "tune", "face", "flag", "map", "cap", "big", "trivia", "buzz", "num", "year", "hilo", "odd", "emoji", "imp", "fakin", "split", "low", "shot", "herd", "rps", "cash", "quick", "potato", "pump", "tug", "spot", "cats", "older", "likely", "wyr", "nhie"];
 // Owner rounds show something a player brought, and everyone guesses which player. The rest are quiz rounds with 4 answers.
 const OWNER_KINDS = ["photo", "song", "prof"];
 // Rounds where you answer by picking a player rather than one of 4 answers.
@@ -923,7 +984,7 @@ const PLAYER_KINDS = ["photo", "song", "prof", "imp", "fakin", "likely"];
 // Modes that need at least 3 players to make sense.
 const CROWD_KINDS = ["prof", "said", "quip", "bluff", "draw", "imp", "fakin", "low", "herd", "potato", "likely", "wyr", "nhie"];
 // Modes that work with 2 players.
-const PAIR_KINDS = ["ttl", "meld", "hot", "split", "shot", "rps", "cash", "cats", "quick"];
+const PAIR_KINDS = ["ttl", "meld", "hot", "split", "shot", "rps", "cash", "cats", "quick", "pump", "tug", "spot"];
 // What each mode is, for the pickers: an icon, a one-line pitch, what kind of game it is, how a round goes, and how it scores.
 const QUIZ_SCORE = "500 to 1,000 for a right answer. The faster you are, the more you get.";
 const MODE_CARD = {
@@ -947,6 +1008,9 @@ const MODE_CARD = {
   cash: { i: "📈", tag: "Nerve", blurb: "The pot keeps growing. Cash out, or stay in for more before it crashes.", how: ["The pot grows every few seconds", "Cash out to bank it, or stay in for more", "When it crashes, everyone still in gets nothing"], score: "Whatever the pot was when you cashed out. Still in when it crashes? Nothing." },
   quick: { i: "🤠", tag: "Fast hands", blurb: "Your phone goes dark, then says DRAW. Fastest tap wins. Tap too early and you miss it.", how: ["Watch your phone, not the TV", "Tap the moment it says DRAW. Not DRAMA, not DRAWER", "The fastest taps score. Three draws"], score: "500, 300 and 150 for the fastest taps each draw. Too early, or on a fake: nothing." },
   potato: { i: "💣", tag: "Fast hands · Talk", blurb: "Pass the bomb round the room, saying something in the category first. Don't be holding it when it blows.", how: ["The TV shows a category, like an animal", "Holding the bomb? Say one out loud (no repeats), then pass it on your phone", "The fuse is secret. When it blows, whoever's holding it gets nothing"], score: "300 for everyone not holding it when it blows, and 200 more for whoever passed it last." },
+  pump: { i: "🎈", tag: "Fast hands · Nerve", blurb: "Pump up your balloon for points. Bank it before it pops. Everyone's pops at a different size.", how: ["Tap Pump to blow up your balloon: 25 points a pump", "Tap Bank it to keep what you've got", "Pump past its secret size and it pops: nothing"], score: "25 for every pump on a balloon you bank. A popped balloon scores nothing. Three balloons." },
+  tug: { i: "🪢", tag: "Fast hands · Teams", blurb: "Two teams, one rope. Tap your phone as fast as you can to pull.", how: ["The room splits into Red and Blue", "When it says PULL, tap your phone like mad", "The team that pulls hardest wins. Best of three pulls"], score: "300 each for the team that wins a pull, and 100 more for the fastest tapper." },
+  spot: { i: "🔍", tag: "Fast hands · Eyes", blurb: "A grid full of one letter, with one odd one out. Find it first.", how: ["A grid of letters appears on your phone and the TV", "One of them is different. Tap it", "A wrong tap freezes you for a second. Three grids, each bigger"], score: "500, 300 and 150 for the fastest to find it." },
   cats: { i: "🔤", tag: "Write · Quick", blurb: "A category and a letter. Write something nobody else will think of.", how: ["Something in a kitchen, starting with B", "Type an answer on your phone", "Answers nobody else wrote score. Two the same cancel out"], score: "500 for an answer nobody else wrote that starts with the letter. Same as someone else, or the wrong letter: nothing." },
   older: { i: "🎂", tag: "Quiz", blurb: "Two famous faces. Who's older? Closer than you think.", how: ["Two famous people appear", "Pick the one born first", "The reveal shows both birth years"], score: QUIZ_SCORE },
   low: { i: "🎯", tag: "Mind games", blurb: "Everyone secretly picks a number from 1 to 10. The lowest number nobody else picked wins.", how: ["Pick a number from 1 to 10 in secret", "Numbers two people picked are knocked out", "The lowest number left wins. Three goes, the stakes go up"], score: "The winner takes 300, then 600, then 1,000. Nobody left standing? Nobody scores." },
@@ -999,7 +1063,7 @@ const MODE_GROUPS = [
   ["Write and bluff", ["quip", "bluff", "draw", "cats", "capt"]],
   ["Secret roles", ["imp", "fakin"]],
   ["Mind games", ["split", "low", "shot", "herd", "rps", "cash"]],
-  ["Fast hands", ["quick", "potato"]],
+  ["Fast hands", ["quick", "potato", "pump", "tug", "spot"]],
   ["Quiz", ["tune", "face", "older", "flag", "map", "cap", "big", "trivia", "buzz", "num", "year", "hilo", "odd", "emoji"]],
 ];
 // Rounds with no right answer: Would you rather (score for siding with the room) and Never have I ever (just for fun).
@@ -1058,6 +1122,22 @@ const QUICK_SECS = 12, QUICK_DRAWS = 3, QUICK_PTS = [500, 300, 150], QUICK_FAKES
 // Hot potato: a bomb with a secret fuse goes round the room. Whoever holds it says something in the category out loud,
 // then passes it on their phone (not straight back). When it blows, everyone else scores, and the last passer a bit more.
 const POTATO_BOMBS = 3, POTATO_FUSE = [16, 36], POTATO_PTS = 300, POTATO_SNIPE = 200, POTATO_HOLD = 1.2;
+// Pump it: everyone pumps their own balloon, 25 points a pump, and banks it whenever they like. Past its secret size it
+// pops and scores nothing. Every player's balloon pops at a different size. Anything still in one piece when the clock
+// runs out is banked. Three balloons a round.
+const PUMP_SECS = 15, PUMP_BALLOONS = 3, PUMP_PTS = 25;
+const pumpPop = (pid, seed) => 4 + (parseInt(fnv(pid + seed), 36) % 29);
+// Tug of war: Red against Blue. After a three-second countdown everyone taps their phone as fast as they can for
+// TUG_SECS; each team's average taps decide the pull, so a smaller team isn't punished. Best of three pulls.
+const TUG_WAIT = 3, TUG_SECS = 8, TUG_PULLS = 3, TUG_PTS = 300, TUG_TOP = 100;
+// Spot it: a grid of one letter with a single odd one out. The time counts from when the grid shows on each phone; a
+// wrong tap freezes that phone for a second. Three grids a round, each bigger.
+const SPOT_SECS = 25, SPOT_SIZES = [4, 5, 6], SPOT_PTS = [500, 300, 150];
+// The first grid uses an easier pair; the bigger ones, pairs that look nearly the same.
+const SPOT_EASY = [["6", "8"], ["H", "N"], ["W", "M"], ["T", "I"], ["K", "X"], ["2", "Z"], ["5", "S"], ["A", "4"]];
+const SPOT_HARD = [["O", "Q"], ["3", "8"], ["B", "8"], ["E", "F"], ["P", "R"], ["C", "G"], ["U", "V"], ["M", "N"], ["D", "O"], ["0", "O"]];
+// Rounds where phones send running counts while the round is live, rather than one answer.
+const LIVE_KINDS = ["pump", "tug"];
 // Reactions: any phone can throw these onto the TV while it waits. Words stand in for the emoji on TVs that can't show emoji.
 const REACTS = [["😂", "LOL"], ["🔥", "FIRE"], ["😱", "OMG"], ["👏", "CLAP"], ["💀", "DEAD"], ["🍻", "CHEERS"], ["", "BOO!"], ["", "TOO EASY"]];
 // Twists (Rounds & settings, on by default): now and then a round gets a twist, announced on its title card. Never the
@@ -1078,8 +1158,8 @@ const DRAW_SECS = 60, GUESS_SECS = 30, DRAW_W = 640, DRAW_H = 480;
 const DRAW_STOP = new Set(["the", "and", "with", "for", "from", "into", "onto", "that", "this", "its", "his", "her", "their", "out", "off", "over", "under", "some", "who", "while"]);
 const drawWords = t => String(t || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(/[^\p{L}\p{N}]+/u).filter(w => w.length >= 3 && !DRAW_STOP.has(w)).map(w => (w.length > 3 ? w.replace(/s$/, "") : w));
 const drawMatch = (want, got) => { if (!want || !got) return 0; if (meldSame(want, got)) return 2; const a = new Set(drawWords(want)); return drawWords(got).some(w => a.has(w)) ? 1 : 0; };
-const MODE_LABEL = { photo: "Whose photo", song: "Whose song", prof: "Whose answer", said: "Who said it", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather", nhie: "Never have I ever", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps", cap: "Capitals", big: "Which is bigger", trivia: "Trivia", emoji: "Emoji puzzles", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", low: "Lowest number wins", shot: "Shot in the dark", herd: "Herd mind", rps: "Showdown", cash: "Cash or crash", quick: "Quick draw", potato: "Hot potato", cats: "Categories", older: "Who's older", draw: "Draw it", likely: "Most likely to" };
-const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", prof: "Whose answer?", said: "Who said it?", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather?", nhie: "Never have I ever", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country", cap: "Capital cities", big: "Which is bigger?", trivia: "Trivia", emoji: "Emoji puzzle", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", low: "Lowest number wins", shot: "Shot in the dark", herd: "Herd mind", rps: "Showdown", cash: "Cash or crash", quick: "Quick draw", potato: "Hot potato", cats: "Categories", older: "Who's older?", draw: "Draw it", likely: "Most likely to…" };
+const MODE_LABEL = { photo: "Whose photo", song: "Whose song", prof: "Whose answer", said: "Who said it", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather", nhie: "Never have I ever", tune: "Name that tune", face: "Famous faces", flag: "Flags", map: "Maps", cap: "Capitals", big: "Which is bigger", trivia: "Trivia", emoji: "Emoji puzzles", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", low: "Lowest number wins", shot: "Shot in the dark", herd: "Herd mind", rps: "Showdown", cash: "Cash or crash", quick: "Quick draw", potato: "Hot potato", pump: "Pump it", tug: "Tug of war", spot: "Spot it", cats: "Categories", older: "Who's older", draw: "Draw it", likely: "Most likely to" };
+const KIND_BIG = { photo: "Whose photo?", song: "Whose song?", prof: "Whose answer?", said: "Who said it?", year: "Guess the year", hilo: "Higher or lower", buzz: "Buzzer", ttl: "Two truths and a lie", hot: "Hot seat", meld: "Mind meld", quip: "Quips", lash: "Last Lash", bluff: "Bluff", num: "Closest number", odd: "Odd one out", wyr: "Would you rather?", nhie: "Never have I ever", tune: "Name that tune", face: "Who is this?", flag: "Name that flag", map: "Name that country", cap: "Capital cities", big: "Which is bigger?", trivia: "Trivia", emoji: "Emoji puzzle", imp: "Imposter", fakin: "Fakin' it", split: "Split or steal", low: "Lowest number wins", shot: "Shot in the dark", herd: "Herd mind", rps: "Showdown", cash: "Cash or crash", quick: "Quick draw", potato: "Hot potato", pump: "Pump it!", tug: "Tug of war", spot: "Spot it", cats: "Categories", older: "Who's older?", draw: "Draw it", likely: "Most likely to…" };
 const KIND_ASK = { photo: "Whose photo is this?", song: "Whose song is this?", prof: "Whose answer is this?", said: "Who wrote this?", face: "Who is this?", flag: "Which country's flag is this?", map: "Which country has this shape?", big: "Which country is bigger?", imp: "Who's the imposter?", fakin: "Who had the other question?" };
 const KIND_ASK_PHONE = { older: "Who's older?", photo: "Whose photo is on the TV?", song: "Whose song is playing?", prof: "Whose answer is on the TV?", said: "Who wrote this?", face: "Who's on the TV?", flag: "Which country's flag is on the TV?", map: "Which country is the shape on the TV?", big: "Which country is bigger?", imp: "Who's the imposter?", fakin: "Who had the other question?" };
 const askOf = c => (c.t === "tune" ? (c.ask === "artist" ? "Who's the artist?" : "What's this song?")
@@ -1278,6 +1358,7 @@ const SFX = {
       case "go": n(88, 0.35, { type: "square", vol: 0.07 }); break;
       case "bang": this.hiss(t, 0.16, { f: 1400, vol: 0.2, att: 0.002 }); this.note(95, t, 0.22, { to: 42, vol: 0.32 }); break;
       case "boom": this.hiss(t, 1.5, { ft: "lowpass", f: 3000, fTo: 160, vol: 0.4, att: 0.004 }); this.note(68, t, 1.1, { to: 28, vol: 0.5 }); this.note(52, t + 0.05, 1.3, { to: 24, vol: 0.4, type: "triangle" }); break;
+      case "pop": this.hiss(t, 0.12, { f: 2500, vol: 0.25, att: 0.001 }); this.note(320, t, 0.08, { to: 90, vol: 0.2 }); break;
       case "toss": this.hiss(t, 0.24, { ft: "bandpass", f: 700, fTo: 3600, vol: 0.13, att: 0.06 }); break;
       case "check": arp([72, 76, 79], 0.09, 0.2, { type: "triangle", vol: 0.14 }); [72, 76, 79, 84].forEach(m => n(m, 0.9, { type: "triangle", vol: 0.08, at: 0.3 })); break;
     }
@@ -2023,7 +2104,7 @@ const TV = {
   players() { return Object.values(this.H.players).sort((a, b) => a.at - b.at); },
   ownerOf(id) { return this.H.photos[id]?.pid || null; },
   curOwner() { const c = this.H.cur; return c?.t === "photo" ? this.ownerOf(c.id) : c?.t === "song" || c?.t === "prof" || EACH_KINDS.includes(c?.t) ? c.pid || null : null; },
-  isQuiz() { const t = this.H.cur?.t; return !!t && !["split", "low", "shot", "herd", "rps", "cash", "cats", "quick", "potato"].includes(t) && (QUIZ_WRITE.includes(t) || (!PLAYER_KINDS.includes(t) && !WRITE_KINDS.includes(t))); },
+  isQuiz() { const t = this.H.cur?.t; return !!t && !["split", "low", "shot", "herd", "rps", "cash", "cats", "quick", "potato", "pump", "tug", "spot"].includes(t) && (QUIZ_WRITE.includes(t) || (!PLAYER_KINDS.includes(t) && !WRITE_KINDS.includes(t))); },
   isWrite() { return WRITE_KINDS.includes(this.H.cur?.t); },
   // Which prompts this player writes for: two in Quips, the one in the Last Lash.
   writesFor(pid) { const c = this.H.cur; return c?.t === "lash" || c?.t === "bluff" || c?.t === "said" ? [0] : c?.t === "ttl" ? [0, 1, 2] : c?.t === "quip" || c?.t === "meld" ? c.ps.map((m, i) => (m.by.includes(pid) ? i : -1)).filter(i => i >= 0) : []; },
@@ -2140,7 +2221,12 @@ const TV = {
       const g = p.g;
       // Hot potato: `g` passes the bomb on. `n` is which pass this is, so an old pass sitting on a phone can't count twice.
       if (H.ph === "q" && !H.pause && H.cur?.t === "potato" && g && g.rk === H.rk && g.n === H.cur.n && pid === H.cur.h && this.potatoPass(pid, g.p)) changed = true;
-      if (H.ph === "q" && !H.pause && g && g.rk === H.rk && !H.guesses[pid] && H.cur?.t !== "potato") {
+      // Pump it and Tug of war: phones send running counts while the round is live.
+      if (H.ph === "q" && !H.pause && g && g.rk === H.rk && LIVE_KINDS.includes(H.cur?.t) && this.liveIn(pid, g, now)) changed = true;
+      if (H.ph === "q" && !H.pause && g && g.rk === H.rk && !H.guesses[pid] && H.cur?.t !== "potato" && !LIVE_KINDS.includes(H.cur?.t)) {
+        // Spot it: the phone timed how long it took to find the odd one out, wrong taps included.
+        if (H.cur.t === "spot") { if (Number.isFinite(g.ms) && g.ms > 0 && g.ms < 60000) { H.guesses[pid] = { ms: Math.round(g.ms), w: Math.min(99, g.w | 0), t: now }; changed = true; SFX.play("lock"); } }
+        else
         // Quick draw: the phone timed its own tap (`ms` after DRAW showed), or says it tapped too early (`e`, `fk` on a fake).
         if (H.cur.t === "quick") { if (g.e === 1) { H.guesses[pid] = { e: 1, fk: g.fk ? 1 : 0, t: now }; changed = true; SFX.play("blip"); } else if (Number.isFinite(g.ms) && g.ms > 0 && g.ms < 15000) { H.guesses[pid] = { ms: Math.round(g.ms), t: now }; changed = true; SFX.play("bang"); } }
         else
@@ -2357,7 +2443,7 @@ const TV = {
     if (ph === "end") return "victory";
     if (ph === "rev" || ph === "lb") return wild ? "afterdark" : "groove";
     if (ph === "qw" || ph === "dw" || (ph === "intro" && (WRITE_KINDS.includes(t) || t === "draw"))) return "write";
-    if (t === "imp" || t === "fakin" || t === "split" || t === "low" || t === "shot" || t === "rps" || t === "cash" || t === "quick" || t === "potato") return "suspense";
+    if (t === "imp" || t === "fakin" || t === "split" || t === "low" || t === "shot" || t === "rps" || t === "cash" || t === "quick" || t === "potato" || t === "pump") return "suspense";
     if (H.R > 1 && r === H.R) return "final";
     return modeGroup(t) === "Quiz" ? "quiz" : "social";
   },
@@ -2431,7 +2517,7 @@ const TV = {
   // Someone dropping out mid-question would miss it, so the game waits for them, once per player per round.
   waitFor(pid) {
     const H = this.H, key = H.rk + pid;
-    const needed = (H.ph === "q" && !H.guesses[pid] && pid !== this.curOwner() && H.cur?.t !== "potato" && (H.cur?.t !== "cash" || H.cur.in.includes(pid))) || ["qw", ...SECRET_PHASES].includes(H.ph) || (H.ph === "qv" && !H.guesses[pid]) || (H.ph === "dw" && !this.drawDone(pid));
+    const needed = (H.ph === "q" && !H.guesses[pid] && pid !== this.curOwner() && H.cur?.t !== "potato" && !LIVE_KINDS.includes(H.cur?.t) && (H.cur?.t !== "cash" || H.cur.in.includes(pid))) || ["qw", ...SECRET_PHASES].includes(H.ph) || (H.ph === "qv" && !H.guesses[pid]) || (H.ph === "dw" && !this.drawDone(pid));
     if (!needed || this.waited?.has(key)) return false;
     (this.waited ||= new Set()).add(key);
     return true;
@@ -2809,6 +2895,9 @@ const TV = {
           .map(x => ({ t: "cats", q: x.q, l: letters[Math.floor(Math.random() * letters.length)], sp: !!x.sp }));
       }
       if (modes.includes("rps") && online >= 2) pools.rps = Array.from({ length: cap(2) }, () => ({ t: "rps", go: 0, goes: RPS_PTS.length }));
+      if (modes.includes("pump") && online >= 2) pools.pump = Array.from({ length: cap(2) }, () => ({ t: "pump", b: 0, n: PUMP_BALLOONS, seed: "" }));
+      if (modes.includes("tug") && online >= 2) pools.tug = Array.from({ length: cap(2) }, () => ({ t: "tug", go: 0, goes: TUG_PULLS, team: {}, wins: [0, 0] }));
+      if (modes.includes("spot") && online >= 2) pools.spot = Array.from({ length: cap(2) }, () => ({ t: "spot", go: 0, goes: SPOT_SIZES.length, n: 4, a: "", o: "", k: 0 }));
       if (modes.includes("quick") && online >= 2) pools.quick = Array.from({ length: cap(2) }, () => ({ t: "quick", go: 0, goes: QUICK_DRAWS, w: 0, fa: 0, fw: "" }));
       if (modes.includes("potato") && online >= 3) {
         // Hot potato: Categories' categories, a new one for each bomb. On No holds barred, about half are the filthy ones.
@@ -3055,6 +3144,9 @@ const TV = {
     if (t === "shot") return rv.out || [];
     if (t === "cash") return rv.crash ? rv.still : [];
     if (t === "potato") return rv.loser ? [rv.loser] : [];
+    if (t === "pump") return (rv.rows || []).filter(r => r.pop).map(r => r.pid);
+    if (t === "tug") return rv.win < 0 ? [] : Object.keys(rv.team || {}).filter(pid => rv.team[pid] !== rv.win);
+    if (t === "spot") { const ok = (rv.rows || []).filter(r => r.ms); return ok.length > 1 ? [ok[ok.length - 1].pid] : []; }
     if (t === "quick") { const ok = (rv.rows || []).filter(r => r.ms); return [...(rv.rows || []).filter(r => !r.ms).map(r => r.pid), ...(ok.length > 1 ? [ok[ok.length - 1].pid] : [])]; }
     if (t === "cats") return (rv.rows || []).filter(r => !rv.d?.[r.pid]).map(r => r.pid);
     if (t === "herd") return rv.herd === 0 ? Object.keys(rv.g || {}).filter(pid => !rv.groups[0].by.includes(pid)) : rv.sheep ? [rv.sheep] : [];
@@ -3094,6 +3186,9 @@ const TV = {
     if (H.ph === "intro" && H.cur?.t === "cash") return this.cashStep(0);
     if (H.ph === "intro" && H.cur?.t === "quick") return this.quickGo(0);
     if (H.ph === "intro" && H.cur?.t === "potato") return this.potatoBomb(0);
+    if (H.ph === "intro" && H.cur?.t === "pump") return this.pumpGo(0);
+    if (H.ph === "intro" && H.cur?.t === "tug") return this.tugGo(0);
+    if (H.ph === "intro" && H.cur?.t === "spot") return this.spotGo(0);
     if (H.ph === "intro" && H.cur?.t === "cats") return this.go("q", H.cur.tw === "lightning" ? LIGHTNING_SECS : CATS_SECS);
     if (H.ph === "intro" && H.cur?.t === "herd") return this.go("q", H.cur.tw === "lightning" ? LIGHTNING_SECS : HERD_SECS);
     if (H.ph === "dw") { if (H.cur.step + 1 < H.cur.S) return this.drawStep(H.cur.step + 1); H.cur.ci = 0; return this.reveal(); }
@@ -3116,6 +3211,9 @@ const TV = {
       if (H.cur?.t === "cash" && H.rv && !H.rv.end) return this.cashStep(H.cur.s + 1);
       if (H.cur?.t === "quick" && H.cur.go + 1 < H.cur.goes) return this.quickGo(H.cur.go + 1);
       if (H.cur?.t === "potato" && H.cur.b + 1 < H.cur.bombs) return this.potatoBomb(H.cur.b + 1);
+      if (H.cur?.t === "pump" && H.cur.b + 1 < H.cur.n) return this.pumpGo(H.cur.b + 1);
+      if (H.cur?.t === "tug" && H.cur.go + 1 < H.cur.goes && !(H.cur.goes === 3 && H.cur.wins.some(w => w >= 2))) return this.tugGo(H.cur.go + 1);
+      if (H.cur?.t === "spot" && H.cur.go + 1 < H.cur.goes) return this.spotGo(H.cur.go + 1);
       if (EACH_KINDS.includes(H.cur?.t) && H.cur.mi + 1 < (H.cur.ord || []).length) return this.askNext(H.cur.mi + 1);
       return this.endRound();
     }
@@ -3143,6 +3241,43 @@ const TV = {
     if (!c.h || !on.includes(c.h)) c.h = on[Math.floor(Math.random() * on.length)] || null;
     H.rk = H.gid + "-" + H.r + "-b" + i; H.guesses = {}; H.rv = null;
     this.go("q", POTATO_FUSE[0] + Math.random() * (POTATO_FUSE[1] - POTATO_FUSE[0]));
+  },
+  pumpGo(i) {
+    const H = this.H, c = H.cur;
+    c.b = i; c.seed = rid(6); H.rk = H.gid + "-" + H.r + "-u" + i; H.guesses = {}; H.rv = null;
+    this.go("q", PUMP_SECS);
+  },
+  // Tug of war: the teams are picked on the first pull and kept; anyone who joined since goes on the smaller team.
+  tugGo(i) {
+    const H = this.H, c = H.cur, on = shuffle(this.players().filter(p => p.online).map(p => p.pid));
+    for (const pid of on) if (!(pid in c.team)) { const n = [0, 1].map(k => Object.values(c.team).filter(t => t === k).length); c.team[pid] = n[0] <= n[1] ? 0 : 1; }
+    c.go = i; H.rk = H.gid + "-" + H.r + "-t" + i; H.guesses = {}; H.rv = null;
+    this.go("q", TUG_WAIT + TUG_SECS);
+  },
+  spotGo(i) {
+    const H = this.H, c = H.cur, list = i ? SPOT_HARD : SPOT_EASY, pair = shuffle(list[Math.floor(Math.random() * list.length)].slice());
+    c.go = i; c.n = SPOT_SIZES[i] || 6; c.a = pair[0]; c.o = pair[1]; c.k = Math.floor(Math.random() * c.n * c.n);
+    H.rk = H.gid + "-" + H.r + "-o" + i; H.guesses = {}; H.rv = null;
+    this.go("q", SPOT_SECS);
+  },
+  // Pump it and Tug of war: a phone's running count. Counts only go up; a balloon past its size pops for good.
+  liveIn(pid, g, now) {
+    const H = this.H, c = H.cur;
+    if (c.t === "pump") {
+      const st = H.guesses[pid] || { n: 0, t: now }, pop = pumpPop(pid, c.seed), n = Math.max(st.n, Math.min(80, Math.floor(Number(g.n) || 0)));
+      if (st.done || (n === st.n && !g.b)) return false;
+      H.guesses[pid] = st; st.t = now;
+      if (n >= pop) { st.n = pop; st.pop = 1; st.done = 1; SFX.play("pop"); }
+      else { st.n = n; if (g.b) { st.bank = 1; st.done = 1; SFX.play("lock"); } }
+      return true;
+    }
+    if (c.t === "tug") {
+      const v = Math.min(400, Math.floor(Number(g.c) || 0));
+      if (!(pid in c.team) || v <= (H.guesses[pid]?.c || 0)) return false;
+      H.guesses[pid] = { c: v, t: now };
+      return true;
+    }
+    return false;
   },
   // The bomb moves on: to anyone online but the holder, and not straight back to whoever just passed it (unless only two are left).
   potatoPass(pid, to, force) {
@@ -3301,6 +3436,38 @@ const TV = {
       H.rv = { go: H.cur.go, goes: H.cur.goes, rows: [...ok, ...rows.filter(r => !r.ms)], fw: H.cur.fw, g, d, m: mult };
       this.revEv = ok.length ? "quick-win" : rows.length ? "quick-foul" : null;
       return this.go("rev", Math.max(6, 4 + rows.length * 0.5));
+    }
+    if (H.cur.t === "pump") {
+      // Every balloon still in one piece is banked: 25 a pump.
+      const rows = this.players().filter(p => H.guesses[p.pid] || p.online).map(p => ({ pid: p.pid, n: H.guesses[p.pid]?.n || 0, pop: H.guesses[p.pid]?.pop ? 1 : 0 }));
+      for (const r of rows) { g[r.pid] = r.pop ? -1 : r.n; if (!r.pop && r.n) d[r.pid] = r.n * PUMP_PTS * mult; }
+      rows.sort((a, b) => a.pop - b.pop || b.n - a.n);
+      score();
+      H.rv = { b: H.cur.b, n: H.cur.n, rows, g, d, m: mult };
+      this.revEv = rows.length && rows.every(r => r.pop) ? "pump-allpop" : Object.keys(d).length ? "pump-win" : null;
+      return this.go("rev", Math.max(6, 4 + rows.length * 0.4));
+    }
+    if (H.cur.t === "tug") {
+      // Each team's average taps, so a smaller team isn't punished. The winners score, and the fastest tapper a bit more.
+      const c = H.cur, sum = [0, 0], cnt = [0, 0];
+      for (const [pid, t] of Object.entries(c.team)) { if (!H.players[pid] || (!H.players[pid].online && !H.guesses[pid])) continue; cnt[t]++; sum[t] += H.guesses[pid]?.c || 0; g[pid] = H.guesses[pid]?.c || 0; }
+      const avg = sum.map((v, k) => (cnt[k] ? v / cnt[k] : 0)), win = Math.abs(avg[0] - avg[1]) < 0.05 ? -1 : avg[0] > avg[1] ? 0 : 1;
+      if (win >= 0) { c.wins[win]++; for (const [pid, t] of Object.entries(c.team)) if (t === win && H.guesses[pid]?.c) d[pid] = TUG_PTS * mult; }
+      const top = Object.entries(H.guesses).sort((a, b) => b[1].c - a[1].c)[0]?.[0] || null;
+      if (top && H.guesses[top].c) d[top] = (d[top] || 0) + TUG_TOP * mult;
+      score();
+      H.rv = { go: c.go, goes: c.goes, team: { ...c.team }, sum, avg, win, top, wins: c.wins.slice(), g, d, m: mult };
+      this.revEv = win >= 0 ? "tug-win" : null;
+      return this.go("rev", 6);
+    }
+    if (H.cur.t === "spot") {
+      const rows = Object.entries(H.guesses).map(([pid, x]) => ({ pid, ms: x.ms, w: x.w || 0 })).sort((a, b) => a.ms - b.ms), on = this.players().filter(p => p.online).length;
+      const pts = SPOT_PTS.slice(0, Math.max(1, Math.min(SPOT_PTS.length, on - 1)));
+      rows.forEach((r, j) => { g[r.pid] = r.ms; if (pts[j]) d[r.pid] = pts[j] * mult; });
+      score();
+      H.rv = { go: H.cur.go, goes: H.cur.goes, n: H.cur.n, a: H.cur.a, o: H.cur.o, k: H.cur.k, rows, g, d, m: mult };
+      this.revEv = rows.length ? "spot-win" : null;
+      return this.go("rev", Math.max(6, 4 + rows.length * 0.4));
     }
     if (H.cur.t === "potato") {
       // Boom. Everyone online except the holder scores, and whoever passed it to them scores a bit more.
@@ -3656,6 +3823,7 @@ const TV = {
       const sp = H.players[H.cur.order[H.turn]];
       if (!sp || !sp.online) return this.advance();
     }
+    if (H.ph === "q" && H.cur?.t === "tug") this.tugLive();
     // Hot potato: the fuse ticks; a holder who drops out passes the bomb to someone random.
     if (H.ph === "q" && H.cur?.t === "potato") {
       const c = H.cur, k = Math.floor((now - c.at) / 500);
@@ -3670,7 +3838,8 @@ const TV = {
     if (H.ph === "q") {
       const owner = this.curOwner();
       const eligible = Object.values(H.players).filter(p => p.online && p.pid !== owner && (H.cur?.t !== "cash" || H.cur.in.includes(p.pid)));
-      if (eligible.length && eligible.every(p => H.guesses[p.pid]) && (!H.phaseEnds || H.phaseEnds - now > 1200)) {
+      const done = H.cur?.t === "pump" ? p => H.guesses[p.pid]?.done : p => H.guesses[p.pid];
+      if (eligible.length && H.cur?.t !== "potato" && H.cur?.t !== "tug" && eligible.every(done) && (!H.phaseEnds || H.phaseEnds - now > 1200)) {
         const early = !H.phaseEnds || H.phaseEnds - now > 6000;
         H.phaseEnds = now + 1200; this.push(true);
         if (early && eligible.length >= 2 && !["song", "tune"].includes(H.cur?.t) && Math.random() < 0.35) this.say("allin");
@@ -3725,6 +3894,9 @@ const TV = {
       cs: H.cur?.t === "cash" && ["intro", "q", "rev"].includes(H.ph) ? { s: H.cur.s, pot: CASH_POT[H.cur.s] * (H.R > 1 && H.r === H.R ? 2 : 1), in: H.cur.in, out: H.cur.out, m: H.R > 1 && H.r === H.R ? 2 : 1 } : null,
       ct: H.cur?.t === "cats" && ["intro", "q", "rev"].includes(H.ph) ? { q: H.cur.q, l: H.cur.l } : null,
       hd: H.cur?.t === "herd" && ["intro", "q", "rev"].includes(H.ph) ? { q: H.cur.q } : null,
+      pu: H.cur?.t === "pump" && ["intro", "q", "rev"].includes(H.ph) ? { b: H.cur.b, n: H.cur.n, seed: H.cur.seed, pts: PUMP_PTS * (H.R > 1 && H.r === H.R ? 2 : 1) } : null,
+      tg: H.cur?.t === "tug" && ["intro", "q", "rev"].includes(H.ph) ? { go: H.cur.go, goes: H.cur.goes, team: H.cur.team, wins: H.cur.wins } : null,
+      so: H.cur?.t === "spot" && ["intro", "q", "rev"].includes(H.ph) ? { go: H.cur.go, goes: H.cur.goes, n: H.cur.n, a: H.cur.a, o: H.cur.o, k: H.cur.k } : null,
       qk: H.cur?.t === "quick" && ["intro", "q", "rev"].includes(H.ph) ? { go: H.cur.go, goes: H.cur.goes, w: H.cur.w, fa: H.cur.fa, fw: H.cur.fw, pts: QUICK_PTS[0] * (H.R > 1 && H.r === H.R ? 2 : 1) } : null,
       pt: H.cur?.t === "potato" && ["intro", "q", "rev"].includes(H.ph) ? { b: H.cur.b, bombs: H.cur.bombs, q: H.cur.qs[H.cur.b], h: H.cur.h, from: H.cur.from, n: H.cur.n } : null,
       ps: H.cur?.t === "rps" && ["intro", "q", "rev"].includes(H.ph) ? { go: H.cur.go, goes: H.cur.goes, pts: RPS_PTS[H.cur.go] * (H.R > 1 && H.r === H.R ? 2 : 1) } : null,
@@ -3915,6 +4087,9 @@ const TV = {
     if (H.ph === "q" && H.cur?.t === "rps") return this.renderRps(stage);
     if (H.ph === "q" && H.cur?.t === "quick") return this.renderQuick(stage);
     if (H.ph === "q" && H.cur?.t === "potato") return this.renderPotato(stage);
+    if (H.ph === "q" && H.cur?.t === "pump") return this.renderPump(stage);
+    if (H.ph === "q" && H.cur?.t === "tug") return this.renderTug(stage);
+    if (H.ph === "q" && H.cur?.t === "spot") return this.renderSpot(stage);
     if (H.ph === "q") {
       if (this.isQuiz()) return this.renderQuiz(stage);
       const final = H.R > 1 && H.r === H.R;
@@ -4003,6 +4178,9 @@ const TV = {
     if (this.H.cur?.t === "rps") return this.rpsRevealHtml();
     if (this.H.cur?.t === "quick") return this.quickRevealHtml();
     if (this.H.cur?.t === "potato") return this.potatoRevealHtml();
+    if (this.H.cur?.t === "pump") return this.pumpRevealHtml();
+    if (this.H.cur?.t === "tug") return this.tugRevealHtml();
+    if (this.H.cur?.t === "spot") return this.spotRevealHtml();
     if (this.isQuiz()) return this.quizRevealHtml();
     const H = this.H, rv = H.rv || { g: {}, d: {} };
     const P = H.players, owner = P[rv.o];
@@ -4467,6 +4645,77 @@ const TV = {
     return `<section class="quick rev" style="--t:${t.toFixed(2)}s;--t2:${(t + 0.6).toFixed(2)}s"><p class="eyebrow">Quick draw · Draw ${rv.go + 1} of ${rv.goes}${rv.m > 1 ? " · Double points" : ""}</p>
       <ol class="crows" style="grid-template-rows:repeat(${Math.max(1, Math.ceil(rows.length / 2))},auto);grid-auto-flow:column">${rows.map((r, i) => `<li class="${r === win ? "win" : r.ms ? "" : "out"}" style="animation-delay:${(0.2 + i * 0.22).toFixed(2)}s"><em class="num">${r.ms ? rows.indexOf(r) + 1 : "✗"}</em>${face(P[r.pid])}<span class="nm">${esc(P[r.pid].name)}</span>${r.ms ? `<b class="num">${(r.ms / 1000).toFixed(3)} s</b>` : `<i>${r.fk ? `Shot at ${esc(rv.fw)}` : "Too early"}</i>`}</li>`).join("")}</ol>
       <h2 class="lowh">${head}</h2><div class="deltas">${this.scorersHtml(rv, "", "Nobody scored")}${this.sipHtml()}</div></section>`;
+  },
+  // Pump it: everyone's balloon, growing live as the phones pump.
+  renderPump(stage) {
+    const H = this.H, c = H.cur, P = H.players, final = H.R > 1 && H.r === H.R, ps = this.players().filter(p => p.online || H.guesses[p.pid]);
+    paint(stage, ["uq", H.rk, ps.map(p => p.pid).join()].join("|"), `<section class="pump"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Pump it · Balloon ${c.b + 1} of ${c.n}${final ? " · Double points" : ""}</p>
+      <h2 class="qtitle">Pump it!</h2><p class="lede">Pump your balloon on your phone: ${fmt(PUMP_PTS * (final ? 2 : 1))} a pump. Bank it before it pops. Everyone's pops at a different size.</p>
+      <ul class="pbals">${ps.map(p => `<li class="pbal" id="pb-${p.pid}" style="--c:${color(p.color)}"><div class="bl"></div><b class="num">0</b><span>${face(p)}${esc(p.name)}</span></li>`).join("")}</ul>
+      <div class="qfoot">${this.clockHtml()}</div></section>`);
+    for (const p of ps) {
+      const st = H.guesses[p.pid] || { n: 0 }, el = document.getElementById("pb-" + p.pid);
+      if (!el) continue;
+      el.className = "pbal" + (st.pop ? " popped" : st.bank ? " banked" : "");
+      el.style.setProperty("--s", (0.3 + Math.min(st.n, 34) / 34 * 0.95).toFixed(3));
+      const v = st.pop ? "POP!" : fmt(st.n * PUMP_PTS * (final ? 2 : 1)), b = el.querySelector("b");
+      if (b.textContent !== v) b.textContent = v;
+    }
+  },
+  pumpRevealHtml() {
+    const H = this.H, rv = H.rv, P = H.players, rows = (rv.rows || []).filter(r => P[r.pid]), best = rows[0] && !rows[0].pop && rows[0].n ? rows[0] : null, t = 0.5 + rows.length * 0.2;
+    const head = best ? `${esc(P[best.pid].name)} banked the most!` : rows.length ? "Pop, pop, pop! Nobody banked a thing." : "No balloons.";
+    return `<section class="quick rev" style="--t:${t.toFixed(2)}s;--t2:${(t + 0.6).toFixed(2)}s"><p class="eyebrow">Pump it · Balloon ${rv.b + 1} of ${rv.n}${rv.m > 1 ? " · Double points" : ""}</p>
+      <ol class="crows" style="grid-template-rows:repeat(${Math.max(1, Math.ceil(rows.length / 2))},auto);grid-auto-flow:column">${rows.map((r, i) => `<li class="${r === best ? "win" : r.pop ? "out" : ""}" style="animation-delay:${(0.2 + i * 0.2).toFixed(2)}s">${face(P[r.pid])}<span class="nm">${esc(P[r.pid].name)}</span>${r.pop ? `<i>Popped at ${r.n}</i>` : `<b class="num">${r.n} ${r.n === 1 ? "pump" : "pumps"}</b>`}</li>`).join("")}</ol>
+      <h2 class="lowh">${head}</h2><div class="deltas">${this.scorersHtml(rv, "", "Nobody scored")}${this.sipHtml()}</div></section>`;
+  },
+  // Tug of war: the two teams, the rope and its knot, which moves live as the taps come in.
+  renderTug(stage) {
+    const H = this.H, c = H.cur, P = H.players, final = H.R > 1 && H.r === H.R, side = k => Object.keys(c.team).filter(pid => c.team[pid] === k && P[pid] && (P[pid].online || H.guesses[pid]));
+    const col = (k, nm) => `<div class="tteam t${k}"><p class="tname">${nm}${c.wins[k] ? ` <span>· ${c.wins[k]} won</span>` : ""}</p><ul class="slist">${side(k).map(pid => `<li class="in">${face(P[pid])}<span>${esc(P[pid].name)}</span></li>`).join("")}</ul><b class="num" id="tug-${k}">0</b></div>`;
+    paint(stage, ["tq", H.rk, side(0).join(), side(1).join()].join("|"), `<section class="tug"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Tug of war · Pull ${c.go + 1} of ${c.goes}${final ? " · Double points" : ""}</p>
+      <h2 class="qtitle tugh" id="tug-h">Get ready</h2>
+      <div class="tugfield">${col(0, "Red")}<div class="rope"><i class="mid"></i><i class="knot" id="tug-k"></i></div>${col(1, "Blue")}</div>
+      <p class="lede">Tap your phone as fast as you can when it says PULL. Your team's average taps count.</p></section>`);
+    this.tugLive();
+  },
+  tugLive() {
+    const H = this.H, c = H.cur, k = $("#tug-k"), h = $("#tug-h");
+    if (!k || !h || c?.t !== "tug") return;
+    const sum = [0, 0], cnt = [0, 0];
+    for (const [pid, t] of Object.entries(c.team)) { if (!H.players[pid]?.online && !H.guesses[pid]) continue; cnt[t]++; sum[t] += H.guesses[pid]?.c || 0; }
+    const avg = sum.map((v, i) => (cnt[i] ? v / cnt[i] : 0)), x = Math.max(-1, Math.min(1, (avg[1] - avg[0]) / Math.max(12, avg[0] + avg[1]) * 1.6));
+    k.style.left = (50 + x * 46).toFixed(1) + "%";
+    for (const i of [0, 1]) { const el = $("#tug-" + i), v = String(sum[i]); if (el && el.textContent !== v) el.textContent = v; }
+    const wait = H.qStart + TUG_WAIT * 1000 - Date.now(), left = Math.ceil((H.phaseEnds - Date.now()) / 1000), txt = H.pause ? "Paused" : wait > 0 ? String(Math.ceil(wait / 1000)) : `PULL! ${Math.max(0, left)}`;
+    if (h.textContent !== txt) { h.textContent = txt; h.classList.toggle("go", wait <= 0); if (wait > 0) SFX.play("count"); else if (wait > -400) SFX.play("go"); }
+  },
+  tugRevealHtml() {
+    const H = this.H, rv = H.rv, P = H.players, T = rv.top && P[rv.top] ? P[rv.top] : null, nm = ["Red", "Blue"];
+    const head = rv.win < 0 ? "Dead heat!" : `${nm[rv.win]} wins the pull!`, x = rv.win < 0 ? 50 : rv.win === 0 ? 6 : 94;
+    const col = k => `<div class="tteam t${k} ${rv.win === k ? "won" : rv.win >= 0 ? "lost" : ""}"><p class="tname">${nm[k]} <span>· ${rv.wins[k]} won</span></p><b class="num">${fmt(rv.sum[k])}</b><span class="tavg">${rv.avg[k].toFixed(1)} taps each</span></div>`;
+    return `<section class="tug rev" style="--t:.5s;--t2:1.2s"><p class="eyebrow">Tug of war · Pull ${rv.go + 1} of ${rv.goes}${rv.m > 1 ? " · Double points" : ""}</p>
+      <h2 class="lowh">${head}</h2>
+      <div class="tugfield">${col(0)}<div class="rope"><i class="mid"></i><i class="knot" style="left:${x}%"></i></div>${col(1)}</div>
+      <div class="deltas">${rv.win >= 0 ? `<span class="delta">${nm[rv.win]} team <b class="num">+${fmt(TUG_PTS * rv.m)}</b> each</span>` : ""}${T ? `<span class="delta">${face(T)}${esc(T.name)} tapped fastest (${rv.g[rv.top]}) <b class="num">+${fmt(TUG_TOP * rv.m)}</b></span>` : ""}${this.sipHtml()}</div></section>`;
+  },
+  // Spot it: the same grid the phones show. The odd one lights up in the reveal.
+  spotGrid(c, odd) {
+    return `<div class="spotg" style="--n:${c.n}">${Array.from({ length: c.n * c.n }, (_, k) => `<i class="${odd && k === c.k ? "odd" : ""}">${esc(k === c.k ? c.o : c.a)}</i>`).join("")}</div>`;
+  },
+  renderSpot(stage) {
+    const H = this.H, c = H.cur, final = H.R > 1 && H.r === H.R;
+    paint(stage, "oq|" + H.rk, `<section class="spot">${this.spotGrid(c, false)}<div class="sside"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Spot it · Grid ${c.go + 1} of ${c.goes}${final ? " · Double points" : ""}</p>
+      <h2 class="qtitle">Find the odd one out</h2><p class="lede">It's on your phone too. Tap it there. A wrong tap freezes you for a second.</p>
+      <div class="qfoot">${this.clockHtml()}<div><p class="eyebrow" id="lockcount"></p><ul class="locks" id="locks"></ul></div></div></div></section>`);
+    this.renderLocks(null);
+  },
+  spotRevealHtml() {
+    const H = this.H, rv = H.rv, P = H.players, rows = (rv.rows || []).filter(r => P[r.pid]), win = rows[0] || null;
+    return `<section class="spot rev" style="--t:.6s;--t2:1.2s">${this.spotGrid(rv, true)}<div class="sside"><p class="eyebrow">Spot it · Grid ${rv.go + 1} of ${rv.goes}${rv.m > 1 ? " · Double points" : ""}</p>
+      <h2 class="lowh">${win ? `${esc(P[win.pid].name)} spotted it!` : "Nobody found it!"}</h2>
+      <ol class="crows one">${rows.map((r, i) => `<li class="${i === 0 ? "win" : ""}" style="animation-delay:${(0.3 + i * 0.15).toFixed(2)}s"><em class="num">${i + 1}</em>${face(P[r.pid])}<span class="nm">${esc(P[r.pid].name)}</span><b class="num">${(r.ms / 1000).toFixed(2)} s</b></li>`).join("")}</ol>
+      <div class="deltas">${this.scorersHtml(rv, "", "Nobody scored")}${this.sipHtml()}</div></div></section>`;
   },
   // Hot potato: the bomb, who's holding it, the category to say out loud. The fuse is secret: no clock.
   renderPotato(stage) {
@@ -4970,6 +5219,11 @@ const PH = {
     if (a === "sk-undo") return SKETCH.undo();
     if (a === "sk-clear") return SKETCH.clear();
     if (a === "sk-send") return this.sendDrawing(false);
+    if (a === "pump-bank") {
+      const H = this.host, p = this.pu;
+      if (!H || H.ph !== "q" || H.kind !== "pump" || !p || p.rk !== H.rk || p.done || !p.n) return;
+      p.done = "bank"; clearTimeout(this.liveT); this.liveT = 0; this.g = { rk: H.rk, n: p.n, b: 1 }; vibrate(40); this.push(); return this.renderMain();
+    }
     if (a === "pot") {
       const H = this.host, to = el.dataset.pid;
       if (!H || H.ph !== "q" || H.kind !== "potato" || H.pt?.h !== this.pid || !isPid(to) || (this.g?.rk === H.rk && this.g.n === H.pt.n)) return;
@@ -5062,7 +5316,7 @@ const PH = {
     const H = this.host, live = this.joined && H && !["lobby", "end", "lb"].includes(H.ph) && !H.pause;
     const pause = live && H.vip === this.pid, far = live && H.sp && ["intro", "q", "qw", "qv"].includes(H.ph) && this.tooFarAt !== H.rk;
     // Reactions whenever this phone has nothing to do: reveals, scores, the title cards, and after locking in.
-    const idle = H && this.joined && this.me() && !H.pause && !(H.ph === "q" && H.kind === "quick") && (["intro", "rev", "lb", "end"].includes(H.ph) || (["q", "qv", "fk-ans"].includes(H.ph) && this.g?.rk === H.rk) || (H.ph === "dw" && this.dr?.rk === H.rk) || (H.ph === "q" && H.kind === "cash" && !(H.cs?.in || []).includes(this.pid)) || (H.ph === "q" && H.kind === "potato" && H.pt?.h !== this.pid) || H.ph === "imp-clue" || (H.ph === "q" && H.x === fnv(this.pid + H.rk)));
+    const idle = H && this.joined && this.me() && !H.pause && !(H.ph === "q" && ["quick", "pump", "tug", "spot"].includes(H.kind)) && (["intro", "rev", "lb", "end"].includes(H.ph) || (["q", "qv", "fk-ans"].includes(H.ph) && this.g?.rk === H.rk) || (H.ph === "dw" && this.dr?.rk === H.rk) || (H.ph === "q" && H.kind === "cash" && !(H.cs?.in || []).includes(this.pid)) || (H.ph === "q" && H.kind === "potato" && H.pt?.h !== this.pid) || H.ph === "imp-clue" || (H.ph === "q" && H.x === fnv(this.pid + H.rk)));
     paint($("#ph-foot"), [pause, far, !!idle].join(), (idle ? `<div class="rxbar">${REACTS.map(([e, w], i) => `<button data-act="react" data-i="${i}" aria-label="${esc(w)}">${e ? `<span>${e}</span>` : `<b>${esc(w)}</b>`}</button>`).join("")}</div>` : "")
       + (far ? `<button class="btn sm" data-act="toofar">Too far</button>` : "") + (pause ? `<button class="btn sm" data-act="pause">Pause game</button>` : ""));
   },
@@ -5183,7 +5437,7 @@ const PH = {
     if (!me) return paint(main, "wait-in", `<div class="card center"><p class="ph-h">Joining…</p><p class="muted">Hang on while the TV adds you.</p></div>`);
     if (H.ph === "lobby") return this.rLobby(main);
     if (H.pause && H.ph !== "end") return this.rPaused(main);
-    if (H.ph === "intro") return paint(main, "intro|" + H.rk, `${H.tw && TWISTS[H.tw] ? `<div class="card center twph"><p class="eyebrow">Twist!</p><p class="ph-h">${esc(TWISTS[H.tw].label)}</p><p>${esc(TWISTS[H.tw].note)}</p></div>` : ""}<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">Eyes on the TV</p><p class="muted">${H.kind === "imp" ? "Imposter round. Your secret word is coming." : H.kind === "fakin" ? "Fakin' it. Your question is coming." : H.kind === "draw" ? "Draw it. Warm up your finger." : H.kind === "low" ? "Lowest number wins. Think like everyone else, then don't." : H.kind === "shot" ? "Shot in the dark. Hide well, shoot better." : H.kind === "herd" ? "Herd mind. Think like everyone else." : H.kind === "cash" ? "Cash or crash. Know when to walk away." : H.kind === "quick" ? "Quick draw. Eyes on your phone, finger ready." : H.kind === "potato" ? "Hot potato. Don't get caught holding it." : H.kind === "cats" ? "Categories. Think of something nobody else will." : H.kind === "rps" ? "Showdown. Rock, paper, scissors against everyone." : H.kind === "split" ? (Array.isArray(H.ss?.by) && H.ss.by.includes(this.pid) ? "Split or steal. You're up!" : "Split or steal. Get ready to bet.") : WRITE_KINDS.includes(H.kind) ? "Get your thumbs ready. You'll be writing." : "Get ready to guess."}</p></div>
+    if (H.ph === "intro") return paint(main, "intro|" + H.rk, `${H.tw && TWISTS[H.tw] ? `<div class="card center twph"><p class="eyebrow">Twist!</p><p class="ph-h">${esc(TWISTS[H.tw].label)}</p><p>${esc(TWISTS[H.tw].note)}</p></div>` : ""}<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">Eyes on the TV</p><p class="muted">${H.kind === "imp" ? "Imposter round. Your secret word is coming." : H.kind === "fakin" ? "Fakin' it. Your question is coming." : H.kind === "draw" ? "Draw it. Warm up your finger." : H.kind === "low" ? "Lowest number wins. Think like everyone else, then don't." : H.kind === "shot" ? "Shot in the dark. Hide well, shoot better." : H.kind === "herd" ? "Herd mind. Think like everyone else." : H.kind === "cash" ? "Cash or crash. Know when to walk away." : H.kind === "quick" ? "Quick draw. Eyes on your phone, finger ready." : H.kind === "potato" ? "Hot potato. Don't get caught holding it." : H.kind === "pump" ? "Pump it. Know when to stop." : H.kind === "tug" ? (H.tg?.team && H.tg.team[this.pid] !== undefined ? `Tug of war. You're on ${H.tg.team[this.pid] ? "Blue" : "Red"}!` : "Tug of war. Get your thumb ready.") : H.kind === "spot" ? "Spot it. Eyes sharp." : H.kind === "cats" ? "Categories. Think of something nobody else will." : H.kind === "rps" ? "Showdown. Rock, paper, scissors against everyone." : H.kind === "split" ? (Array.isArray(H.ss?.by) && H.ss.by.includes(this.pid) ? "Split or steal. You're up!" : "Split or steal. Get ready to bet.") : WRITE_KINDS.includes(H.kind) ? "Get your thumbs ready. You'll be writing." : "Get ready to guess."}</p></div>
       ${H.ih && MODE_CARD[H.kind]?.how ? `<div class="card"><p class="eyebrow">How to play ${esc(MODE_LABEL[H.kind] || "")}</p><ol class="steps">${MODE_CARD[H.kind].how.map(x => `<li>${esc(x)}</li>`).join("")}</ol><p class="muted"><b>Scoring</b> ${esc(MODE_CARD[H.kind].score || "")}</p></div>` : ""}`);
     if (IMP_PHASES.includes(H.ph)) return this.rImp(main);
     if (FK_PHASES.includes(H.ph)) return this.rFakin(main);
@@ -5470,6 +5724,9 @@ const PH = {
     if (this.host.kind === "rps") return this.rRps(main);
     if (this.host.kind === "quick") return this.rQuick(main);
     if (this.host.kind === "potato") return this.rPotato(main);
+    if (this.host.kind === "pump") return this.rPump(main);
+    if (this.host.kind === "tug") return this.rTug(main);
+    if (this.host.kind === "spot") return this.rSpot(main);
     const H = this.host, owner = H.x === fnv(this.pid + H.rk);
     const tbar = H.kind === "imp" || H.kind === "fakin" ? "" : `<div class="tbar" aria-hidden="true"><i id="tbar"></i></div>`;
     if (owner) return paint(main, "q-own|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">This one's yours</p><p class="muted">Keep a straight face. Every wrong guess earns you points.</p></div>`);
@@ -5644,6 +5901,104 @@ const PH = {
     const head = !mine ? "No tap" : !mine.ms ? (mine.fk ? `Shot at ${esc(rv.fw || "a fake")}` : "Too early") : place === 1 ? "Quickest!" : place === rows.filter(r => r.ms).length ? "Slowest draw" : `${place}${["st", "nd", "rd"][place - 1] || "th"} fastest`;
     const sub = mine?.ms ? `${(mine.ms / 1000).toFixed(3)} s${pts ? ` · +${fmt(pts)} points` : ""}` : "Nothing this draw.";
     paint(main, "qk-rev|" + H.rk, `<div class="card center result ${pts ? "good" : mine && !mine.ms ? "bad" : ""}"><p class="eyebrow">Quick draw · Draw ${(rv.go || 0) + 1} of ${rv.goes || QUICK_DRAWS}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+  },
+  // Live rounds send the running count a few times a second, not on every tap.
+  liveSend(g) {
+    this.g = g;
+    const now = Date.now(), gap = 180 - (now - (this.liveAt || 0));
+    if (gap <= 0) { this.liveAt = now; return this.push(); }
+    if (!this.liveT) this.liveT = setTimeout(() => { this.liveT = 0; this.liveAt = Date.now(); this.push(); }, gap);
+  },
+  // A tap on a live pad: Pump, Tug or a Spot it square. Handled on the finger landing, not the click.
+  tapDown(e, el) {
+    const H = this.host, t = el.dataset.tap;
+    if (!H || H.ph !== "q" || H.pause) return;
+    e.preventDefault();
+    if (t === "pump" && H.kind === "pump") return this.pumpTap();
+    if (t === "tug" && H.kind === "tug") return this.tugTap(el);
+    if (t === "spot" && H.kind === "spot") return this.spotTap(e, el);
+  },
+  // Pump it on the phone: your balloon, a big Pump button and Bank it. The balloon pops here the moment it passes its size.
+  rPump(main) {
+    const H = this.host, pu = H.pu || {}, me = this.me(), head = `<p class="eyebrow">Pump it · Balloon ${(pu.b || 0) + 1} of ${pu.n || PUMP_BALLOONS}</p>`;
+    if (this.pu?.rk !== H.rk) this.pu = { rk: H.rk, n: 0, done: "", pop: pumpPop(this.pid, pu.seed || "") };
+    const p = this.pu, pts = Number(pu.pts) || PUMP_PTS;
+    if (p.done === "pop") return paint(main, "pu-pop|" + H.rk, `<div class="card center result bad">${head}<p class="pbig">💥</p><p class="ph-big">POP!</p><p class="muted">It burst at ${p.n} ${p.n === 1 ? "pump" : "pumps"}. Nothing for this one.</p></div>`);
+    if (p.done === "bank") return paint(main, "pu-bank|" + H.rk, `<div class="card center result good">${head}<p class="ph-big">Banked ${fmt(p.n * pts)}</p><p class="muted">${p.n} ${p.n === 1 ? "pump" : "pumps"}, safe. Watch the others sweat.</p></div>`);
+    paint(main, "pu|" + H.rk, `<div class="card">${head}<div class="pumpwrap"><div class="pball" id="pu-ball" style="--c:${color(me?.[2] ?? 1)}"></div></div><p class="pumpv num" id="pu-v">0</p>
+      <div class="pumpbtns"><button class="pumpb" data-tap="pump">PUMP</button><button class="bankb" data-act="pump-bank" id="pu-bank" disabled>Bank it</button></div></div>`);
+    this.pumpShow();
+  },
+  pumpShow() {
+    const p = this.pu, ball = $("#pu-ball"), v = $("#pu-v"), bank = $("#pu-bank"), pts = Number(this.host?.pu?.pts) || PUMP_PTS;
+    if (!p || !ball) return;
+    ball.style.setProperty("--s", (0.3 + Math.min(p.n, 34) / 34 * 0.95).toFixed(3));
+    v.textContent = fmt(p.n * pts);
+    if (bank) bank.disabled = !p.n;
+  },
+  pumpTap() {
+    const H = this.host, p = this.pu;
+    if (!p || p.rk !== H.rk || p.done) return;
+    p.n++;
+    if (p.n >= p.pop) { p.done = "pop"; vibrate([120, 60, 120]); this.g = { rk: H.rk, n: p.n, b: 0 }; this.push(); return this.renderMain(); }
+    vibrate(8); this.pumpShow(); this.liveSend({ rk: H.rk, n: p.n, b: 0 });
+  },
+  rPumpReveal(main) {
+    const H = this.host, rv = H.rv || {}, me = this.pid, r = (rv.rows || []).find(x => x.pid === me), pts = rv.d?.[me] || 0;
+    const head = !r ? "Watching" : r.pop ? "Popped!" : pts ? `+${fmt(pts)}` : "No pumps";
+    const sub = !r ? "" : r.pop ? `It burst at ${r.n}.` : r.n ? `${r.n} ${r.n === 1 ? "pump" : "pumps"} banked.` : "You didn't pump.";
+    paint(main, "pu-rev|" + H.rk, `<div class="card center result ${pts ? "good" : r?.pop ? "bad" : ""}"><p class="eyebrow">Pump it · Balloon ${(rv.b || 0) + 1} of ${rv.n || PUMP_BALLOONS}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+  },
+  // Tug of war on the phone: your team's colour and one huge pad. Taps count after the countdown.
+  rTug(main) {
+    const H = this.host, tg = H.tg || {}, team = tg.team?.[this.pid], head = `Tug of war · Pull ${(tg.go || 0) + 1} of ${tg.goes || TUG_PULLS}`;
+    if (team === undefined) return paint(main, "tg-none|" + H.rk, `<div class="card center result"><p class="eyebrow">${head}</p><p class="ph-big">Next pull</p><p class="muted">You'll be on a team from the next pull. Cheer for now.</p></div>`);
+    if (this.tg?.rk !== H.rk) this.tg = { rk: H.rk, c: 0 };
+    const start = (this.deadline || Date.now()) - TUG_SECS * 1000, wait = start - Date.now(), end = (this.deadline || 0) - Date.now();
+    const st = wait > 0 ? "wait" : end > 0 ? "go" : "done", n = Math.ceil(wait / 1000);
+    clearTimeout(this.tgT);
+    if (st === "wait") this.tgT = setTimeout(() => this.renderMain(), Math.max(30, wait - (n - 1) * 1000));
+    else if (st === "go") this.tgT = setTimeout(() => this.renderMain(), end + 30);
+    const nm = team ? "Blue" : "Red";
+    paint(main, ["tg", H.rk, st, st === "wait" ? n : ""].join("|"), `<button class="qpad ${st === "go" ? "tug-" + team : st === "wait" ? "st-wait tugw tw-" + team : "st-done"}" data-tap="tug" aria-label="Tap to pull">
+      <span class="qe">${head} · Team ${nm}</span><b class="num" id="tg-v">${st === "wait" ? n : st === "go" ? this.tg.c : "Time!"}</b><i>${st === "wait" ? `You're on ${nm}. Get ready…` : st === "go" ? "PULL! Tap tap tap!" : `${this.tg.c} taps. See the TV.`}</i></button>`);
+  },
+  tugTap(el) {
+    const H = this.host, tg = this.tg, start = (this.deadline || 0) - TUG_SECS * 1000;
+    if (!tg || tg.rk !== H.rk || Date.now() < start || Date.now() > this.deadline) return;
+    tg.c++;
+    const v = $("#tg-v"); if (v) v.textContent = tg.c;
+    if (tg.c % 4 === 0) vibrate(6);
+    this.liveSend({ rk: H.rk, c: tg.c });
+  },
+  rTugReveal(main) {
+    const H = this.host, rv = H.rv || {}, me = this.pid, team = rv.team?.[me], pts = rv.d?.[me] || 0, nm = ["Red", "Blue"];
+    const head = team === undefined ? (rv.win < 0 ? "Dead heat!" : `${nm[rv.win]} wins!`) : rv.win < 0 ? "Dead heat!" : rv.win === team ? "Your team won!" : "Your team lost";
+    const sub = (team === undefined ? "" : `${rv.g?.[me] || 0} taps. `) + (pts ? `+${fmt(pts)} points${rv.top === me ? ", fastest tapper!" : ""}` : "") + ` Red ${rv.wins?.[0] || 0}, Blue ${rv.wins?.[1] || 0}.`;
+    paint(main, "tg-rev|" + H.rk, `<div class="card center result ${pts ? "good" : team !== undefined && rv.win >= 0 ? "bad" : ""}"><p class="eyebrow">Tug of war · Pull ${(rv.go || 0) + 1} of ${rv.goes || TUG_PULLS}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+  },
+  // Spot it on the phone: the grid. The time runs from when it first shows here; a wrong square freezes it for a second.
+  rSpot(main) {
+    const H = this.host, so = H.so || {}, n = Number(so.n) || 4, head = `<p class="eyebrow">Spot it · Grid ${(so.go || 0) + 1} of ${so.goes || 3}</p>`;
+    if (this.g?.rk === H.rk) return paint(main, "so-lock|" + H.rk, `<div class="card center result good">${head}<p class="ph-big num">${(this.g.ms / 1000).toFixed(2)} s</p><p class="muted">${this.g.w ? `Found it, after ${this.g.w} wrong ${this.g.w === 1 ? "tap" : "taps"}.` : "Found it!"} See who was quicker on the TV.</p></div>`);
+    const fresh = this.sp?.rk !== H.rk;
+    if (fresh) this.sp = { rk: H.rk, t0: 0, w: 0, lock: 0 };
+    const did = paint(main, "so|" + H.rk, `<div class="card">${head}<p class="ph-h">Tap the odd one out</p><div class="spad2" style="--n:${n}">${Array.from({ length: n * n }, (_, k) => `<button class="spc" data-tap="spot" data-k="${k}">${esc(k === so.k ? so.o : so.a)}</button>`).join("")}</div></div>`);
+    if (did || fresh) { const sp = this.sp; sp.t0 = performance.now(); requestAnimationFrame(ts => { if (ts > sp.t0 - 50 && ts < sp.t0 + 40) sp.t0 = ts; }); }
+  },
+  spotTap(e, el) {
+    const H = this.host, sp = this.sp, k = Number(el.dataset.k), now = performance.now();
+    if (!sp || sp.rk !== H.rk || this.g?.rk === H.rk || now < sp.lock || !sp.t0) return;
+    if (k === H.so?.k) { this.g = { rk: H.rk, ms: Math.max(1, Math.round(now - sp.t0)), w: sp.w }; vibrate(25); this.push(); return this.renderMain(); }
+    sp.w++; sp.lock = now + 1000; vibrate([40, 30, 40]);
+    el.classList.add("wrong"); const pad = el.parentElement; pad.classList.add("locked");
+    setTimeout(() => { el.classList.remove("wrong"); pad.classList.remove("locked"); }, 1000);
+  },
+  rSpotReveal(main) {
+    const H = this.host, rv = H.rv || {}, me = this.pid, rows = rv.rows || [], mine = rows.find(r => r.pid === me), place = mine ? rows.indexOf(mine) + 1 : 0, pts = rv.d?.[me] || 0;
+    const head = !mine ? "Didn't find it" : place === 1 ? "Eagle eyes!" : `${place}${["st", "nd", "rd"][place - 1] || "th"} to find it`;
+    const sub = mine ? `${(mine.ms / 1000).toFixed(2)} s${pts ? ` · +${fmt(pts)} points` : ""}` : `It was the ${esc(rv.o || "")} among the ${esc(rv.a || "")}s.`;
+    paint(main, "so-rev|" + H.rk, `<div class="card center result ${pts ? "good" : !mine ? "bad" : ""}"><p class="eyebrow">Spot it · Grid ${(rv.go || 0) + 1} of ${rv.goes || 3}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
   },
   // Hot potato on the phone: the holder gets a red screen, the category and everyone to pass to; everyone else waits.
   rPotato(main) {
@@ -5927,6 +6282,9 @@ const PH = {
     if (this.host.kind === "rps") return this.rRpsReveal(main);
     if (this.host.kind === "quick") return this.rQuickReveal(main);
     if (this.host.kind === "potato") return this.rPotatoReveal(main);
+    if (this.host.kind === "pump") return this.rPumpReveal(main);
+    if (this.host.kind === "tug") return this.rTugReveal(main);
+    if (this.host.kind === "spot") return this.rSpotReveal(main);
     if (this.host.kind === "meld") return this.rMeldReveal(main);
     if (this.host.qz && this.host.rv) return this.rQuizReveal(main);
     const H = this.host, rv = H.rv || { g: {}, d: {} }, ownerP = this.nameOf(rv.o);
@@ -5972,7 +6330,12 @@ const PH = {
 
 // ---------- events ----------
 // Quick draw times the tap from the moment the finger lands, not when the click arrives.
-app.addEventListener(window.PointerEvent ? "pointerdown" : "touchstart", e => { if (mode === "phone" && e.target.closest?.(".qpad")) PH.qkTap(e); });
+app.addEventListener(window.PointerEvent ? "pointerdown" : "touchstart", e => {
+  if (mode !== "phone") return;
+  const t = e.target.closest?.("[data-tap]");
+  if (t) return PH.tapDown(e, t);
+  if (e.target.closest?.(".qpad")) PH.qkTap(e);
+});
 app.addEventListener("click", e => {
   const b = e.target.closest("[data-act]");
   if (!b || b.disabled) return;
