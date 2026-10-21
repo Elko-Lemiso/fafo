@@ -162,6 +162,17 @@ and on the phones: Double points, Underdog round (whoever's last scores triple),
 Robbery (the fastest right answer steals 300 from the leader) or No guessing (a wrong answer loses 250). Never the
 first round or the final, never two in a row, and only on rounds where it makes sense. The reveal says what it did.
 
+**Streaks:** three right answers in a row (quiz-style rounds only) put a 🔥 with the count on your chip in the TV's
+score strip and on the reveal, and the longest streak of the night wins the On fire award. Every reveal on the phone
+also says what you picked next to the right answer, whether you moved up or down a place, and what a twist did to
+your points.
+
+**Stuck steps:** the steps with no clock (looking at your Imposter word, giving a clue, talking it over) move on by
+themselves once everyone but one person is done and that person has had 30 to 45 seconds, so one phone in a pocket
+can't stall the room. Whoever started the game also gets a **Move on** button on their phone in those steps and on
+the paused screen (two taps, so a knee can't skip a round). Five seconds before a clock runs out, a phone that hasn't
+answered buzzes once and its bar throbs.
+
 **Reactions:** whenever a phone has nothing to do (reveals, scores, title cards, after locking in), it shows a row of
 reactions. Tapping one floats it up the TV with your face: 😂 🔥 😱 👏 💀 🍻, BOO! and TOO EASY.
 

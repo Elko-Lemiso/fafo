@@ -72,6 +72,8 @@ button{font:inherit;color:inherit}
 .panel{background:var(--paper);border:3px solid var(--ink);border-radius:20px;box-shadow:0 7px 0 var(--ink);padding:clamp(18px,3vw,28px);display:flex;flex-direction:column;gap:18px}
 .steps{display:grid;gap:12px;counter-reset:s}
 .steps li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;line-height:1.4;counter-increment:s}
+.tvlink{margin:14px 4px 0;font-size:14px;line-height:1.45;text-align:center}
+.tvlink a{color:var(--cobalt);font-weight:800}
 .steps li::before{content:counter(s);font-family:var(--display);width:1.8em;height:1.8em;display:grid;place-items:center;background:var(--sun);border:2px solid var(--ink);border-radius:50%}
 .warn{background:var(--ink);color:var(--paper);border-radius:12px;padding:12px 14px;line-height:1.4}
 @media (max-width:760px){.landing{grid-template-columns:minmax(0,1fr)}}
@@ -101,6 +103,8 @@ button{font:inherit;color:inherit}
 .roster-head h2{font-family:var(--display);font-size:max(22px,4.4vmin)}
 .roster-head .count{font-family:var(--display);font-size:max(16px,3vmin)}
 .pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.6vmin}
+.pgrid.many{grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2vmin}
+.pgrid.many .pcard{font-size:max(13px,2vmin);padding:.8vmin 1vmin;gap:1vmin}
 .pcard{display:flex;align-items:center;gap:1.4vmin;background:var(--paper);border:3px solid var(--ink);border-radius:1.6vmin;padding:1.1vmin 1.4vmin;font-size:max(14px,2.5vmin);min-width:0}
 .pcard.pop{animation:pop .45s cubic-bezier(.3,1.6,.5,1) both}
 .pcard.off{opacity:.5}
@@ -200,6 +204,7 @@ button{font:inherit;color:inherit}
 .rchip .avatar{font-size:max(10px,1.55vmin);border-width:2px}
 .rchip b{font-family:var(--display);font-weight:400;font-size:max(13px,2.4vmin);line-height:1}
 .rchip.lead{background:var(--ink);color:var(--sun)}
+.rchip .fire,.delta .fire{font-style:normal;font-family:var(--label);font-weight:700;font-size:.78em;background:var(--tomato);color:var(--paper);border-radius:999px;padding:.1em .55em;margin-left:.3em;animation:pop .3s cubic-bezier(.3,1.6,.5,1) both}
 .rchip.off{opacity:.45}
 .rchip i{font-style:normal;font-family:var(--display);font-size:max(11px,1.9vmin);background:var(--mint);color:var(--paper);border-radius:999px;padding:.1em .5em;animation:pop .45s cubic-bezier(.3,1.6,.5,1) both}
 .rchip i.neg{background:var(--tomato)}
@@ -262,6 +267,8 @@ button{font:inherit;color:inherit}
 .choice .avatar{font-size:13px}
 .tbar{height:12px;border:3px solid var(--ink);border-radius:999px;background:var(--paper);overflow:hidden}
 .tbar i{display:block;height:100%;background:var(--tomato);width:100%;transition:width .25s linear}
+.tbar.hurry{border-color:var(--tomato);animation:hurrybar .5s ease-in-out infinite alternate}
+@keyframes hurrybar{to{box-shadow:0 0 0 4px rgba(217,58,38,.35)}}
 .result{padding:28px 18px}
 .result.good{background:var(--cobalt);color:var(--paper)}
 .result.bad{background:var(--tomato);color:var(--paper)}
@@ -724,6 +731,12 @@ button{touch-action:manipulation}
 .potcard .ph-h{color:var(--sun);font-size:30px;margin:2px 0 4px}
 .potcard .choice{color:var(--ink)}
 .potcard .choice:disabled{opacity:.5}
+.nbar{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:10px}
+.nchip{font-family:var(--label);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:12px;padding:4px 10px;border-radius:999px;background:var(--paper);color:var(--ink);border:2px solid var(--ink)}
+.nchip.hot{background:var(--tomato);color:var(--paper)}
+.nchip.good{background:var(--mint);color:var(--paper)}
+.nchip.bad{background:var(--ink);color:var(--paper)}
+.result.good .nchip.good,.result.bad .nchip.bad{background:var(--paper);color:var(--ink)}
 .potcard .choice i{font-style:normal;font-size:12px;font-weight:800;color:var(--ink-soft);margin-left:auto}
 .pbig{font-size:64px;line-height:1;text-align:center}
 /* Pump it, Tug of war, Spot it */
@@ -1877,7 +1890,7 @@ const SHARE = {
   },
   blob(c) { return new Promise(ok => c.toBlob(b => ok(b), "image/png")); },
   // The night: who won, everyone's score, the awards and the best line of the night.
-  async night(pl, aw, best) {
+  async night(pl, aw, best, info) {
     await this.fonts();
     const ps = pl.slice().sort((a, b) => b[3] - a[3]).slice(0, 8), W = 1080, H = 1350, [c, x] = this.base(W, H);
     this.wordmark(x, 70, 150, 96);
@@ -1887,8 +1900,14 @@ const SHARE = {
     x.font = "400 92px Bungee"; x.fillStyle = "#1D140F";
     let y = 290;
     for (const l of this.wrap(x, tie ? "It's a tie!" : `${cleanName(ps[0]?.[1] || "")} wins!`, W - 140).slice(0, 2)) { x.fillText(l, 70, y); y += 96; }
+    // The night in a line: how many rounds, of what.
+    if (info?.R) {
+      const games = (info.modes || []).map(m => MODE_LABEL[m]).filter(Boolean), shown = games.slice(0, 3).join(", ") + (games.length > 3 ? ` +${games.length - 3} more` : "");
+      x.font = "700 34px 'Barlow Condensed'"; x.fillStyle = "#5A4630";
+      x.fillText(`${info.R} ROUNDS · ${pl.length} PLAYERS · ${shown.toUpperCase()}`.slice(0, 70), 70, y - 36);
+    }
     y += 10;
-    const row = ps.length > 6 ? 78 : 92;
+    const row = ps.length > 6 ? 78 : ps.length <= 4 ? 108 : 92;
     for (const [i, p] of ps.entries()) {
       const top = i === 0, rank = 1 + ps.filter(q => q[3] > p[3]).length;
       this.card(x, 70, y, W - 140, row - 14, top ? "#1D140F" : "#FFFBF0", 20);
@@ -2023,13 +2042,13 @@ function renderLanding() {
   app.innerHTML = `<main class="landing">
     <div>
       <h1 class="wordmark fafo" aria-label="fafo"><span>fa</span><span class="two">fo</span></h1>
-      <p class="lede">A party game for one TV and a room full of phones. Guess whose photo is on screen, name flags and country shapes, all from your phone.</p>
+      <p class="lede">A party game for one TV and a room full of phones: quizzes, bluffing, drawing, mind games and fast-finger rounds, all played from your phone.</p>
     </div>
     <div class="panel">
       <ol class="steps">
-        <li>Open this page on the laptop plugged into the TV and pick <b>Show on this screen</b>.</li>
-        <li>Everyone scans the code on the TV. For photo rounds, add up to ${PER_PLAYER} photos from your phone.</li>
-        <li>Pick your answer on your phone before the clock runs out.</li>
+        <li><span>Open this page on the laptop plugged into the TV and pick <b>Show on this screen</b>.</span></li>
+        <li><span>Everyone scans the code on the TV with their phone camera. No app, no account.</span></li>
+        <li><span>Tap, type or draw on your phone when the TV asks. Points show up on both.</span></li>
       </ol>
       <button class="btn primary wide" data-act="go-tv">Show on this screen</button>
       <button class="btn wide" data-act="go-phone">Play on my phone</button>
@@ -2217,10 +2236,14 @@ const TV = {
     for (const peer of peers) {
       const p = peer.presence || {};
       if (p.app !== APP || p.role !== "p" || p.code !== H.code || !isPid(p.pid) || seen.has(p.pid)) continue;
-      const pid = p.pid, name = cleanName(p.nm);
+      const pid = p.pid;
+      let name = cleanName(p.nm);
       if (!name) continue;
       seen.add(pid);
       let pl = H.players[pid];
+      // Two Sams in one room would be confusing on every vote, so the second one becomes Sam 2.
+      const taken = n => Object.values(H.players).some(o => o.pid !== pid && o.name.toLowerCase() === n.toLowerCase());
+      if (taken(name)) { for (let k = 2; k < 10 && taken(name); k++) name = cleanName(p.nm).slice(0, 11) + " " + k; }
       if (!pl) {
         if (Object.keys(H.players).length >= MAX_PLAYERS) continue;
         pl = H.players[pid] = { pid, name, color: this.nextColor(), score: 0, photos: [], songs: [], at: now, online: true };
@@ -2391,6 +2414,8 @@ const TV = {
     else if (a === "pause") this.pause();
     else if (a === "resume") this.resume();
     else if (a === "next" && this.isImp() && this.H.ph === "rev") { this.unpause(); this.advance(); }
+    // Steps with no clock (clues, talking it over) and a paused game can be moved on from the host's phone.
+    else if (a === "skip" && ([...SECRET_PHASES, "q", "qw", "qv", "dw", "rev", "intro", "lb"].includes(this.H.ph))) { this.unpause(); this.advance(); }
     else if (typeof a === "string" && a.startsWith("modes:")) this.setModes(a.slice(6).split(","));
     else if (typeof a === "string" && a.startsWith("mode:")) this.toggleMode(a.slice(5));
     else if (typeof a === "string" && a.startsWith("set:")) { const i = a.indexOf(":", 4); if (i > 4) this.setting(a.slice(4, i), a.slice(i + 1)); }
@@ -3134,6 +3159,7 @@ const TV = {
     this.sound(ph);
     this.lastTick = 0;
     if (ph === "rev" && H.rv && H.cur?.tw && !H.rv.tw) this.applyTwist();
+    if (ph === "rev" && H.rv && !H.rv.stk) this.streaks();
     if (ph === "rev" && H.rv) H.rv.sip = H.drinks ? this.sippers() : [];
     if (ph === "lb") { H.dare = this.pickDare(); H.lbFrom = H.lbSnap || {}; H.lbSnap = Object.fromEntries(this.players().map(p => [p.pid, p.score])); }
     const fx = { intro: "whoosh", rev: "reveal", lb: "board", end: "fanfare", "imp-clue": "blip" }[ph];
@@ -3157,6 +3183,19 @@ const TV = {
     box.appendChild(el);
     setTimeout(() => el.remove(), 3200);
     if (now - (this.rxSnd || 0) > 160) { this.rxSnd = now; SFX.play("pop"); }
+  },
+  // Right answers in a row. Only quiz-style rounds count; other rounds leave the streak alone.
+  streaks() {
+    const H = this.H, rv = H.rv;
+    rv.stk = 1;
+    if (!RIGHT_KINDS.includes(H.cur?.t)) return;
+    const answer = ["photo", "song", "prof"].includes(H.cur.t) ? rv.o : rv.a, owner = this.curOwner();
+    for (const p of this.players()) {
+      if (!p.online || p.pid === owner) continue;
+      const st = p.st ||= { right: 0, fast: 0, fooled: 0 }, hit = answer !== undefined && answer !== null && rv.g?.[p.pid] === answer;
+      st.streak = hit ? (st.streak || 0) + 1 : 0;
+      if (st.streak > (st.best || 0)) st.best = st.streak;
+    }
   },
   // A twist changes this round's points once they're worked out, just before the reveal shows them.
   applyTwist() {
@@ -3495,10 +3534,10 @@ const TV = {
   awards() {
     const ps = this.players().filter(p => p.st), out = [];
     const best = (score, min = 1) => { const p = ps.slice().sort((a, b) => score(b) - score(a))[0]; return p && score(p) >= min ? p : null; };
-    const sharp = best(p => p.st.right);
+    const sharp = best(p => p.st.right, 2);
     if (sharp) out.push([sharp, "Sharpest", `${sharp.st.right} right ${sharp.st.right === 1 ? "answer" : "answers"}`]);
     const fast = ps.filter(p => p.st.fast > 0).sort((a, b) => a.st.fast - b.st.fast)[0];
-    if (fast) out.push([fast, "Fastest finger", `a right answer in ${(fast.st.fast / 1000).toFixed(1)}s`]);
+    if (fast) out.push([fast, "Fastest finger", `a right answer in ${fast.st.fast < 1000 ? "under a second" : (fast.st.fast / 1000).toFixed(1) + "s"}`]);
     const funny = best(p => p.st.votes || 0);
     if (funny) out.push([funny, "Funniest", `${funny.st.votes} ${funny.st.votes === 1 ? "vote" : "votes"} for their answers`]);
     const meld = best(p => p.st.meld || 0);
@@ -3509,6 +3548,8 @@ const TV = {
     if (snake) out.push([snake, "Snake", `stole ${fmt(snake.st.stole)} points`]);
     const bluff = best(p => p.st.fooled);
     if (bluff) out.push([bluff, "Best poker face", `fooled ${bluff.st.fooled} ${bluff.st.fooled === 1 ? "guess" : "guesses"}`]);
+    const fire = best(p => p.st.best || 0, 3);
+    if (fire) out.push([fire, "On fire", `${fire.st.best} right in a row`]);
     return out;
   },
   reveal() {
@@ -3959,16 +4000,26 @@ const TV = {
       return this.advance();
     }
     if (H.ph === "imp-word") {
-      const ps = this.players().filter(p => p.online);
-      if (ps.length && ps.every(p => p.sw === H.rk) && (!H.phaseEnds || H.phaseEnds - now > 1500)) { H.phaseEnds = now + 1500; this.push(true); }
+      // Everyone has looked at their word, or everyone but one has had 30 seconds to.
+      const ps = this.players().filter(p => p.online), seen = ps.filter(p => p.sw === H.rk).length;
+      if (ps.length && seen === ps.length && (!H.phaseEnds || H.phaseEnds - now > 1500)) { H.phaseEnds = now + 1500; this.push(true); }
+      else if (ps.length > 1 && seen >= ps.length - 1) { if (this.wordAt?.rk !== H.rk) this.wordAt = { rk: H.rk, at: now }; else if (now - this.wordAt.at > 30000 && !H.phaseEnds) { H.phaseEnds = now + 1500; this.push(true); } }
+      else this.wordAt = null;
     }
     if (H.ph === "fk-ans") {
       const ps = this.players().filter(p => p.online);
       if (ps.length && ps.every(p => p.pid in H.cur.ans) && (!H.phaseEnds || H.phaseEnds - now > 1200)) { H.phaseEnds = now + 1200; this.push(true); }
     }
     if (H.ph === "imp-talk" || H.ph === "fk-talk") {
-      const ps = this.players().filter(p => p.online);
-      if (ps.length && ps.every(p => p.rd === H.rk) && (!H.phaseEnds || H.phaseEnds - now > 1200)) { H.phaseEnds = now + 1200; this.push(true); }
+      const ps = this.players().filter(p => p.online), ready = ps.filter(p => p.rd === H.rk).length;
+      if (ps.length && ready === ps.length && (!H.phaseEnds || H.phaseEnds - now > 1200)) { H.phaseEnds = now + 1200; this.push(true); }
+      else if (ps.length > 1 && ready >= ps.length - 1) { if (this.talkAt?.rk !== H.rk) this.talkAt = { rk: H.rk, at: now }; else if (now - this.talkAt.at > 45000 && !H.phaseEnds) { H.phaseEnds = now + 1200; this.push(true); } }
+      else this.talkAt = null;
+    }
+    if (H.ph === "imp-clue" && !H.pause) {
+      const key = H.rk + ":" + H.turn;
+      if (this.clueAt?.key !== key) this.clueAt = { key, at: now };
+      else if (now - this.clueAt.at > 40000) { this.clueAt = { key, at: now + 1e9 }; return this.advance(); }
     }
     if (H.ph === "imp-clue") {
       const sp = H.players[H.cur.order[H.turn]];
@@ -4032,7 +4083,7 @@ const TV = {
     const H = this.H, now = Date.now();
     const pres = {
       app: APP, role: "h", code: H.code, tid: TV_TID, take: this.take ? 1 : undefined, gid: H.gid, ph: H.ph, r: H.r, R: H.R, rk: H.rk || null,
-      pl: this.players().map(p => [p.pid, p.name, p.color, p.score, p.online ? 1 : 0, p.photos, p.songs || [], p.av || ""]),
+      pl: this.players().map(p => [p.pid, p.name, p.color, p.score, p.online ? 1 : 0, p.photos, p.songs || [], p.av || "", p.st?.streak || 0, p.prev ?? p.score]),
       kind: H.cur?.t || null, th: themeOf(H).label, ih: H.ph === "intro" && H.introHow && H.introHow === H.cur?.t ? 1 : 0,
       imp: this.isImp() && ["intro", ...IMP_PHASES, "q", "rev"].includes(H.ph) ? { cat: H.cur.cat, sp: H.ph === "imp-clue" ? H.cur.order[H.turn] : null, turn: H.turn || 0, n: H.cur.order.length, none: H.impVar === "none" ? 1 : 0 } : null,
       aw: H.ph === "end" ? this.awards().map(([p, title, detail]) => [p.pid, title, detail]) : null,
@@ -4155,7 +4206,7 @@ const TV = {
     const top = ps[0]?.s || 0;
     el.classList.toggle("many", ps.length > 8);
     paint(el, [H.rk, live, ps.map(x => [x.p.pid, x.s, x.p.online, x.p.av].join(":")).join()].join("|"), ps.map(({ p, s, up }) =>
-      `<li class="rchip ${top > 0 && s === top ? "lead" : ""} ${p.online ? "" : "off"}" title="${esc(p.name)}">${face(p)}<b class="num">${fmt(s)}</b>${up > 0 ? `<i class="num">+${fmt(up)}</i>` : up < 0 ? `<i class="num neg">${fmt(up)}</i>` : ""}</li>`).join(""));
+      `<li class="rchip ${top > 0 && s === top ? "lead" : ""} ${p.online ? "" : "off"}" title="${esc(p.name)}">${face(p)}<b class="num">${fmt(s)}</b>${up > 0 ? `<i class="num">+${fmt(up)}</i>` : up < 0 ? `<i class="num neg">${fmt(up)}</i>` : ""}${live && (p.st?.streak || 0) >= 3 ? `<em class="fire">${EMOJI_OK ? "🔥" : "×"}${p.st.streak}</em>` : ""}</li>`).join(""));
   },
   renderPause() {
     const H = this.H, p = H.pause, el = $("#pause-ov");
@@ -4306,7 +4357,7 @@ const TV = {
     const cap = total ? `${total} ${total === 1 ? "photo" : "photos"} in. Every one gets played, about ${mins} min.` : `No photos yet. Everyone can add up to ${PER_PLAYER}, and every photo gets played.`;
     paint(el, sig, `
       <div class="roster-head"><h2>Players</h2><span class="count num">${ps.length}/${MAX_PLAYERS}</span></div>
-      ${ps.length ? `<ul class="pgrid">${cards}</ul>` : `<div class="empty">Nobody yet. Scan the code with a phone camera to join.</div>`}
+      ${ps.length ? `<ul class="pgrid ${ps.length > 6 ? "many" : ""}">${cards}</ul>` : `<div class="empty">Nobody yet. Scan the code with a phone camera to join.</div>`}
       ${photos ? `${total ? `<div class="film" aria-hidden="true">${frames}</div>` : ""}<p class="filmcap num">${cap}</p>` : ""}`);
   },
   // Who picked this answer: their faces, or just a count when the room plays with anonymous votes.
@@ -4321,7 +4372,8 @@ const TV = {
     const P = this.H.players;
     if (this.H.anon) return `<span class="delta">${count || none}</span>`;
     const ids = Object.keys(rv.d || {}).filter(id => P[id] && rv.d[id] > 0).sort((a, b) => rv.d[b] - rv.d[a]);
-    return ids.map(id => `<span class="delta">${face(P[id])}${esc(P[id].name)} <b class="num">+${fmt(rv.d[id])}</b></span>`).join("") || `<span class="delta">${none}</span>`;
+    const fire = id => (RIGHT_KINDS.includes(this.H.cur?.t) && (P[id].st?.streak || 0) >= 3 ? `<em class="fire">${EMOJI_OK ? "🔥" : ""}${P[id].st.streak} in a row</em>` : "");
+    return ids.map(id => `<span class="delta">${face(P[id])}${esc(P[id].name)} <b class="num">+${fmt(rv.d[id])}</b>${fire(id)}</span>`).join("") || `<span class="delta">${none}</span>`;
   },
   votesBy(g) { const v = {}; for (const [voter, pick] of Object.entries(g || {})) (v[pick] ||= []).push(voter); return v; },
   revealHtml() {
@@ -4408,7 +4460,7 @@ const TV = {
     const best = ps[0].score, winners = ps.filter(p => p.score === best);
     const title = winners.length > 1 ? "It's a tie!" : `${esc(winners[0].name)} wins!`;
     const slot = (p, cls, place) => p ? `<div class="step ${cls}">${cls === "p1" ? CROWN : ""}${face(p)}<span class="nm">${esc(p.name)}</span><div class="block">${place}<small class="num" data-from="0" data-to="${p.score}" data-delay="${cls === "p1" ? 900 : 500}">0</small></div></div>` : `<div class="step ${cls}"></div>`;
-    const rest = ps.slice(3).map((p, i) => `<li>${ordinal(i + 4)} ${esc(p.name)} · <span class="num">${fmt(p.score)}</span></li>`).join("");
+    const rest = ps.slice(3).map(p => `<li>${ordinal(1 + ps.filter(q => q.score > p.score).length)} ${esc(p.name)} · <span class="num">${fmt(p.score)}</span></li>`).join("");
     return `<section class="end"><p class="eyebrow">Final scores</p><h2 class="qtitle">${title}</h2>
       <div class="podium">${slot(ps[1], "p2", "2nd")}${slot(ps[0], "p1", "1st")}${slot(ps[2], "p3", "3rd")}</div>
       ${rest ? `<ol class="rest">${rest}</ol>` : ""}
@@ -5411,6 +5463,12 @@ const PH = {
       if (this.host?.ph !== "imp-talk") return;
       this.rd = this.host.rk; vibrate(20); this.push(); return this.renderMain(true);
     }
+    if (a === "skip") {
+      const H = this.host;
+      if (!H || H.vip !== this.pid) return;
+      if (Date.now() > (this.confirmSkip || 0)) { this.confirmSkip = Date.now() + 3000; this.renderMain(true); setTimeout(() => this.renderMain(true), 3100); return; }
+      this.confirmSkip = 0; this.cmd = this.send("skip"); vibrate(20); return this.renderMain(true);
+    }
     if (a === "next-round") {
       if (this.host?.vip !== this.pid || this.host.ph !== "rev") return;
       this.cmd = this.send("next"); vibrate(20); return this.renderMain(true);
@@ -5629,17 +5687,33 @@ const PH = {
       head = found && fooled ? "Found it, and fooled them" : found ? "You found it!" : fooled ? "Fooled them" : pick === undefined ? "No vote" : "Fooled!";
       sub = pts ? `+${fmt(pts)} points` : `It was ${esc(rv.opts?.find(o => o.tr)?.t || "")}.`;
     }
-    paint(main, "qrev|" + H.rk, `<div class="card center result ${cls}"><p class="eyebrow">${lash ? "Last Lash" : "Quips"}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+    paint(main, "qrev|" + H.rk, `<div class="card center result ${cls}"><p class="eyebrow">${lash ? "Last Lash" : esc(MODE_LABEL[H.kind] || "Quips")}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.noteBar()}</div>`);
   },
   // Drinks on: a line on the result card when it's this player's turn to sip.
   sipNote() { return this.host?.drinks && (this.host.rv?.sip || []).includes(this.pid) ? `<p class="eyebrow" style="margin-top:6px">Take a sip (any drink)</p>` : ""; },
+  // Under every reveal: a streak, what a twist did to you, a change of place, and the drinks note.
+  noteBar() {
+    const H = this.host, rv = H?.rv, me = this.me(), ps = this.pl();
+    if (!rv || !me) return this.sipNote();
+    const chips = [];
+    if (RIGHT_KINDS.includes(H.kind) && (me[8] || 0) >= 3 && (rv.d?.[this.pid] || 0) > 0) chips.push(`<span class="nchip hot">${EMOJI_OK ? "🔥 " : ""}${me[8]} in a row</span>`);
+    const tw = rv.tw && TWISTS[rv.tw.k], ex = rv.tw?.ex?.[this.pid];
+    if (tw && ex) chips.push(`<span class="nchip ${ex > 0 ? "good" : "bad"}">${esc(tw.label)}: ${ex > 0 ? "+" : ""}${fmt(ex)}</span>`);
+    const now = 1 + ps.filter(p => p[3] > me[3]).length, was = 1 + ps.filter(p => (p[9] ?? p[3]) > (me[9] ?? me[3])).length;
+    if (ps.length > 1 && now < was) chips.push(`<span class="nchip good">▲ Up to ${ordinal(now)}</span>`);
+    else if (ps.length > 1 && now > was) chips.push(`<span class="nchip bad">▼ Down to ${ordinal(now)}</span>`);
+    return (chips.length ? `<div class="nbar">${chips.join("")}</div>` : "") + this.sipNote();
+  },
   rPaused(main) {
     const H = this.host, p = H.pause, vip = H.vip === this.pid;
-    paint(main, ["pause", p.cd, p.who, vip].join("|"), `<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p>
+    paint(main, ["pause", p.cd, p.who, vip, this.skipLabel()].join("|"), `<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p>
       <p class="ph-big">${p.cd ? `Back in ${p.cd}` : "Paused"}</p>
       <p class="muted">${p.cd ? "Eyes on the TV." : p.who ? `Waiting for ${esc(p.who)} to reconnect.` : "Back in a moment."}</p></div>
-      ${vip && !p.cd ? `<button class="btn primary wide" data-act="resume">Resume game</button>` : ""}`);
+      ${vip && !p.cd ? `<button class="btn primary wide" data-act="resume">Resume game</button>${this.skipBtn("Skip this round")}` : ""}`);
   },
+  // The host's way past a step that's waiting on someone: two taps, so a knee doesn't skip a round.
+  skipLabel() { return Date.now() < (this.confirmSkip || 0) ? "Tap again to move on" : ""; },
+  skipBtn(label) { return this.host?.vip === this.pid ? `<button class="btn wide ${this.skipLabel() ? "primary" : ""}" data-act="skip">${this.skipLabel() || label}</button>` : ""; },
   renderTop() {
     const me = this.me(), leaving = Date.now() < this.confirmLeave;
     const status = roomState === "ok" && !this.connected ? `<span class="pill dark" style="font-size:12px">Reconnecting</span>` : "";
@@ -5675,13 +5749,19 @@ const PH = {
     if (H.ph === "intro") return paint(main, "intro|" + H.rk, `${H.tw && TWISTS[H.tw] ? `<div class="card center twph"><p class="eyebrow">Twist!</p><p class="ph-h">${esc(TWISTS[H.tw].label)}</p><p>${esc(TWISTS[H.tw].note)}</p></div>` : ""}<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">Eyes on the TV</p><p class="muted">${H.kind === "imp" ? "Imposter round. Your secret word is coming." : H.kind === "fakin" ? "Fakin' it. Your question is coming." : H.kind === "draw" ? "Draw it. Warm up your finger." : H.kind === "low" ? "Lowest number wins. Think like everyone else, then don't." : H.kind === "shot" ? "Shot in the dark. Hide well, shoot better." : H.kind === "herd" ? "Herd mind. Think like everyone else." : H.kind === "cash" ? "Cash or crash. Know when to walk away." : H.kind === "quick" ? "Quick draw. Eyes on your phone, finger ready." : H.kind === "potato" ? "Hot potato. Don't get caught holding it." : H.kind === "pump" ? "Pump it. Know when to stop." : H.kind === "tug" ? (H.tg?.team && H.tg.team[this.pid] !== undefined ? `Tug of war. You're on ${H.tg.team[this.pid] ? "Blue" : "Red"}!` : "Tug of war. Get your thumb ready.") : H.kind === "spot" ? "Spot it. Eyes sharp." : H.kind === "simon" ? "Simon says. Only when Simon says!" : H.kind === "count" ? "Count up. No talking!" : H.kind === "act" ? (H.ac?.pid === this.pid ? "You're acting! Your first word is coming." : `Act it out. ${esc(this.nameOf(H.ac?.pid)?.[1] || "Someone")} is up.`) : H.kind === "cats" ? "Categories. Think of something nobody else will." : H.kind === "rps" ? "Showdown. Rock, paper, scissors against everyone." : H.kind === "split" ? (Array.isArray(H.ss?.by) && H.ss.by.includes(this.pid) ? "Split or steal. You're up!" : "Split or steal. Get ready to bet.") : WRITE_KINDS.includes(H.kind) ? "Get your thumbs ready. You'll be writing." : "Get ready to guess."}</p></div>
       ${H.ih && MODE_CARD[H.kind]?.how ? `<div class="card"><p class="eyebrow">How to play ${esc(MODE_LABEL[H.kind] || "")}</p><ol class="steps">${MODE_CARD[H.kind].how.map(x => `<li>${esc(x)}</li>`).join("")}</ol><p class="muted"><b>Scoring</b> ${esc(MODE_CARD[H.kind].score || "")}</p></div>` : ""}`);
     if (IMP_PHASES.includes(H.ph)) return this.rImp(main);
-    if (FK_PHASES.includes(H.ph)) return this.rFakin(main);
-    if (H.ph === "qw") return this.rWrite(main);
-    if (H.ph === "dw") return this.rDraw(main);
+    if (FK_PHASES.includes(H.ph)) { this.rFakin(main); return this.focusBox(main); }
+    if (H.ph === "qw") { this.rWrite(main); return this.focusBox(main); }
+    if (H.ph === "dw") { this.rDraw(main); return this.focusBox(main); }
     if (H.ph === "qv") return this.rVote(main);
-    if (H.ph === "q") return this.rQuestion(main);
+    if (H.ph === "q") { this.rQuestion(main); return this.focusBox(main); }
     if (H.ph === "rev") return this.rReveal(main);
     if (H.ph === "lb" || H.ph === "end") return this.rStandings(main);
+  },
+  // A round that wants typing puts the cursor in its box as soon as it shows, so the keyboard is up without a tap.
+  focusBox(main) {
+    const box = main.querySelector("form input:not([type=checkbox]), form textarea");
+    if (!box || box === document.activeElement || document.activeElement?.tagName === "INPUT") return;
+    try { box.focus({ preventScroll: true }); } catch {}
   },
   rJoin(main) {
     if (!this.code && this.hosts.length > 1) {
@@ -5694,11 +5774,11 @@ const PH = {
     paint(main, sig, `<form class="card" id="join-form" novalidate>
       <p class="eyebrow">${this.code ? "Room " + esc(this.code) : "Join a game"}</p>
       <p class="ph-h">What should we call you?</p>
-      <div class="field"><label for="nm-in">Your name</label><input id="nm-in" maxlength="14" autocomplete="nickname" autocorrect="off" autocapitalize="words" spellcheck="false" enterkeyhint="go" value="${esc(prevName ?? this.name)}"></div>
+      <div class="field"><label for="nm-in">Your name</label><input id="nm-in" maxlength="14" autofocus autocomplete="nickname" autocorrect="off" autocapitalize="words" spellcheck="false" enterkeyhint="go" value="${esc(prevName ?? this.name)}"></div>
       ${this.code ? "" : `<div class="field"><label for="code-in">Room code on the TV</label><input id="code-in" class="code-in" maxlength="4" autocapitalize="characters" autocomplete="off" placeholder="ABCD"></div>`}
       ${this.err ? `<p class="warn">${esc(this.err)}</p>` : ""}
       <button class="btn primary wide" data-act="join" type="submit">Join game</button>
-    </form>`);
+    </form>${this.code ? "" : `<p class="muted center tvlink">Hosting tonight? Open <b>${esc(location.host)}</b> on the laptop plugged into the TV, or <a href="#" data-act="go-tv">show the game on this screen</a>.</p>`}`);
   },
   // The rounds tonight. On the host's phone a change shows straight away: its own pick wins until the TV agrees, or for 5 seconds.
   modes() {
@@ -5760,7 +5840,7 @@ const PH = {
         <div id="song-results" class="songlist"></div>
       </section>` : ""}
       ${!photos && !songs && !vip ? `<section class="card"><p class="eyebrow">You're in</p><p class="ph-h">Get ready</p>
-        <p class="muted">The TV asks the questions. Pick your answer here. The fastest right answer scores most.</p></section>` : ""}
+        <p class="muted">Keep this page open. When the TV asks, you tap, type or draw here, and your points show up at the top.</p></section>` : ""}
       ${vip ? "" : `<section class="card" id="ctrl"></section>`}`);
     this.renderCtrl(); this.renderPhotos(); this.renderSongs(); this.renderSelfie(); this.renderProf();
   },
@@ -6024,7 +6104,7 @@ const PH = {
     const H = this.host, rv = H.rv || {}, me = this.pid, pts = rv.d?.[me] || 0, mine = rv.by === me || (rv.items || []).some(x => x?.pid === me), key = "chain|" + H.rk;
     this.prepShare(key, () => SHARE.chain(rv, Object.fromEntries(this.pl().map(p => [p[0], cleanName(p[1])]))));
     paint(main, ["dr-rev", H.rk, this.shareReady(key)].join("|"), `<div class="card center result ${pts ? "good" : ""}"><p class="eyebrow">Draw it · Chain ${(rv.ci || 0) + 1} of ${rv.n || 1}</p><p class="ph-big">${pts ? "Nailed it!" : "Eyes on the TV"}</p>
-      <p style="font-weight:800;font-size:19px">${pts ? `+${fmt(pts)} points` : mine ? "Your work is up there." : "Watch how far it drifted."}</p>${this.sipNote()}</div>
+      <p style="font-weight:800;font-size:19px">${pts ? `+${fmt(pts)} points` : mine ? "Your work is up there." : "Watch how far it drifted."}</p>${this.noteBar()}</div>
       <button class="btn wide" data-act="share-chain" data-k="${esc(key)}">${this.shareReady(key) ? "Share this chain" : "Making the picture…"}</button>`);
   },
   // Share pictures are made as soon as their screen shows, so a tap opens the share sheet at once (phones only allow
@@ -6051,7 +6131,7 @@ const PH = {
     const H = this.host, rv = H.rv || {}, me = this.pid, pts = rv.d?.[me] || 0, lost = rv.crash && (rv.still || []).includes(me);
     const head = pts ? `+${fmt(pts)}` : lost ? "Crashed!" : (rv.still || []).includes(me) ? "Still in" : rv.out?.[me] ? "Banked" : "Watching";
     const sub = pts ? "Banked. Nice." : lost ? "You were still in. Nothing this round." : (rv.still || []).includes(me) ? `The pot grows to ${fmt((rv.next || 0) * (rv.m || 1))}.` : rv.out?.[me] ? `You banked ${fmt(rv.out[me])} earlier.` : "";
-    paint(main, "cs-rev|" + H.rk, `<div class="card center result ${pts ? "good" : lost ? "bad" : ""}"><p class="eyebrow">Cash or crash · Step ${(rv.s || 0) + 1}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+    paint(main, "cs-rev|" + H.rk, `<div class="card center result ${pts ? "good" : lost ? "bad" : ""}"><p class="eyebrow">Cash or crash · Step ${(rv.s || 0) + 1}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.noteBar()}</div>`);
   },
   // Categories on the phone: the letter, big, and a box.
   rCats(main) {
@@ -6075,7 +6155,7 @@ const PH = {
     const H = this.host, rv = H.rv || {}, me = this.pid, pts = rv.d?.[me] || 0, row = (rv.rows || []).find(r => r.pid === me);
     const head = pts ? "Original!" : !row ? "No answer" : !row.ok ? "Wrong letter" : "Cancelled out";
     const sub = pts ? `+${fmt(pts)} points` : !row ? "" : !row.ok ? `It had to start with ${esc(rv.l)}.` : `Same as ${row.twin.map(id => esc(this.nameOf(id)?.[1] || "?")).join(", ")}.`;
-    paint(main, "ct-rev|" + H.rk, `<div class="card center result ${pts ? "good" : row ? "bad" : ""}"><p class="eyebrow">Categories · ${esc(rv.q || "")} · ${esc(rv.l || "")}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+    paint(main, "ct-rev|" + H.rk, `<div class="card center result ${pts ? "good" : row ? "bad" : ""}"><p class="eyebrow">Categories · ${esc(rv.q || "")} · ${esc(rv.l || "")}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.noteBar()}</div>`);
   },
   // Herd mind on the phone: a box for your answer. What most people will type, not what you'd say.
   rHerd(main) {
@@ -6097,7 +6177,7 @@ const PH = {
     const H = this.host, rv = H.rv || {}, me = this.pid, pts = rv.d?.[me] || 0, herd = rv.herd === 0 ? rv.groups[0] : null, mine = (rv.groups || []).find(gr => gr.by.includes(me));
     const head = pts ? "You're in the herd!" : rv.sheep === me ? "Black sheep!" : !mine ? "No answer" : herd ? "Not with the herd" : "The herd is split";
     const sub = pts ? `+${fmt(pts)} points` : herd ? `The herd said “${esc(herd.a)}”.` : "No group was biggest, so nobody scores.";
-    paint(main, "hd-rev|" + H.rk, `<div class="card center result ${pts ? "good" : mine ? "bad" : ""}"><p class="eyebrow">Herd mind</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+    paint(main, "hd-rev|" + H.rk, `<div class="card center result ${pts ? "good" : mine ? "bad" : ""}"><p class="eyebrow">Herd mind</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.noteBar()}</div>`);
   },
   // Quick draw on the phone: one big pad. It goes dark, maybe flashes a fake word, then says DRAW!. The phone times the
   // tap itself, from the frame DRAW showed on, so the network doesn't matter.
@@ -6138,7 +6218,7 @@ const PH = {
     const H = this.host, rv = H.rv || {}, me = this.pid, rows = rv.rows || [], mine = rows.find(r => r.pid === me), pts = rv.d?.[me] || 0, place = mine?.ms ? rows.indexOf(mine) + 1 : 0;
     const head = !mine ? "No tap" : !mine.ms ? (mine.fk ? `Shot at ${esc(rv.fw || "a fake")}` : "Too early") : place === 1 ? "Quickest!" : place === rows.filter(r => r.ms).length ? "Slowest draw" : `${place}${["st", "nd", "rd"][place - 1] || "th"} fastest`;
     const sub = mine?.ms ? `${(mine.ms / 1000).toFixed(3)} s${pts ? ` · +${fmt(pts)} points` : ""}` : "Nothing this draw.";
-    paint(main, "qk-rev|" + H.rk, `<div class="card center result ${pts ? "good" : mine && !mine.ms ? "bad" : ""}"><p class="eyebrow">Quick draw · Draw ${(rv.go || 0) + 1} of ${rv.goes || QUICK_DRAWS}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+    paint(main, "qk-rev|" + H.rk, `<div class="card center result ${pts ? "good" : mine && !mine.ms ? "bad" : ""}"><p class="eyebrow">Quick draw · Draw ${(rv.go || 0) + 1} of ${rv.goes || QUICK_DRAWS}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.noteBar()}</div>`);
   },
   // Simon says on the phone: the order and four colour buttons.
   rSimon(main) {
@@ -6152,7 +6232,7 @@ const PH = {
     const H = this.host, rv = H.rv || {}, me = this.pid, out = (rv.out || []).includes(me), alive = (rv.alive || []).includes(me), pts = rv.d?.[me] || 0;
     const head = out ? "You're out!" : alive ? (rv.end ? (rv.alive.length === 1 ? "Last one standing!" : "You survived!") : rv.all ? "Phew! Everyone slipped" : "Safe!") : "You're out";
     const sub = (rv.cmd ? (rv.cmd.simon ? `Simon said ${SIMON[rv.cmd.c][0].toLowerCase()}.` : "Simon didn't say!") : "") + (pts ? ` +${fmt(pts)}` : "");
-    paint(main, "sm-rev|" + H.rk, `<div class="card center result ${out ? "bad" : alive ? "good" : ""}"><p class="eyebrow">Simon says · Order ${(rv.s || 0) + 1} of ${rv.n || SIMON_STEPS}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+    paint(main, "sm-rev|" + H.rk, `<div class="card center result ${out ? "bad" : alive ? "good" : ""}"><p class="eyebrow">Simon says · Order ${(rv.s || 0) + 1} of ${rv.n || SIMON_STEPS}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.noteBar()}</div>`);
   },
   // Count up on the phone: one big +1. Greyed out after your own tap until someone else goes.
   rCount(main) {
@@ -6171,7 +6251,7 @@ const PH = {
   },
   rCountReveal(main) {
     const H = this.host, rv = H.rv || {}, pts = rv.d?.[this.pid] || 0;
-    paint(main, "cu-rev|" + H.rk, `<div class="card center result ${rv.win ? "good" : ""}"><p class="eyebrow">Count up</p><p class="ph-big">${rv.win ? "You did it!" : `Best run: ${rv.best || 0}`}</p><p style="font-weight:800;font-size:19px">${pts ? `+${fmt(pts)} points. ` : ""}${rv.crashes || 0} ${rv.crashes === 1 ? "crash" : "crashes"}.</p>${this.sipNote()}</div>`);
+    paint(main, "cu-rev|" + H.rk, `<div class="card center result ${rv.win ? "good" : ""}"><p class="eyebrow">Count up</p><p class="ph-big">${rv.win ? "You did it!" : `Best run: ${rv.best || 0}`}</p><p style="font-weight:800;font-size:19px">${pts ? `+${fmt(pts)} points. ` : ""}${rv.crashes || 0} ${rv.crashes === 1 ? "crash" : "crashes"}.</p>${this.noteBar()}</div>`);
   },
   // Act it out on the phone. The actor sees the word (whispered by the TV), Got it and Pass; then who guessed it.
   gotAct(d) {
@@ -6200,7 +6280,7 @@ const PH = {
   rActReveal(main) {
     const H = this.host, rv = H.rv || {}, me = this.pid, pts = rv.d?.[me] || 0, mine = rv.pid === me, n = rv.g?.[me] || 0;
     const head = mine ? (rv.got ? `You got ${rv.got} across!` : "Tough crowd") : n ? `You guessed ${n}!` : "Eyes on the TV";
-    paint(main, "ac-rev|" + H.rk, `<div class="card center result ${pts ? "good" : ""}"><p class="eyebrow">Act it out</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${pts ? `+${fmt(pts)} points` : ""}</p>${this.sipNote()}</div>`);
+    paint(main, "ac-rev|" + H.rk, `<div class="card center result ${pts ? "good" : ""}"><p class="eyebrow">Act it out</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${pts ? `+${fmt(pts)} points` : ""}</p>${this.noteBar()}</div>`);
   },
   // Live rounds send the running count a few times a second, not on every tap.
   liveSend(g) {
@@ -6248,7 +6328,7 @@ const PH = {
     const H = this.host, rv = H.rv || {}, me = this.pid, r = (rv.rows || []).find(x => x.pid === me), pts = rv.d?.[me] || 0;
     const head = !r ? "Watching" : r.pop ? "Popped!" : pts ? `+${fmt(pts)}` : "No pumps";
     const sub = !r ? "" : r.pop ? `It burst at ${r.n}.` : r.n ? `${r.n} ${r.n === 1 ? "pump" : "pumps"} banked.` : "You didn't pump.";
-    paint(main, "pu-rev|" + H.rk, `<div class="card center result ${pts ? "good" : r?.pop ? "bad" : ""}"><p class="eyebrow">Pump it · Balloon ${(rv.b || 0) + 1} of ${rv.n || PUMP_BALLOONS}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+    paint(main, "pu-rev|" + H.rk, `<div class="card center result ${pts ? "good" : r?.pop ? "bad" : ""}"><p class="eyebrow">Pump it · Balloon ${(rv.b || 0) + 1} of ${rv.n || PUMP_BALLOONS}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.noteBar()}</div>`);
   },
   // Tug of war on the phone: your team's colour and one huge pad. Taps count after the countdown.
   rTug(main) {
@@ -6276,7 +6356,7 @@ const PH = {
     const H = this.host, rv = H.rv || {}, me = this.pid, team = rv.team?.[me], pts = rv.d?.[me] || 0, nm = ["Red", "Blue"];
     const head = team === undefined ? (rv.win < 0 ? "Dead heat!" : `${nm[rv.win]} wins!`) : rv.win < 0 ? "Dead heat!" : rv.win === team ? "Your team won!" : "Your team lost";
     const sub = (team === undefined ? "" : `${rv.g?.[me] || 0} taps. `) + (pts ? `+${fmt(pts)} points${rv.top === me ? ", fastest tapper!" : ""}` : "") + ` Red ${rv.wins?.[0] || 0}, Blue ${rv.wins?.[1] || 0}.`;
-    paint(main, "tg-rev|" + H.rk, `<div class="card center result ${pts ? "good" : team !== undefined && rv.win >= 0 ? "bad" : ""}"><p class="eyebrow">Tug of war · Pull ${(rv.go || 0) + 1} of ${rv.goes || TUG_PULLS}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+    paint(main, "tg-rev|" + H.rk, `<div class="card center result ${pts ? "good" : team !== undefined && rv.win >= 0 ? "bad" : ""}"><p class="eyebrow">Tug of war · Pull ${(rv.go || 0) + 1} of ${rv.goes || TUG_PULLS}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.noteBar()}</div>`);
   },
   // Spot it on the phone: the grid. The time runs from when it first shows here; a wrong square freezes it for a second.
   rSpot(main) {
@@ -6299,7 +6379,7 @@ const PH = {
     const H = this.host, rv = H.rv || {}, me = this.pid, rows = rv.rows || [], mine = rows.find(r => r.pid === me), place = mine ? rows.indexOf(mine) + 1 : 0, pts = rv.d?.[me] || 0;
     const head = !mine ? "Didn't find it" : place === 1 ? "Eagle eyes!" : `${place}${["st", "nd", "rd"][place - 1] || "th"} to find it`;
     const sub = mine ? `${(mine.ms / 1000).toFixed(2)} s${pts ? ` · +${fmt(pts)} points` : ""}` : `It was the ${esc(rv.o || "")} among the ${esc(rv.a || "")}s.`;
-    paint(main, "so-rev|" + H.rk, `<div class="card center result ${pts ? "good" : !mine ? "bad" : ""}"><p class="eyebrow">Spot it · Grid ${(rv.go || 0) + 1} of ${rv.goes || 3}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+    paint(main, "so-rev|" + H.rk, `<div class="card center result ${pts ? "good" : !mine ? "bad" : ""}"><p class="eyebrow">Spot it · Grid ${(rv.go || 0) + 1} of ${rv.goes || 3}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.noteBar()}</div>`);
   },
   // Hot potato on the phone: the holder gets a red screen, the category and everyone to pass to; everyone else waits.
   rPotato(main) {
@@ -6324,7 +6404,7 @@ const PH = {
     const H = this.host, rv = H.rv || {}, me = this.pid, pts = rv.d?.[me] || 0, lost = rv.loser === me, L = esc(this.nameOf(rv.loser)?.[1] || "Someone");
     const head = lost ? "BOOM! You're toast" : pts ? `+${fmt(pts)}` : "BOOM!";
     const sub = lost ? "You were holding it when it blew." : `${L} was holding it.${rv.from === me ? " You got rid of it just in time!" : ""}`;
-    paint(main, "pt-rev|" + H.rk, `<div class="card center result ${lost ? "bad" : pts ? "good" : ""}"><p class="eyebrow">Hot potato · Bomb ${(rv.b || 0) + 1} of ${rv.bombs || POTATO_BOMBS}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+    paint(main, "pt-rev|" + H.rk, `<div class="card center result ${lost ? "bad" : pts ? "good" : ""}"><p class="eyebrow">Hot potato · Bomb ${(rv.b || 0) + 1} of ${rv.bombs || POTATO_BOMBS}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.noteBar()}</div>`);
   },
   // Showdown on the phone: three big buttons.
   rRps(main) {
@@ -6338,7 +6418,7 @@ const PH = {
     const lost = Number.isInteger(mine) ? Object.entries(rv.g || {}).filter(([o, j]) => o !== me && rpsBeats(j, mine)).length : 0;
     const head = !Number.isInteger(mine) ? "No throw" : w && !lost ? "Clean sweep!" : w ? `You beat ${w}` : lost ? "Beaten!" : "Stalemate";
     const sub = (pts ? `+${fmt(pts)} points. ` : "") + (Number.isInteger(mine) ? `You threw ${RPS[mine][1].toLowerCase()}${lost ? `, ${lost} beat you` : ""}.` : "");
-    paint(main, "ps-rev|" + H.rk, `<div class="card center result ${pts ? "good" : lost ? "bad" : ""}"><p class="eyebrow">Showdown · Throw ${(rv.go || 0) + 1} of ${rv.goes || 3}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+    paint(main, "ps-rev|" + H.rk, `<div class="card center result ${pts ? "good" : lost ? "bad" : ""}"><p class="eyebrow">Showdown · Throw ${(rv.go || 0) + 1} of ${rv.goes || 3}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.noteBar()}</div>`);
   },
   // Shot in the dark on the phone: tap where you hide, then where you shoot, then lock in. Ghosts only shoot.
   rShot(main) {
@@ -6359,7 +6439,7 @@ const PH = {
     const last = rv.end && alive && rv.alive.length === 1;
     const head = last ? "Last one standing!" : out ? "You're out!" : alive ? (rv.end ? "You survived!" : "Still in!") : "Ghost";
     const sub = (out ? `Shot by ${by}.${rv.end ? " " : " You're a ghost now: keep shooting. "}` : "") + (pts ? `+${fmt(pts)} points` : !out && alive ? "Nobody hit you." : "");
-    paint(main, "sd-rev|" + H.rk, `<div class="card center result ${pts || (alive && !out) ? "good" : out ? "bad" : ""}"><p class="eyebrow">Shot in the dark · Volley ${(rv.v || 0) + 1} of ${rv.n || SHOT_VOLLEYS}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+    paint(main, "sd-rev|" + H.rk, `<div class="card center result ${pts || (alive && !out) ? "good" : out ? "bad" : ""}"><p class="eyebrow">Shot in the dark · Volley ${(rv.v || 0) + 1} of ${rv.n || SHOT_VOLLEYS}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.noteBar()}</div>`);
   },
   // Lowest number wins on the phone: ten numbers to pick from, in secret.
   rLow(main) {
@@ -6373,7 +6453,7 @@ const PH = {
     const H = this.host, rv = H.rv || {}, me = this.pid, mine = rv.g?.[me], pts = rv.d?.[me] || 0, mates = mine ? (rv.by?.[mine] || []).length - 1 : 0, wName = esc(this.nameOf(rv.winner)?.[1] || "");
     const head = pts ? "You win it!" : !mine ? "No pick" : mates ? "Knocked out" : "Not the lowest";
     const sub = pts ? `Nobody else picked ${mine}. +${fmt(pts)} points` : mates ? `${mates === 1 ? "Someone else" : mates + " others"} picked ${mine} too.` : rv.winner ? `${wName} won with ${rv.win}.` : "Everyone clashed. Nobody wins.";
-    paint(main, "low-rev|" + H.rk, `<div class="card center result ${pts ? "good" : mine ? "bad" : ""}"><p class="eyebrow">Lowest number wins · Go ${(rv.go || 0) + 1} of ${rv.goes || 3}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+    paint(main, "low-rev|" + H.rk, `<div class="card center result ${pts ? "good" : mine ? "bad" : ""}"><p class="eyebrow">Lowest number wins · Go ${(rv.go || 0) + 1} of ${rv.goes || 3}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.noteBar()}</div>`);
   },
   rSplit(main) {
     const H = this.host, ss = H.ss || {}, by = Array.isArray(ss.by) ? ss.by : [], mine = by.includes(this.pid), pot = Number(ss.pot) || SPLIT_POT;
@@ -6406,7 +6486,7 @@ const PH = {
       head = pts ? "Right bet!" : Number.isInteger(mine) ? "Wrong bet" : "No bet";
       sub = (pts ? `+${fmt(pts)} points. ` : "") + (rv.out === 0 ? "They both split." : rv.out === 1 ? `${thief} stole it.` : "They both stole.");
     }
-    paint(main, "ss-rev|" + H.rk, `<div class="card center result ${cls}"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Split or steal</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+    paint(main, "ss-rev|" + H.rk, `<div class="card center result ${cls}"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Split or steal</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.noteBar()}</div>`);
   },
   rQuiz(main) {
     const H = this.host, qz = H.qz, opts = Array.isArray(qz.o) ? qz.o.slice(0, 4).map(String) : [];
@@ -6437,7 +6517,7 @@ const PH = {
   rQuizReveal(main) {
     const H = this.host, rv = H.rv, mine = rv.g?.[this.pid], pts = rv.d?.[this.pid] || 0, right = esc(H.qz.o?.[rv.a] ?? "");
     let cls = "", head, sub;
-    const card = () => paint(main, "qz-rev|" + H.rk, `<div class="card center result ${cls}"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:20px">${sub}</p>${this.sipNote()}</div>`);
+    const card = () => paint(main, "qz-rev|" + H.rk, `<div class="card center result ${cls}"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:20px">${sub}</p>${this.noteBar()}</div>`);
     if (NUM_KINDS.includes(H.qz.t)) {
       const show = v => (H.qz.y ? String(v) : fmt(v) + (H.qz.u ? " " + H.qz.u : ""));
       cls = pts ? "good" : mine === undefined ? "" : "bad";
@@ -6470,11 +6550,14 @@ const PH = {
       return card();
     }
     if (H.qz.t === "ttl") { cls = mine === rv.a ? "good" : Number.isInteger(mine) ? "bad" : ""; head = mine === rv.a ? "Spotted it!" : Number.isInteger(mine) ? "Fooled!" : "Too slow"; sub = (mine === rv.a ? `+${fmt(pts)} points. ` : "") + `The lie was “${right}”.`; return card(); }
-    if (mine === rv.a) { cls = "good"; head = "Correct!"; sub = `+${fmt(pts)} points`; }
-    else if (Number.isInteger(mine)) { cls = "bad"; head = "Nope"; sub = `It was ${right}.`; }
+    // Right: the fastest right answer in the room hears so. Wrong: what you said next to the truth, with the odd jab.
+    const first = Object.keys(rv.g || {}).filter(id => rv.g[id] === rv.a).sort((a, b) => (rv.d?.[b] || 0) - (rv.d?.[a] || 0))[0];
+    const jab = ["Nope", "Not that one", "Ouch", "Nice try", "Wrong one", "So close"][parseInt(fnv(H.rk), 36) % 6];
+    if (mine === rv.a) { cls = "good"; head = first === this.pid && Object.keys(rv.g).length > 1 ? "Fastest!" : "Correct!"; sub = `+${fmt(pts)} points`; }
+    else if (Number.isInteger(mine)) { cls = "bad"; head = jab; sub = `You said ${esc(H.qz.o?.[mine] ?? "?")}. It was ${right}.`; }
     else { head = "Too slow"; sub = `It was ${right}.`; }
     if (Array.isArray(H.qz.hv)) sub += ` ${esc(H.qz.hv[0])}: ${esc(H.qz.hv[1])}.`;
-    paint(main, "qz-rev|" + H.rk, `<div class="card center result ${cls}"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:20px">${sub}</p>${this.sipNote()}</div>`);
+    paint(main, "qz-rev|" + H.rk, `<div class="card center result ${cls}"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:20px">${sub}</p>${this.noteBar()}</div>`);
   },
   // The TV sends each phone its own secret word for an Imposter round.
   gotWord(d) {
@@ -6499,7 +6582,7 @@ const PH = {
     else {
       const ready = this.rd === H.rk;
       top = `<p class="ph-h">Who's the imposter?</p><p class="muted">Talk it over, no rush. Voting opens once everyone is ready.</p>
-        <button class="btn primary wide" data-act="imp-ready" ${ready ? "disabled" : ""}>${ready ? "Ready. Waiting for the others" : "Ready to vote"}</button>`;
+        <button class="btn primary wide" data-act="imp-ready" ${ready ? "disabled" : ""}>${ready ? "Ready. Waiting for the others" : "Ready to vote"}</button>${ready ? this.skipBtn("Everyone's done? Move on") : ""}`;
     }
     paint(main, ["imp", H.ph, H.rk, sp, done, this.rd === H.rk, this.secret?.rk, this.showWord > Date.now()].join("|"), `<div class="card ${mine ? "center" : ""}">${top}</div>${this.wordBox()}`);
   },
@@ -6518,9 +6601,9 @@ const PH = {
     const H = this.host, f = this.fkq, tbar = `<div class="tbar" aria-hidden="true"><i id="tbar"></i></div>`;
     if (H.ph === "fk-talk") {
       const ready = this.rd === H.rk;
-      return paint(main, ["fkt", H.rk, ready].join("|"), `<div class="card"><p class="eyebrow">Fakin' it</p><p class="ph-h">Whose answer doesn't fit?</p>
+      return paint(main, ["fkt", H.rk, ready, this.skipLabel()].join("|"), `<div class="card"><p class="eyebrow">Fakin' it</p><p class="ph-h">Whose answer doesn't fit?</p>
         <p class="muted">The real question is on the TV. One of you was answering something else. Talk it over, no rush.</p>
-        <button class="btn primary wide" data-act="fk-ready" ${ready ? "disabled" : ""}>${ready ? "Ready. Waiting for the others" : "Ready to vote"}</button></div>`);
+        <button class="btn primary wide" data-act="fk-ready" ${ready ? "disabled" : ""}>${ready ? "Ready. Waiting for the others" : "Ready to vote"}</button></div>${ready ? this.skipBtn("Everyone's done? Move on") : ""}`);
     }
     if (!f || f.rk !== H.rk) return paint(main, "fk-wait|" + H.rk, `${tbar}<div class="card center"><p class="muted">Getting your question…</p></div>`);
     const mine = this.g?.rk === H.rk ? this.g : null;
@@ -6541,21 +6624,21 @@ const PH = {
     if (imp === me) { cls = rv.caught ? "bad" : "good"; head = rv.caught ? "You got caught" : "You got away!"; sub = `${rv.caught ? "" : `+${fmt(pts)} points. `}You had “${esc(rv.x)}”.`; }
     else if (rv.g?.[me] === imp) { cls = "good"; head = "You spotted them!"; sub = `+${fmt(pts)} points. ${impName} had “${esc(rv.x)}”.`; }
     else { cls = "bad"; head = "Not quite"; sub = `It was ${impName}. They had “${esc(rv.x)}”.`; }
-    paint(main, "fk-rev|" + H.rk, `<div class="card center result ${cls}"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Fakin' it</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+    paint(main, "fk-rev|" + H.rk, `<div class="card center result ${cls}"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Fakin' it</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.noteBar()}</div>`);
   },
   rLikelyReveal(main) {
     const H = this.host, rv = H.rv || {}, me = this.pid, tops = rv.top || [], pts = rv.d?.[me] || 0;
     const names = tops.map(id => this.nameOf(id)?.[1]).filter(Boolean).map(esc).join(" & ");
     const head = tops.includes(me) ? "That's you!" : pts ? "Same as the room" : rv.g?.[me] ? "Odd one out" : "No vote";
     const sub = (names ? `Most likely to ${esc(rv.lk || "")}: ${names}.` : "Nobody voted.") + (pts ? ` +${fmt(pts)} points` : "");
-    paint(main, "lk-rev|" + H.rk, `<div class="card center result ${pts ? "good" : ""}"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Most likely to</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>`);
+    paint(main, "lk-rev|" + H.rk, `<div class="card center result ${pts ? "good" : ""}"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Most likely to</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.noteBar()}</div>`);
   },
   rMeldReveal(main) {
     const H = this.host, rv = H.rv || {}, me = this.pid, x = (rv.gs || []).find(m => Array.isArray(m.by) && m.by.includes(me)), pts = rv.d?.[me] || 0;
     const k = x ? x.by.indexOf(me) : -1, said = x ? x.by.map((pid, j) => (j === k ? "" : `${esc(this.nameOf(pid)?.[1] || "?")}: “${esc(x.a[j] || "nothing")}”`)).filter(Boolean).join(" · ") : "";
     const head = !x ? "Mind meld" : pts ? "Mind meld!" : x.a[k] ? "No match" : "No answer";
     paint(main, "meld-rev|" + H.rk, `<div class="card center result ${pts ? "good" : x ? "bad" : ""}"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Mind meld</p><p class="ph-big">${head}</p>
-      <p style="font-weight:800;font-size:19px">${pts ? `+${fmt(pts)} points. ` : ""}${said || "Look at the TV."}</p>${this.sipNote()}</div>`);
+      <p style="font-weight:800;font-size:19px">${pts ? `+${fmt(pts)} points. ` : ""}${said || "Look at the TV."}</p>${this.noteBar()}</div>`);
   },
   rImpReveal(main) {
     const H = this.host, rv = H.rv || {}, me = this.pid, imp = rv.o, pts = rv.d?.[me] || 0;
@@ -6565,7 +6648,7 @@ const PH = {
     else if (rv.g?.[me] === imp) { cls = "good"; head = "You spotted it!"; sub = `+${fmt(pts)} points. ${impName} had ${theirs}.`; }
     else { cls = "bad"; head = "Not quite"; sub = `It was ${impName}. They had ${theirs}; everyone else had “${esc(rv.w)}”.`; }
     const vip = H.vip === me, asked = this.cmd?.a === "next";
-    paint(main, ["imp-rev", H.rk, vip, asked].join("|"), `<div class="card center result ${cls}"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Imposter</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.sipNote()}</div>
+    paint(main, ["imp-rev", H.rk, vip, asked].join("|"), `<div class="card center result ${cls}"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R} · Imposter</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:19px">${sub}</p>${this.noteBar()}</div>
       ${vip ? `<button class="btn primary wide" data-act="next-round" ${asked ? "disabled" : ""}>${asked ? "Moving on…" : "Next round"}</button>` : `<p class="muted" style="text-align:center">Waiting for ${esc(this.nameOf(H.vip)?.[1] || "the host")} to start the next round.</p>`}`);
   },
   rReveal(main) {
@@ -6601,13 +6684,13 @@ const PH = {
     } else if (mine && mine === rv.o) { cls = "good"; head = "Correct!"; sub = `+${fmt(pts)} points`; }
     else if (mine) { cls = "bad"; head = "Nope"; sub = `It was ${esc(ownerP?.[1] || "someone else")}.`; }
     else { head = "Too slow"; sub = `It was ${esc(ownerP?.[1] || "someone else")}.`; }
-    paint(main, "rev|" + H.rk, `<div class="card center result ${cls}"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:20px">${sub}</p>${this.sipNote()}</div>`);
+    paint(main, "rev|" + H.rk, `<div class="card center result ${cls}"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">${head}</p><p style="font-weight:800;font-size:20px">${sub}</p>${this.noteBar()}</div>`);
   },
   rStandings(main) {
     const H = this.host, ps = this.pl().slice().sort((a, b) => b[3] - a[3]), me = this.me();
     const rank = me ? 1 + ps.filter(p => p[3] > me[3]).length : 0;
     const end = H.ph === "end", vip = H.vip === this.pid;
-    if (end) this.prepShare("night|" + H.gid, () => SHARE.night(this.pl(), H.aw || [], H.best));
+    if (end) this.prepShare("night|" + H.gid, () => SHARE.night(this.pl(), H.aw || [], H.best, { R: H.R, modes: H.modes }));
     paint(main, [H.ph, H.rk, H.gid, me?.[3], vip, !!this.cmd, JSON.stringify(H.aw || null), H.dare?.pid, H.dare?.t, end && this.shareReady("night|" + H.gid)].join("|"), `<div class="card center result ${end && rank === 1 ? "good" : ""}">
         <p class="eyebrow">${end ? "Final scores" : "Scores so far"}</p>
         <p class="ph-big">${me ? (end && rank === 1 ? "You win!" : ordinal(rank) + " place") : "Next game"}</p>
@@ -6629,6 +6712,10 @@ const PH = {
     const total = H.ph === "dw" ? ((H.dw?.s || 0) % 2 ? GUESS_SECS : DRAW_SECS) : H.ph === "qw" ? QW_SECS[H.kind] || Q_SECS : H.ph === "qv" ? QV_SECS[H.kind] || Q_SECS : H.ph === "fk-ans" ? FK_SECS : H.qd || Q_SECS;
     const left = Math.max(0, (this.deadline - Date.now()) / 1000);
     bar.style.width = Math.min(100, left / total * 100).toFixed(1) + "%";
+    // Five seconds left and nothing sent yet: the bar throbs and the phone buzzes once.
+    const waiting = H.ph === "dw" ? this.dr?.rk !== H.rk : H.ph === "qw" ? this.qa?.rk !== H.rk : this.g?.rk !== H.rk, hurry = left > 0 && left <= 5 && waiting;
+    bar.parentElement.classList.toggle("hurry", hurry);
+    if (hurry && this.hurried !== H.rk) { this.hurried = H.rk; vibrate(30); }
   },
 };
 
@@ -6705,6 +6792,7 @@ else if (hashCode) PH.start();
 // A phone that was once the TV doesn't reopen the TV by itself (it would bring back that old game); it asks instead.
 else if (last && Date.now() - (last.at || 0) < 4 * 3600e3 && (last.m === "phone" || (last.m === "tv" && !PHONE_LIKE))) (last.m === "tv" ? TV : PH).start();
 else if (ON_TV) TV.start();
+else if (PHONE_LIKE) PH.start(); // a phone with no code: straight to joining, the TV explainer is for laptops
 else renderLanding();
 })();
 </script>
