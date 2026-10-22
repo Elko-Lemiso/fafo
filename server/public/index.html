@@ -528,6 +528,9 @@ button{touch-action:manipulation}
 .emoji-big{font-size:max(56px,17vmin);line-height:1.15;padding:4vmin 3vmin;text-align:center;min-width:40vmin}
 .qtitle.likely{font-size:max(26px,6.6vmin);max-width:22ch}
 .ph-q{font-weight:800;font-size:20px;line-height:1.3}
+.waitfaces{display:flex;flex-wrap:wrap;gap:8px 14px;justify-content:center}
+.waitfaces>span{display:flex;align-items:center;gap:6px;font-weight:800}
+.waitfaces .avatar{font-size:14px;border-width:2px}
 /* Higher or lower on the phone: the TV's two cards at phone size, then the two choices side by side */
 .ph-hilo{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;align-items:stretch}
 .ph-hilo .hcard{max-width:none;padding:12px 12px 10px;gap:10px;border-radius:12px;box-shadow:0 4px 0 var(--ink)}
@@ -1055,7 +1058,7 @@ const JOIN_HOST = JOIN_BASE.replace(/^https?:\/\//, "").replace(/\/$/, "");
 
 const APP = "wiw";
 const PER_PLAYER = 5, MAX_PLAYERS = 12;
-const Q_SECS = 20, INTRO_SECS = 3, REVEAL_SECS = 9, LB_SECS = 10;
+const Q_SECS = 20, INTRO_SECS = 3, REVEAL_SECS = 9, LB_SECS = 10, MVP_SECS = 25;
 const COLORS = ["#D93A26","#2342C6","#11704F","#7339D6","#C42F78","#0B7584","#B5530B","#7E5226","#1A72B0","#55701A","#952A65","#3E4C60"];
 const CODE_CHARS = "ABCDEFGHJKMNPQRSTUVWXYZ";
 // Kinds of round. Photo games play every photo; flag and map rounds come in sets of ROUNDS (fewer when mixed).
@@ -2054,6 +2057,9 @@ const TV_TID = (() => { try { return sessionStorage.getItem("wiw.tid") || (sessi
 let mode = null;
 // Smart TVs and streaming sticks (Samsung, LG, Sony, Android TV, Google TV, Fire TV, Chromecast, Hisense…). They open
 // straight into TV mode and get a clear outline on whatever the remote has selected.
+// The Google Cast receiver app id for this deployment, filled in by the server from its CAST_APP_ID setting
+// (README: Cast to TV). Empty means no receiver is registered, so a Cast device can only be mirrored to.
+const CAST_APP_ID = /*CAST_APP_ID*/"";
 const PHONE_LIKE = (() => { try { return matchMedia("(pointer: coarse)").matches && Math.min(screen.width, screen.height) < 600; } catch { return false; } })();
 const ON_TV = /SMART-?TV|SmartTV|Tizen|Web0S|webOS|NetCast|BRAVIA|HbbTV|VIDAA|\bAFT[A-Z]|Android TV|GoogleTV|Google TV|CrKey|Roku/i.test(navigator.userAgent);
 if (ON_TV) document.documentElement.classList.add("on-tv");
@@ -2076,9 +2082,49 @@ function renderLanding() {
       </ol>
       <button class="btn primary wide" data-act="go-tv">Show on this screen</button>
       <button class="btn wide" data-act="go-phone">Play on my phone</button>
+      <button class="btn wide" data-act="present" id="present-btn" hidden>Put it on a TV</button>
+      <p class="tvlink" id="present-note" hidden></p>
+      ${SAFARI ? `<p class="tvlink">On a Mac with an Apple TV or AirPlay TV: pick Show on this screen, then AirPlay this window to the TV.</p>` : ""}
       ${roomState === "none" ? `<p class="warn">This page couldn't load its live connection to the laptop. Check that the game server is still running, then reload.</p>` : ""}
     </div>
   </main>`;
+  PRESENT.init(() => { const b = $("#present-btn"); if (b) b.hidden = !PRESENT.ok; });
+}
+const SAFARI = /Safari/.test(navigator.userAgent) && !/Chrome|Chromium|CriOS|Edg|FxiOS|Firefox|Android/.test(navigator.userAgent) && !/iPhone|iPad|iPod/.test(navigator.userAgent);
+// "Put it on a TV": Chrome's Presentation API lists nearby screens. With a registered Cast receiver (CAST_APP_ID) a
+// Chromecast or Google TV loads the TV page itself. Without one, desktop Chrome renders the page on this computer and
+// streams it to the Cast device, or opens it full screen on a TV plugged in by HDMI. Safari, Firefox and iPhones have
+// no such API, and Chrome on Android only presents registered Cast receivers.
+const PRESENT = {
+  req: null, ok: false, tried: false,
+  init(onChange) {
+    if (this.tried) return; // only the first caller listens; later renders read PRESENT.ok
+    this.tried = true;
+    const ua = navigator.userAgent, android = /Android/.test(ua), tv = location.origin + "/tv";
+    if (!window.PresentationRequest || /iPhone|iPad|iPod/.test(ua) || (android && !CAST_APP_ID)) return;
+    const urls = CAST_APP_ID ? ["cast:" + CAST_APP_ID + "?clientId=" + rid(8), tv] : [tv];
+    try { this.req = new PresentationRequest(urls); } catch { try { this.req = new PresentationRequest([tv]); } catch { return; } }
+    this.req.getAvailability().then(a => { const set = () => { this.ok = !!a.value; onChange(); }; a.onchange = set; set(); })
+      .catch(() => { this.ok = !android; onChange(); });
+  },
+  start() {
+    const note = $("#present-note"), say = t => { if (note) { note.hidden = false; note.textContent = t; } };
+    if (!this.req) return;
+    this.req.start().then(() => say("It's on the TV. Scan the code there with your phone."))
+      .catch(e => { if (e?.name !== "NotAllowedError" && e?.name !== "AbortError") say("That screen didn't answer. Try again, or open the TV's own browser."); });
+  },
+};
+// On a Chromecast or Google TV the TV page runs as the registered Cast receiver: load Google's receiver library and
+// start it with the idle timeout off, so the device keeps the game up after the phone or laptop that launched it leaves.
+function castReceiver() {
+  if (location.pathname !== "/tv" || !(new URLSearchParams(location.search).has("cast") || /CrKey/.test(navigator.userAgent))) return;
+  const s = document.createElement("script");
+  s.src = "https://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js";
+  s.onload = () => {
+    try { const o = new cast.framework.CastReceiverOptions(); o.disableIdleTimeout = true; o.skipPlayersLoad = true; cast.framework.CastReceiverContext.getInstance().start(o); }
+    catch (e) { console.warn("cast receiver", e); }
+  };
+  document.head.appendChild(s);
 }
 
 // =====================================================================
@@ -2212,6 +2258,12 @@ const TV = {
   isQuiz() { const t = this.H.cur?.t; return !!t && !["split", "low", "shot", "herd", "rps", "cash", "cats", "quick", "potato", "pump", "tug", "spot", "simon", "count", "act"].includes(t) && (QUIZ_WRITE.includes(t) || (!PLAYER_KINDS.includes(t) && !WRITE_KINDS.includes(t))); },
   isWrite() { return WRITE_KINDS.includes(this.H.cur?.t); },
   // Which prompts this player writes for: two in Quips, the one in the Last Lash.
+  // [finished, writers, who's still writing], so phones that have sent can see who they're waiting on.
+  writeLeft() {
+    const H = this.H, ps = this.players().filter(p => p.online && this.writesFor(p.pid).length);
+    const still = ps.filter(p => !this.writesFor(p.pid).every(i => H.cur.ans[i]?.[p.pid])).map(p => p.pid);
+    return [ps.length - still.length, ps.length, still];
+  },
   writesFor(pid) { const c = this.H.cur; return c?.t === "lash" || c?.t === "bluff" || c?.t === "said" ? [0] : c?.t === "ttl" ? [0, 1, 2] : c?.t === "quip" || c?.t === "meld" ? c.ps.map((m, i) => (m.by.includes(pid) ? i : -1)).filter(i => i >= 0) : []; },
   canVote(pid, i) {
     const c = this.H.cur;
@@ -2378,6 +2430,7 @@ const TV = {
         }
       }
       if (H.ph === "qv" && !H.pause && g && g.rk === H.rk && !H.guesses[pid] && this.canVote(pid, g.i)) { H.guesses[pid] = { i: g.i, t: now }; changed = true; SFX.play("lock"); }
+      if (H.ph === "mvp" && !H.pause && g && g.rk === H.rk && !H.guesses[pid] && isPid(g.p) && g.p !== pid && H.players[g.p]) { H.guesses[pid] = { p: g.p, t: now }; changed = true; SFX.play("lock"); }
       // Commands: a phone keeps its last few in `cq`, so quick taps aren't lost (older pages send one at a time in `cmd`).
       // Each runs once. Commands a phone already had when the TV first saw it are history, not news.
       const cmds = [...(Array.isArray(p.cq) ? p.cq.slice(-12) : []), p.cmd].filter(c => c && typeof c.k === "string" && c.k.length <= 12 && typeof c.a === "string" && c.a.length <= 400);
@@ -2439,7 +2492,7 @@ const TV = {
     else if (a === "resume") this.resume();
     else if (a === "next" && this.isImp() && this.H.ph === "rev") { this.unpause(); this.advance(); }
     // Steps with no clock (clues, talking it over) and a paused game can be moved on from the host's phone.
-    else if (a === "skip" && ([...SECRET_PHASES, "q", "qw", "qv", "dw", "rev", "intro", "lb"].includes(this.H.ph))) { this.unpause(); this.advance(); }
+    else if (a === "skip" && ([...SECRET_PHASES, "q", "qw", "qv", "dw", "rev", "intro", "lb", "mvp"].includes(this.H.ph))) { this.unpause(); this.advance(); }
     else if (typeof a === "string" && a.startsWith("modes:")) this.setModes(a.slice(6).split(","));
     else if (typeof a === "string" && a.startsWith("mode:")) this.toggleMode(a.slice(5));
     else if (typeof a === "string" && a.startsWith("set:")) { const i = a.indexOf(":", 4); if (i > 4) this.setting(a.slice(4, i), a.slice(i + 1)); }
@@ -3154,7 +3207,7 @@ const TV = {
       if (this.H !== H || H.ph !== "lobby") return;
       H.order = order; H.R = order.length; H.r = 0; H.rv = null;
       for (const p of Object.values(H.players)) { p.score = 0; p.prev = 0; p.st = { right: 0, fast: 0, fooled: 0 }; }
-      H.lbSnap = {}; H.lbFrom = {}; H.best = null;
+      H.lbSnap = {}; H.lbFrom = {}; H.best = null; H.mvp = null;
       this.starting = false;
       this.nextRound();
     } catch (e) {
@@ -3165,7 +3218,7 @@ const TV = {
   nextRound() {
     const H = this.H;
     H.r++;
-    if (H.r > H.R) return this.go("end");
+    if (H.r > H.R) return this.finale();
     H.cur = H.order[H.r - 1]; H.rk = H.gid + "-" + H.r; H.guesses = {}; H.rv = null;
     if (H.cur?.t === "photo" && !H.photos[H.cur.id]) return this.nextRound();
     // The first time a kind of round comes up tonight, its intro shows how to play and stays up a little longer.
@@ -3368,10 +3421,25 @@ const TV = {
       return this.endRound();
     }
     if (H.ph === "lb") return this.nextRound();
+    if (H.ph === "mvp") { this.tallyMvp(); return this.go("end"); }
+  },
+  // Before the podium, a quick vote for the player of the night. Needs three players, so nobody just votes for the only other one.
+  finale() {
+    const H = this.H;
+    H.mvp = null;
+    if (this.players().filter(p => p.online).length < 3) return this.go("end");
+    H.rk = H.gid + "-mvp"; H.guesses = {};
+    return this.go("mvp", MVP_SECS);
+  },
+  tallyMvp() {
+    const H = this.H, n = {};
+    for (const [pid, x] of Object.entries(H.guesses || {})) if (x?.p && x.p !== pid && H.players[x.p]) n[x.p] = (n[x.p] || 0) + 1;
+    const top = Math.max(0, ...Object.values(n));
+    H.mvp = top ? { ids: Object.keys(n).filter(id => n[id] === top), n: top } : null;
   },
   endRound() {
     const H = this.H;
-    if (H.r >= H.R) return this.go("end");
+    if (H.r >= H.R) return this.finale();
     if (H.r % this.lbEvery() === 0) return this.go("lb", LB_SECS);
     return this.nextRound();
   },
@@ -3558,8 +3626,9 @@ const TV = {
   },
   // End-of-game awards. They say who did well, never who voted for what.
   awards() {
-    const ps = this.players().filter(p => p.st), out = [];
+    const ps = this.players().filter(p => p.st), out = [], mvp = this.H.mvp;
     const best = (score, min = 1) => { const p = ps.slice().sort((a, b) => score(b) - score(a))[0]; return p && score(p) >= min ? p : null; };
+    for (const id of mvp?.ids || []) if (this.H.players[id]) out.push([this.H.players[id], "Player of the night", `${mvp.n} ${mvp.n === 1 ? "vote" : "votes"} from the room`]);
     const sharp = best(p => p.st.right, 2);
     if (sharp) out.push([sharp, "Sharpest", `${sharp.st.right} right ${sharp.st.right === 1 ? "answer" : "answers"}`]);
     const fast = ps.filter(p => p.st.fast > 0).sort((a, b) => a.st.fast - b.st.fast)[0];
@@ -4095,6 +4164,10 @@ const TV = {
       const vs = this.voters();
       if (vs.length && vs.every(p => H.guesses[p.pid]) && (!H.phaseEnds || H.phaseEnds - now > 1200)) { H.phaseEnds = now + 1200; this.push(true); }
     }
+    if (H.ph === "mvp") {
+      const ps = this.players().filter(p => p.online);
+      if (ps.length && ps.every(p => H.guesses[p.pid]) && (!H.phaseEnds || H.phaseEnds - now > 1500)) { H.phaseEnds = now + 1500; this.push(true); }
+    }
     if (H.ph === "lobby") {
       let pruned = false;
       for (const p of Object.values(H.players)) if (!p.online && now - (p.seen || 0) > 45000) {
@@ -4126,6 +4199,7 @@ const TV = {
       modes: H.modes,
       qz: this.isQuiz() && (H.ph === "q" || H.ph === "rev") ? { t: H.cur.t, o: H.cur.o || null, k: H.cur.ask || null, q: askOf(H.cur), e: H.cur.t === "emoji" ? H.cur.e : null, u: H.cur.u || null, y: H.cur.y ? 1 : 0,
         ...(H.cur.t === "hot" ? { me: H.cur.me, s: H.cur.pid } : {}), ...(H.cur.t === "hilo" ? { hl: [H.cur.A.n, this.hiloVal(H.cur, H.cur.A.v), H.cur.B.n, H.cur.cat] } : {}), ...(H.cur.t === "hilo" && H.ph === "rev" ? { hv: [H.cur.B.n, this.hiloVal(H.cur, H.cur.B.v)] } : {}) } : null,
+      wl: H.ph === "qw" && this.isWrite() ? this.writeLeft() : null,
       lk: H.cur?.t === "likely" ? H.cur.lk : null,
       tw: H.cur?.tw && ["intro", "q", "rev"].includes(H.ph) ? H.cur.tw : null, qd: H.ph === "q" ? H.qDur / 1000 : null,
       dw: H.ph === "dw" ? { s: H.cur.step, S: H.cur.S, t: Object.fromEntries(H.cur.order.map(pid => [pid, this.drawTask(pid)])), done: H.cur.order.filter(pid => this.drawDone(pid)) } : null,
@@ -4361,6 +4435,7 @@ const TV = {
       return;
     }
     if (H.ph === "lb") { if (paint(stage, "lb|" + H.rk, this.boardHtml())) countUp(stage); return; }
+    if (H.ph === "mvp") return this.renderMvp(stage);
     if (H.ph === "end") { if (paint(stage, "end|" + H.gid + "|" + H.r, this.endHtml())) countUp(stage); return; }
   },
   renderRoster() {
@@ -4884,6 +4959,14 @@ const TV = {
         <span class="rwho">${by[k].map((id, j) => `<span style="animation-delay:${(0.3 + j * 0.08).toFixed(2)}s">${face(P[id])}</span>`).join("")}</span></li>`).join("")}</ol>
       <h2 class="lowh">${head}</h2><div class="deltas">${this.scorersHtml(rv, "", "Nobody beat anyone")}${this.sipHtml()}</div></section>`;
   },
+  // The player-of-the-night vote: the question, the clock and who has voted (never for whom).
+  renderMvp(stage) {
+    paint(stage, "mvp|" + this.H.rk, `<section class="quick"><p class="eyebrow">One last thing</p>
+      <h2 class="qtitle">Who made tonight?</h2>
+      <p class="lede">Vote on your phone for the player of the night. Anyone but yourself. No points, just glory.</p>
+      <div class="qfoot">${this.clockHtml()}<div><p class="eyebrow" id="lockcount"></p><ul class="locks" id="locks"></ul></div></div></section>`);
+    this.renderLocks(null);
+  },
   // Quick draw: the action is on the phones, so the TV says so and shows who has drawn.
   renderQuick(stage) {
     const H = this.H, c = H.cur, final = H.R > 1 && H.r === H.R, cac = EMOJI_OK ? `<span class="qdcac" aria-hidden="true">🌵</span>` : "";
@@ -5239,7 +5322,7 @@ const TV = {
   },
   renderClock() {
     const H = this.H;
-    if (H.ph !== "q" && H.ph !== "qw" && H.ph !== "qv" && H.ph !== "dw" && !SECRET_PHASES.includes(H.ph)) return;
+    if (H.ph !== "q" && H.ph !== "qw" && H.ph !== "qv" && H.ph !== "dw" && H.ph !== "mvp" && !SECRET_PHASES.includes(H.ph)) return;
     const ring = $("#ring"), n = $("#clock-n"), clock = $("#clock");
     if (!ring || !n) return;
     const left = Math.max(0, (H.phaseEnds - (H.pause ? H.pause.at : Date.now())) / 1000);
@@ -5475,6 +5558,10 @@ const PH = {
     }
     if (a === "song-rm") { this.songs = this.songs.filter(y => y.id !== el.dataset.id); this.save(); this.push(); return this.renderSongs(); }
     if (a === "preview") return this.preview(el.dataset.id);
+    if (a === "mvp") {
+      if (!this.host || this.host.ph !== "mvp" || this.g?.rk === this.host.rk || el.dataset.pid === this.pid) return;
+      this.g = { rk: this.host.rk, p: el.dataset.pid }; vibrate(30); this.push(); return this.renderMain();
+    }
     if (a === "guess") {
       if (!this.host || this.host.ph !== "q" || this.g?.rk === this.host.rk) return;
       this.g = { rk: this.host.rk, p: el.dataset.pid }; vibrate(30); this.push(); return this.renderMain();
@@ -5651,7 +5738,7 @@ const PH = {
     const H = this.host, live = this.joined && H && !["lobby", "end", "lb"].includes(H.ph) && !H.pause;
     const far = live && H.sp && ["intro", "q", "qw", "qv"].includes(H.ph) && this.tooFarAt !== H.rk;
     // Reactions whenever this phone has nothing to do: reveals, scores, the title cards, and after locking in.
-    const idle = H && this.joined && this.me() && !H.pause && !(H.ph === "q" && ["quick", "pump", "tug", "spot", "count"].includes(H.kind)) && !(H.ph === "q" && H.kind === "act" && H.ac?.pid === this.pid) && (["intro", "rev", "lb", "end"].includes(H.ph) || (["q", "qv", "fk-ans"].includes(H.ph) && this.g?.rk === H.rk) || (H.ph === "dw" && this.dr?.rk === H.rk) || (H.ph === "q" && H.kind === "cash" && !(H.cs?.in || []).includes(this.pid)) || (H.ph === "q" && H.kind === "potato" && H.pt?.h !== this.pid) || (H.ph === "q" && H.kind === "act" && H.ac?.pid !== this.pid) || (H.ph === "q" && H.kind === "simon" && !(H.sm?.alive || []).includes(this.pid)) || H.ph === "imp-clue" || (H.ph === "q" && H.x === fnv(this.pid + H.rk)));
+    const idle = H && this.joined && this.me() && !H.pause && !(H.ph === "q" && ["quick", "pump", "tug", "spot", "count"].includes(H.kind)) && !(H.ph === "q" && H.kind === "act" && H.ac?.pid === this.pid) && (["intro", "rev", "lb", "end"].includes(H.ph) || (["q", "qv", "fk-ans"].includes(H.ph) && this.g?.rk === H.rk) || (H.ph === "dw" && this.dr?.rk === H.rk) || (H.ph === "q" && H.kind === "cash" && !(H.cs?.in || []).includes(this.pid)) || (H.ph === "q" && H.kind === "potato" && H.pt?.h !== this.pid) || (H.ph === "q" && H.kind === "act" && H.ac?.pid !== this.pid) || (H.ph === "q" && H.kind === "simon" && !(H.sm?.alive || []).includes(this.pid)) || H.ph === "imp-clue" || (H.ph === "q" && H.x === fnv(this.pid + H.rk)) || (H.ph === "mvp" && this.g?.rk === H.rk));
     paint($("#ph-foot"), [far, !!idle].join(), (idle ? `<div class="rxbar">${REACTS.map(([e, w], i) => `<button data-act="react" data-i="${i}" aria-label="${esc(w)}">${e ? `<span>${e}</span>` : `<b>${esc(w)}</b>`}</button>`).join("")}</div>` : "")
       + (far ? `<button class="btn sm" data-act="toofar">Too far</button>` : ""));
   },
@@ -5667,23 +5754,29 @@ const PH = {
     const typed = {}; for (const [i] of mine) { const el = $("#qa-in-" + i); if (el) typed[i] = el.value; }
     const done = sent.length === mine.length;
     const mates = i => (Array.isArray(qp.ps?.[i]?.[1]) ? qp.ps[i][1] : []).filter(x => x !== this.pid).map(x => esc(this.nameOf(x)?.[1] || "?")).join(" and ");
-    const did = paint(main, ["qw", H.rk, sent.map(x => x[0]).join()].join("|"), `${tbar}${mine.map(([i, q]) => this.qa.a[i]
+    const did = paint(main, ["qw", H.rk, sent.map(x => x[0]).join(), done ? JSON.stringify(H.wl || "") : ""].join("|"), `${tbar}${mine.map(([i, q]) => this.qa.a[i]
       ? `<div class="card"><p class="eyebrow">Sent</p><p class="ph-q">${esc(q)}</p><p class="ph-h" style="font-size:22px">${esc(this.qa.a[i])}</p></div>`
       : `<form class="card qa-form" data-i="${i}" novalidate><p class="eyebrow">${qp.bluff ? "Bluff" : qp.said ? "Who said it" : qp.meld ? `Mind meld with ${mates(i)}` : H.kind === "lash" ? "Last Lash" : `Prompt ${mine.findIndex(x => x[0] === i) + 1} of ${mine.length}`}</p><p class="ph-h" style="font-size:22px">${esc(q)}</p>
           ${qp.meld ? `<p class="muted">Type what you think ${mates(i)} will type. No talking! Same answer and you both score.</p>` : ""}
           ${qp.said ? `<p class="muted">Answer honestly. The TV shows it later and everyone guesses it was you. Same answer as someone else? Then it isn't played.</p>` : ""}
           <div class="field"><label for="qa-in-${i}">${qp.bluff ? "A fake answer that sounds true" : "Your answer"}</label><input id="qa-in-${i}" maxlength="70" autocomplete="off" enterkeyhint="send"></div>
           <button class="btn primary wide" type="submit">Send</button></form>`).join("")}
-      ${done ? `<p class="muted" style="text-align:center">All sent. Waiting for the others.</p>` : ""}`);
+      ${done ? `<p class="muted" style="text-align:center">All sent. Waiting for the others.</p>${this.waitLine(H.wl)}` : ""}`);
     if (did) for (const [i, v] of Object.entries(typed)) { const el = $("#qa-in-" + i); if (el) el.value = v; }
+  },
+  // Once you've sent, who the room is waiting on, so the quick ones can heckle the slow ones.
+  waitLine(w, label = "Still writing") {
+    if (!Array.isArray(w) || !Array.isArray(w[2]) || !w[2].length) return "";
+    const ps = w[2].map(id => this.nameOf(id)).filter(Boolean);
+    return ps.length ? `<div class="card center waitcard"><p class="eyebrow">${w[0]} of ${w[1]} finished</p><p class="muted">${label}</p><div class="waitfaces">${ps.map(p => `<span>${faceA(p)}<b>${esc(p[1])}</b></span>`).join("")}</div></div>` : "";
   },
   // Two truths and a lie: three boxes, sent together. The third is the lie; the TV shuffles them.
   rWriteTtl(main, tbar) {
     const H = this.host;
     if (this.qa?.rk !== H.rk) this.qa = { rk: H.rk, a: {} };
     const a = this.qa.a, sent = [0, 1, 2].every(i => a[i]), LBL = ["A truth", "Another truth", "Your lie"];
-    if (sent) return paint(main, "ttl-sent|" + H.rk, `${tbar}<div class="card"><p class="eyebrow">Sent</p>${[0, 1, 2].map(i => `<p class="muted">${LBL[i]}</p><p class="ph-q">${esc(a[i])}</p>`).join("")}</div>
-      <p class="muted" style="text-align:center">Waiting for the others. When yours comes up, keep a straight face.</p>`);
+    if (sent) return paint(main, "ttl-sent|" + H.rk + "|" + JSON.stringify(H.wl || ""), `${tbar}<div class="card"><p class="eyebrow">Sent</p>${[0, 1, 2].map(i => `<p class="muted">${LBL[i]}</p><p class="ph-q">${esc(a[i])}</p>`).join("")}</div>
+      <p class="muted" style="text-align:center">Waiting for the others. When yours comes up, keep a straight face.</p>${this.waitLine(H.wl)}`);
     const typed = [0, 1, 2].map(i => $("#ttl-" + i)?.value);
     const did = paint(main, ["ttl", H.rk, this.ttlErr || ""].join("|"), `${tbar}<form class="card ttl-form" novalidate><p class="eyebrow">Two truths and a lie</p><p class="ph-h" style="font-size:22px">Two true things about you, and one lie</p>
       <p class="muted">Make the truths surprising and the lie believable: a place you've been, a job you had, someone you've met, a weird talent. The TV mixes them up.</p>
@@ -5798,7 +5891,19 @@ const PH = {
     if (H.ph === "qv") return this.rVote(main);
     if (H.ph === "q") { this.rQuestion(main); return this.focusBox(main); }
     if (H.ph === "rev") return this.rReveal(main);
+    if (H.ph === "mvp") return this.rMvp(main);
     if (H.ph === "lb" || H.ph === "end") return this.rStandings(main);
+  },
+  // The player-of-the-night vote before the podium: tap anyone but yourself.
+  rMvp(main) {
+    const H = this.host;
+    if (this.g?.rk === H.rk) {
+      const pick = this.nameOf(this.g.p);
+      return paint(main, "mvp-lock|" + H.rk, `<div class="card center result"><p class="eyebrow">Your vote</p>${pick ? faceA(pick) : ""}<p class="ph-big">${esc(pick?.[1] || "?")}</p><p class="muted">The podium is next.</p></div>`);
+    }
+    const opts = this.pl().filter(p => p[0] !== this.pid);
+    paint(main, "mvp|" + H.rk + "|" + opts.map(p => p[0]).join(), `<div class="card"><p class="eyebrow">One last thing</p><p class="ph-q">Who made tonight? Vote for the player of the night.</p>
+      <div class="choices">${opts.map(p => `<button class="choice" data-act="mvp" data-pid="${p[0]}">${faceA(p)}<span>${esc(p[1])}</span></button>`).join("")}</div></div>`);
   },
   // A round that wants typing puts the cursor in its box as soon as it shows, so the keyboard is up without a tap.
   focusBox(main) {
@@ -5811,7 +5916,8 @@ const PH = {
       return paint(main, "hosts|" + this.hosts.join(), `<div class="card"><p class="ph-h">Which TV?</p><p class="muted">More than one game is open. Pick the code shown on your TV.</p>
         <div class="hostlist">${this.hosts.map(c => `<button class="btn" data-act="pick-host" data-code="${esc(c)}">Room ${esc(c)}</button>`).join("")}</div></div>`);
     }
-    const sig = "join|" + this.code + "|" + this.err;
+    const sig = "join|" + this.code + "|" + this.err + "|" + PRESENT.ok;
+    PRESENT.init(() => this.renderMain());
     if (main.dataset.sig?.startsWith("join|") && main.dataset.sig === sig) return;
     const prevName = $("#nm-in")?.value;
     paint(main, sig, `<form class="card" id="join-form" novalidate>
@@ -5821,7 +5927,7 @@ const PH = {
       ${this.code ? "" : `<div class="field"><label for="code-in">Room code on the TV</label><input id="code-in" class="code-in" maxlength="4" autocapitalize="characters" autocomplete="off" placeholder="ABCD"></div>`}
       ${this.err ? `<p class="warn">${esc(this.err)}</p>` : ""}
       <button class="btn primary wide" data-act="join" type="submit">Join game</button>
-    </form>${this.code ? "" : `<p class="muted center tvlink">Hosting tonight? Open <b>${esc(location.host)}</b> on the laptop plugged into the TV, or <a href="#" data-act="go-tv">show the game on this screen</a>.</p>`}`);
+    </form>${this.code ? "" : `<p class="muted center tvlink">Hosting tonight? Open <b>${esc(location.host)}</b> on the laptop plugged into the TV, or <a href="#" data-act="go-tv">show the game on this screen</a>.${PRESENT.ok ? ` Or <a href="#" data-act="present">put it on a nearby TV</a>.` : ""}</p><p class="muted center tvlink" id="present-note" hidden></p>`}`);
   },
   // The rounds tonight. On the host's phone a change shows straight away: its own pick wins until the TV agrees, or for 5 seconds.
   modes() {
@@ -6106,7 +6212,10 @@ const PH = {
   rDraw(main) {
     const H = this.host, dw = H.dw || {}, t = dw.t?.[this.pid], tbar = `<div class="tbar" aria-hidden="true"><i id="tbar"></i></div>`, step = `Draw it · Step ${(dw.s || 0) + 1} of ${dw.S || 1}`;
     if (!Array.isArray(t)) return paint(main, "dw-none|" + H.rk, `${tbar}<div class="card center result"><p class="ph-big">Sit tight</p><p class="muted">You joined after the drawings went out. Watch the TV.</p></div>`);
-    if (this.dr?.rk === H.rk || (dw.done || []).includes(this.pid)) return paint(main, "dw-sent|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">${step}</p><p class="ph-big">Sent!</p><p class="muted">Waiting for the others.</p></div>`);
+    if (this.dr?.rk === H.rk || (dw.done || []).includes(this.pid)) {
+      const all = Object.keys(dw.t || {}), still = all.filter(id => !(dw.done || []).includes(id)), wl = [all.length - still.length, all.length, still];
+      return paint(main, "dw-sent|" + H.rk + "|" + still.join(), `${tbar}<div class="card center result"><p class="eyebrow">${step}</p><p class="ph-big">Sent!</p><p class="muted">Waiting for the others.</p></div>${this.waitLine(wl, "Still drawing")}`);
+    }
     if (t[1] === "guess") {
       const typed = $("#dw-in")?.value;
       const did = paint(main, "dw-g|" + H.rk, `${tbar}<form class="card dw-form" novalidate><p class="eyebrow">${step}</p><p class="ph-h">What's this?</p>
@@ -6780,6 +6889,7 @@ app.addEventListener("click", e => {
   if (mode === "phone" && Date.now() - (PH.qkAt || 0) < 900) return;
   const a = b.dataset.act;
   if (a === "go-tv") return TV.start();
+  if (a === "present") { e.preventDefault(); return PRESENT.start(); }
   if (a === "go-phone") return PH.start();
   if (mode === "tv") TV.act(a, b);
   else if (mode === "phone") { if (a === "join") e.preventDefault(); PH.act(a, b); }
@@ -6833,6 +6943,7 @@ document.addEventListener("error", e => {
 
 // ---------- boot ----------
 const last = store.get("wiw.mode");
+castReceiver();
 if (location.pathname === "/tv") TV.start();
 else if (hashCode) PH.start();
 // A phone that was once the TV doesn't reopen the TV by itself (it would bring back that old game); it asks instead.

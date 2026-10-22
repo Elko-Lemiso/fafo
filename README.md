@@ -147,8 +147,9 @@ maps and faces African, and so on. **Length** sets how many quiz rounds each typ
 
 Scoring: a right answer is 500 to 1,000 points, faster scores more. When someone guesses your photo or song
 wrong, you get 250 points. The last round counts double. Each reveal shows who picked which answer; set
-**Votes** to Anonymous in Rounds & settings to show only how many picked each one. The game ends with a podium and
-a few awards.
+**Votes** to Anonymous in Rounds & settings to show only how many picked each one. With three or more players, the
+game ends with a 25-second vote on the phones for the player of the night (anyone but yourself, no points), then a
+podium and a few awards, including the vote's winner and a Comeback kid for the biggest climb from a scores page.
 
 **Picking games on a phone:** whoever starts the game picks from their phone. New rooms start with the Party
 starter night, which needs no photos or songs. The picker has **Surprise me** (about five games that work for the
@@ -353,3 +354,22 @@ Then phones can join over mobile data, with no shared Wi-Fi needed.
 - `whos-who.html` is the original Claude artifact version, kept for reference.
 
 Photos of famous people come from Wikipedia and Wikimedia Commons under free licences; song clips and cover art come from Deezer.
+
+## Cast to TV
+
+The landing page on a laptop shows **Put it on a TV** when Chrome sees a screen it can present to. Without any
+setup, Chrome draws the TV page on the laptop and streams it to a Chromecast or Google TV, or opens it full screen
+on a TV plugged in by HDMI; the laptop has to stay awake. Safari, Firefox and iPhones can't do this; on a Mac,
+AirPlay the window instead.
+
+To have the TV load the page itself (no laptop needed, and the button also appears in Chrome on Android phones),
+register a receiver once:
+
+1. In the Google Cast SDK Developer Console (one-time US$5), add a **Custom Receiver** with the URL
+   `https://fafo.up.railway.app/tv?cast=1`.
+2. Set the app id it gives you as `CAST_APP_ID` on the Railway service.
+3. Until you publish the receiver in the console, it only runs on Cast devices whose serial numbers you register
+   there.
+
+This works on Chromecasts, Google TV Streamer, Android TV and Google TV sets, and Vizio. Whether LG's and Samsung's
+built-in Cast run custom receivers is untested.

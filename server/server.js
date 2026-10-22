@@ -123,6 +123,8 @@ function page() {
   const file = path.join(PUBLIC, "index.html"), mtime = fs.statSync(file).mtimeMs;
   if (pageCache.mtime === mtime) return pageCache.html;
   let html = fs.readFileSync(file, "utf8");
+  // The Google Cast receiver id, if one is registered (README: Cast to TV). Letters and digits only.
+  html = html.replace('/*CAST_APP_ID*/""', JSON.stringify(String(process.env.CAST_APP_ID || "").replace(/[^A-Za-z0-9]/g, "")));
   try {
     html = html.replace(/<script>([\s\S]*?)<\/script>/g, (all, code) => `<script>${esbuild.transformSync(code, { loader: "js", target: "chrome61", charset: "utf8", logLevel: "silent" }).code}</script>`);
   } catch (e) { console.warn("  Couldn't prepare the page for older TV browsers:", e.message); }
