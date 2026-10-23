@@ -1172,6 +1172,9 @@ const WRITE_KINDS = ["quip", "lash", "bluff", "said", "ttl", "meld"];
 const QUIZ_WRITE = ["ttl"];
 // Writing rounds where each player's answer then gets its own question, one after another.
 const EACH_KINDS = ["said", "ttl"];
+// Rounds where the room guesses whose thing is on screen. The owner taps a decoy answer like everyone else,
+// so the TV's "locked in" list doesn't give them away by leaving them out. The decoy never counts.
+const DECOY_KINDS = ["photo", "song", "prof", "said"];
 const QW_SECS = { quip: 90, lash: 75, bluff: 60, said: 60, ttl: 150, meld: 45 }, QV_SECS = { quip: 15, lash: 25, bluff: 20 };
 // Spicy levels. Cheeky adds dating and group-chat prompts, Savage adds roasts, and No holds barred is the adults-only night:
 // sex, hookups, drinking and filth, from each mode's "wild" list, for most of the rounds. Anyone can still tap Too far.
@@ -2254,6 +2257,7 @@ const TV = {
 
   players() { return Object.values(this.H.players).sort((a, b) => a.at - b.at); },
   ownerOf(id) { return this.H.photos[id]?.pid || null; },
+  decoyIn(pid) { const d = this.H.decoy; return !!d && d.rk === this.H.rk && d.pid === pid; },
   curOwner() { const c = this.H.cur; return c?.t === "photo" ? this.ownerOf(c.id) : c?.t === "song" || c?.t === "prof" || EACH_KINDS.includes(c?.t) ? c.pid || null : null; },
   isQuiz() { const t = this.H.cur?.t; return !!t && !["split", "low", "shot", "herd", "rps", "cash", "cats", "quick", "potato", "pump", "tug", "spot", "simon", "count", "act"].includes(t) && (QUIZ_WRITE.includes(t) || (!PLAYER_KINDS.includes(t) && !WRITE_KINDS.includes(t))); },
   isWrite() { return WRITE_KINDS.includes(this.H.cur?.t); },
@@ -2412,7 +2416,8 @@ const TV = {
         else if (H.cur.t === "split") { const n = H.cur.by.includes(pid) ? 2 : SPLIT_BETS.length; if (Number.isInteger(g.i) && g.i >= 0 && g.i < n) { H.guesses[pid] = { i: g.i, t: now }; changed = true; SFX.play("lock"); } }
         else if (NUM_KINDS.includes(H.cur.t)) { if (Number.isFinite(g.v) && Math.abs(g.v) < 1e12) { H.guesses[pid] = { v: g.v, t: now }; changed = true; SFX.play("lock"); } }
         else if (!this.isQuiz()) {
-          if (pid !== this.curOwner() && isPid(g.p) && g.p !== pid && H.players[g.p]) { H.guesses[pid] = { p: g.p, t: now }; changed = true; SFX.play("lock"); }
+          if (pid === this.curOwner()) { if (DECOY_KINDS.includes(H.cur.t) && isPid(g.p) && g.p !== pid && H.players[g.p] && !this.decoyIn(pid)) { H.decoy = { rk: H.rk, pid }; changed = true; SFX.play("lock"); } }
+          else if (isPid(g.p) && g.p !== pid && H.players[g.p]) { H.guesses[pid] = { p: g.p, t: now }; changed = true; SFX.play("lock"); }
         } else if (pid !== this.curOwner() && Number.isInteger(g.i) && g.i >= 0 && g.i < H.cur.o.length) { H.guesses[pid] = { i: g.i, t: now }; changed = true; SFX.play("lock"); }
       }
       // Draw it: `dr` = this phone's drawing (an uploaded picture's id) or guess for the current step. Counts once.
@@ -4143,8 +4148,9 @@ const TV = {
     if (H.ph === "q" && H.cur?.t === "buzz" && Object.values(H.guesses).some(x => x.i === H.cur.a) && (!H.phaseEnds || H.phaseEnds - now > 900)) { H.phaseEnds = now + 900; this.push(true); }
     if (H.ph === "q") {
       const owner = this.curOwner();
-      const eligible = Object.values(H.players).filter(p => p.online && p.pid !== owner && (H.cur?.t !== "cash" || H.cur.in.includes(p.pid)));
-      const done = H.cur?.t === "pump" ? p => H.guesses[p.pid]?.done : p => H.guesses[p.pid];
+      const decoy = !!owner && DECOY_KINDS.includes(H.cur?.t);
+      const eligible = Object.values(H.players).filter(p => p.online && (p.pid !== owner || decoy) && (H.cur?.t !== "cash" || H.cur.in.includes(p.pid)));
+      const done = H.cur?.t === "pump" ? p => H.guesses[p.pid]?.done : p => H.guesses[p.pid] || (decoy && p.pid === owner && this.decoyIn(owner));
       const els = H.cur?.t === "simon" ? eligible.filter(p => H.cur.alive.includes(p.pid)) : eligible;
       if (els.length && !["potato", "tug", "count", "act"].includes(H.cur?.t) && !(H.cur?.t === "simon" && !H.cur.cmd?.simon) && els.every(done) && (!H.phaseEnds || H.phaseEnds - now > 1200)) {
         const early = !H.phaseEnds || H.phaseEnds - now > 6000;
@@ -4422,7 +4428,9 @@ const TV = {
           <p class="eyebrow" id="lockcount"></p>
           <ul class="locks" id="locks"></ul>
         </div></section>`);
-      this.renderLocks(this.curOwner());
+      // The owner is listed with everyone else (their decoy tap fills their chip), so the list doesn't give them away.
+      if (DECOY_KINDS.includes(H.cur.t)) this.renderLocks(null, this.curOwner());
+      else this.renderLocks(this.curOwner());
       return;
     }
     if (H.ph === "rev") {
@@ -4578,11 +4586,12 @@ const TV = {
       <p class="sharenote">Share tonight's results from your phone</p></section>`;
   },
   // Who has locked in so far (never what they picked). With anonymous votes, just a dot per player.
-  renderLocks(owner) {
+  renderLocks(owner, decoyOf) {
     const H = this.H, skip = [].concat(owner || []), ps = this.players().filter(p => (p.online || H.guesses[p.pid]) && !skip.includes(p.pid));
-    const locked = ps.filter(p => H.guesses[p.pid]).length, guessers = ps.length;
+    const isIn = p => !!H.guesses[p.pid] || (!!decoyOf && p.pid === decoyOf && this.decoyIn(decoyOf));
+    const locked = ps.filter(isIn).length, guessers = ps.length;
     paint($("#lockcount"), `${locked}/${guessers}`, `Locked in <span class="num">${locked} of ${guessers}</span>`);
-    if (!H.anon) return paint($("#locks"), ps.map(p => p.pid + (H.guesses[p.pid] ? 1 : 0)).join(), ps.map(p => `<li class="lock ${H.guesses[p.pid] ? "in" : ""}">${face(p)}<span>${esc(p.name)}</span></li>`).join(""));
+    if (!H.anon) return paint($("#locks"), ps.map(p => p.pid + (isIn(p) ? 1 : 0)).join(), ps.map(p => `<li class="lock ${isIn(p) ? "in" : ""}">${face(p)}<span>${esc(p.name)}</span></li>`).join(""));
     paint($("#locks"), `${locked}/${guessers}`, Array.from({ length: guessers }, (_, i) => `<li class="dot ${i < locked ? "in" : ""}"></li>`).join(""));
   },
   // The lobby's one card about tonight: the rounds picked and anything unusual about the settings.
@@ -6196,17 +6205,20 @@ const PH = {
     if (this.host.kind === "act") return this.rAct(main);
     const H = this.host, owner = H.x === fnv(this.pid + H.rk);
     const tbar = H.kind === "imp" || H.kind === "fakin" ? "" : `<div class="tbar" aria-hidden="true"><i id="tbar"></i></div>`;
-    if (owner) return paint(main, "q-own|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">This one's yours</p><p class="muted">Keep a straight face. Every wrong guess earns you points.</p></div>`);
+    // The owner sees the same screen as everyone and taps a decoy, so neither the TV nor a glance at their phone gives them away.
+    const decoy = owner && DECOY_KINDS.includes(H.kind);
+    if (owner && !decoy) return paint(main, "q-own|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}</p><p class="ph-big">This one's yours</p><p class="muted">Keep a straight face. Every wrong guess earns you points.</p></div>`);
     if (H.qz) return this.rQuiz(main);
     if (this.g?.rk === H.rk) {
       const pick = this.nameOf(this.g.p);
-      return paint(main, "q-lock|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">Locked in</p>${pick ? faceA(pick) : ""}<p class="ph-big">${esc(pick?.[1] || "?")}</p><p class="muted">Waiting for everyone else.</p></div>`);
+      return paint(main, "q-lock|" + H.rk, `${tbar}<div class="card center result"><p class="eyebrow">Locked in</p>${pick ? faceA(pick) : ""}<p class="ph-big">${esc(pick?.[1] || "?")}</p><p class="muted">${decoy ? "It's yours, so that doesn't count. Keep a straight face." : "Waiting for everyone else."}</p></div>`);
     }
     const opts = this.pl().filter(p => p[0] !== this.pid), sa = Array.isArray(H.sa) ? H.sa : null;
     paint(main, "q|" + H.rk + "|" + opts.map(p => p[0]).join(), `${tbar}<div class="card"><p class="eyebrow">${unitOf(H)} ${H.r} of ${H.R}${sa ? ` · Answer ${esc(sa[2])} of ${esc(sa[3])}` : ""}${H.R > 1 && H.r === H.R ? " · Double points" : ""}</p>
       ${sa ? `<p class="muted">${esc(sa[0])}</p><p class="ph-h" style="font-size:24px">“${esc(sa[1])}”</p>` : ""}
       <p class="${sa ? "eyebrow" : H.kind === "likely" ? "ph-q" : "ph-h"}">${esc(H.kind === "likely" ? `Who's most likely to ${H.lk || "…"}?` : KIND_ASK_PHONE[H.kind] || KIND_ASK_PHONE.photo)}</p>
-      <div class="choices">${opts.map(p => `<button class="choice" data-act="guess" data-pid="${p[0]}">${faceA(p)}<span>${esc(p[1])}</span></button>`).join("")}</div></div>`);
+      <div class="choices">${opts.map(p => `<button class="choice" data-act="guess" data-pid="${p[0]}">${faceA(p)}<span>${esc(p[1])}</span></button>`).join("")}</div>
+      ${decoy ? `<p class="muted">It's yours! Tap anyone so nobody can tell. It won't count.</p>` : ""}</div>`);
   },
   // Draw it on the phone: a drawing pad with this step's prompt, or someone's drawing and a box for your guess.
   rDraw(main) {
